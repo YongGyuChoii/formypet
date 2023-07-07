@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+
+body {
+    width: 100%; height: 100%;
+    position: relative;
+    background: url('../images/main/mainBg.jpg') left top repeat;
+    background-size: 20% 20%;
+    font-family: 'Gothic A1', sans-serif !important; 
+}
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 300px;
+}
+
+/* 바디 전체 컨테이너 */
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+/* 헤더 */
+header {
+    height: 130px;
+}
+header a.logo h1 {
+    position:relative;
+    letter-spacing:0px;
+    text-transform:uppercase;
+    width:278px;
+	white-space:nowrap;
+    padding:5px 11px 3px 11px;
+	float: left;
+}
+#navi1 {
+    background-color: white;
+    height: 55px;
+}
+#navi2 {
+    background-color: #002266;
+}
+
+#navi1 a {
+    line-height: 40px;
+	font-weight: bold;
+}
+
+/* 섹션 */
+.section {
+    margin: 30px;
+    position: relative;
+    background-color: white;
+}
+.section:not(:first-of-type) {
+    padding: 10px;
+    border: 7px groove burlywood;   
+}
+
+/* 메인에 사용할 이미지 */
+.mainImg {
+    width: 100%; height: 700px;
+}
+
+/* 메인이미지 위에 글씨 */
+.mainImgTitle {
+    position: absolute;
+    background: whitesmoke;
+    top: 30px; left: 40px;
+    padding: 10px;
+    font-weight: bold;
+}
+/* 메인내용 */
+.mainContent {
+    display: flex;
+    margin-top: 20px;
+}
+.mainContent1 {
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    position: relative;
+    width: 25%;
+    margin-left: 20px;
+}
+.mainContent1 a {
+    color: black;
+}
+.mainContent2 {
+    margin-top: 70px;
+}
+.mainContent1 img {
+    width: 100%;
+}
+.mainText {
+    font-size: 13px;
+}
+.Best {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-color: orange;
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+}
+
+/* 아이콘 */
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 20
+}
+
+/* 오른쪽 메뉴바  1750이하일때 없어짐*/
+@media screen and (min-width: 1750px) {
+    .rightAside {
+        position: fixed;
+        right: 11%; top: 40%;
+        background: lightgray;
+        padding: 10px; 
+    }
+    
+    /* 오른쪽 메뉴바 숫자 */
+    .rightNumber {
+        padding: 5px; margin: 5px;
+        font-weight: bold;
+        font-size: 14px; text-align: center;
+        border: 1px solid gray;
+    }
+    .rightNumber a {
+        text-decoration: none;
+        color: black;
+    }
+    .rightNumber a:hover {
+        color: red;  
+    }
+}
+
+/* 오른쪽 맨위 맨아래 화살표 */
+.rightAside2 {
+    position: fixed;
+    right: 3%; bottom: 3%;
+    background: darkgray;
+    padding: 5px;
+    z-index: 1;
+}
+.rounded-circle .material-icons {
+    font-size: 40px;
+    line-height: 1.4;
+    color: #0077cc;
+}
+
+/* footer */
+footer {
+	width: 100%;
+	height: 300px;
+	position: absolute;
+	bottom: 0;
+	background-color: #002266;
+}	
+
+footer nav {
+	margin: 0 0 20px 0;
+	font-size: 13px;
+	font-weight: 300;
+	padding: 30px 0 0 24px;
+	line-height: 2;
+	letter-spacing: 0.3px;
+}
+footer nav p {
+	color: #eee;
+	font-size: 12px;
+	text-align: left;
+}
+footer nav p:first-child {
+	color: #ffc303;
+	font-weight: bold;
+	font-size: 30px;
+}
