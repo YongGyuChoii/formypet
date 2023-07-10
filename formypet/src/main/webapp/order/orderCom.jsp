@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -22,10 +22,9 @@
     <!--main 시작-->
     <div class="container">
       <section>
-        <div>여기에 섹션내용을 작성해 주시면 됩니다.</div>
-        <div>여기에 섹션내용을 작성해 주시면 됩니다.</div>
-        <div>여기에 섹션내용을 작성해 주시면 됩니다.</div>
-        <div>여기에 섹션내용을 작성해 주시면 됩니다.</div>
+    
+    <input type="button" value="메인화면으로 돌아가기" onClick="javascript:location.href='../index.jsp'">
+    <input type="button" value="쇼핑 더하기" >
       </section>
     </div>
     <!--main 끝-->
@@ -42,4 +41,3 @@
     </div>
 </body>
 </html>
-    
