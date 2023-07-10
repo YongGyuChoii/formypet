@@ -2,51 +2,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
 
-body {
-    width: 100%; height: 100%;
-    position: relative;
+#wrap {
     background: url('../images/main/mainBg.jpg') left top repeat;
     background-size: 20% 20%;
-    font-family: 'Gothic A1', sans-serif !important; 
-}
-
-#wrap {
-    min-height: 100%;
-    position: relative;
-    padding-bottom: 300px;
-}
-
-/* 바디 전체 컨테이너 */
-.container {
-    width: 1200px;
-    margin: 0 auto;
-    min-height: 100vh;
-}
-
-/* 헤더 */
-header {
-    height: 130px;
-}
-header a.logo h1 {
-    position:relative;
-    letter-spacing:0px;
-    text-transform:uppercase;
-    width:278px;
-	white-space:nowrap;
-    padding:5px 11px 3px 11px;
-	float: left;
-}
-#navi1 {
-    background-color: white;
-    height: 55px;
-}
-#navi2 {
-    background-color: #002266;
-}
-
-#navi1 a {
-    line-height: 40px;
-	font-weight: bold;
 }
 
 /* 섹션 */
@@ -139,46 +97,4 @@ header a.logo h1 {
     .rightNumber a:hover {
         color: red;  
     }
-}
-
-/* 오른쪽 맨위 맨아래 화살표 */
-.rightAside2 {
-    position: fixed;
-    right: 3%; bottom: 3%;
-    background: darkgray;
-    padding: 5px;
-    z-index: 1;
-}
-.rounded-circle .material-icons {
-    font-size: 40px;
-    line-height: 1.4;
-    color: #0077cc;
-}
-
-/* footer */
-footer {
-	width: 100%;
-	height: 300px;
-	position: absolute;
-	bottom: 0;
-	background-color: #002266;
-}	
-
-footer nav {
-	margin: 0 0 20px 0;
-	font-size: 13px;
-	font-weight: 300;
-	padding: 30px 0 0 24px;
-	line-height: 2;
-	letter-spacing: 0.3px;
-}
-footer nav p {
-	color: #eee;
-	font-size: 12px;
-	text-align: left;
-}
-footer nav p:first-child {
-	color: #ffc303;
-	font-weight: bold;
-	font-size: 30px;
 }
