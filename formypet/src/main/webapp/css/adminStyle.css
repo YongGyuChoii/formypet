@@ -1,0 +1,213 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+
+/* 웹사이트 https://noonnu.cc/에서 폰트를 가져옵니다. */
+@font-face {
+    font-family: 'EF_jejudoldam'; /* 제주 돌담체 로고용 */
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-EF@1.0/EF_jejudoldam.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GmarketSansMedium'; /* 지마켓 산스체 일반 글씨체 */
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'TheJamsil5Bold'; /* 더잠실체 카테고리용 글씨체 */
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+body {
+	width: 100%; 
+    height: 100%;
+	position: relative;
+	font-family: 'Gothic A1', sans-serif !important;
+}
+
+#wrap {
+    min-height: 100%;
+    position: relative;
+    padding-bottom: 300px;
+}
+
+.container {
+    width: 50%;
+	min-height: 100vh;
+    margin: 20px auto;
+}
+
+header {
+    height: 130px;
+}
+header a.logo h1 {
+    position:relative;
+    letter-spacing:0px;
+    text-transform:uppercase;
+    width:278px;
+	white-space:nowrap;
+    padding:5px 11px 3px 11px;
+	float: left;
+}
+#navi1 {
+    background-color: white;
+    height: 55px;
+}
+#navi2 {
+    background-color: #113f89;
+}
+
+#navi1 a {
+    line-height: 40px;
+	font-weight: bold;
+}
+/* left sidebar 레이아웃 시작 */
+#left-sidebar {
+    width: 10%;
+    font-family: 'TheJamsil5Bold';
+    float: left;
+}
+#body ul {
+    list-style: none;
+    float: left;
+    display: block;
+    
+    
+}
+#body ul li {
+    border: 1px solid #222;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    list-style: none;
+    
+ 
+}
+a {
+    text-decoration: none;
+    color: #222;
+    
+}
+li  a:hover, .li a:focus {
+    color: #acacac;
+    background-color: #222;
+}
+#body h2 {
+    text-align: center;
+}
+/* left sidebar 레이아웃 끝 */
+
+/* body 레이아웃 시작 */
+#section {
+    width: 70%;
+    margin: 20px auto;
+    text-decoration: none;
+    float: light;
+}
+#section h2 {
+    font-family: 'TheJamsil5Bold'; 
+    text-align: center;
+}
+#section p {
+    font-family: 'GmarketSansMedium';
+    text-align: center;
+}
+#section p a {
+    text-decoration: none;
+}
+.section {
+    width: 70%;
+    margin: 20px auto;
+}
+/* body 레이아웃 끝 */
+
+/* table 레이아웃 */
+
+table-body {
+    padding:1.5em;
+    background: #f5f5f5;
+    float: right;
+  }
+  
+  table {
+    border: 1px #a39485 solid;
+    font-size: .9em;
+    box-shadow: 0 2px 5px rgba(0,0,0,.25);
+    width: 1000px;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+    float: light;
+  }
+  
+  th {
+    text-align: left;
+  }
+    
+  thead {
+    font-weight: bold;
+    color: #fff;
+    background: #73685d;
+  }
+    
+   td, th {
+    padding: 1em .5em;
+    vertical-align: middle;
+  }
+    
+   td {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    background: #fff;
+  }
+  
+  a {
+    color: #73685d;
+  }
+    
+   @media all and (max-width: 768px) {
+      
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+    
+    th {
+      text-align: right;
+    }
+    
+    table {
+      position: relative; 
+      padding-bottom: 0;
+      border: none;
+      box-shadow: 0 0 10px rgba(0,0,0,.2);
+    }
+    
+    thead {
+      float: left;
+      white-space: nowrap;
+    }
+    
+    tbody {
+      overflow-x: auto;
+      overflow-y: hidden;
+      position: relative;
+      white-space: nowrap;
+    }
+    
+    tr {
+      display: inline-block;
+      vertical-align: top;
+    }
+    
+    th {
+      border-bottom: 1px solid #a39485;
+    }
+    
+    td {
+      border-bottom: 1px solid #e5e5e5;
+    }
+    
+    
+    }
+    /* table 레이아웃 끝 */
