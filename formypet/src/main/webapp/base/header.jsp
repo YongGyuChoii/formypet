@@ -10,7 +10,7 @@
       <a class="nav-link active text-primary" aria-current="page" href="${pageContext.request.contextPath}/login/login.jsp">로그인</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link text-primary" href="#">마이페이지</a>
+      <a class="nav-link text-primary" href="${pageContext.request.contextPath}/mypage/mypage.jsp">마이페이지</a>
     </li>
     <li class="nav-item">
       <a class="nav-link text-primary" href="${pageContext.request.contextPath}/cart/cart.jsp">장바구니</a>
