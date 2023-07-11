@@ -3,12 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
 
 /* 상품상세 메인 이미지 */
-
-.carousel2 {
-    width: 700px;
-}
-.section img {
-    width: 700px; height: 800px;
+.section .mainImg {
+    width: 750px; height: 800px;
 }
 .section .best {
     background-color: orange;
@@ -16,4 +12,64 @@
     color: white;
     font-size: 12px;
     padding: 5px;
+}
+
+/* 인포, 사이즈가이드 코션 */
+.imgInfo{
+	width: 100%; min-height: 110px;
+}
+.showImg2, .showImg3{
+	display: none;
+}
+.showInfo, .showSize, .showCaution {
+	cursor: pointer;
+}
+.showInfo {
+	background-color: skyblue;
+}
+
+/* 가격부분 */
+.sale {
+	float: right;
+}
+
+/* 경고부분 */
+.textDanger {
+	font-size: 5px;
+}
+
+/* 총상품금액 */
+.priceAll {
+	font-size: 14px;
+}
+
+/* 장바구니추가, 바로구매 버튼 */
+.groupBtn{
+	width: 100%; height: 70px;
+	border: solid #002266 1px;
+}
+
+/* 상품 상세설명 사진들 */
+.section2 {
+	width: 1300px; min-height: 100px;
+	text-align: center;
+}
+.section2 img {
+	width: 800px;
+}
+
+/* +아이콘 */
+.addIcon1, .addIcon2{
+	float: right;
+}
+
+/* 들리버리, 익스체인지 설명 */
+.delivery, .exchange{
+	background-color: lightgray; display: none;
+}
+.delivery p, .exchange p {
+	font-size: 14px;
+}
+.showDelivery, .showExchange {
+	cursor: pointer;
 }
