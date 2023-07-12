@@ -1,0 +1,41 @@
+/*Non_members css 시작*/
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+        * { font-family: 'Noto Sans KR', sans-serif;}
+        .non-member {
+            margin: auto;
+            width: 500px;
+            background-color: #EEEFF1;
+            border-radius: 5px;
+            text-align: center;
+            padding: 20px;
+            margin: 200px auto;}
+
+            input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: none;}
+
+            #btn {
+            background-color: #717473;
+            font-size: 15px;
+            width: 30%;
+            margin-bottom: 15px;
+            color: white;}
+
+            .submit {
+                height: 50px;
+                background: #717473;
+                border: 1px solid #717473;
+                border-radius: 5px;
+                color: #fff;
+                font-size: 15px;
+                font-weight: 400;
+                text-align: center;
+            }
+            
+            .in { margin-bottom: 25px;}
+/*Non_members css 끝*/
