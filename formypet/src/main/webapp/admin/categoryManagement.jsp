@@ -46,7 +46,8 @@
                 <td><%= ctBean.getDelYn()  %></td>   
                 <%
             		}
-                %>             
+                %>          
+                <p>total records : <%=counter %></p>   
             </tr>
             </tbody>
         </table>

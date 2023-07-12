@@ -22,50 +22,44 @@ public class csCenterManagementMgr {
 	 	      System.out.println("Error : JDBC 드라이버 로딩 실패");
 	 	   }
 	     }
-	 
-	    public Vector<csManagementBean> getcsManagementList() {
+	
+	    public Vector<csCenterManagementBean> getcsCenterManagementList() {
+	    	
+	    	
 	    	
 	    	//DB 연결 하는 Connection 객체생성
 		   Connection conn = null;
 		   
 		   //SQL 쿼리 담을 Statement 객체 생성
-		   Statement stmt = null;
+		   PreparedStatement ptmt = null;
 		   
 		   //결과값 담을 ResultSet 객체 생성
 	       ResultSet rs = null;
 	       
 	       //RegisterBean 클래스 타입의 Vector 배열 vlist 선언
-	       Vector<csManagementBean> vlist = new Vector<csManagementBean>();
+	       Vector<csCenterManagementBean> vlist = new Vector<csCenterManagementBean>();
 	       
 	       try {
 	    	  //DB연결 시작
 	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
 	          
-	          String strQuery = "select * from member";
+	          String strQuery = "select * from cscenter";
 	          
-	          stmt = conn.createStatement();
+	          ptmt = conn.prepareStatement(strQuery);
 	          
-	          rs = stmt.executeQuery(strQuery);
-	          
+	          rs = ptmt.executeQuery();
+	         
 	          //while 반복문을 사용하여 resultset 객체인 rs에 담긴 조회쿼리 결과를 
 	          //RegisterBean 클래스에 선언된 변수에 대입 한다.
 			  while (rs.next()) {
 				  
-				  csManagementBean bean = new csManagementBean();//RegisterBean 클래스 객체생성
+				  csCenterManagementBean bean = new csCenterManagementBean();//RegisterBean 클래스 객체생성
 	             
-			 	 bean.setMemId (rs.getString("memId"));
+			 	 bean.setMemKey (rs.getInt("memKey"));
 			 	 //RegisterBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.
-				 bean.setMemPw (rs.getString("memPw"));	 			 
-	 			 bean.setMemPhone1 (rs.getInt("memPhone1"));
-	 			 bean.setMemPhone2 (rs.getInt("memPhone2"));
-	 			 bean.setMemEmail1 (rs.getString("memEmail1"));
-	 			 bean.setMemEmail2 (rs.getString("memEmail2"));
-	 			 bean.setMemAddress (rs.getString("memAddress"));
-	 			 bean.setMemName (rs.getString("memName"));
-	 			 bean.setMemResident1 (rs.getInt("memResident1"));
-	 			 bean.setMemResident2 (rs.getInt("memResident2"));
-	 			 bean.setMemPoint (rs.getInt("memPoint"));
-	 			 bean.setDelYn(rs.getString("delYn"));
+	 			 bean.setCsTitle(rs.getString("csTitle"));
+	 			 bean.setCsContents(rs.getString("csContents"));
+			 	 bean.setDelYn(rs.getString("delYn"));
 	 			 vlist.addElement(bean);
 	          }
 			  //예외처리
@@ -73,7 +67,7 @@ public class csCenterManagementMgr {
 	          System.out.println("Exception" + ex);
 	       } finally {
 	          if(rs!=null)   try{rs.close();}  catch(SQLException e){}
-			  if(stmt!=null) try{stmt.close();}catch(SQLException e){}
+			  if(ptmt!=null) try{ptmt.close();}catch(SQLException e){}
 		      if(conn!=null) try{conn.close();}catch(SQLException e){}
 	       }
 	       return vlist; //결과 값을 vlist 로 리턴.

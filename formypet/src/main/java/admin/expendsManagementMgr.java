@@ -23,7 +23,7 @@ public class expendsManagementMgr {
 	 	   }
 	     }
 	 
-	    public Vector<csManagementBean> getcsManagementList() {
+	    public Vector<expendsManagementBean> geteMList() {
 	    	
 	    	//DB 연결 하는 Connection 객체생성
 		   Connection conn = null;
@@ -35,13 +35,13 @@ public class expendsManagementMgr {
 	       ResultSet rs = null;
 	       
 	       //RegisterBean 클래스 타입의 Vector 배열 vlist 선언
-	       Vector<csManagementBean> vlist = new Vector<csManagementBean>();
+	       Vector<expendsManagementBean> vlist = new Vector<expendsManagementBean>();
 	       
 	       try {
 	    	  //DB연결 시작
 	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
 	          
-	          String strQuery = "select * from member";
+	          String strQuery = "select * from expends";
 	          
 	          stmt = conn.createStatement();
 	          
@@ -51,21 +51,13 @@ public class expendsManagementMgr {
 	          //RegisterBean 클래스에 선언된 변수에 대입 한다.
 			  while (rs.next()) {
 				  
-				  csManagementBean bean = new csManagementBean();//RegisterBean 클래스 객체생성
+				  expendsManagementBean bean = new expendsManagementBean();//RegisterBean 클래스 객체생성
 	             
-			 	 bean.setMemId (rs.getString("memId"));
+			 	 bean.setExpendsSection (rs.getString("expendsSection"));
 			 	 //RegisterBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.
-				 bean.setMemPw (rs.getString("memPw"));	 			 
-	 			 bean.setMemPhone1 (rs.getInt("memPhone1"));
-	 			 bean.setMemPhone2 (rs.getInt("memPhone2"));
-	 			 bean.setMemEmail1 (rs.getString("memEmail1"));
-	 			 bean.setMemEmail2 (rs.getString("memEmail2"));
-	 			 bean.setMemAddress (rs.getString("memAddress"));
-	 			 bean.setMemName (rs.getString("memName"));
-	 			 bean.setMemResident1 (rs.getInt("memResident1"));
-	 			 bean.setMemResident2 (rs.getInt("memResident2"));
-	 			 bean.setMemPoint (rs.getInt("memPoint"));
-	 			 bean.setDelYn(rs.getString("delYn"));
+				 bean.setExpendsContents (rs.getString("expendsContents"));	 			 
+	 			 bean.setExpendsValue(rs.getInt("expendsValue"));
+	 			 bean.setMemKey(rs.getInt("memKey"));
 	 			 vlist.addElement(bean);
 	          }
 			  //예외처리

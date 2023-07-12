@@ -41,7 +41,7 @@ public class categoryManagementMgr {
 	    	  //DB연결 시작
 	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
 	          
-	          String strQuery = "select * from member";
+	          String strQuery = "select * from category";
 	          
 	          stmt = conn.createStatement();
 	          

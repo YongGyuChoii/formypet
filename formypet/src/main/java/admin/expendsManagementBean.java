@@ -2,97 +2,50 @@ package admin;
 
 public class expendsManagementBean {
 	
-	private String memId;
-	private String memPw;
-	private int memPhone1;
-	private int memPhone2;
-	private String memEmail1;
-	private String memEmail2;
-	private String memAddress;
-	private String memName;
-	private int memResident1;
-	private int memResident2;
-	private int memJoinDate;
-	private int memPoint;
-	private String delYn;
+	private String expendsDate;
+	private String expendsSection;
+	private String expendsContents;
+	private int expendsValue;
+	private int memKey;
 	
 	
-	public String getMemId() {
-		return memId;
+	
+	
+	public String getExpendsDate() {
+		return expendsDate;
 	}
-	public void setMemId(String memId) {
-		this.memId = memId;
+	public String getExpendsSection() {
+		return expendsSection;
 	}
-	public String getMemPw() {
-		return memPw;
+	public String getExpendsContents() {
+		return expendsContents;
 	}
-	public void setMemPw(String memPw) {
-		this.memPw = memPw;
+	public int getExpendsValue() {
+		return expendsValue;
 	}
-	public int getMemPhone1() {
-		return memPhone1;
+	public int getMemKey() {
+		return memKey;
 	}
-	public void setMemPhone1(int memPhone1) {
-		this.memPhone1 = memPhone1;
+	
+	
+	
+	public void setExpendsDate(String expendsDate) {
+		this.expendsDate = expendsDate;
 	}
-	public int getMemPhone2() {
-		return memPhone2;
+	public void setExpendsSection(String expendsSection) {
+		this.expendsSection = expendsSection;
 	}
-	public void setMemPhone2(int memPhone2) {
-		this.memPhone2 = memPhone2;
+	public void setExpendsContents(String expendsContents) {
+		this.expendsContents = expendsContents;
 	}
-	public String getMemEmail1() {
-		return memEmail1;
+	public void setExpendsValue(int expendsValue) {
+		this.expendsValue = expendsValue;
 	}
-	public void setMemEmail1(String memEmail1) {
-		this.memEmail1 = memEmail1;
+	public void setMemKey(int memKey) {
+		this.memKey = memKey;
 	}
-	public String getMemEmail2() {
-		return memEmail2;
-	}
-	public void setMemEmail2(String memEmail2) {
-		this.memEmail2 = memEmail2;
-	}
-	public String getMemAddress() {
-		return memAddress;
-	}
-	public void setMemAddress(String memAddress) {
-		this.memAddress = memAddress;
-	}
-	public String getMemName() {
-		return memName;
-	}
-	public void setMemName(String memName) {
-		this.memName = memName;
-	}
-	public int getMemResident1() {
-		return memResident1;
-	}
-	public void setMemResident1(int memResident1) {
-		this.memResident1 = memResident1;
-	}
-	public int getMemResident2() {
-		return memResident2;
-	}
-	public void setMemResident2(int memResident2) {
-		this.memResident2 = memResident2;
-	}
-	public int getMemJoinDate() {
-		return memJoinDate;
-	}
-	public void setMemJoinDate(int memJoinDate) {
-		this.memJoinDate = memJoinDate;
-	}
-	public int getMemPoint() {
-		return memPoint;
-	}
-	public void setMemPoint(int memPoint) {
-		this.memPoint = memPoint;
-	}
-	public String getDelYn() {
-		return delYn;
-	}
-	public void setDelYn(String delYn) {
-		this.delYn = delYn;
-	}
+	
+	
+	
+	
 }

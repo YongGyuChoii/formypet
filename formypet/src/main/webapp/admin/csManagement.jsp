@@ -42,6 +42,7 @@
             </tr>
             </thead>
             <tbody>
+            
             <%
             Vector<csManagementBean> vlist = csMMgr.getcsManagementList();
             int counter = vlist.size();
@@ -64,20 +65,10 @@
                 <%
             		}
                 %>
+                <p>total records : <%=counter %></p>
             </tr>
             </tbody>
         </table>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<br/>
-   		<p>total records : <%=counter %></p>
     </div>
     <!--table 끝-->
     <!-- 오른쪽 맨위 맨아래 화살표 -->

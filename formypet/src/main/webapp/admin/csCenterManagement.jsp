@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import = "java.util.*,admin.*" %>
+<jsp:useBean id = "ccMMgr" class = "admin.csCenterManagementMgr" scope = "page" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,61 +30,38 @@
             <thead>
             <tr>
                 <th>아이디</th>
-                <th>게시글</th>
+                <th>게시글 제목</th>
+                <th>게시글 내용</th>
                 <th>답글</th>
+                <th>삭제여부</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>James</td>
-                <td>Matman</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Johnny</td>
-                <td>Smith</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Susan</td>
-                <td>Johnson</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-               	<td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>쓰기 수정 삭제 </td>
-            </tr>
+                     <%
+                       
+                     
+			            Vector<csCenterManagementBean> vlist = ccMMgr.getcsCenterManagementList();
+			            int counter = vlist.size();
+			            for(int i = 0; i <vlist.size(); i++) {
+			            	csCenterManagementBean ccBean = vlist.get(i);
+		            %>
+                    <tr>
+		                
+		              
+		                
+		                <td><%=ccBean.getMemKey() %></td>
+		                <td><%=ccBean.getCsTitle() %></td>
+		                <td><%=ccBean.getCsContents() %></td>	                
+		                <td><input type = "button" value = "쓰기">
+		                <input type = "button" value = "수정">
+		                </td>
+		                <td><%=ccBean.getDelYn() %></td>
+		                <%
+			            }
+		                %>		
+		                <p>total records : <%=counter %></p>                	            
+                    </tr>
+
             </tbody>
         </table>
     </div>

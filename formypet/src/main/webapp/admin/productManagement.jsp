@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import = "java.util.*,admin.*" %>
+<jsp:useBean id = "pMMgr" class = "admin.productManagementMgr" scope = "page" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,104 +22,44 @@
       </header>
     <!--header 끝-->
     <!-- table 시작 -->
-    <div class="container">
+    <div class="container"> 
+    		<h2>상품 관리</h2>    
         <table class="table-body">
-            <h2>상품 관리</h2>
+           
             <thead>
+           
             <tr>
                 <th>상품 이름</th>
                 <th>상품 번호</th>
                 <th>상품 가격</th>
-                <th>상품 삭제</th>
-                <th>판매 중지</th>
-                <th>상품 sold out</th>
+                <th>상품 삭제 여부</th>
+                <th>상품 수정</th>
         
             </tr>
             </thead>
             <tbody>
+            <%
+            Vector<productManagementBean> vlist = pMMgr.getpmList();
+            int counter = vlist.size();
+            for(int i = 0; i <vlist.size(); i++) {
+            	productManagementBean pBean = vlist.get(i);
+            %>
             <tr>
-                <td>James</td>
-                <td>Matman</td>
-                <td>(713) 123-8965</td>
-                <th><button>상품 삭제</button></th>
-                <th><button>판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Johnny</td>
-                <td>Smith</td>
-                <td>(713) 584-9614</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Susan</td>
-                <td>Johnson</td>
-                <td>(713) 847-1124</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>(713) 245-4821</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>(713) 245-4821</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>(713) 245-4821</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>(713) 245-4821</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>(713) 245-4821</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>(713) 245-4821</td>
-                <th><button >상품 삭제</button></th>
-                <th><button >판매 중지</button></th>
-                <th><button >sold out</button></th>
-            </tr>
-            <tr>
-                <td>Tracy</td>
-                <td>Richardson</td>
-                <td>(713) 245-4821</td>
-                <th><button>상품 삭제</button></th>
-                <th><button>판매 중지</button></th>
-                <th><button>sold out</button></th>
-            </tr>
+                <td><%= pBean.getProductName()  %></td>
+                <td><%= pBean.getProductOrderCount()  %></td>
+                <td><%= pBean.getProductPrice()  %></td>
+                <td><%= pBean.getDelYn()  %></td>
+                <td><input type = "button" value = "상품 수정"></td>   
+                <%
+            		}
+                %>  
+                <p>total records : <%=counter %></p>           
+            <p><input type = "button" value = "상품 추가"></p>
+            </tr>                        
             </tbody>
-        </table>
-    </div>
+        </table> 
+    </div>     
+           
     <!--table 끝-->
     <!-- 오른쪽 맨위 맨아래 화살표 -->
     <%@include file="/base/rightAside.jsp"%>
