@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="product.ProductBean"%>
+<%@page import="java.util.*"%>
+<jsp:useBean id="pMgr" class="product.ProductMgr" />
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	ArrayList<ProductBean> blist = pMgr.getBathList(); //목욕
+	ArrayList<ProductBean> slist = pMgr.getSnackList(); //음식
+	ArrayList<ProductBean> llist = pMgr.getLivingList(); //리빙
+	ArrayList<ProductBean> clist = pMgr.getClothesList(); //드레스
+	ArrayList<ProductBean> wlist = pMgr.getWalkList(); //플레이룸
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -43,30 +56,20 @@
                   중시하고 배려하며,  
                   반려 동물 및 반려인들과 진정성 있는 소통을 합니다.</p>
               </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
+              
+              <%for(ProductBean b : blist){ %>
+              	<div class="mainContent1">
+                <img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진">
+                <p class="fs-5 fw-bold mt-3"><%=b.getProductName() %></p>
+                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+                <fmt:formatNumber value="<%=b.getProductPrice() %>" pattern="#,###"/>원</span>
+                <fmt:formatNumber value="<%=b.getProductSalePrice() %>" pattern="#,###"/>원
+                <a href="#"><span class="material-symbols-outlined ms-5">
                   shopping_bag
                 </span></a></p>
                 <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
+              	</div>
+              <%} %>
             </div>
 		</div>
     <!-- 메인 5층 끝 -->
@@ -84,30 +87,20 @@
                 <p class="mainText">아이들의 건강 관리에 도움이 되는 맛있는
                   고영양 기능 맞춤형 펫푸드</p>
               </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
+              
+              <%for(ProductBean s : slist){ %>
+              	<div class="mainContent1">
+                <img src="images/snackProduct/<%=s.getProductImg() %>" alt="상품메인사진">
+                <p class="fs-5 fw-bold mt-3"><%=s.getProductName() %></p>
+                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+                <fmt:formatNumber value="<%=s.getProductPrice() %>" pattern="#,###"/>원</span>
+                <fmt:formatNumber value="<%=s.getProductSalePrice() %>" pattern="#,###"/>원
+                <a href="#"><span class="material-symbols-outlined ms-5">
                   shopping_bag
                 </span></a></p>
                 <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
+              	</div>
+              <%} %>
             </div>
 		</div>
     <!-- 메인 4층 끝 -->
@@ -126,30 +119,20 @@
                   톡톡 튀는 컬러를 더해 반려인의 생활공간을
                   다채롭게 만들어냅니다.</p>
               </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
+              
+              <%for(ProductBean l : llist){ %>
+              	<div class="mainContent1">
+                <img src="images/livingProduct/<%=l.getProductImg() %>" alt="상품메인사진">
+                <p class="fs-5 fw-bold mt-3"><%=l.getProductName() %></p>
+                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+                <fmt:formatNumber value="<%=l.getProductPrice() %>" pattern="#,###"/>원</span>
+                <fmt:formatNumber value="<%=l.getProductSalePrice() %>" pattern="#,###"/>원
+                <a href="#"><span class="material-symbols-outlined ms-5">
                   shopping_bag
                 </span></a></p>
                 <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
+              	</div>
+              <%} %>
             </div>
 		</div>
     <!-- 메인 3층 끝 -->
@@ -165,30 +148,20 @@
                 </p>
                 <p class="mainText">페스룸만의 5가지 캐릭터 라인업으로 반려인과 반려 동물의 다양한 취향을 만족시키는 맞춤형 펫패션 브랜드</p>
               </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
+              
+              <%for(ProductBean c : clist){ %>
+              	<div class="mainContent1">
+                <img src="images/clothesProduct/<%=c.getProductImg() %>" alt="상품메인사진">
+                <p class="fs-5 fw-bold mt-3"><%=c.getProductName() %></p>
+                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+                <fmt:formatNumber value="<%=c.getProductPrice() %>" pattern="#,###"/>원</span>
+                <fmt:formatNumber value="<%=c.getProductSalePrice() %>" pattern="#,###"/>원
+                <a href="#"><span class="material-symbols-outlined ms-5">
                   shopping_bag
                 </span></a></p>
                 <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
+              	</div>
+              <%} %>
             </div>
 		</div>
     <!-- 메인 2층 끝 -->
@@ -207,30 +180,20 @@
                 <p class="mainText">페스룸은 다양한 협업을 통해 고객님들께
                   멋진 제품과 서비스를 선보입니다</p>
               </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
+              
+              <%for(ProductBean w : wlist){ %>
+              	<div class="mainContent1">
+                <img src="images/walkProduct/<%=w.getProductImg() %>" alt="상품메인사진">
+                <p class="fs-5 fw-bold mt-3"><%=w.getProductName() %></p>
+                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+                <fmt:formatNumber value="<%=w.getProductPrice() %>" pattern="#,###"/>원</span>
+                <fmt:formatNumber value="<%=w.getProductSalePrice() %>" pattern="#,###"/>원
+                <a href="#"><span class="material-symbols-outlined ms-5">
                   shopping_bag
                 </span></a></p>
                 <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
-              <div class="mainContent1">
-                <img src="images/solution.jpg" alt="상품">
-                <p class="fs-5 fw-bold mt-3">덴탈 솔류션 세트 XS</p>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원<a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
-                <span class="Best">BEST</span>
-              </div>
+              	</div>
+              <%} %>
             </div>
 		</div>
     <!-- 메인 1층 끝 -->

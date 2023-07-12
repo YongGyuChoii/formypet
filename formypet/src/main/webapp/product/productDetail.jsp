@@ -147,6 +147,53 @@
       	<hr />
       </div>
       
+      <div class="row">
+      	<div class="col-8 oneLine">
+	      	<span class="fw-bold text-warning">★★★★★</span><span class="fw-bold ms-2">아주 좋아요</span>
+	      	<p class="mt-3">
+	      		치카치카 꾸준히 하고 잇어요 헤드가 작아서 인지 거부감도 별루 없구요 ㅎ 
+	      		양치 잘하는 저희애들 ㅎㅎ 꾸준히 구매해서 양치하고 잇어요 ㅎㅎ 
+	      		양치가 중요한 부분이다 보니 빼먹지않고 꾸준하게 ㅎㅎ
+	      	</p>
+	      	<img src="../images/solution.jpg" class="img-thumbnail" alt="리뷰사진">
+      	</div>
+      	<div class="col-4">
+      		<p class="ps-5 mt-4 fw-bold">-_-*님의 리뷰입니다.</p>
+      		<p class="ps-5 mt-4 text-muted">치약 선택 고구마향</p>
+   		</div>
+   	  </div>
+   	  <hr />
+   	  <div class="row">
+      	<div class="col-8 oneLine">
+	      	<span class="fw-bold text-warning">★★★★★</span><span class="fw-bold ms-2">아주 좋아요</span>
+	      	<p class="mt-3">
+	      		치카치카 꾸준히 하고 잇어요 헤드가 작아서 인지 거부감도 별루 없구요 ㅎ 
+	      		양치 잘하는 저희애들 ㅎㅎ 꾸준히 구매해서 양치하고 잇어요 ㅎㅎ 
+	      		양치가 중요한 부분이다 보니 빼먹지않고 꾸준하게 ㅎㅎ
+	      	</p>
+	      	<img src="../images/solution.jpg" class="img-thumbnail" alt="리뷰사진">
+      	</div>
+      	<div class="col-4">
+      		<p class="ps-5 mt-4 fw-bold">-_-*님의 리뷰입니다.</p>
+      		<p class="ps-5 mt-4 text-muted">치약 선택 고구마향</p>
+   		</div>
+   	  </div>
+   	  <hr />
+   	  
+   	  <nav aria-label="Page navigation example" class="mt-5 mb-5">
+		  <ul class="pagination justify-content-center">
+		    <li class="page-item">
+		      <a class="page-link text-dark" href="#">Previous</a>
+		    </li>
+		    <li class="page-item"><a class="page-link active text-dark" href="#">1</a></li>
+		    <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+		    <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+		    <li class="page-item">
+		      <a class="page-link text-dark" href="#">Next</a>
+		    </li>
+		  </ul>
+	  </nav>
+      
     </div>
     <!--main 끝-->
 

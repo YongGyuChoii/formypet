@@ -73,3 +73,11 @@
 .showDelivery, .showExchange {
 	cursor: pointer;
 }
+
+/* 세로선 */
+.oneLine {
+	border-right: 1px solid lightgray;	
+}
+.oneLine img {
+	width: 150px; height: 150px;
+}
