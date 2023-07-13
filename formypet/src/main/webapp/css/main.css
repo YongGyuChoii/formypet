@@ -55,6 +55,9 @@
 .mainText {
     font-size: 13px;
 }
+.mainContent1 a {
+	text-decoration: none;
+}
 .Best {
     position: absolute;
     top: 0px;

@@ -59,14 +59,15 @@
               
               <%for(ProductBean b : blist){ %>
               	<div class="mainContent1">
-                <img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진">
-                <p class="fs-5 fw-bold mt-3"><%=b.getProductName() %></p>
+                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진"></a>
+                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=b.getProductName() %></p></a>
                 <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
                 <fmt:formatNumber value="<%=b.getProductPrice() %>" pattern="#,###"/>원</span>
                 <fmt:formatNumber value="<%=b.getProductSalePrice() %>" pattern="#,###"/>원
                 <a href="#"><span class="material-symbols-outlined ms-5">
                   shopping_bag
-                </span></a></p>
+                </span></a>
+                </p>
                 <span class="Best">BEST</span>
               	</div>
               <%} %>
@@ -90,8 +91,8 @@
               
               <%for(ProductBean s : slist){ %>
               	<div class="mainContent1">
-                <img src="images/snackProduct/<%=s.getProductImg() %>" alt="상품메인사진">
-                <p class="fs-5 fw-bold mt-3"><%=s.getProductName() %></p>
+                <a href="product/productDetail.jsp?productKey=<%=s.getProductKey()%>&categoryKey=<%=s.getCategoryKey()%>"><img src="images/snackProduct/<%=s.getProductImg() %>" alt="상품메인사진"></a>
+                <a href="product/productDetail.jsp?productKey=<%=s.getProductKey()%>&categoryKey=<%=s.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=s.getProductName() %></p></a>
                 <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
                 <fmt:formatNumber value="<%=s.getProductPrice() %>" pattern="#,###"/>원</span>
                 <fmt:formatNumber value="<%=s.getProductSalePrice() %>" pattern="#,###"/>원
@@ -122,8 +123,8 @@
               
               <%for(ProductBean l : llist){ %>
               	<div class="mainContent1">
-                <img src="images/livingProduct/<%=l.getProductImg() %>" alt="상품메인사진">
-                <p class="fs-5 fw-bold mt-3"><%=l.getProductName() %></p>
+                <a href="product/productDetail.jsp?productKey=<%=l.getProductKey()%>&categoryKey=<%=l.getCategoryKey()%>"><img src="images/livingProduct/<%=l.getProductImg() %>" alt="상품메인사진"></a>
+                <a href="product/productDetail.jsp?productKey=<%=l.getProductKey()%>&categoryKey=<%=l.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=l.getProductName() %></p></a>
                 <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
                 <fmt:formatNumber value="<%=l.getProductPrice() %>" pattern="#,###"/>원</span>
                 <fmt:formatNumber value="<%=l.getProductSalePrice() %>" pattern="#,###"/>원
@@ -151,8 +152,8 @@
               
               <%for(ProductBean c : clist){ %>
               	<div class="mainContent1">
-                <img src="images/clothesProduct/<%=c.getProductImg() %>" alt="상품메인사진">
-                <p class="fs-5 fw-bold mt-3"><%=c.getProductName() %></p>
+                <a href="product/productDetail.jsp?productKey=<%=c.getProductKey()%>&categoryKey=<%=c.getCategoryKey()%>"><img src="images/clothesProduct/<%=c.getProductImg() %>" alt="상품메인사진"></a>
+                <a href="product/productDetail.jsp?productKey=<%=c.getProductKey()%>&categoryKey=<%=c.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=c.getProductName() %></p></a>
                 <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
                 <fmt:formatNumber value="<%=c.getProductPrice() %>" pattern="#,###"/>원</span>
                 <fmt:formatNumber value="<%=c.getProductSalePrice() %>" pattern="#,###"/>원
@@ -183,8 +184,8 @@
               
               <%for(ProductBean w : wlist){ %>
               	<div class="mainContent1">
-                <img src="images/walkProduct/<%=w.getProductImg() %>" alt="상품메인사진">
-                <p class="fs-5 fw-bold mt-3"><%=w.getProductName() %></p>
+                <a href="product/productDetail.jsp?productKey=<%=w.getProductKey()%>&categoryKey=<%=w.getCategoryKey()%>"><img src="images/walkProduct/<%=w.getProductImg() %>" alt="상품메인사진"></a>
+                <a href="product/productDetail.jsp?productKey=<%=w.getProductKey()%>&categoryKey=<%=w.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=w.getProductName() %></p></a>
                 <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
                 <fmt:formatNumber value="<%=w.getProductPrice() %>" pattern="#,###"/>원</span>
                 <fmt:formatNumber value="<%=w.getProductSalePrice() %>" pattern="#,###"/>원

@@ -1,5 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="product.ProductBean"%>
+<%@page import="product.ProductFileBean"%>
+<%@page import="java.util.*"%>
+<jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	int productKey = Integer.parseInt(request.getParameter("productKey"));
+	int categoryKey = Integer.parseInt(request.getParameter("categoryKey"));
+	
+	//상품1개 정보 담기
+	ProductBean pb = bMgr.getProduct(productKey);
+	
+	//상품사진 파일들
+	ArrayList<ProductFileBean> pbf = bMgr.getProductFile(productKey);
+	
+	//카테고리별 이미지 폴더 src 설정
+	String src = null;
+	if(categoryKey == 1){
+		src = "../images/bathProduct/";
+	} else if(categoryKey == 2) {
+		src = "../images/hygieneProduct/";
+	} else if(categoryKey == 3) {
+		src = "../images/beautyProduct/";
+	} else if(categoryKey == 4) {
+		src = "../images/livingProduct/";
+	} else if(categoryKey == 5) {
+		src = "../images/walkProduct/";
+	} else if(categoryKey == 6) {
+		src = "../images/snackProduct/";
+	} else if(categoryKey == 7) {
+		src = "../images/clothesProduct/";
+	}
+	
+	//할인율 계산 ((정가-할인가) / 정가) * 100
+	String slaePercent;
+	float salePer = (((float)pb.getProductPrice()-pb.getProductSalePrice()) / pb.getProductPrice()) * 100;
+	slaePercent = String.format("%.0f", salePer); //반올림
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,12 +67,14 @@
       <div class="row mt-5 mb-5">
       
         <div class="section col">
-            <img src="../images/solution.jpg" class="mainImg" alt="상품메인사진">
+            <img src="<%=src %><%=pb.getProductImg() %>" class="mainImg" alt="상품메인사진">
         </div>
 
         <div class="section col ms-5 mt-5">
+        	<%if(pb.getProductOrderCount() >= 500) { %>
             <p class="best fw-bold">BEST</p>
-            <p class="fw-bold fs-3">덴탈 솔루션 세트 XS</p>
+            <%} %>
+            <p class="fw-bold fs-3"><%=pb.getProductName() %></p>
             <div class="row mb-3">
             	<div class="col showInfo">
             		INFORMATION
@@ -44,19 +86,20 @@
             		CAUTION
             	</div>
             </div>
+           	
 			<div class="showImg1">
-			  <img alt="상품정보" src="../images/bathProduct/dentalSolutionToothInfo.png" class="imgInfo">
+			  <img alt="상품정보" src="<%=src %><%=pb.getProductInfo() %>" class="imgInfo">
 			</div>
 			<div class="showImg2">
-			  <img alt="상품정보" src="../images/bathProduct/dentalSolutionToothSize.png" class="imgInfo">
+			  <img alt="상품정보" src="<%=src %><%=pb.getProductDetail() %>" class="imgInfo">
 			</div>
 			<div class="showImg3">
-			  <img alt="상품정보" src="../images/bathProduct/dentalSolutionToothCaution.png" class="imgInfo">
+			  <img alt="상품정보" src="<%=src %><%=pb.getProductCaution() %>" class="imgInfo">
 			</div>
 			
-			<p class="fw-bold fs-4 mt-5">17,900원 
-			<span class="text-secondary text-decoration-line-through ms-3">31,000원</span> 
-			<span class="text-danger sale">42%</span></p>
+			<p class="fw-bold fs-4 mt-5"><fmt:formatNumber value="<%=pb.getProductSalePrice() %>" pattern="#,###"/>원 
+			<span class="text-secondary text-decoration-line-through ms-3"><fmt:formatNumber value="<%=pb.getProductPrice() %>" pattern="#,###"/>원</span> 
+			<span class="text-danger sale"><%=slaePercent %>%</span></p>
 			
 			<hr/>
 			
@@ -93,14 +136,9 @@
       <hr/>
       
       <div class="mt-5 section2">
-      	<img src="../images/bathProduct/dentalSolutionTooth1.jpg" alt="상품상세사진" />
-      	<img src="../images/bathProduct/dentalSolutionTooth2.jpg" alt="상품상세사진" />
-      	<img src="../images/bathProduct/dentalSolutionTooth3.jpg" alt="상품상세사진" />
-      	<img src="../images/bathProduct/dentalSolutionTooth4.jpg" alt="상품상세사진" />
-      	<img src="../images/bathProduct/dentalSolutionTooth5.jpg" alt="상품상세사진" />
-      	<img src="../images/bathProduct/dentalSolutionTooth6.jpg" alt="상품상세사진" />
-      	<img src="../images/bathProduct/dentalSolutionTooth7.jpg" alt="상품상세사진" />
-      	<img src="../images/bathProduct/dentalSolutionTooth8.jpg" alt="상품상세사진" />
+      	<%for(ProductFileBean pbfList : pbf){ %>
+      		<img src="<%=src %><%=pbfList.getFileSaveName() %>" alt="상품상세사진" />
+      	<%} %>
       </div>
       
       <div class="mt-5">
