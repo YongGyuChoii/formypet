@@ -1,6 +1,6 @@
 package admin;
 
-public class csCenterManagementBean {
+public class CsCenterManagementBean {
 	
 	private int memKey;
 	private String csTitle;

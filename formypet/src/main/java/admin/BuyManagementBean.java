@@ -1,6 +1,6 @@
 package admin;
 
-public class buyManagementBean {
+public class BuyManagementBean {
 	
 	private String memOrderKey;
 	private String nonMemOrderKey;

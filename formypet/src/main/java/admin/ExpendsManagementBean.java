@@ -1,6 +1,6 @@
 package admin;
 
-public class expendsManagementBean {
+public class ExpendsManagementBean {
 	
 	private String expendsDate;
 	private String expendsSection;

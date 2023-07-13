@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@page import = "java.util.*,admin.*" %>
-<jsp:useBean id = "exMMgr" class = "admin.expendsManagementMgr" scope = "page" />
+<jsp:useBean id = "exMMgr" class = "admin.ExpendsManagementMgr" scope = "page" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -39,11 +39,11 @@
             <tbody>
             
             <%
-            Vector<expendsManagementBean> vlist = exMMgr.geteMList();
-	           		int counter = vlist.size();
-	           		for(int i = 0; i < vlist.size(); i++) {
-	           			expendsManagementBean exBean = vlist.get(i);
-            %>
+                        Vector<ExpendsManagementBean> vlist = exMMgr.geteMList();
+                        	           		int counter = vlist.size();
+                        	           		for(int i = 0; i < vlist.size(); i++) {
+                        	           			ExpendsManagementBean exBean = vlist.get(i);
+                        %>
             <tr>
                 <td><%=exBean.getExpendsSection() %></td>
                 <td><%=exBean.getExpendsContents() %></td>

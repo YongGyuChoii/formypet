@@ -3,7 +3,7 @@ package admin;
 import java.sql.*;
 import java.util.*;
 
-public class categoryManagementMgr {
+public class CategoryManagementMgr {
 	//final 키워드를 사용하여 String 타입 변수를 선언한 다음, DB 연결에 필요한 정보를 대입합니다.
 	 	private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	 	
@@ -13,7 +13,7 @@ public class categoryManagementMgr {
 	 	
 	 	private final String PASS = "0000";
 	 
-	 	public categoryManagementMgr() {
+	 	public CategoryManagementMgr() {
 	 		
 	 	 try{
 	 	   Class.forName(JDBC_DRIVER);//변수를 이용하여 연결정보 삽입.
@@ -23,7 +23,7 @@ public class categoryManagementMgr {
 	 	   }
 	     }
 	 
-	    public Vector<categoryManagementBean> getcategoryManagementList() {
+	    public Vector<CategoryManagementBean> getcategoryManagementList() {
 	    	
 	    	//DB 연결 하는 Connection 객체생성
 		   Connection conn = null;
@@ -35,7 +35,7 @@ public class categoryManagementMgr {
 	       ResultSet rs = null;
 	       
 	       //RegisterBean 클래스 타입의 Vector 배열 vlist 선언
-	       Vector<categoryManagementBean> vlist = new Vector<categoryManagementBean>();
+	       Vector<CategoryManagementBean> vlist = new Vector<CategoryManagementBean>();
 	       
 	       try {
 	    	  //DB연결 시작
@@ -51,7 +51,7 @@ public class categoryManagementMgr {
 	          //RegisterBean 클래스에 선언된 변수에 대입 한다.
 			  while (rs.next()) {
 				  
-				  categoryManagementBean bean = new categoryManagementBean();//RegisterBean 클래스 객체생성
+				  CategoryManagementBean bean = new CategoryManagementBean();//RegisterBean 클래스 객체생성
 	             
 			 	 bean.setCategorySection (rs.getString("categorySection"));
 			 	 //RegisterBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.

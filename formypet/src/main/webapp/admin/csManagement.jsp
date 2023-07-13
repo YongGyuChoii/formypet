@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
-<jsp:useBean id = "csMMgr" class = "admin.csManagementMgr" scope = "page" />
+<jsp:useBean id = "csMMgr" class = "admin.CsManagementMgr" scope = "page" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -44,11 +44,11 @@
             <tbody>
             
             <%
-            Vector<csManagementBean> vlist = csMMgr.getcsManagementList();
-            int counter = vlist.size();
-            for(int i = 0; i <vlist.size(); i++) {
-            	csManagementBean csmBean = vlist.get(i);
-            %>
+                        Vector<CsManagementBean> vlist = csMMgr.getCsManagementList();
+                                    int counter = vlist.size();
+                                    for(int i = 0; i <vlist.size(); i++) {
+                                    	CsManagementBean csmBean = vlist.get(i);
+                        %>
             <tr>
                 <td><%=csmBean.getMemId() %></td>
                 <td><%=csmBean.getMemPw() %></td>

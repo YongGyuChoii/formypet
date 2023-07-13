@@ -1,6 +1,6 @@
 package admin;
 
-public class csManagementBean {
+public class CsManagementBean {
 	
 	private String memId;
 	private String memPw;

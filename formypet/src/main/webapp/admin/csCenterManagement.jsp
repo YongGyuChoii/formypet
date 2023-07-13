@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
-<jsp:useBean id = "ccMMgr" class = "admin.csCenterManagementMgr" scope = "page" />
+<jsp:useBean id = "ccMMgr" class = "admin.CsCenterManagementMgr" scope = "page" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,13 +38,11 @@
             </thead>
             <tbody>
                      <%
-                       
-                     
-			            Vector<csCenterManagementBean> vlist = ccMMgr.getcsCenterManagementList();
-			            int counter = vlist.size();
-			            for(int i = 0; i <vlist.size(); i++) {
-			            	csCenterManagementBean ccBean = vlist.get(i);
-		            %>
+                     Vector<CsCenterManagementBean> vlist = ccMMgr.getcsCenterManagementList();
+                     	            int counter = vlist.size();
+                     	            for(int i = 0; i <vlist.size(); i++) {
+                     	            	CsCenterManagementBean ccBean = vlist.get(i);
+                     %>
                     <tr>
 		                
 		              

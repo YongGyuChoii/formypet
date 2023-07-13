@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
-<jsp:useBean id = "pMMgr" class = "admin.productManagementMgr" scope = "page" />
+<jsp:useBean id = "pMMgr" class = "admin.ProductManagementMgr" scope = "page" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -30,7 +30,7 @@
            
             <tr>
                 <th>상품 이름</th>
-                <th>상품 번호</th>
+                <th>상품 수량</th>
                 <th>상품 가격</th>
                 <th>상품 삭제 여부</th>
                 <th>상품 수정</th>
@@ -39,22 +39,22 @@
             </thead>
             <tbody>
             <%
-            Vector<productManagementBean> vlist = pMMgr.getpmList();
-            int counter = vlist.size();
-            for(int i = 0; i <vlist.size(); i++) {
-            	productManagementBean pBean = vlist.get(i);
+            Vector<ProductManagementBean> vlist = pMMgr.getpmList();
+                        int counter = vlist.size();
+                        for(int i = 0; i <vlist.size(); i++) {
+                        	ProductManagementBean pBean = vlist.get(i);
             %>
             <tr>
                 <td><%= pBean.getProductName()  %></td>
-                <td><%= pBean.getProductOrderCount()  %></td>
+                <td><%= pBean.getProductCount()  %></td>
                 <td><%= pBean.getProductPrice()  %></td>
                 <td><%= pBean.getDelYn()  %></td>
-                <td><input type = "button" value = "상품 수정"></td>   
+                <td><a href = "../admin/productFilechange.jsp"><input type = "button" value = "상품 수정"></a></td>   
                 <%
             		}
                 %>  
                 <p>total records : <%=counter %></p>           
-            <p><input type = "button" value = "상품 추가"></p>
+            <p><a href = "../admin/productFileuploard.jsp"><input type = "button" value = "상품 추가"></a></p>
             </tr>                        
             </tbody>
         </table> 

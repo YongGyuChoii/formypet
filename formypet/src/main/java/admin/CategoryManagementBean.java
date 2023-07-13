@@ -1,6 +1,6 @@
 package admin;
 
-public class categoryManagementBean {
+public class CategoryManagementBean {
 	
 	private String categorySection;
 	private String delYn;

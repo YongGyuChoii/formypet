@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
-<jsp:useBean id = "buyMMgr" class = "admin.buyManagementMgr" scope = "page" />
+<jsp:useBean id = "buyMMgr" class = "admin.BuyManagementMgr" scope = "page" />
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -39,11 +39,11 @@
                     </thead>
                     <tbody>
                     <%
-			            Vector<buyManagementBean> vlist = buyMMgr.getbuyManagementList();
-			            int counter = vlist.size();
-			            for(int i = 0; i <vlist.size(); i++) {
-			            	buyManagementBean buymBean = vlist.get(i);
-		            %>
+              			Vector<BuyManagementBean> vlist = buyMMgr.getBuyManagementList();
+                    	            int counter = vlist.size();
+                    	            for(int i = 0; i <vlist.size(); i++) {
+                    	            	BuyManagementBean buymBean = vlist.get(i);
+                    %>
                     <tr>
 		                
 		              
