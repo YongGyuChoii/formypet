@@ -1,54 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <%@ page import="java.sql.*"%> 
-<%     
-	request.setCharacterEncoding("UTF-8");
-	
-    Class.forName("com.mysql.cj.jdbc.Driver");
-	String url = "jdbc:mysql://localhost:3306/formypet";
-	String id = "root";
-	String pass = "0000";
-	
-	String name = request.getParameter("name"); 
-	String password = request.getParameter("password");
-	String title = request.getParameter("title"); 
-	String memo = request.getParameter("memo"); 	
-	
-	
-	
-	try {	
-		Connection conn = DriverManager.getConnection(url,id,pass);
-		
-		String sql = "Insert into cscenter(csName,csPass,csTitle,csContents)values(?,?,?,?)";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		
-		pstmt.setString(1, name);
-		pstmt.setString(2, password);
-		pstmt.setString(3, title);
-		pstmt.setString(4, memo);
-		
-		pstmt.execute();
-		pstmt.close();
-		
-		conn.close();
-		
-		} catch(SQLException e) {
-			out.println( e.toString() );
-		} 
-%>
+<%@ page import="bbs.BbsDAO" %>
+<%@ page import = "java.io.PrintWriter" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+ 
+<jsp:useBean id="bbs" class="bbs.bbs" scope="page"></jsp:useBean>
+<jsp:setProperty name="bbs" property="bbsTitle"/>
+<jsp:setProperty name="bbs" property="bbsContent"/>
 
-  <script language=javascript>
-   self.window.alert("입력한 글을 저장하였습니다.");
-   location.href="list.jsp"; 
-   </script>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; c harset=UTF-8">
+<title>For My Pet</title>
 </head>
 <body>
-
+    <%
+    	String userID = null;
+    	if (session.getAttribute("idKey") != null){
+            userID = (String) session.getAttribute("idKey");
+    	}
+    	if (userID == null){
+            PrintWriter script = response.getWriter();
+            script.println("<script>");
+            script.println("alert('로그인하세요.')");
+            script.println("location.href = '../login/login.jsp'");    // 메인 페이지로 이동
+            script.println("</script>");
+    	}else{
+    		if (bbs.getBbsTitle() == null || bbs.getBbsContent() == null){
+        		PrintWriter script = response.getWriter();
+                script.println("<script>");
+                script.println("alert('모든 문항을 입력해주세요.')");
+                script.println("history.back()");    // 이전 페이지로 사용자를 보냄
+                script.println("</script>");
+        	}else{
+        		BbsDAO bbsDAO = new BbsDAO();
+                int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+                if (result == -1){ // 글쓰기 실패시
+                    PrintWriter script = response.getWriter();
+                    script.println("<script>");
+                    script.println("alert('글쓰기에 실패했습니다.')");
+                    script.println("history.back()");    // 이전 페이지로 사용자를 보냄
+                    script.println("</script>");
+                }else{ // 글쓰기 성공시
+                	PrintWriter script = response.getWriter();
+                    script.println("<script>");
+                    script.println("location.href = 'list.jsp'");    // 메인 페이지로 이동
+                    script.println("</script>");    
+                }
+        	}	
+    	}
+    %>
+ 
 </body>
 </html>

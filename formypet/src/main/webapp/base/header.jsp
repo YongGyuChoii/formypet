@@ -42,7 +42,7 @@
     </ul>
   </li>
   <li>
-    <a class="nav-link text-white" href="#">고객센터</a>
+    <a class="nav-link text-white" href="${pageContext.request.contextPath}/board/list.jsp">고객센터</a>
   </li>
 </ul>
 </div>
