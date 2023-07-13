@@ -10,7 +10,7 @@
     <link rel="stylesheet"  href="../css/signup.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="./script/script.js"></script>
     <style>
     	h2 {
     		padding: 20px;
@@ -28,9 +28,9 @@
     <!--main 시작-->
     <div class="container">
     <div class="signup">
-      <form method="post" action="joinAction.jsp">
+      <form method="post" name="regFrm" action="memberProc.jsp">
           <h2>회원정보 입력</h2>
-              <input name="memId" type="text" id="uid" placeholder="아이디 (영문 소문자/숫자4~16자)" class="in" required>
+              <input name="memId" type="text" id="uid" placeholder="아이디 (영문 소문자/숫자4~16자)" class="in"required>
               <input name="memPw" type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" required>
               <input type="password" placeholder="비밀번호 확인" class="in" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>

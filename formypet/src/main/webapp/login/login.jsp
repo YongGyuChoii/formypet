@@ -30,9 +30,9 @@
     <div class="container">
       <div class="login">
           <h1>Welcom<br/> Login!</h1>
-          <form name="loginFrm" method="get" action="loginAction.jsp">
+          <form name="loginFrm" method="get" action="loginProc.jsp">
               <input type="text" name="memId" placeholder="아이디" class="in">
-              <input type="password" name="memPwd" placeholder="비밀번호" class="in">
+              <input type="password" name="memPw" placeholder="비밀번호" class="in">
               <input type="submit" id="btn" value="로그인" onclick="loginCheck()"><br>
               <input type="button" id="btn" value="비회원 주문조회" onclick="location.href='non_member.html'">
           </form>

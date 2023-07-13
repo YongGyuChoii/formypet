@@ -1,78 +1,114 @@
 package member;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Vector;
 
+//MemberMgr 클래스는 jsp 페이지에서 자바빈즈 를 사용하여 정의된 메서드를 호출하는 DAO 와 비슷한 역할을 합니다.
+//각 기능에 맞는 메서드를 정의 하여, 메서드 호출시 DB연결, 쿼리문 처리, 결과값 return 하는 클래스 입니다.
+//앞으로 회원가입처리, 회원정보조회 등..기능이 추가 될수록 그에 맞는 메서드를 추가로 정의 하여 사용합니다.
 public class MemberMgr {
+	private DBConnectionMgr pool;
 
-	private Connection conn; //db 접근 객체 
-	private PreparedStatement pstmt;
-	private ResultSet rs; // db 결과를 담는 객체
-	
-	public MemberMgr() { // dao 생성자에서 db connection 
+	public MemberMgr() {
 		try {
-			String URL = "jdbc:mysql://localhost:3306/formypet"; //mySQL 서버의 formypet DB 접근 경로
-			String ID = "root";
-			String Password = "0000";
-			Class.forName("com.mysql.jdbc.Driver"); //mysql에 접속을 도와주는 라이브러리 
-			conn = DriverManager.getConnection(URL, ID, Password);
-			
-		}catch(Exception e) {
+			pool = DBConnectionMgr.getInstance();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
+	// ID 중복확인
+	public boolean checkId(String memId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select memId from member where memId = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			//쿼리문 실행 후 값이 있다면 flag 변수에 true값 대입.
+			flag = pstmt.executeQuery().next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag; //checkId 메서드 호출된 자리로 flag 변수 값 리턴
+	}
 	
-	//로그인 기능 구현
-	
-	public int login(String memId, String memPw) {
-		
-		System.out.println(memId);
-		System.out.println(memPw);
+	// 회원가입처리 메서드
+				public boolean insertMember(MemberBean bean) {
+					
+					Connection con = null; 
+					PreparedStatement pstmt = null;
+					String sql = null;
+					boolean flag = false;
+					
+					try {
+						con = pool.getConnection();
+						//tblMember 테이블 insert 쿼리
+						sql = "insert member(memId,memPw,memName,memEmail1,memEmail2,memAddress,memPhone1"
+								+ ",memPhone2,memResident1,memResident2)values(?,?,?,?,?,?,?,?,?,?)";
+						
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setString(1, bean.getMemId());
+						pstmt.setString(2, bean.getMemPw());
+						pstmt.setString(3, bean.getMemName());
+						pstmt.setString(4, bean.getMemEmail1());
+						pstmt.setString(5, bean.getMemEmail2());
+						pstmt.setString(6, bean.getMemAddress());
+						pstmt.setInt(7, bean.getMemPhone1());
+						pstmt.setInt(8, bean.getMemPhone2());
+						pstmt.setInt(9, bean.getMemResident1());
+						pstmt.setInt(10, bean.getMemResident2());
+
+						if (pstmt.executeUpdate() == 1) 
+							//쿼리 수행결과 가 1이면 ,(1개의 레코드가 처리가 되었다면)
+							flag = true; //flag 변수에 true 값 할당.
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt);
+					}
+					return flag;
+				}
 				
-		String SQL = "SELECT memPw FROM member WHERE memId = ?";
-		
-		try {
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, memId); 
-			rs = pstmt.executeQuery(); // 쿼리 실행 
-			if (rs.next()) {
-				if (rs.getString(1).equals(memPw)) // rs.getString(1) : select된 첫번째 컬럼
-					return 1; //로그인 성공
-				else
-					return 0; // 비밀번호 틀림
-			}
-			return -1; // 아이디 없음 
-		}catch(Exception e) {
-			e.printStackTrace();
-			
+				// 로그인 처리
+				public boolean loginMember(String memId, String memPw) {
+					
+						Connection con = null;
+						PreparedStatement pstmt = null;
+						ResultSet rs = null;
+						
+						String sql = null;
+						
+						boolean flag = false;
+						
+						try {
+							con = pool.getConnection();
+							
+							sql = "select memId from member where memId = ? and memPw = ?";
+							//id 컬럼을 찾는 select 쿼리를 작성한다. where 절 에 매개변수로 받은 id, pwd를 입력함.
+							pstmt = con.prepareStatement(sql);
+							pstmt.setString(1, memId);
+							pstmt.setString(2, memPw);
+							
+							rs = pstmt.executeQuery();
+							
+							flag = rs.next();
+						} catch (Exception e) {
+							e.printStackTrace();
+						} finally {
+							pool.freeConnection(con, pstmt, rs);
+						}
+						return flag;
+					}
 		}
-		return -2; //DB 오류 
-	}
-	
-	//회원가입 기능 구현
-	public int join(MemberBean member) {
-		String SQL = "INSERT INTO member(memId, memPw, memPhone1, memPhone2, memEmail1"
-				+ "memEmail2, memAddress, memName, memResident1, memResident2) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		try {
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, member.getId());
-			pstmt.setString(2, member.getPw());
-			pstmt.setInt(3, member.getPhone1());
-			pstmt.setInt(4, member.getPhone2());
-			pstmt.setString(5, member.getEmail1());
-			pstmt.setString(6, member.getEmail2());
-			pstmt.setString(7, member.getAddr());
-			pstmt.setString(8, member.getName());
-			pstmt.setInt(9, member.getResident1());
-			pstmt.setInt(10, member.getResident2());
 
-			return pstmt.executeUpdate(); // 0이상 값이 return된 경우 성공 
-		}catch(Exception e) {
-			e.printStackTrace();
-			
-		}
-		return -1; //DB 오류 
-	}
-}
+				
