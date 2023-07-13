@@ -30,7 +30,7 @@
     <div class="signup">
       <form method="post" name="regFrm" action="memberProc.jsp">
           <h2>회원정보 입력</h2>
-              <input name="memId" type="text" id="uid" placeholder="아이디 (영문 소문자/숫자4~16자)" class="in"required>
+              <input name="memId" type="text" id="uid" placeholder="아이디 (영문 소문자/숫자4~16자)" class="in" required>
               <input name="memPw" type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" required>
               <input type="password" placeholder="비밀번호 확인" class="in" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>

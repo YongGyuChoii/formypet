@@ -79,36 +79,36 @@ public class MemberMgr {
 					return flag;
 				}
 				
-				// 로그인 처리
-				public boolean loginMember(String memId, String memPw) {
+	// 로그인 처리
+	public boolean loginMember(String memId, String memPw) {
 					
-						Connection con = null;
-						PreparedStatement pstmt = null;
-						ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 						
-						String sql = null;
+		String sql = null;
 						
-						boolean flag = false;
+		boolean flag = false;
 						
-						try {
-							con = pool.getConnection();
+		try {
+			con = pool.getConnection();
 							
-							sql = "select memId from member where memId = ? and memPw = ?";
-							//id 컬럼을 찾는 select 쿼리를 작성한다. where 절 에 매개변수로 받은 id, pwd를 입력함.
-							pstmt = con.prepareStatement(sql);
-							pstmt.setString(1, memId);
-							pstmt.setString(2, memPw);
+			sql = "select memId from member where memId = ? and memPw = ?";
+			//id 컬럼을 찾는 select 쿼리를 작성한다. where 절 에 매개변수로 받은 id, pwd를 입력함.
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			pstmt.setString(2, memPw);
 							
-							rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 							
-							flag = rs.next();
-						} catch (Exception e) {
-							e.printStackTrace();
-						} finally {
-							pool.freeConnection(con, pstmt, rs);
-						}
-						return flag;
-					}
+			flag = rs.next();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+				}
+				return flag;
+			}
 		}
 
 				
