@@ -9,6 +9,8 @@
     <link rel="stylesheet"  href="../css/mypage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    
 </head>
 <body>
     <div id="wrap">
@@ -110,12 +112,12 @@
                   <div class="text">취소/교환/환불 내역</div>
                   <div class="right"> > </div>
               </a>
-              <a href="#" class="item">
+              <a href="${pageContext.request.contextPath}/review/review.jsp"" class="item">
                   <div class="icon">ii</div>
                   <div class="text">상품리뷰</div>
                   <div class="right"> > </div>
               </a>
-              <a href="#" class="item">
+              <a href="${pageContext.request.contextPath}/mypage/mypageproduct.jsp"" class="item">
                   <div class="icon">ii</div>
                   <div class="text">최근본상품</div>
                   <div class="right"> > </div>
