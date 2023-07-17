@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="product.ProductBean"%>
+<%@page import="java.util.*"%>
+<jsp:useBean id="pMgr" class="product.ProductListMgr" />
+<%
+	request.setCharacterEncoding("UTF-8");
+	ArrayList<ProductBean> pAll = pMgr.getProductListAll(); //전체상품
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,7 +31,7 @@
   <!--header 끝-->
 
     <div class="productImg1">
-        <img class="productImg2" src="../images/walkProduct/walkMain.jpg" alt="">
+        <img class="productImg2" src="../images/walkProduct/walkMain.jpg" alt="카테고리사진">
         <p class="fs-3 fw-bold productImgContent">ALL PRODUCTS</p>
     </div>
 
@@ -34,7 +41,7 @@
 		<div class="section sectionNav mt-4">
 			<ul class="nav justify-content-around">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">전체상품</a>
+                  <a class="nav-link" href="productList.jsp">전체상품</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="#">목욕</a>
@@ -63,114 +70,51 @@
         <!-- 상품진열 -->
         <div class="section mt-5">
             <div class="row row-cols-1 row-cols-md-3 g-4">
+            <%for(ProductBean pb : pAll){ %>
                 <div class="col">
                   <div class="card h-100 productCard">
-                    <a href="productDetail.jsp"><img src="../images/solution.jpg" class="card-img-top" alt="..."></a>
+                    <a href="productDetail.jsp?productKey=<%=pb.getProductKey() %>&categoryKey=<%=pb.getCategoryKey()%>">
+                    <%if(pb.getCategoryKey() == 1){ %>
+                    <img src="../images/bathProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <%} else if(pb.getCategoryKey() == 2){%>
+                    <img src="../images/hygieneProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <%} else if(pb.getCategoryKey() == 3){%>
+                    <img src="../images/beautyProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <%} else if(pb.getCategoryKey() == 4){%>
+                    <img src="../images/livingProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <%} else if(pb.getCategoryKey() == 5){%>
+                    <img src="../images/walkProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <%} else if(pb.getCategoryKey() == 6){%>
+                    <img src="../images/snackProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <%} else if(pb.getCategoryKey() == 7){%>
+                    <img src="../images/clothesProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <%} %>
                     <div class="card-body">
-                      <a href="productDetail.jsp"><h5 class="card-title fw-bold">덴탈 솔류션 세트 XS</h5></a>
-                      <p class="card-text cardText fw-bold">체온 조절이 힘든 반려동물을 위한 안전한 쿨젤매트</p>
-                      <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원 <span class="sale text-end ms-5">30%</span></p>
+                      <a href="productDetail.jsp?productKey=<%=pb.getProductKey() %>&categoryKey=<%=pb.getCategoryKey()%>"><h5 class="card-title fw-bold"><%=pb.getProductName() %></h5></a>
+                      <p class="card-text cardText fw-bold"><%=pb.getProductComment() %></p>
+                      <p class="fs-5 fw-bold mt-3">
+                      <span class="fs-6 text-decoration-line-through fw-light me-1"><fmt:formatNumber value="<%=pb.getProductPrice() %>" pattern="#,###"/>원</span>
+                      <fmt:formatNumber value="<%=pb.getProductSalePrice() %>" pattern="#,###"/>원
+                      <%//할인율 계산 ((정가-할인가) / 정가) * 100
+					  String salePercent;
+					  float salePer = (((float)pb.getProductPrice()-pb.getProductSalePrice()) / pb.getProductPrice()) * 100;
+					  salePercent = String.format("%.0f", salePer); //반올림
+					  %>
+                      <span class="sale text-end ms-5"><%=salePercent%>%</span></p>
                       <a href="#"><span class="material-symbols-outlined">
                         shopping_bag
                       </span></a>
-                      <a href="#"><span class="material-symbols-outlined">
+                      <a><span class="material-symbols-outlined">
                         chat_bubble
                       </span></a>
                       <span class="number">1,722</span>
+                      <%if(pb.getProductOrderCount() >= 500) { %>
                       <span class="Best">BEST</span>
+                      <%} %>
                     </div>
                   </div>
                 </div>
-                <div class="col">
-                    <div class="card h-100 productCard">
-                      <img src="../images/solution.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title fw-bold">덴탈 솔류션 세트 XS</h5>
-                        <p class="card-text cardText fw-bold">체온 조절이 힘든 반려동물을 위한 안전한 쿨젤매트</p>
-                        <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원 <span class="sale text-end ms-5">30%</span></p>
-                        <a href="#"><span class="material-symbols-outlined">
-                          shopping_bag
-                        </span></a>
-                        <a href="#"><span class="material-symbols-outlined">
-                          chat_bubble
-                        </span></a>
-                        <span class="number">1,722</span>
-                        <span class="Best">BEST</span>
-                      </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 productCard">
-                      <img src="../images/solution.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title fw-bold">덴탈 솔류션 세트 XS</h5>
-                        <p class="card-text cardText fw-bold">체온 조절이 힘든 반려동물을 위한 안전한 쿨젤매트</p>
-                        <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원 <span class="sale text-end ms-5">30%</span></p>
-                        <a href="#"><span class="material-symbols-outlined">
-                          shopping_bag
-                        </span></a>
-                        <a href="#"><span class="material-symbols-outlined">
-                          chat_bubble
-                        </span></a>
-                        <span class="number">1,722</span>
-                        <span class="Best">BEST</span>
-                      </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 productCard">
-                      <img src="../images/solution.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title fw-bold">덴탈 솔류션 세트 XS</h5>
-                        <p class="card-text cardText fw-bold">체온 조절이 힘든 반려동물을 위한 안전한 쿨젤매트</p>
-                        <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원 <span class="sale text-end ms-5">30%</span></p>
-                        <a href="#"><span class="material-symbols-outlined">
-                          shopping_bag
-                        </span></a>
-                        <a href="#"><span class="material-symbols-outlined">
-                          chat_bubble
-                        </span></a>
-                        <span class="number">1,722</span>
-                        <span class="Best">BEST</span>
-                      </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 productCard">
-                      <img src="../images/solution.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title fw-bold">덴탈 솔류션 세트 XS</h5>
-                        <p class="card-text cardText fw-bold">체온 조절이 힘든 반려동물을 위한 안전한 쿨젤매트</p>
-                        <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원 <span class="sale text-end ms-5">30%</span></p>
-                        <a href="#"><span class="material-symbols-outlined">
-                          shopping_bag
-                        </span></a>
-                        <a href="#"><span class="material-symbols-outlined">
-                          chat_bubble
-                        </span></a>
-                        <span class="number">1,722</span>
-                        <span class="Best">BEST</span>
-                      </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 productCard">
-                      <img src="../images/solution.jpg" class="card-img-top" alt="...">
-                      <div class="card-body">
-                        <h5 class="card-title fw-bold">덴탈 솔류션 세트 XS</h5>
-                        <p class="card-text cardText fw-bold">체온 조절이 힘든 반려동물을 위한 안전한 쿨젤매트</p>
-                        <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1">31,000원</span>17,900원 <span class="sale text-end ms-5">30%</span></p>
-                        <a href="#"><span class="material-symbols-outlined">
-                          shopping_bag
-                        </span></a>
-                        <a href="#"><span class="material-symbols-outlined">
-                          chat_bubble
-                        </span></a>
-                        <span class="number">1,722</span>
-                        <span class="Best">BEST</span>
-                      </div>
-                    </div>
-                </div>
+            <%} %>
             </div>
         </div>
 	</div>

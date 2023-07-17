@@ -36,9 +36,9 @@
 	}
 	
 	//할인율 계산 ((정가-할인가) / 정가) * 100
-	String slaePercent;
+	String salePercent;
 	float salePer = (((float)pb.getProductPrice()-pb.getProductSalePrice()) / pb.getProductPrice()) * 100;
-	slaePercent = String.format("%.0f", salePer); //반올림
+	salePercent = String.format("%.0f", salePer); //반올림
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -99,7 +99,7 @@
 			
 			<p class="fw-bold fs-4 mt-5"><fmt:formatNumber value="<%=pb.getProductSalePrice() %>" pattern="#,###"/>원 
 			<span class="text-secondary text-decoration-line-through ms-3"><fmt:formatNumber value="<%=pb.getProductPrice() %>" pattern="#,###"/>원</span> 
-			<span class="text-danger sale"><%=slaePercent %>%</span></p>
+			<span class="text-danger sale"><%=salePercent %>%</span></p>
 			
 			<hr/>
 			
