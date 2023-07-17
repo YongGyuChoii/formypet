@@ -10,8 +10,7 @@
     <title>Dog and Cat</title>
     <link rel="stylesheet"  href="../css/mypage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	
   
 </head>
@@ -61,7 +60,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <a class="lightbox" href="#">
-                            <img src="../images/mypage/mypageproduct1.jpg" alt="Park">
+                            <img src="../images/mypage/mypageproduct1.jpg" width="300" height="300" alt="Park">
                         </a>
                         <div class="caption">
                             <h3>제로 오도어 스프레이</h3>
@@ -74,7 +73,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <a class="lightbox" href="#">
-                            <img src="../images/mypage/mypageproduct1.jpg" alt="Bridge">
+                            <img src="../images/mypage/mypageproduct1.jpg"  width="300" height="300" alt="Bridge">
                         </a>
                         <div class="caption">
                             <h3>세이프 쿨젤매트</h3>
@@ -87,8 +86,8 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <a class="lightbox" href="#"">
-                            <img src="../images/mypage/mypageproduct1.jpg" alt="Tunnel">
-                        </a>
+                            <img src="../images/mypage/mypageproduct1.jpg"  width="300" height="300" alt="Tunnel">
+                        </a> 
                         <div class="caption">
                             <h3>세이프 쿨젤매트</h3>
                             <p>체온 조절이 힘든 반려동물을 위한 안전한 쿨젤매트</p>
@@ -99,7 +98,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <a class="lightbox" href="#">
-                            <img src="../images/mypage/mypageproduct1.jpg" alt="Coast">
+                            <img src="../images/mypage/mypageproduct1.jpg"  width="300" height="300" alt="Coast">
                         </a>
                         <div class="caption">
                              <h3>세이프 쿨젤매트</h3>
@@ -111,7 +110,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <a class="lightbox" href="#">
-                            <img src="../images/mypage/mypageproduct1.jpg" alt="Rails">
+                            <img src="../images/mypage/mypageproduct1.jpg"  width="300" height="300" alt="Rails">
                         </a>
                         <div class="caption">
                             <h3>세이프 쿨젤매트</h3>
@@ -123,7 +122,7 @@
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
                         <a class="lightbox" href="#">
-                            <img src="../images/mypage/mypageproduct1.jpg" alt="Traffic">
+                            <img src="../images/mypage/mypageproduct1.jpg"  width="300" height="300" alt="Traffic">
                         </a>
                         <div class="caption">
                             <h3>세이프 쿨젤매트</h3>

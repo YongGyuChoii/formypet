@@ -22,13 +22,13 @@
             <div id="navi1">
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                  <a class="nav-link active text-primary" aria-current="page" href="#">로그인</a>
+                  <a class="nav-link active text-primary" aria-current="page" href="#">장바구니</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">마이페이지</a>
+                  <a class="nav-link text-primary" href="#">고객센터</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">장바구니</a>
+                  <a class="nav-link text-primary" href="#">로그아웃</a>
                 </li>
             </ul>
             </div>
@@ -102,7 +102,7 @@
               
             </div>  
             <div class="listContainer">
-              <a href="9.html" class="item">
+              <a href="${pageContext.request.contextPath}/mypage/mypageorder.jsp" class="item">
                   <div class="icon">ii</div>
                   <div class="text">주문/배송/픽업 조회<span class="circle"></span></div>
                   <div class="right"> > </div>
@@ -112,12 +112,9 @@
                   <div class="text">취소/교환/환불 내역</div>
                   <div class="right"> > </div>
               </a>
-              <a href="${pageContext.request.contextPath}/review/review.jsp"" class="item">
-                  <div class="icon">ii</div>
-                  <div class="text">상품리뷰</div>
-                  <div class="right"> > </div>
+             
               </a>
-              <a href="${pageContext.request.contextPath}/mypage/mypageproduct.jsp"" class="item">
+              <a href="${pageContext.request.contextPath}/mypage/mypageproduct.jsp""   class="item">
                   <div class="icon">ii</div>
                   <div class="text">최근본상품</div>
                   <div class="right"> > </div>
