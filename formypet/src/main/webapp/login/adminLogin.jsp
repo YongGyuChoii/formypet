@@ -24,17 +24,13 @@
     <!--main 시작-->
     <div class="container">
       <div class="login">
-          <h1>Welcom<br/> Login!</h1>
-          <form name="loginFrm" method="get" action="loginProc.jsp">
+          <h1>관리자 페이지</h1>
+          <form name="loginFrm" method="get" action="adminProc.jsp">
               <input type="text" name="memId" placeholder="아이디" class="in">
               <input type="password" name="memPw" placeholder="비밀번호" class="in">
               <input type="submit" id="btn" value="로그인" onclick="loginCheck()"><br>
-              <input type="button" id="btn" value="비회원 주문조회" onclick="location.href='non_member.html'">
-              <input type="button" id="btn" value="관리자 로그인" onclick="location.href='adminLogin.jsp'">
           </form>
-          <a href="signup.jsp">회원가입 |</a>
-          <a href="#none">비밀번호를 잊어버리셨나요?</a>
-          <p><a href="#">비회원 이신가요?</a></p>
+          <a href="login.jsp">일반고객 전용</a>
       </div>
     </div>
     <!--main 끝-->

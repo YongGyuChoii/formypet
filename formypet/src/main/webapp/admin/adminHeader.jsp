@@ -9,7 +9,7 @@
 				      <a class="nav-link text-primary" href="../admin/admin.jsp">관리자 페이지</a>
 				    </li>
 				    <li class="nav-item">
-				      <a class="nav-link active text-primary" aria-current="page" href="${pageContext.request.contextPath}/login/login.jsp">로그아웃</a>
+				      <a class="nav-link active text-primary" aria-current="page" href="${pageContext.request.contextPath}/login/logout.jsp">로그아웃</a>
 				    </li>
 				    <li class="nav-item">
 				      <a class="nav-link text-primary" href="../mypage/mypage.jsp">마이페이지</a>

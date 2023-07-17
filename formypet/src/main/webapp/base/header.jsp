@@ -3,11 +3,14 @@
 <a href="${pageContext.request.contextPath}/index.jsp" class="logo">
 	<h1>For my Pet</h1>
 </a>
-
+<% 
+	String id = (String)session.getAttribute("idKey");  
+ 	if(id!=null && id!=""){
+%>
 <div id="navi1">
 <ul class="nav justify-content-end me-4">
     <li class="nav-item">
-      <a class="nav-link active text-primary" aria-current="page" href="${pageContext.request.contextPath}/login/login.jsp">로그인</a>
+      <a class="nav-link active text-primary" aria-current="page" href="${pageContext.request.contextPath}/login/logout.jsp">로그아웃</a>
     </li>
     <li class="nav-item">
       <a class="nav-link text-primary" href="${pageContext.request.contextPath}/mypage/mypage.jsp">마이페이지</a>
@@ -17,6 +20,21 @@
     </li>
 </ul>
 </div>
+<%} else { %>
+<div id="navi1">
+<ul class="nav justify-content-end me-4">
+    <li class="nav-item">
+      <a class="nav-link active text-primary" aria-current="page" href="${pageContext.request.contextPath}/login/login.jsp">로그인</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-primary" href="${pageContext.request.contextPath}/login/signup.jsp">회원가입</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link text-primary" href="${pageContext.request.contextPath}/cart/cart.jsp">장바구니</a>
+    </li>
+</ul>
+</div>
+<% } %>
 
 <div id="navi2">
 <ul class="menu">

@@ -109,6 +109,7 @@ public class MemberMgr {
 				}
 				return flag;
 			}
-		}
+		
+}
 
 				

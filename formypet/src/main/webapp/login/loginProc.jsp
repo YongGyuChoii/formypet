@@ -25,6 +25,7 @@
 		    session.setAttribute("idKey",memId);
 			  //session에 id 저장.
 		    msg = "로그인에 성공 하였습니다.";
+		    url = "../index.jsp";
 		  }
 	%>
 </body>
