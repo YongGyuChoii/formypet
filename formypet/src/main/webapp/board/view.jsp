@@ -2,8 +2,11 @@
     pageEncoding="UTF-8"%>
     
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="bbs.bbs" %>
+<%@ page import="bbs.Bbs" %>
 <%@ page import="bbs.BbsDAO" %>
+<%@ page import="comment.Comment" %>
+<%@ page import="comment.CommentDAO" %>
+<%@ page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,6 +18,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+	a, a:hover{
+		color: #000000;
+		text-decoration:none;
+	}
+</style>
 </head>
 <body>
 <%
@@ -24,9 +33,9 @@
         userID = (String)session.getAttribute("idKey");
     }
     int bbsID = 0;
-    if (request.getParameter("bbsId") != null)
+    if (request.getParameter("bbsID") != null)
     {
-        bbsID = Integer.parseInt(request.getParameter("bbsId"));
+        bbsID = Integer.parseInt(request.getParameter("bbsID"));
     }
     if (bbsID == 0)
     {
@@ -36,7 +45,7 @@
         script.println("location.href = 'list.jsp'");
         script.println("</script>");
     }
-    bbs bbs = new BbsDAO().getBbs(bbsID);
+    Bbs bbs = new BbsDAO().getBbs(bbsID);
 %>
 
     <div id="wrap">
@@ -47,8 +56,9 @@
     <!--header 끝-->
 
     <!--main 시작-->
+    <br/>
     <div class="container">
-        <div class="row">
+        <div>
             <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
                 <thead>
                     <tr>
@@ -83,13 +93,78 @@
                 {
             %>
                 <a href="update.jsp?bbsID=<%=bbsID %>" class="btn btn-primary">수정</a>
-                <a href="deleteAction.jsp?bbsID=<%=bbsID %>" class="btn btn-primary">삭제</a>
-                
-            <%     
-                }
-            %>
+                <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%=bbsID %>" class="btn btn-primary">삭제</a>
+            <% } %>
+        <div class="container">
+    	<div>
+    		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+    			<tbody>
+    				<tr>
+						<td align="left" bgcolor="beige">댓글</td>
+					</tr>
+					<tr>
+					<%
+						CommentDAO commentDAO = new CommentDAO();
+						ArrayList<Comment> list = commentDAO.getList(bbsID);
+						for(int i=0; i<list.size(); i++) {					
+					%>
+					<div class="container">
+						<div>
+							<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+								<tbody>
+								<tr>
+								<td align="left"><%= list.get(i).getUserID() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=list.get(i).getCommentDate().substring(0,11) + list.get(i).getCommentDate().substring(11,13) + "시" + list.get(i).getCommentDate().substring(14,16) + "분" %></td>
+								<td colspan="2"></td>
+								<td align="right">												
+								<%
+									if(list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)) {
+								%>
+								<form name = "p_search">
+									<a type="button" onclick="nwindow(<%=bbsID %>,<%=list.get(i).getCommentID() %>)" class="btn=primary">수정</a>
+								</form>
+									<a onclick="return confirm('정말로 삭제하시겠습니까?')" href = "commentDeleteAction.jsp?bbsID=<%=bbsID %>&commentID=<%= list.get(i).getCommentID() %>" class="btn-primary">삭제</a>
+								<% } %>
+								</td>
+								</tr>
+								<tr><td colspan="1" align="left"><%= list.get(i).getCommentText()%></td></tr>								
+								</tbody>
+							</table>
+						</div>
+					</div>	
+					<% } %>			
+    			</tbody>
+    			<br/>
+    		</table>
+    		
+ <!-- 댓글 작성 시작 -->   		
+   	 <div class="container">
+    	<div class="from-group">
+    		<form method="post" action="commentAction.jsp?bbsID=<%= bbsID %>">
+    			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+    				<tr>
+						<td style="border-bottom:none;" valign="middle"><br><br><%=userID %></td>
+						<td><input type="text" style="height:100px;" class="form-control" placeholder="상대방을 존중하는 댓글을 남깁시다." name="commentText"></td>
+						<td><br><br><input type="submit" class="btn btn-primary" value="댓글 작성"></td>
+					</tr>
+				</table>
+    		</form>
+    	</div>
+    </div>
+    	</div>
+    </div>
+    
         </div>
     </div>
+
+
+    <script type="text/javascript">
+	function nwindow(bbsID,commentID){
+		window.name = "commentParant";
+		var url= "commentUpdate.jsp?bbsID="+bbsID+"&commentID="+commentID;
+		window.open(url,"","width=600,height=230,left=300");
+	}
+	</script>
+    
     <!--main 끝-->
 
     <!-- 오른쪽 맨위 맨아래 화살표 -->

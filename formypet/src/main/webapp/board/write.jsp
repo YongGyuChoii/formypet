@@ -20,8 +20,8 @@
     <!--header 끝-->
 
     <!--main 시작-->
-    <br/><br/><br/><br/>
-    <div class="container">
+    <br/>
+    <div class= "container">
     	<div class= "row">
     		<form method="post" action="write_ok.jsp">
     			<table class= "table table-stripped" style= "text-align: center; boarder: 1px solid #dddddd">
