@@ -45,6 +45,7 @@
                         	           			ExpendsManagementBean exBean = vlist.get(i);
                         %>
             <tr>
+            	<td><%=exBean.getExpendsDate() %></td>
                 <td><%=exBean.getExpendsSection() %></td>
                 <td><%=exBean.getExpendsContents() %></td>
                 <td><%=exBean.getExpendsValue() %></td>

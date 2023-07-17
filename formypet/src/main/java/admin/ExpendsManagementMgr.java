@@ -52,7 +52,7 @@ public class ExpendsManagementMgr {
 			  while (rs.next()) {
 				  
 				  ExpendsManagementBean bean = new ExpendsManagementBean();//RegisterBean 클래스 객체생성
-	             
+	             bean.setExpendsDate(rs.getString("expendsDate"));
 			 	 bean.setExpendsSection (rs.getString("expendsSection"));
 			 	 //RegisterBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.
 				 bean.setExpendsContents (rs.getString("expendsContents"));	 			 

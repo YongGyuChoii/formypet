@@ -22,7 +22,7 @@
       </header>
     <!--header 끝-->
     <!-- table 시작 -->
-    <div class="container"> 
+    <div class="container" style = "overflow:auto"> 
     		<h2>상품 관리</h2>    
         <table class="table-body">
            
@@ -54,12 +54,12 @@
             		}
                 %>  
                 <p>total records : <%=counter %></p>           
-            <p><a href = "../admin/productFileuploard.jsp"><input type = "button" value = "상품 추가"></a></p>
+            <p><input type = "button" value = "상품 추가" onclick = fileupload()></a></p>
             </tr>                        
             </tbody>
         </table> 
     </div>     
-           
+          
     <!--table 끝-->
     <!-- 오른쪽 맨위 맨아래 화살표 -->
     <%@include file="/base/rightAside.jsp"%>
@@ -70,6 +70,18 @@
       <%@include file="/base/footer.jsp"%>
     </footer>   
     <!-- footer 끝.-->
-    </div>
+   </div>  
 </body>
 </html>
+<script>
+	
+	function fileupload() {
+		
+		url = "productFileupload.jsp?search=n";
+		window.open(url, "productFileupload", "width=800, height=600, scrollbars=yes");
+		
+	}
+
+
+
+</script>
