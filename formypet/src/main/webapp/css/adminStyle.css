@@ -34,20 +34,18 @@
 table-body {
     padding:1.5em;
     background: #f5f5f5;
-    float: left;
-    
+    float: right;
   }
   
   table {
     border: 1px #a39485 solid;
     font-size: .9em;
     box-shadow: 0 2px 5px rgba(0,0,0,.25);
-    width: 1200px;
-    height: 500px;
+    width: 1000px;
     border-collapse: collapse;
     border-radius: 5px;
-   	overflow: scroll;
-    float: left;
+    overflow: hidden;
+    float: right;
   }
   
   th {
@@ -98,7 +96,7 @@ table-body {
     
     tbody {
       overflow-x: auto;
-      overflow-y: auto;
+      overflow-y: hidden;
       position: relative;
       white-space: nowrap;
     }

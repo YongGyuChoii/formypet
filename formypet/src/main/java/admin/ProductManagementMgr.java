@@ -20,181 +20,264 @@ import javax.servlet.jsp.PageContext;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-import util.DBConnectionMgr;
+import admin.DBConnectionMgr;
 import util.UtilMgr;
 import admin.ProductManagementBean;
 
 public class ProductManagementMgr {
-	//final 키워드를 사용하여 String 타입 변수를 선언한 다음, DB 연결에 필요한 정보를 대입합니다.
-	
-	 	private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	 	
-	 	private final String JDBC_URL = "jdbc:mysql://localhost:3306/formypet";
-	 	
-	 	private final String USER = "root";
-	 
-	 	private final String PASS = "0000"; 
-	 	
-	 	//파일 업로드 관련 설정 작성
-	 	private DBConnectionMgr pool;		
-		private static final String  SAVEFOLDER = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/filestorage";//수정필요
-		private static final String ENCTYPE = "UTF-8";
-		private static int MAXSIZE = 10*1024*1024;
-	 
-	 	public ProductManagementMgr() {
-	 		
-	 	 try{
-	 	   Class.forName(JDBC_DRIVER);//변수를 이용하여 연결정보 삽입.
-	 	   
-	 	   }catch(Exception e){
-	 	      System.out.println("Error : JDBC 드라이버 로딩 실패");
-	 	   }
-	     }
-	 
-	    public Vector<ProductManagementBean> getpmList() {
-	    	
-	    	//DB 연결 하는 Connection 객체생성
-		   Connection conn = null;
-		   
-		   //SQL 쿼리 담을 Statement 객체 생성
-		   Statement stmt = null;
-		   
-		   //결과값 담을 ResultSet 객체 생성
-	       ResultSet rs = null;
-	       
-	       //ProductManagementBean 타입의 Vector 배열 vlist 선언
-	       Vector<ProductManagementBean> vlist = new Vector<ProductManagementBean>();
-	       
-	       try {
-	    	  //DB연결 시작
-	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
-	          
-	          String strQuery = "select * from product";
-	          
-	          stmt = conn.createStatement();
-	          
-	          rs = stmt.executeQuery(strQuery);
-	          
-	          //while 반복문을 사용하여 resultset 객체인 rs에 담긴 조회쿼리 결과를 
-	          //ProductManagementBean 클래스에 선언된 변수에 대입 한다.
-			  while (rs.next()) {
-				  
-				  ProductManagementBean bean = new ProductManagementBean();//RegisterBean 클래스 객체생성
-	             
-			 	 bean.setProductName (rs.getString("productName"));
-			 	 //ProductManagementBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.
-			 	 bean.setProductPrice(rs.getInt("productPrice"));
-	 			 bean.setDelYn(rs.getString("delYn"));
-	 			 vlist.addElement(bean);
-	          }
-			  //예외처리
-	       } catch (Exception ex) {
-	          System.out.println("Exception" + ex);
-	       } finally {
-	          if(rs!=null)   try{rs.close();}  catch(SQLException e){}
-			  if(stmt!=null) try{stmt.close();}catch(SQLException e){}
-		      if(conn!=null) try{conn.close();}catch(SQLException e){}
-	       }
-	       return vlist; //결과 값을 vlist 로 리턴.
-	    }
-	    
-	    //product table 업로드 메서드
-	    
-	    public void uploadFile(HttpServletRequest request) {
 
-	    	//DB 연결 하는 Connection 객체생성
-			   Connection conn = null;
-			   
-			   //SQL 쿼리 담을 Statement 객체 생성
-			   Statement stmt = null;
-			   
-			   //결과값 담을 ResultSet 객체 생성
-		       ResultSet rs = null;
-		       
-				    		
-		ArrayList fileSaveName = new ArrayList(); //product_file fileSaveName
-		ArrayList fileOrignalName = new ArrayList(); //product_file fileOrignalName
-		
-		try{
-			
-			//MultipartRequest 객체를 이용하여 파일 업로드 처리를 합니다.
-			//MultipartRequest 객체를 사용하려면 WEB-INF/lib 폴더 경로에 cos.jar 파일이 존재해야 합니다.
-			//DB연결 시작
-	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
-	          
-	          String strQuery = "select * from product";
-	          
-	          stmt = conn.createStatement();
-	          
-	          rs = stmt.executeQuery(strQuery);
-			
-			MultipartRequest multi = new MultipartRequest( request,SAVEFOLDER,MAXSIZE,ENCTYPE,new DefaultFileRenamePolicy());
-			strQuery = "insert into product(productName,productComment,productInfo,productDetail,productCaution,"
-					+ "productPrice,productSalePrice,productCount,productKind,productImg,categoryKey)"
-					+"insert product_file (fileOriginalName,fileSaveName,size,productKey)";//하나 더 추가
-			strQuery += "values(?, ?, ?, ?, ?, 0,0,0, ?, ?, 0,?,?,?,0)"; //int로 바꾼후 0으로 바꾸기
-			//총 15개 Bean product 11개   product_file 4개
-			stmt = conn.prepareStatement(strQuery);
-			
-			((PreparedStatement) stmt).setString(1, multi.getParameter("productName"));//파일이름
-			((PreparedStatement) stmt).setString(2, multi.getParameter("productKind"));//상품 내용 fileComment img 업로드
-			((PreparedStatement) stmt).setString(3, multi.getParameter("productInfo")); //productInfo img 업로드
-			((PreparedStatement) stmt).setString(4, multi.getParameter("productDetail"));//productDetail img 업로드
-			((PreparedStatement) stmt).setString(5, multi.getParameter("productCaution")); //productCaution img 업로드
-			((PreparedStatement) stmt).setInt(6, Integer.parseInt(request.getParameter("productPrice"))); //productPrice  int로 바꾸기
-			((PreparedStatement) stmt).setInt(7, Integer.parseInt(request.getParameter("productSalePrice")));//productSalePrice int로 바꾸기
-			((PreparedStatement) stmt).setInt(8, Integer.parseInt(request.getParameter("productCount"))); //productCount int로 바꾸기
-			((PreparedStatement) stmt).setString(9, multi.getParameter("productKind")); //productKind 
-			((PreparedStatement) stmt).setString(10, multi.getParameter("productImg")); //productImg 
-			((PreparedStatement) stmt).setInt(11, Integer.parseInt(request.getParameter("categoryKey"))); //categoryKey int로 바꾸기
-			((PreparedStatement) stmt).setString(12, multi.getParameter("fileOrignalName")); //fileOrignalName
-			((PreparedStatement) stmt).setString(13, multi.getParameter("fileSaveName")); //fileSaveName
-			((PreparedStatement) stmt).setString(14, multi.getParameter("size")); //size
-			((PreparedStatement) stmt).setInt(15, Integer.parseInt(request.getParameter("productKey"))); //productKey int로 바꾸기
-			stmt.executeUpdate(strQuery, 0); 
-			
+	private DBConnectionMgr pool;
+	//파일 업로드 관련 설정 작성
+	private static final String  SAVEFOLDER = "C:/formypet/src/main/webapp/filestorage";
+	private static final String ENCTYPE = "UTF-8";
+	private static int MAXSIZE = 100000*1024*1024;
+
+	public ProductManagementMgr() {
+		try {
+		pool = DBConnectionMgr.getInstance();
 		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-	          if(rs!=null)   try{rs.close();}  catch(SQLException e){}
-			  if(stmt!=null) try{stmt.close();}catch(SQLException e){}
-		      if(conn!=null) try{conn.close();}catch(SQLException e){}
-	       }
+		e.printStackTrace();
+		}
+	}
+
+
+	//상품 리스트
+	public Vector<ProductManagementBean> getpmList() {
+
+	Connection con  = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	String sql = null;
+	
+	Vector<ProductManagementBean> vlist = new Vector<ProductManagementBean>();
+	
+	try {
+		con = pool.getConnection();
 		
-		//prodcut_file
-		try{
-			
-			//MultipartRequest 객체를 이용하여 파일 업로드 처리를 합니다.
-			//MultipartRequest 객체를 사용하려면 WEB-INF/lib 폴더 경로에 cos.jar 파일이 존재해야 합니다.
-			//DB연결 시작
-	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
-	          
-	          String strQuery = "select * from product_file";
-	          
-	          stmt = conn.createStatement();
-	          
-	          rs = stmt.executeQuery(strQuery);
-			
-			MultipartRequest multi = new MultipartRequest( request,SAVEFOLDER,MAXSIZE,ENCTYPE,new DefaultFileRenamePolicy());
-			strQuery = "insert into product_file (fileOriginalName,fileSaveName,size,productKey)";
-			strQuery += "values(0, 0, 0, ? )"; 
-			//총 15개 Bean product 11개   product_file 4개
-			stmt = conn.prepareStatement(strQuery);
-			 
-			
-			((PreparedStatement) stmt).setString(12, multi.getParameter("fileOrignalName")); //fileOrignalName
-			((PreparedStatement) stmt).setString(13, multi.getParameter("fileSaveName")); //fileSaveName
-			((PreparedStatement) stmt).setString(14, multi.getParameter("size")); //size
-			((PreparedStatement) stmt).setInt(15, Integer.parseInt(request.getParameter("productKey"))); //productKey int로 바꾸기
-			stmt.executeUpdate(strQuery, 0); 
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-	          if(rs!=null)   try{rs.close();}  catch(SQLException e){}
-			  if(stmt!=null) try{stmt.close();}catch(SQLException e){}
-		      if(conn!=null) try{conn.close();}catch(SQLException e){}
-	       }
-	    }
-	    
+		sql = "select * from product";
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		while (rs.next()) {
+				
+			ProductManagementBean bean = new ProductManagementBean();
+				
+		 	 bean.setProductName (rs.getString("productName"));
+		 	 //ProductManagementBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.
+		 	 bean.setProductPrice(rs.getInt("productPrice"));
+ 			 bean.setDelYn(rs.getString("delYn"));
+ 			 vlist.add(bean);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		pool.freeConnection(con, pstmt, rs);
+	}
+	return vlist;
+}
+//상품 등록 페이지 (product db용)
+public void uploadproduct(HttpServletRequest request) {
+
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	String sql = null;
+	
+	MultipartRequest multi = null;
+	int filesize = 0; //파일 용량 변수
+	String productInfo = null;
+	String productDetail = null;
+	String productCaution = null;
+	String productImg = null;
+	
+try {
+	con = pool.getConnection();
+	//sql =  "select * from product";
+	pstmt = con.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+		
+	File file = new File(SAVEFOLDER);
+	
+	//exists() 메서드 : 파일이 존재 하는지 여부를 알아 내는 메서드
+	//파일이 존재 한다면 true, 없으면 false 값을 반환.
+	if (!file.exists()) //파일이 존재 한다면
+		file.mkdirs(); //mkdirs() : 파일 디렉토리 만드는 메서드 
+	multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,
+			new DefaultFileRenamePolicy());
+
+	if (multi.getFilesystemName("productInfo") != null) {
+		productInfo = multi.getFilesystemName("productInfo");
+		filesize = (int) multi.getFile("productInfo").length();
+	}
+	if (multi.getFilesystemName("productDetail") != null) {
+		productDetail = multi.getFilesystemName("productDetail");
+		filesize = (int) multi.getFile("productDetail").length();
+	}
+	if (multi.getFilesystemName("productCaution") != null) {
+		productCaution = multi.getFilesystemName("productCaution");
+		filesize = (int) multi.getFile("productCaution").length();
+	}
+	if (multi.getFilesystemName("productImg") != null) {
+		productImg = multi.getFilesystemName("productImg");
+		filesize = (int) multi.getFile("productImg").length();
+	}
+	
+	System.out.println("쿼리 입력 전.");
+	
+	System.out.println(request.getParameter("productInfo"));
+	
+	sql = "insert into product(productName,productComment,productInfo,productDetail,productCaution,productPrice,productSalePrice,productCount,productKind,productImg,categoryKey,filesize)";
+				
+	sql += "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)"; //int로 바꾼후 0으로 바꾸기
+	//총 15개 Bean product 11개   product_file 4개
+	pstmt = con.prepareStatement(sql);
+
+	pstmt.setString(1, multi.getParameter("productName"));//파일이름
+	
+	System.out.println("productName = " + multi.getParameter("productName"));
+	
+	pstmt.setString(2, multi.getParameter("productComment"));//상품 내용 fileComment 
+	
+	System.out.println("productComment = " + multi.getParameter("productComment"));
+	
+	pstmt.setString(3, productInfo); //productInfo img 업로드
+	
+	System.out.println("productInfo = " + productInfo);
+	
+	pstmt.setString(4, productDetail);//productDetail img 업로드
+	
+	System.out.println("productDetail = " + productDetail);
+	
+	pstmt.setString(5, productCaution); //productCaution img 업로드
+	
+	System.out.println("productCaution = " + productCaution);
+	
+	pstmt.setInt(6, Integer.parseInt(multi.getParameter("productPrice"))); //productPrice  int로 바꾸기
+	
+	System.out.println("productPrice = " + multi.getParameter("productPrice"));
+	
+	pstmt.setInt(7, Integer.parseInt(multi.getParameter("productSalePrice")));//productSalePrice int로 바꾸기
+	
+	System.out.println("productSalePrice = " + multi.getParameter("productSalePrice"));
+	
+	pstmt.setInt(8, Integer.parseInt(multi.getParameter("productCount"))); //productCount int로 바꾸기
+	
+	System.out.println("productCount = " + multi.getParameter("productCount"));
+	
+	pstmt.setString(9, multi.getParameter("productKind")); //productKind 
+	
+	System.out.println("productKind = " + multi.getParameter("productKind"));
+	
+	pstmt.setString(10, productImg); //productImg 
+	
+	System.out.println("productImg = " + productImg);
+	
+	pstmt.setInt(11, Integer.parseInt(multi.getParameter("categoryKey"))); //categoryKey int로 바꾸기
+	
+	System.out.println("categoryKey = " + multi.getParameter("categoryKey"));
+	
+	pstmt.setInt(12, filesize); //filesize 파일 용량 변수
+	
+	System.out.println("filesize = " + filesize);
+	
+	pstmt.executeUpdate(); 
+}catch (Exception e) {
+	e.printStackTrace();
+}	
+finally {
+	pool.freeConnection(con,pstmt,rs);
+}
+}
+
+//상품 등록 페이지 (product_file db용)
+public void uploadFile(HttpServletRequest request) {//product_file db 업로드 설정
+
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	String sql = null;
+	String fileSaveName = null; //파일 이름 변수
+	String fileOrignalName = null; //파일 이름 변수
+	MultipartRequest multi = null;
+	int size = 0; //파일 용량 변수
+
+try {
+	con = pool.getConnection();
+	
+	pstmt = con.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+		
+	File file = new File(SAVEFOLDER);
+	
+
+	if (multi.getFilesystemName("fileSaveName") != null) {
+		fileSaveName = multi.getFilesystemName("fileSaveName");
+		size = (int) multi.getFile("fileSaveName").length();
+	}
+	if (multi.getFilesystemName("fileOrignalName") != null) {
+		fileOrignalName = multi.getFilesystemName("fileOrignalName");
+		size = (int) multi.getFile("fileOrignalName").length();
+	}
+	
+	//exists() 메서드 : 파일이 존재 하는지 여부를 알아 내는 메서드
+	//파일이 존재 한다면 true, 없으면 false 값을 반환.
+	if (!file.exists()) //파일이 존재 한다면
+			file.mkdirs(); //mkdirs() : 파일 디렉토리 만드는 메서드 
+		multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,new DefaultFileRenamePolicy());
+
+	sql = "insert into product_file(fileOrignalName,fileSaveName,size,productKey)";
+				
+	sql += "values(?, ?, 0, ?)"; //int로 바꾼후 0으로 바꾸기
+	//총 16개 Bean product 12개   product_file 4개
+	pstmt = con.prepareStatement(sql);
+	
+	pstmt.setString(1, fileOrignalName);//파일 이름
+	pstmt.setString(2, fileSaveName);//파일 이름  
+	pstmt.setInt(3, size); //파일 용량
+	pstmt.setInt(4, Integer.parseInt(multi.getParameter("productKey"))); //상품 고유  키 꼭 입력 바람
+	pstmt.executeUpdate(); 
+}catch (Exception e) {
+	e.printStackTrace();
+}	
+finally {
+	pool.freeConnection(con,pstmt,rs);
+}
+}
+
+//상품 수정
+public void updateproduct(ProductManagementBean bean) {
+	
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	String sql = null;
+	
+	try {
+		con = pool.getConnection();
+
+		//updateproduct 쿼리로 상품을 수정한다.
+		//num으로 수정할 상품을 찾아서 수정
+		sql = "update product set productName = ?, productComment = ?, productInfo = ?, productDetail = ?, productCaution = ?, productPrice = ?, productSalePrice = ? ,productCount = ? , productKind = ?, porductImg = ?, categoryKey = ?";
+		
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, bean.getProductName());
+		pstmt.setString(2, bean.getProductComment());	
+		pstmt.setString(3, bean.getProductInfo());
+		pstmt.setString(4, bean.getProductDetail());
+		pstmt.setString(5, bean.getProductCaution());	
+		pstmt.setInt(6, bean.getProductPrice());
+		pstmt.setInt(7, bean.getProductSalePrice());
+		pstmt.setInt(8, bean.getProductCount());
+		pstmt.setString(9, bean.getProductKind());	
+		pstmt.setString(10, bean.getProductImg());
+		pstmt.setInt(11, bean.getCategoryKey());
+		pstmt.executeUpdate();
+	}catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		pool.freeConnection(con, pstmt);
+	}
+}
+
 	}

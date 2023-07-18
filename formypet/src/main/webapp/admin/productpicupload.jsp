@@ -6,32 +6,23 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>파일 추가</title>
+	<title>상품 사진 추가 페이지</title>
+	<script src="../js/productFileupload.js"></script>
 </head>
 <body>
 	<div align="center">
 		<br/><br/>
 		<table width="600" cellpadding="3">
 			<tr>
-				<td  align="center">상품 추가</td>
+				<td  align="center">상품 사진 추가</td>
 			</tr>
 		</table>
 		<!-- form 태그의 action 이 BoardPostSevlet 클래스의 url 맵핑 을 찾아서 이동한다. -->
-		<form name="postFrm" method="post" action="productFileupload" enctype="multipart/form-data">
+		<form name="postFrm" method="post" action="productPicupload" enctype="multipart/form-data">
 		<table width="800" cellpadding="3" align="center">
 			<tr>
 				<td align=center>
 				<table align="center" bgcolor = "skyblue">
-					<tr>
-						<td>상품 이름</td>
-						<td>
-						<input name="productName" size="30" maxlength="30"></td>
-					</tr>
-					<tr>
-						<td>상품 내용</td>
-				     	<td id = "pct"><input name="productComment" size="30" maxlength="30" >
-				     	</td>				     	
-					</tr>
 					<tr>
 						<td>상품 설명 사진</td>
 						<td id = "pi"><input type="file" name="productInfo" size="30" maxlength="30">
@@ -47,31 +38,14 @@
 						<td id = "pca"><input type="file" name="productCaution" size="30" maxlength="30">
 				     	<input type="button" onclick = "additem4()" value="추가"></td>
 					</tr>
-					<tr>
-						<td>상품 가격</td>
-						<td><input name="productPrice" size="30" maxlength="30"></td>
-					</tr>
-					<tr>
-						<td>상품 할인 가격</td>
-						<td><input name="productSalePrice" size="30" maxlength="30"></td>
-					</tr>
-					<tr>
-					<tr>
-				     	<td>상품 개수</td> 
-				     	<td><input name="productCount" size="30" maxlength="30"></td>
-				    </tr>
-				 	<tr>
-				     	<td>애완동물 종 선택</td> 
-				     	<td><input name="productKind" size="30" maxlength="50"></td>
-				    </tr>
 				 	<tr>
 				     	<td>상품 대표 이미지</td> 
 				     	<td id = "pti"><input type="file" name="productImg" size="30" maxlength="30">
 				     	<input type="button" onclick = "additem5()" value="추가"></td>
 				    </tr>
 				    <tr>
-				     	<td>상품 카테고리</td> 
-				     	<td><input name="categoryKey" size="30" maxlength="30"></td>
+				     	<td>상품 키</td> 
+				     	<td><input name="productKey" size="30" maxlength="50"></td>
 				    </tr>
 					<tr>
 						<td colspan="2"><hr/></td>

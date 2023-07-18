@@ -10,7 +10,6 @@ public class ProductManagementBean {
 	private int productPrice;
 	private int productSalePrice;
 	private int productCount;
-	private String productFileuploards;
 	private String productKind;
 	private String productImg;
 	private int categoryKey;
@@ -45,9 +44,7 @@ public class ProductManagementBean {
 	public int getProductCount() {
 		return productCount;
 	}
-	public String getProductFileuploards() {
-		return productFileuploards;
-	}
+
 	public String getProductKind() {
 		return productKind;
 	}
@@ -98,9 +95,7 @@ public class ProductManagementBean {
 	public void setProductCount(int productCount) {
 		this.productCount = productCount;
 	}
-	public void setProductFileuploards(String productFileuploards) {
-		this.productFileuploards = productFileuploards;
-	}
+
 	public void setProductKind(String productKind) {
 		this.productKind = productKind;
 	}
