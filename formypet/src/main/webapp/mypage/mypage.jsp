@@ -126,7 +126,7 @@
               </a>
             </div>
             <div class="listContainer">
-              <a href="#" class="item">
+              <a href="${pageContext.request.contextPath}/mypage/mypageship.jsp" class="item">
                   <div class="icon">ii</div>
                   <div class="text">
                     <span>배송지 관리</span>
