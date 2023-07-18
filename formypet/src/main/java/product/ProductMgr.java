@@ -32,7 +32,7 @@ public class ProductMgr {
 			
 			con = pool.getConnection();
 			//주문 수대로 내림차순 정렬하고 위에서 3개 불러옴
-			sql = "select * from product where categoryKey=1 and delYn='N' order by productOrderCount desc limit 3";
+			sql = "select * from product where categoryKey=1 and delYn='N' order by productOrderCount desc LIMIT 3";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -73,7 +73,7 @@ public class ProductMgr {
 			
 			con = pool.getConnection();
 			//주문 수대로 내림차순 정렬하고 위에서 3개 불러옴
-			sql = "select * from product where categoryKey=6 and delYn='N' order by productOrderCount desc limit 3";
+			sql = "select * from product where categoryKey=6 and delYn='N' order by productOrderCount desc LIMIT 3";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -114,7 +114,7 @@ public class ProductMgr {
 				
 				con = pool.getConnection();
 				//주문 수대로 내림차순 정렬하고 위에서 3개 불러옴
-				sql = "select * from product where categoryKey=4 and delYn='N' order by productOrderCount desc limit 3";
+				sql = "select * from product where categoryKey=4 and delYn='N' order by productOrderCount desc LIMIT 3";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
@@ -155,7 +155,7 @@ public class ProductMgr {
 				
 				con = pool.getConnection();
 				//주문 수대로 내림차순 정렬하고 위에서 3개 불러옴
-				sql = "select * from product where categoryKey=7 and delYn='N' order by productOrderCount desc limit 3";
+				sql = "select * from product where categoryKey=7 and delYn='N' order by productOrderCount desc LIMIT 3";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
@@ -196,7 +196,7 @@ public class ProductMgr {
 				
 				con = pool.getConnection();
 				//주문 수대로 내림차순 정렬하고 위에서 3개 불러옴
-				sql = "select * from product where categoryKey=5 and delYn='N' order by productOrderCount desc limit 3";
+				sql = "select * from product where categoryKey=5 and delYn='N' order by productOrderCount desc LIMIT 3";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				

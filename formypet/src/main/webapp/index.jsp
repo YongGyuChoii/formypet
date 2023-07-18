@@ -12,6 +12,8 @@
 	ArrayList<ProductBean> llist = pMgr.getLivingList(); //리빙
 	ArrayList<ProductBean> clist = pMgr.getClothesList(); //드레스
 	ArrayList<ProductBean> wlist = pMgr.getWalkList(); //플레이룸
+	
+	int count = 0; //모달을 위한 변수
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,7 +28,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  </head>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>  
+</head>
 <body>
     <div id="wrap">
     <!-- header 시작-->
@@ -64,12 +67,44 @@
                 <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
                 <fmt:formatNumber value="<%=b.getProductPrice() %>" pattern="#,###"/>원</span>
                 <fmt:formatNumber value="<%=b.getProductSalePrice() %>" pattern="#,###"/>원
-                <a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a>
+                
+					<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
+	                shopping_bag
+	             	</span></a>
+					
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal<%=count%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">옵션 선택</h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        <p class="fw-bold">
+					        	<%=b.getProductName() %>
+					        </p>
+					        <hr />
+					        <div class="row">
+					        	<div class="col-3">
+					        		<img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진" />
+					        	</div>
+					        	<div class="col-3"></div>
+					        	<div class="col-6"></div>
+					        </div>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					        <button type="button" class="btn btn-primary">Save changes</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+				
                 </p>
                 <span class="Best">BEST</span>
               	</div>
+              	<%count++;%>
               <%} %>
             </div>
 		</div>
@@ -219,5 +254,6 @@
     </footer>
     <!-- footer 끝.-->
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
