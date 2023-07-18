@@ -15,11 +15,11 @@
 </head>
 <body>
     <%
-    	String userID = null;
+    	String memId = null;
     	if (session.getAttribute("idKey") != null){
-            userID = (String) session.getAttribute("idKey");
+            memId = (String) session.getAttribute("idKey");
     	}
-    	if (userID == null){
+    	if (memId == null){
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인하세요.')");
@@ -34,7 +34,7 @@
                 script.println("</script>");
         	}else{
         		BbsDAO bbsDAO = new BbsDAO();
-                int result = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+                int result = bbsDAO.write(bbs.getBbsTitle(), memId, bbs.getBbsContent());
                 if (result == -1){ // 글쓰기 실패시
                     PrintWriter script = response.getWriter();
                     script.println("<script>");

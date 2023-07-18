@@ -8,24 +8,6 @@
 <%@ page import="comment.CommentDAO" %>
 <%@ page import="java.util.ArrayList"%>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Pet</title>
-    <link rel="stylesheet"  href="../css/base.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <style type="text/css">
-	a, a:hover{
-		color: #000000;
-		text-decoration:none;
-	}
-</style>
-</head>
-<body>
 <%
     String userID = null; // 로그인이 된 사람들은 로그인정보를 담을 수 있도록한다
     if (session.getAttribute("idKey") != null)
@@ -48,6 +30,24 @@
     Bbs bbs = new BbsDAO().getBbs(bbsID);
 %>
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Pet</title>
+    <link rel="stylesheet"  href="../css/base.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style type="text/css">
+	a, a:hover{
+		color: #000000;
+		text-decoration:none;
+	}
+</style>
+</head>
+<body>
     <div id="wrap">
     <!-- header 시작-->
     <header>
@@ -87,14 +87,16 @@
                     </tr>
                 </tbody>
             </table>
-            <a href="list.jsp" class="btn btn-primary">목록</a>
+            <a href="list.jsp" class="btn btn-primary" style="background-color:sky-blue; border:0;" >목록</a>
             <%
                 if(userID != null && userID.equals(bbs.getUserID()))
                 {
             %>
-                <a href="update.jsp?bbsID=<%=bbsID %>" class="btn btn-primary">수정</a>
-                <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%=bbsID %>" class="btn btn-primary">삭제</a>
+                <a href="update.jsp?bbsID=<%=bbsID %>" class="btn btn-primary" style="background-color:green; border:0;">수정</a>
+                <a onclick="return confirm('정말로 삭제하시겠습니까?')" href="deleteAction.jsp?bbsID=<%=bbsID %>" class="btn btn-primary" style="background-color:red; border:0;">삭제</a>
             <% } %>
+
+            <br/><br/><br/>
         <div class="container">
     	<div>
     		<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -108,7 +110,7 @@
 						ArrayList<Comment> list = commentDAO.getList(bbsID);
 						for(int i=0; i<list.size(); i++) {					
 					%>
-					<div class="container">
+
 						<div>
 							<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 								<tbody>
@@ -130,14 +132,14 @@
 								</tbody>
 							</table>
 						</div>
-					</div>	
+
 					<% } %>			
     			</tbody>
     			<br/>
     		</table>
     		
  <!-- 댓글 작성 시작 -->   		
-   	 <div class="container">
+
     	<div class="from-group">
     		<form method="post" action="commentAction.jsp?bbsID=<%= bbsID %>">
     			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -148,12 +150,10 @@
 					</tr>
 				</table>
     		</form>
+       	</div>
     	</div>
-    </div>
-    	</div>
-    </div>
-    
-        </div>
+       </div>
+      </div>
     </div>
 
 
