@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/productPicupload")
+@WebServlet("/admin/ProductPicupload")
 public class ProductPicuploadServlet extends HttpServlet {
 
 	//servlet 을 이용하여 이용할 클래스 의 객체를 생성하고, 메서드를 호출 한다.
@@ -18,7 +18,7 @@ public class ProductPicuploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		System.out.println("productFileuploadServlet 서블릿 접근 완료.");
+		System.out.println("productPicuploadServlet 서블릿 접근 완료.");
 	
 		request.setCharacterEncoding("UTF-8"); 
 		

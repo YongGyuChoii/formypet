@@ -69,7 +69,27 @@
 		      //document.body.appendChild(addItem);
 		      document.querySelector("#pti").append(addItem5);//파일 내용
 		   }
-	
+		//상품 사진 추가 페이지 바로가기
+		function picupload() {
+			
+			url = "productPicupload.jsp?search=n";
+			window.open(url, "productPicupload", "width=800, height=600, scrollbars=yes");
+			
+		}
+		
+		//상품 fileSaveName 저장
+		   function additem6(){
+		      
+		      console.log(additem6);
+		      
+		      let addItem6 = document.createElement('div');
+		      
+		      addItem6.innerHTML = '<input type="file" name="productImg" size="30" maxlength="30">';
+		      
+		      //document.body.appendChild(addItem);
+		      document.querySelector("#fsn").append(addItem6);//파일 내용
+}
+
 	//파일이 선택 되었는지 체크하는 함수
 	function elementCheck(formName){
 	   paramIndex = 1; 

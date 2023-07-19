@@ -49,12 +49,15 @@
                 <td><%= pBean.getProductCount()  %></td>
                 <td><%= pBean.getProductPrice()  %></td>
                 <td><%= pBean.getDelYn()  %></td>
-                <td><a href = "../admin/productFilechange.jsp"><input type = "button" value = "상품 수정"></a></td>   
+                <td><a href = "../admin/productFileupdate.jsp"><input type = "button" value = "상품 수정"></a></td>  
+                <td><a href = "../admin/productPicupdate.jsp"><input type = "button" value = "상품 상세 내용 수정"></a></td> 
                 <%
+                session.setAttribute("vlist",vlist);
             		}
                 %>  
                 <p>total records : <%=counter %></p>           
             <p><input type = "button" value = "상품 추가" onclick = fileupload()></a></p>
+            <p><input type = "button" value = "상품 상세 내용 추가 등록" onclick = picupload()></a></p>
             </tr>                        
             </tbody>
         </table> 
@@ -74,14 +77,20 @@
 </body>
 </html>
 <script>
-	
+	//productfileupload페이지
 	function fileupload() {
 		
 		url = "productFileupload.jsp?search=n";
 		window.open(url, "productFileupload", "width=800, height=600, scrollbars=yes");
 		
 	}
-
-
+	
+	//productpicupload페이지
+	function picupload() {
+		
+		url = "productPicupload.jsp?search=n";
+		window.open(url, "productPicupload", "width=800, height=600, scrollbars=yes");
+		
+	}
 
 </script>

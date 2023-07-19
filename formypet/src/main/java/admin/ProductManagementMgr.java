@@ -7,11 +7,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Vector;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.JspWriter;
@@ -67,6 +65,7 @@ public class ProductManagementMgr {
 		 	 bean.setProductPrice(rs.getInt("productPrice"));
  			 bean.setDelYn(rs.getString("delYn"));
  			 vlist.add(bean);
+
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -198,8 +197,8 @@ public void uploadFile(HttpServletRequest request) {//product_file db 업로드 
 	ResultSet rs = null;
 	
 	String sql = null;
-	String fileSaveName = null; //파일 이름 변수
-	String fileOrignalName = null; //파일 이름 변수
+	ArrayList fileSaveName = new ArrayList(); //파일 이름 변수
+	ArrayList fileOrignalName = new ArrayList(); //파일 이름 변수
 	MultipartRequest multi = null;
 	int size = 0; //파일 용량 변수
 
@@ -211,15 +210,13 @@ try {
 		
 	File file = new File(SAVEFOLDER);
 	
-
-	if (multi.getFilesystemName("fileSaveName") != null) {
-		fileSaveName = multi.getFilesystemName("fileSaveName");
-		size = (int) multi.getFile("fileSaveName").length();
+	Enumeration files = multi.getFileNames();
+	while(files.hasMoreElements()) {
+		String name = (String)files.nextElement();
+		fileSaveName.add(multi.getFilesystemName(name));
+		fileOrignalName.add(multi.getOriginalFileName(name));
 	}
-	if (multi.getFilesystemName("fileOrignalName") != null) {
-		fileOrignalName = multi.getFilesystemName("fileOrignalName");
-		size = (int) multi.getFile("fileOrignalName").length();
-	}
+	
 	
 	//exists() 메서드 : 파일이 존재 하는지 여부를 알아 내는 메서드
 	//파일이 존재 한다면 true, 없으면 false 값을 반환.
@@ -233,8 +230,8 @@ try {
 	//총 16개 Bean product 12개   product_file 4개
 	pstmt = con.prepareStatement(sql);
 	
-	pstmt.setString(1, fileOrignalName);//파일 이름
-	pstmt.setString(2, fileSaveName);//파일 이름  
+	pstmt.setArray(1, (Array) fileOrignalName);//파일 이름
+	pstmt.setArray(2, (Array) fileSaveName);//파일 이름  
 	pstmt.setInt(3, size); //파일 용량
 	pstmt.setInt(4, Integer.parseInt(multi.getParameter("productKey"))); //상품 고유  키 꼭 입력 바람
 	pstmt.executeUpdate(); 
@@ -246,8 +243,43 @@ finally {
 }
 }
 
-//상품 수정
+//상품 수정 (product db용)
 public void updateproduct(ProductManagementBean bean) {
+	
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	String sql = null;
+	
+	try {
+		con = pool.getConnection();
+
+		//updateproduct 쿼리로 상품을 수정한다.
+		
+		sql = "update product set productName = ?, productComment = ?, productInfo = ?, productDetail = ?, productCaution = ?, productPrice = ?, productSalePrice = ? ,productCount = ? , productKind = ?, porductImg = ?, categoryKey = ?";
+		
+		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, bean.getProductName());
+		pstmt.setString(2, bean.getProductComment());	
+		pstmt.setString(3, bean.getProductInfo());
+		pstmt.setString(4, bean.getProductDetail());
+		pstmt.setString(5, bean.getProductCaution());	
+		pstmt.setInt(6, bean.getProductPrice());
+		pstmt.setInt(7, bean.getProductSalePrice());
+		pstmt.setInt(8, bean.getProductCount());
+		pstmt.setString(9, bean.getProductKind());	
+		pstmt.setString(10, bean.getProductImg());
+		pstmt.setInt(11, bean.getCategoryKey());
+		pstmt.executeUpdate();
+	}catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		pool.freeConnection(con, pstmt);
+	}
+}
+
+
+//상품 상세 내용 수정 (product_file db용)
+public void updateproduct_file(ProductManagementBean bean) {
 	
 	Connection con = null;
 	PreparedStatement pstmt = null;
@@ -279,5 +311,6 @@ public void updateproduct(ProductManagementBean bean) {
 		pool.freeConnection(con, pstmt);
 	}
 }
+
 
 	}
