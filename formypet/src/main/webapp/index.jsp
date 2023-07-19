@@ -62,15 +62,20 @@
               
               <%for(ProductBean b : blist){ %>
               	<div class="mainContent1">
-                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진"></a>
-                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=b.getProductName() %></p></a>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
-                <fmt:formatNumber value="<%=b.getProductPrice() %>" pattern="#,###"/>원</span>
-                <fmt:formatNumber value="<%=b.getProductSalePrice() %>" pattern="#,###"/>원
-                
-					<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
-	                shopping_bag
-	             	</span></a>
+	              	<input type="hidden" name="productKey" value="<%=b.getProductKey() %>" />
+	                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진"></a>
+	                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=b.getProductName() %></p></a>
+	                <p class="fs-5 fw-bold mt-3">
+	                
+	                	<span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+		                <fmt:formatNumber value="<%=b.getProductPrice() %>" pattern="#,###"/>원</span>
+		                <fmt:formatNumber value="<%=b.getProductSalePrice() %>" pattern="#,###"/>원
+		                
+						<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
+		                shopping_bag
+		             	</span></a>
+	             	
+					</p>
 					
 					<!-- Modal -->
 					<div class="modal fade" id="exampleModal<%=count%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,9 +94,25 @@
 					        	<div class="col-3">
 					        		<img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진" />
 					        	</div>
-					        	<div class="col-3"></div>
-					        	<div class="col-6"></div>
+					        	<div class="col-3">옵션 선택</div>
+					        	<div class="col-6">
+									<select id="optionSelect" name="optionSelect" class="form-select form-select-sm" aria-label=".form-select-sm example">
+									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+					        	</div>
 					        </div>
+					        <div class="text-danger ms-3 mt-3 fw-bold fst-italic textDanger">
+								<span class="material-icons" style="font-size:12px;">
+									report_problem
+								</span>
+								위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
+							</div>
+							<hr />
+							<div class="row">
+								<div class="col-6 fw-bold"><%=b.getProductName() %> <br><span class="text-muted">-옵션1</span></div>
+								<div class="col-3 text-end">1</div>
+								<div class="col-3 text-end">2500</div>
+							</div>	
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -100,9 +121,9 @@
 					    </div>
 					  </div>
 					</div>
-				
-                </p>
-                <span class="Best">BEST</span>
+					<!-- Modal -->
+						
+	                <span class="Best">BEST</span>
               	</div>
               	<%count++;%>
               <%} %>

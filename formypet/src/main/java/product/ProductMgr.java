@@ -227,5 +227,37 @@ public class ProductMgr {
 			}
 			return wlist;
 		}
+		
+		//상품 옵션 가져오기
+		public ArrayList<ProductOptionBean> getOption(int productKey) {
+			ArrayList<ProductOptionBean> pob = new ArrayList<>();
+			
+			try {
+				con = pool.getConnection();
+				//productKey 값을 기준으로 product 테이블 에서 상품을 조회한다.
+				sql = "select * from option_code where productKey=?";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, productKey);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ProductOptionBean bean = new ProductOptionBean();
+					bean.setOcKey(rs.getInt("ocKey"));
+					bean.setOc1(rs.getString("oc1"));
+					bean.setOc2(rs.getString("oc2"));
+					bean.setOc3(rs.getString("oc3"));
+					bean.setOc4(rs.getString("oc4"));
+					bean.setOc5(rs.getString("oc5"));
+					bean.setProductKey(rs.getInt("productKey"));
+					pob.add(bean);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			
+			return pob;
+		}
 
 }
