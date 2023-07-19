@@ -6,6 +6,7 @@
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import="comment.Comment" %>
 <%@ page import="comment.CommentDAO" %>
+<%@ page import="java.io.File" %>
 <%@ page import="java.util.ArrayList"%>
 
 <%
@@ -81,7 +82,13 @@
                     </tr>
                     <tr>
                         <td>내용</td>
-                        <td colspan="2" style="min-height:200px; text-align:left;">
+                 <% 	
+					String real = "C:\\Users\\Administrator\\git\\formypet\\formypet\\src\\main\\webapp\\bbsUpload";
+					File viewFile = new File(real+"\\"+"bbsID"+"사진.jpg");
+					if(viewFile.exists()){
+				 %>		<td colspan="6"><br><br><img src = "bbsUpload/<%=bbsID %>사진.jpg" border="300px" width="300px" height="300px"><br><br>
+				 <% } else {%>
+                        <td colspan="2" style="min-height:200px; text-align:left;"><%} %>
                         <!-- 특수문자를 제대로 출력하기위해 & 악성스크립트를 방지하기위해 -->
                         <%= bbs.getBbsContent().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n","<br>") %></td>    
                     </tr>

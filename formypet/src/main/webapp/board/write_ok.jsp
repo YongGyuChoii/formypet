@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.File" %>
+<%@ page import="java.util.Enumeration" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import = "java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
@@ -15,18 +19,39 @@
 </head>
 <body>
     <%
-    	String memId = null;
+     
+    	String userID = null;
     	if (session.getAttribute("idKey") != null){
-            memId = (String) session.getAttribute("idKey");
+    		userID = (String) session.getAttribute("idKey");
     	}
-    	if (memId == null){
+    	
+		String realFolder="";
+		String saveFolder = "bbsUpload";
+		String encType = "utf-8";
+		String map="";
+		int maxSize=5*1024*1024;
+		
+		ServletContext context = this.getServletContext();
+		realFolder = context.getRealPath(saveFolder);
+		
+		MultipartRequest multi = null;
+		
+		multi = new MultipartRequest(request,realFolder,maxSize,encType,new DefaultFileRenamePolicy());		
+		String fileName = multi.getFilesystemName("fileName");
+		String bbsTitle = multi.getParameter("bbsTitle");
+		String bbsContent = multi.getParameter("bbsContent");
+		bbs.setBbsTitle(bbsTitle);
+		bbs.setBbsContent(bbsContent);
+        
+    	
+    	if (userID == null){
             PrintWriter script = response.getWriter();
             script.println("<script>");
             script.println("alert('로그인하세요.')");
             script.println("location.href = '../login/login.jsp'");    // 메인 페이지로 이동
             script.println("</script>");
     	}else{
-    		if (bbs.getBbsTitle() == null || bbs.getBbsContent() == null){
+    		if (bbs.getBbsTitle().equals("") || bbs.getBbsContent().equals("")){
         		PrintWriter script = response.getWriter();
                 script.println("<script>");
                 script.println("alert('모든 문항을 입력해주세요.')");
@@ -34,8 +59,8 @@
                 script.println("</script>");
         	}else{
         		BbsDAO bbsDAO = new BbsDAO();
-                int result = bbsDAO.write(bbs.getBbsTitle(), memId, bbs.getBbsContent());
-                if (result == -1){ // 글쓰기 실패시
+                int bbsID = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+                if (bbsID == -1){ // 글쓰기 실패시
                     PrintWriter script = response.getWriter();
                     script.println("<script>");
                     script.println("alert('글쓰기에 실패했습니다.')");
@@ -43,11 +68,16 @@
                     script.println("</script>");
                 }else{ // 글쓰기 성공시
                 	PrintWriter script = response.getWriter();
+					if(fileName != null){
+						File oldFile = new File(realFolder+"\\"+fileName);
+						File newFile = new File(realFolder+"\\"+(bbsID-1)+"사진.jpg");
+						oldFile.renameTo(newFile);
+					}
                     script.println("<script>");
                     script.println("location.href = 'list.jsp'");    // 메인 페이지로 이동
                     script.println("</script>");    
                 }
-        	}	
+            }	
     	}
     %>
  

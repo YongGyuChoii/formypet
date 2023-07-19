@@ -23,7 +23,7 @@
     <br/>
     <div class= "container">
     	<div class= "row">
-    		<form method="post" action="write_ok.jsp">
+    		<form method="post" encType="multipart/form-data" action="write_ok.jsp?keyValue=multipart">
     			<table class= "table table-stripped" style= "text-align: center; boarder: 1px solid #dddddd">
 	    	    	<thead>
 		    	    	<tr>
@@ -37,6 +37,9 @@
 			    		<tr>
 			    			<td><textarea class="form-control" placeholder="글 내용"  name="bbsContent" maxlength="2048" style= "height:350px" ></textarea></td>
 			    		</tr>
+						<tr>
+							<td colspan="5" ><input type="file" name="fileName"></td>
+						</tr>
 			    	</tbody>
     	    	</table>
     	    	<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
