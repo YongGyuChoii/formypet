@@ -73,7 +73,9 @@
                     <label for="rating14"></label>
                     <input type="checkbox" name="rating" id="rating15" value="5" class="rate_radio" title="5점">
                     <label for="rating15"></label>
+                    
                 </div>
+                
             </div>
             
                 <div class="review_contents">
@@ -81,6 +83,9 @@
                 <textarea rows="10" class="review_textarea"></textarea>
             </div>   
             <div class="cmd">
+                <label for="image">이미지 업로드:</label>
+                <input type="file" id="image" name="image"><br>
+            
                 <input type="button" name="save" id="save" value="등록">
             </div>
         </form>
