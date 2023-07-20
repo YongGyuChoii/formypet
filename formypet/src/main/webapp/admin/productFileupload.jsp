@@ -81,7 +81,7 @@
 						</tr>
 					<tr>
 						<td colspan="2">
-						<td><input type="submit" value="등록">
+						<td><input type="submit" value="등록" id = click>
 						<input type="reset" value="취소">
 						</td>
 					</tr>

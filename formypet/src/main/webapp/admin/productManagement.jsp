@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
+<%@page import = "admin.ProductManagementBean" %>
 <jsp:useBean id = "pMMgr" class = "admin.ProductManagementMgr" scope = "page" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,35 +25,60 @@
     <!--header 끝-->
     <!-- table 시작 -->
     <div class="container" style = "overflow:auto"> 
-    		<h2>상품 관리</h2>    
+    		<h2>상품 관리 [상품 리스트 15개로 제한 할 예정]
+    		[상품 파일 키 연결 완료 ]
+    		[마지막에 css 손대기]</h2>    
         <table class="table-body">
            
             <thead>
            
             <tr>
+            	<th>상품 키</th>
+            	<th>상품 파일 키</th>
                 <th>상품 이름</th>
                 <th>상품 수량</th>
                 <th>상품 가격</th>
                 <th>상품 삭제 여부</th>
                 <th>상품 수정</th>
-        
+        		
             </tr>
             </thead>
             <tbody>
+            
             <%
+            Vector<ProductManagementBean> vlist2 = pMMgr.getpmList2();
             Vector<ProductManagementBean> vlist = pMMgr.getpmList();
                         int counter = vlist.size();
+                        int counter2 = vlist2.size();
                         for(int i = 0; i <vlist.size(); i++) {
                         	ProductManagementBean pBean = vlist.get(i);
+                        	ProductManagementBean pbean = vlist2.get(i);
             %>
             <tr>
+            	<td><%= pBean.getProductKey()  %></td>
+            	<td><%= pbean.getFileKey()  %></td>
                 <td><%= pBean.getProductName()  %></td>
                 <td><%= pBean.getProductCount()  %></td>
                 <td><%= pBean.getProductPrice()  %></td>
                 <td><%= pBean.getDelYn()  %></td>
-                <td><a href = "../admin/productFileupdate.jsp"><input type = "button" value = "상품 수정"></a></td>  
-                <td><a href = "../admin/productPicupdate.jsp"><input type = "button" value = "상품 상세 내용 수정"></a></td> 
+        		<%
+                String productName =pBean.getProductName(); //productKey로 productFileupdate 수정페이지 연결
+                //System.out.println(productName);
+                
+
+            	String nowPage = request.getParameter("nowPage");
+            	
+            	//ProductManagementMGr 클래스getPMBean() 메서드 호출
+            	//상품 조회 결과 대입
+            	ProductManagementBean bean = pMMgr.getPMBean(productName);//product db
+            	
+
+                %>
+                <td><a href = "../admin/productFileupdate.jsp?nowPage=<%=nowPage%>&productKey=<%=productName%>"><input type = "button" value = "상품 수정"></a>
+                </td>  
+               
                 <%
+                
                 session.setAttribute("vlist",vlist);
             		}
                 %>  

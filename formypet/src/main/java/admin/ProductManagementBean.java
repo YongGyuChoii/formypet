@@ -18,7 +18,15 @@ public class ProductManagementBean {
 	private String fileSaveName;
 	private int size;
 	private int productKey;
+	private int fileKey;
 	
+	
+	public int getFileKey() {
+		return fileKey;
+	}
+	public void setFileKey(int fileKey) {
+		this.fileKey = fileKey;
+	}
 	
 	public String getProductName() {
 		return productName;

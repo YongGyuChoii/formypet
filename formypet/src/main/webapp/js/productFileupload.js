@@ -89,6 +89,11 @@
 		      //document.body.appendChild(addItem);
 		      document.querySelector("#fsn").append(addItem6);//파일 내용
 }
+		//페이지 닫기
+			var click = document.getElementById("click");
+				click.onclick = function(event) {
+					self.close();
+				}
 
 	//파일이 선택 되었는지 체크하는 함수
 	function elementCheck(formName){
