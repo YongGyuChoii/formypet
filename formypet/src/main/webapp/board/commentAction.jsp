@@ -3,6 +3,9 @@
 
 <%@ page import="comment.CommentDAO" %>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
+<%@ page import="java.io.File" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <jsp:useBean id="comment" class="comment.Comment" scope="page" />
 <jsp:setProperty name="comment" property="commentText" />
@@ -20,6 +23,21 @@
 	 		userID = (String) session.getAttribute("idKey");
 	 	}
 	
+		String realFolder="";
+		String saveFolder = "commentUpload";
+		String encType = "utf-8";
+		int maxSize=5*1024*1024;
+		
+		ServletContext context = this.getServletContext();
+		realFolder = context.getRealPath(saveFolder);
+		
+		MultipartRequest multi = null;
+		
+		multi = new MultipartRequest(request,realFolder,maxSize,encType,new DefaultFileRenamePolicy());		
+		String fileName = multi.getFilesystemName("fileName");
+		String commentText = multi.getParameter("commentText");
+		comment.setCommentText(commentText);
+	 	
 	 	if(userID == null){
 	 		PrintWriter script = response.getWriter();
 	 		script.println("<script>");
@@ -40,7 +58,7 @@
 		 		script.println("location.href = '../login/login.jsp'");
 		 		script.println("</script>");
 		 	}
-	 		if (comment.getCommentText() == null){
+	 		if (comment.getCommentText().equals("")) {
 		 		PrintWriter script = response.getWriter();
 		 		script.println("<script>");
 		 		script.println("alert('입력이 안된 사항이 있습니다.')");
@@ -57,10 +75,15 @@
 			 		script.println("</script>");
               
 		 		}else{ // 글쓰기 성공시
-                	PrintWriter script = response.getWriter();
-                    script.println("<script>");
-                    script.println("location.href = 'list.jsp'");    // 메인 페이지로 이동
-                    script.println("</script>");   
+			 		PrintWriter script = response.getWriter();
+			 		if(fileName != null){
+						File oldFile = new File(realFolder+"\\"+fileName);
+						File newFile = new File(realFolder+"\\"+bbsID+"사진"+(commentID-1)+".jpg");
+						oldFile.renameTo(newFile);
+					}
+			 		script.println("<script>");
+			 		script.println("location.href = 'list.jsp'");
+			 		script.println("</script>");
 			 	}
 		 		
 		 	}

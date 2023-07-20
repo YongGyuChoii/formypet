@@ -86,7 +86,7 @@
 					String real = "C:\\Users\\Administrator\\git\\formypet\\formypet\\src\\main\\webapp\\bbsUpload";
 					File viewFile = new File(real+"\\"+"bbsID"+"사진.jpg");
 					if(viewFile.exists()){
-				 %>		<td colspan="6"><br><br><img src = "bbsUpload/<%=bbsID %>사진.jpg" border="300px" width="300px" height="300px"><br><br>
+				 %>		<td colspan="6"><br><br><img src ="../bbsUpload/<%=bbsID%>사진.jpg" border="300px" width="300px" height="300px"><br><br>
 				 <% } else {%>
                         <td colspan="2" style="min-height:200px; text-align:left;"><%} %>
                         <!-- 특수문자를 제대로 출력하기위해 & 악성스크립트를 방지하기위해 -->
@@ -135,11 +135,17 @@
 								<% } %>
 								</td>
 								</tr>
-								<tr><td colspan="1" align="left"><%= list.get(i).getCommentText()%></td></tr>								
+								<tr><td colspan="1" align="left"><%= list.get(i).getCommentText()%>											 	
+								<%				
+								String commentReal = "C:\\formypet\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\formypet\\commentUpload";
+								File commentFile = new File(commentReal+"\\"+bbsID+"사진"+list.get(i).getCommentID()+".jpg");
+								if(commentFile.exists()){
+								%>	
+								<br><br><img src = "commentUpload/<%=bbsID %>사진<%=list.get(i).getCommentID() %>.jpg" border="300px" width="300px" height="300px"><br><br></td></tr>								
+								<% } %>									
 								</tbody>
 							</table>
 						</div>
-
 					<% } %>			
     			</tbody>
     			<br/>
@@ -148,12 +154,15 @@
  <!-- 댓글 작성 시작 -->   		
 
     	<div class="from-group">
-    		<form method="post" action="commentAction.jsp?bbsID=<%= bbsID %>">
+    		<form method="post" encType = "multipart/form-data" action="commentAction.jsp?bbsID=<%= bbsID %>">
     			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
     				<tr>
 						<td style="border-bottom:none;" valign="middle"><br><br><%=userID %></td>
 						<td><input type="text" style="height:100px;" class="form-control" placeholder="상대방을 존중하는 댓글을 남깁시다." name="commentText"></td>
 						<td><br><br><input type="submit" class="btn btn-primary" value="댓글 작성"></td>
+					</tr>
+					<tr>
+							<td colspan="3"><input type="file" name="fileName"></td>
 					</tr>
 				</table>
     		</form>

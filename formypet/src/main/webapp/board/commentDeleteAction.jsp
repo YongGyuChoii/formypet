@@ -57,10 +57,15 @@
 				script.println("history.back()");
 				script.println("</script>");
 			} else {
-            	PrintWriter script = response.getWriter();
-                script.println("<script>");
-                script.println("location.href = 'list.jsp'");    // 메인 페이지로 이동
-                script.println("</script>");   
+				PrintWriter script = response.getWriter();
+				String real = "C:\\Users\\Administrator\\git\\formypet\\formypet\\src\\main\\webapp\\bbsUpload";
+				File delFile = new File(real+"\\"+bbsID+"사진"+commentID+".jpg");
+				if(delFile.exists()){
+					delFile.delete();
+				}
+				script.println("<script>");
+				script.println("location.href = 'list.jsp'");
+				script.println("</script>");
 				}
 		}
 		%>

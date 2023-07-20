@@ -3,12 +3,13 @@
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import="bbs.Bbs" %>
 <%@ page import = "java.io.PrintWriter" %>
+<%@ page import="java.io.File" %>
 <% request.setCharacterEncoding("UTF-8"); %>
     
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -54,11 +55,30 @@
                 script.println("history.back()");    // 이전 페이지로 사용자를 보냄
                 script.println("</script>");
             }else{ // 글삭제 성공시
-              	PrintWriter script = response.getWriter();
-                script.println("<script>");
-                script.println("location.href = 'list.jsp'");    // 메인 페이지로 이동
-                script.println("</script>");    
-            }
+				PrintWriter script = response.getWriter();
+				String real = "C:\\Users\\Administrator\\git\\formypet\\formypet\\src\\main\\webapp\\bbsUpload";
+				String commentReal = "C:\\formypet\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\formypet\\commentUpload";
+				
+				File delFile = new File(real+"\\"+bbsID+"사진.jpg");
+				if(delFile.exists()){
+					delFile.delete(); 
+            	}
+				//삭제할 게시판에 작성되어있는 댓글의 사진 삭제
+				File FileList = new File(commentReal);
+				String fileList[] = FileList.list();
+				for(int i=0; i<fileList.length; i++){
+					String FileName = fileList[i];
+					if(FileName.contains(bbsID+"사진")){
+						File deleteFile = new File(commentReal+"\\"+FileName);
+						deleteFile.delete();
+					}
+				}
+				
+				script.println("<script>");
+				script.println("location.href = 'list.jsp'");
+				script.println("</script>");
+				
+            }	
         }	
     %>
 </body>

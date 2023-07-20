@@ -42,9 +42,9 @@
 
  	</br>
     <div class="container">
-     	<h1>문의게시판<br></h1>
-			<p>상품문의 및 배송관련 글을 쓰는 곳입니다. 서로 존중하며 글과 댓글을 남깁시다.<br></p>
         <div>
+            <h1>문의게시판<br></h1>
+			<p>상품문의 및 배송관련 글을 쓰는 곳입니다. 서로 존중하며 글과 댓글을 남깁시다.<br></p>
             <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
                 <thead>
                     <tr>
