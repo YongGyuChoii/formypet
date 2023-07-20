@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="cart.CartBean"%>
+<%@page import="java.util.*"%>
+<jsp:useBean id="cMgr" class="cart.CartMgr" />
+<%
+	request.setCharacterEncoding("UTF-8");
+	ArrayList<CartBean> pAll = cMgr.getCartAll(); 
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -61,7 +68,7 @@
               </td>
               <td>
                 <button>-</button>
-                <input type="text" value="1" style="width: 30px;">
+                <input type="text" value="" style="width: 30px;">
                 <button>+</button>
               </td>
               <td><p><strong>기본 3,000원</strong></p></td>

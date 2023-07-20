@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Pet</title>
     <link rel="stylesheet"  href="../css/base.css">
-    <link rel="stylesheet"  href="../css/memOrder.css">
+    <link rel="stylesheet"  href="../css/order.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -37,7 +37,7 @@
         </div>
         <div class="gBorder">
         	<table border="1" summary>
-        		<caption>기본배송</caption>
+        		<caption></caption>
         		<colgroup>
         			<col style="width:27px">
         			<col style="width:92px">
@@ -69,12 +69,12 @@
         				<td class></td>
         				<td colspan="8">
         					<span class="footLeft">[기본배송]</span>
-        					"상품구매금액"
-        					<strong>"65,800"
+        					상품구매금액
+        					<strong>65,800
         					</strong>
-        					"+ 배송비"
+        					+ 배송비
         					<span id="delPin">3,000</span>
-        					"= 합계 :"
+        					= 합계 :
         					<strong class="text1">
         						<span id="totalPrice" class="text2">35,900</span>
         						원
@@ -105,15 +105,15 @@
         				</td>
         				<td style="text-align: center;">1</td>
         				<td>
-        					<span id="reserves" class="text3">-</span>
+        					<span id="reserves" class="text3"></span>
         				</td>
         				<td>
         					<div class="text3">
-        						"기본배송"
+        						기본배송
         						<br>
         					</div>
         				</td>
-        				<td rowspan="1" class>[조건]</td>
+        				<td rowspan="1" class style="text-align: center;">[조건]</td>
         				<td class="fourth">
         					<strong>
         						<span id="bodyTotalPrice">32,900</span>
@@ -127,7 +127,7 @@
         <div class="buttonBase">
         	<span class="buttonLeft">
         		<strong class="baseText">선택상품을</strong>
-        		<a href="#" id="baseDelete" class="btnEm">"X 삭제하기"</a>
+        		<a href="#" id="baseDelete" class="btnEm">X 삭제하기</a>
         	</span>
         	<span class="buttonRight">
         		<a href="#" class="btnNormal">이전페이지</a>
@@ -137,7 +137,7 @@
         <div class="orderAreaTop">
         	<div class="title">
         		<h3>주문 정보</h3>
-        		<p class="required">"* 필수입력사항"</p>
+        		<p class="required">* 필수입력사항</p>
         	</div>
         	<div class="orderImpormation">
         		<table border="1" summary>
@@ -154,14 +154,16 @@
         				</tr>
         				<tr class>
         					<th scope="row">휴대전화</th>
+          					<td class>
+          						<select id="orderPhone1" name="orderPhone1" value="010">
+          							<option value="010">010</option>
+          						</select>
+          						-				
+          						<input id="orderPhone2" name="orderPhone2" maxlength="4" type="text">
+          						- 				
+          						<input id="orderPhone3" name="orderPhone3" maxlength="4" type="text">
+          					</td>
           				</tr>
-          				<td>
-          					<input id="orderPhone1" name="orderPhone1" value="010">
-          					-
-          					<input id="orderPhone2" name="orderPhone2" maxlength="4" type="text">
-          					-
-          					<input id="orderPhone3" name="orderPhone3" maxlength="4" type="text">
-          				</td>
         			</tbody>
         			<tbody class="emailForm">
         				<tr>
@@ -182,8 +184,8 @@
     								<option value="직접입력">직접입력</option>
         						</select>
         						<ul class="orderBlank">
-        							<li>- 이메일을 통해 주문처리과정을 보내드립니다</li>
-        							<li>- 이메일 주소란에는 반드시 수신가능한 이메일주소를 입력해 주세요</li>
+        							<li>이메일을 통해 주문처리과정을 보내드립니다</li>
+        							<li>이메일 주소란에는 반드시 수신가능한 이메일주소를 입력해 주세요</li>
         						</ul>
         					</td>
         				</tr>
@@ -194,7 +196,7 @@
         <div class="orderArea">
         	<div class="title">
         		<h3>배송정보</h3>
-        		<p class="required">"* 필수입력사항"</p>
+        		<p class="required">* 필수입력사항</p>
         	</div>
         	<div class="orderImpormation">
         		<table border="1" summary>
@@ -227,6 +229,7 @@
         					<td>
         						<input id="delZipcode1" name="delZipcode1" type="text" maxlength="6">
         						<a href="#" id="btnZipcode" class="btnNormal">우편번호</a>
+        						<br>
         						<input id="delZipcode2" name="delZipcode2" type="text">
         						<span class="grid">기본 주소</span>
         						<br>
@@ -237,7 +240,9 @@
         				<tr class>
         					<th scope="row">휴대전화</th>
         					<td>
-          						<input id="delPhone1" name="delPhone1" value="010">
+          						<select id="orderPhone1" name="orderPhone1" value="010">
+          							<option value="010">010</option>
+          						</select>
           						-
           						<input id="delPhone2" name="delPhone2" maxlength="4" type="text">
           						-
@@ -248,11 +253,12 @@
         			<tbody class="delivery">
         				<tr class>
         					<th scope="row">배송메시지</th>
-        					<textarea id="delMessage" name="delMessage" cols="70"></textarea>
+        					<td>
+        						<textarea id="delMessage" name="delMessage" cols="70"></textarea>
+        					</td>
         				</tr>
         			</tbody>
-        		</table>
-        	</div>
+        	</table>
         </div>
         <div class="orderArea">
         	<div class="title">
@@ -271,13 +277,13 @@
         					<td>
         						<input id="addrCheck" name="addrCheck" type="checkbox">
         						<label for="addrCheck">주소확인</label>
-        					</td>
-        					<br>
-        					<span class="addMessage">
+        						<br>
+        						<span class="addMessage">
         						(상세주소 (동, 호수)를 제대로 기재하셨나요?)
         						<br>
         						주소가 올바르지 않을경우에는 반송위험이 있습니다:(
         					</span>
+        					</td>
         				</tr>
         			</tbody>
         		</table>
@@ -360,7 +366,7 @@
         					<tr class="couponSelect">
         						<th scope="row">쿠폰할인</th>
         						<td>
-        							<a href="#" id="btnCouponSelect" class="btnSummit">쿠폰적용</a>
+        							<a href="#" id="btnCouponSelect" class="btnSubmit">쿠폰적용</a>
         						</td>
         					</tr>
         				</tbody>
@@ -380,14 +386,14 @@
         							<strong>총 부가결제금액</strong>
         						</th>
         						<td>
-        							<strong id="totalAddplayView">0</td>
+        							<strong id="totalAddplayView">0</strong>
         							원
         						</td>
         					</tr>
-        				</tbody>]
+        				</tbody>
         				<tbody class="milage">
         					<tr>
-        						<th scope="row">
+        						<th scope="row">적립금</th>
         						<td>
         							<p>
         								<input id="inputMilage" name="inputMilage" type="text">
@@ -426,7 +432,6 @@
         		<ol>
         			<li class="item1">안심클릭 결제모듈이 설치되지 않은 경우 ActiveX 수동설치</li>
         			<li class="item2">안심클릭 결제모듈이 설치되지 않은 경우 ActiveX 수동설치</li>
-        			<li class="item3"></li>
         		</ol>
         		<div class>
         			<h4>아래의 쇼핑몰일 경우에는 모든 브라우저 사용이 가능합니다.</h4>
