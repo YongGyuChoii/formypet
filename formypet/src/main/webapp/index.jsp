@@ -89,6 +89,7 @@
 					        <p class="fw-bold">
 					        	<%=b.getProductName() %>
 					        </p>
+					        <input type="hidden" value="<%=b.getProductSalePrice() %>" />
 					        <hr />
 					        <div class="row">
 					        	<div class="col-3">
@@ -96,11 +97,24 @@
 					        	</div>
 					        	<div class="col-3">옵션 선택</div>
 					        	<div class="col-6">
-									<select id="optionSelect" name="optionSelect" class="form-select form-select-sm" aria-label=".form-select-sm example">
+									<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect3" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect4" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
 									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
 									</select>
 					        	</div>
 					        </div>
+					        
 					        <div class="text-danger ms-3 mt-3 fw-bold fst-italic textDanger">
 								<span class="material-icons" style="font-size:12px;">
 									report_problem
@@ -108,16 +122,25 @@
 								위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
 							</div>
 							<hr />
-							<div class="row">
-								<div class="col-6 fw-bold"><%=b.getProductName() %> <br><span class="text-muted">-옵션1</span></div>
-								<div class="col-3 text-end">1</div>
-								<div class="col-3 text-end">2500</div>
-							</div>	
+							
+							<div class="optionChoose">
+							</div>
+							
+							<div class="mt-5">
+								<span class="fw-bold fs-6">총 상품금액</span>(수량) :
+								<span class="fw-bold text-primary fs-3">25,400</span>원
+								(<span class="fs-6">2</span>개)
+							</div>
+								
 					      </div>
+					      
 					      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					        <button type="button" class="btn btn-primary">Save changes</button>
+					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <button type="button" class="btn btn-light text-dark fw-bold">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold">BUY NOW</button>
+							</div>
 					      </div>
+					      
 					    </div>
 					  </div>
 					</div>
