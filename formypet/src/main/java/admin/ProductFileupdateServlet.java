@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/admin/ptfupdate")
 //product db용 update 서블릿
-public class ProductFileupdateServlet {
+public class ProductFileupdateServlet extends HttpServlet {
 		protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -25,9 +25,11 @@ public class ProductFileupdateServlet {
 		ProductManagementMgr pmmgr = new ProductManagementMgr();
 		
 		//ProductManagementBean 클래스 객체인 pmbean에 session에 저장된 게시물 pmbean 데이터를 대입한다.
-		ProductManagementBean pmbean = (ProductManagementBean) session.getAttribute("vlist");
+		ProductManagementBean pmbean = (ProductManagementBean) session.getAttribute("bean");
 		
-		
+		String nowPage = request.getParameter("nowPage");
+		//String productKey = request.getParameter("productKey");
+		//System.out.println("서블릿productKey = " + productKey);
 		ProductManagementBean puBean = new ProductManagementBean(); //ProductManagementBean 클래스 객체 puBean 생성
 		
 		//ProductManagementBean 클래스 객체 puBean을 생성하고, 게시물 관련 파라미터를 setter 메서드를 이용해 담는다.
@@ -48,6 +50,8 @@ public class ProductFileupdateServlet {
 		//수정 전 내용이 담긴 데이터는 pmbean 객체에 있다. (수정 전 session 에 저장한 게시글 데이터)
 		
 		//ProductManagementMgr updateproduct() 메서드 호출
-		pmmgr.updateproduct(puBean);
+		pmmgr.udfile(puBean);
+		String url = "productFileupdate.jsp?nowPage = " + nowPage + "&productKey=" + puBean.getProductKey();
+		response.sendRedirect(url);
 	}
 }

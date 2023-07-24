@@ -16,18 +16,15 @@ public class ProductManagementBean {
 	private String delYn;
 	private String fileOriginalName;
 	private String fileSaveName;
-	private int size;
+	private int size;//파일 사이즈 product_file db 
 	private int productKey;
 	private int fileKey;
-	
-	
-	public int getFileKey() {
-		return fileKey;
-	}
-	public void setFileKey(int fileKey) {
-		this.fileKey = fileKey;
-	}
-	
+	private String filename;//db x product용 변수
+	private String filesize;//db x product용 변수
+	private String ip; //파일 등록시 작성자의 
+	private int pos; //파일 등록시 게시물의 상대적인 위치값 변수
+	private int ref; //부모 글 변수
+	private int depth; //리스트 깊이 변수
 	public String getProductName() {
 		return productName;
 	}
@@ -52,7 +49,6 @@ public class ProductManagementBean {
 	public int getProductCount() {
 		return productCount;
 	}
-
 	public String getProductKind() {
 		return productKind;
 	}
@@ -77,8 +73,27 @@ public class ProductManagementBean {
 	public int getProductKey() {
 		return productKey;
 	}
-	
-	
+	public int getFileKey() {
+		return fileKey;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public String getFilesize() {
+		return filesize;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public int getPos() {
+		return pos;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public int getDepth() {
+		return depth;
+	}
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
@@ -103,7 +118,6 @@ public class ProductManagementBean {
 	public void setProductCount(int productCount) {
 		this.productCount = productCount;
 	}
-
 	public void setProductKind(String productKind) {
 		this.productKind = productKind;
 	}
@@ -128,6 +142,28 @@ public class ProductManagementBean {
 	public void setProductKey(int productKey) {
 		this.productKey = productKey;
 	}
+	public void setFileKey(int fileKey) {
+		this.fileKey = fileKey;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public void setFilesize(String filesize) {
+		this.filesize = filesize;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public void setPos(int pos) {
+		this.pos = pos;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+	
 	
 	
 	

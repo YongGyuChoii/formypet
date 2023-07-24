@@ -45,7 +45,7 @@ table-body {
     border-collapse: collapse;
     border-radius: 5px;
     overflow: hidden;
-    float: left;
+    float: center;
   }
   
   th {
@@ -66,6 +66,7 @@ table-body {
    td {
     border-bottom: 1px solid rgba(0,0,0,.1);
     background: #fff;
+    text-align: center;
   }
   
   a {
@@ -108,6 +109,7 @@ table-body {
     
     th {
       border-bottom: 1px solid #a39485;
+      text-align: center;
     }
     
     td {
