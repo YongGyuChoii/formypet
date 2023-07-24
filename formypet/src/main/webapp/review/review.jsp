@@ -1,121 +1,84 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog and Cat</title>
-    <link rel="stylesheet"  href="../css/review.css">
+    <title>For My Pet</title>
+    <link rel="stylesheet"  href="../css/base.css">
+     <link rel="stylesheet"  href="../css/review.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<title>«¡∑Œ≈‰≈∏¿‘¿∏∑Œ ∫∞¡° ¥Ò±€ ±‚¥… ±∏«ˆ«œ±‚</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript" src="../js/review.js"></script>
-    
 </head>
 <body>
-   
-   
     <div id="wrap">
-
-    <!-- header Ω√¿€-->
+    <!-- header ÏãúÏûë-->
     <header>
-        <a href="index.html" class="logo">
-            <h1>For My Pet</h1>
-        </a>
-            <div id="navi1">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                  <a class="nav-link active text-primary" aria-current="page" href="#">∑Œ±◊¿Œ</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">∏∂¿Ã∆‰¿Ã¡ˆ</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">¿ÂπŸ±∏¥œ</a>
-                </li>
-            </ul>
-            </div>
+        <%@include file="/base/header.jsp"%>
+    </header>
+    <!--header ÎÅù-->
 
-            <div id="navi2">
-            <div class="p-3 mb-2 bg-primary text-white">
-            <nav class="nav">
-                <a class="nav-link text-white" aria-current="page" href="#">∏ﬁ¿Œ∆‰¿Ã¡ˆ</a>
-                <a class="nav-link text-white" href="#">ªÛ«∞∏Ò∑œ</a>
-                <a class="nav-link text-white" href="#">∞Ì∞¥ºæ≈Õ</a>
-              </nav>
-            </div>
-            </div>
-      </header>
-    <!--header ≥°-->
-   
-   
-   <!--main Ω√¿€-->
- 
+    <!--main ÏãúÏûë-->
+    <div class="container">
+      <section>
+
  <div class="wrap">
-        <h1>»ƒ±‚</h1>
+        <h1>ÌõÑÍ∏∞</h1>
         <form name="reviewform" class="reviewform" method="post" action="/save">
             <input type="hidden" name="rate" id="rate" value="0"/>
-            <p class="title_star">∫∞¡°∞˙ ¿ÃøÎ∞Ê«Ë¿ª ≥≤∞‹¡÷ººø‰.</p>
+            <p class="title_star">Î≥ÑÏ†êÍ≥º Ïù¥Ïö©Í≤ΩÌóòÏùÑ ÎÇ®Í≤®Ï£ºÏÑ∏Ïöî.</p>
      
             <div class="review_rating rating_point">
-                <div class="warning_msg">∫∞¡°¿ª º±≈√«ÿ ¡÷ººø‰.</div>
+                <div class="warning_msg">Î≥ÑÏ†êÏùÑ ÏÑ†ÌÉùÌï¥ Ï£ºÏÑ∏Ïöî.</div>
                 <div class="rating">
                     <div class="ratefill"></div>
-                    <!-- [D] «ÿ¥Á ∫∞¡°¿Ã º±≈√µ… ∂ß ±◊ ¡°ºˆ ¿Ã«œ¿« inputø§∏Æ∏’∆Æø° checked ≈¨∑°Ω∫ √ﬂ∞° -->
-                    <input type="checkbox" name="rating" id="rating11" value="1" class="rate_radio" title="1¡°">
+                    <!-- [D] Ìï¥Îãπ Î≥ÑÏ†êÏù¥ ÏÑ†ÌÉùÎê† Îïå Í∑∏ Ï†êÏàò Ïù¥ÌïòÏùò inputÏóòÎ¶¨Î®ºÌä∏Ïóê checked ÌÅ¥ÎûòÏä§ Ï∂îÍ∞Ä -->
+                    <input type="checkbox" name="rating" id="rating11" value="1" class="rate_radio" title="1Ï†ê">
                     <label for="rating11"></label>
-                    <input type="checkbox" name="rating" id="rating12" value="2" class="rate_radio" title="2¡°">
+                    <input type="checkbox" name="rating" id="rating12" value="2" class="rate_radio" title="2Ï†ê">
                     <label for="rating12"></label>
-                    <input type="checkbox" name="rating" id="rating13" value="3" class="rate_radio" title="3¡°" >
+                    <input type="checkbox" name="rating" id="rating13" value="3" class="rate_radio" title="3Ï†ê" >
                     <label for="rating13"></label>
-                    <input type="checkbox" name="rating" id="rating14" value="4" class="rate_radio" title="4¡°">
+                    <input type="checkbox" name="rating" id="rating14" value="4" class="rate_radio" title="4Ï†ê">
                     <label for="rating14"></label>
-                    <input type="checkbox" name="rating" id="rating15" value="5" class="rate_radio" title="5¡°">
+                    <input type="checkbox" name="rating" id="rating15" value="5" class="rate_radio" title="5Ï†ê">
                     <label for="rating15"></label>
                     
                 </div>
                 
             </div>
             
+             <label for="title">Ï†úÎ™©:</label>
+          <input type="text" id="title" name="title" required><br>
+           <label for="contents">ÎÇ¥Ïö©:</label><br>
                 <div class="review_contents">
-                <div class="warning_msg">5¿⁄ ¿ÃªÛ¿« ∏Æ∫‰ ≥ªøÎ¿ª ¿€º∫«ÿ ¡÷ººø‰.</div>
+                <div class="warning_msg">5Ïûê Ïù¥ÏÉÅÏùò Î¶¨Î∑∞ ÎÇ¥Ïö©ÏùÑ ÏûëÏÑ±Ìï¥ Ï£ºÏÑ∏Ïöî.</div>
                 <textarea rows="10" class="review_textarea"></textarea>
             </div>   
             <div class="cmd">
-                <label for="image">¿ÃπÃ¡ˆ æ˜∑ŒµÂ:</label>
+                <label for="image">Ïù¥ÎØ∏ÏßÄ ÏóÖÎ°úÎìú:</label>
                 <input type="file" id="image" name="image"><br>
             
-                <input type="button" name="save" id="save" value="µÓ∑œ">
+                <input type="button" name="save" id="save" value="Îì±Î°ù">
             </div>
         </form>
     </div>
-  
-    <!--main ≥°-->
-
-    <!-- ø¿∏•¬  ∏«¿ß ∏«æ∆∑° »≠ªÏ«• -->
-    <div class="rightAside2 rounded-pill">
-      <div class="rounded-circle"><a href="#wrap"><span class="material-icons">
-        expand_less
-        </span></a></div>
-      <div class="rounded-circle"><a href="#footer"><span class="material-icons">
-        expand_more
-        </span></a></div>
+      </section>
     </div>
-    <!-- ø¿∏•¬  ∏«¿ß ∏«æ∆∑° »≠ªÏ«• ≥° -->
+    <!--main ÎÅù-->
+
+    <!-- Ïò§Î•∏Ï™Ω Îß®ÏúÑ Îß®ÏïÑÎûò ÌôîÏÇ¥Ìëú -->
+    	<%@include file="/base/rightAside.jsp"%>
+    <!-- Ïò§Î•∏Ï™Ω Îß®ÏúÑ Îß®ÏïÑÎûò ÌôîÏÇ¥Ìëú ÎÅù -->
     
-    <!-- footer Ω√¿€-->
+    <!-- footer ÏãúÏûë-->
     <footer id="footer">
-      <nav>
-            <p>Dog And Cat</p>
-            <p>tel : 1234-5678 / Email : path@naver.com</p>
-            <p>Business License No : 394-81-01000[ªÁæ˜¿⁄¡§∫∏»Æ¿Œ]</p>
-            <p>¿¸¡÷Ω√ øœªÍ±∏ ∆»¥ﬁ∑Œ 184 2√˛</p>
-            <br>
-            <p>CEO : Joenseo </p>
-      </nav>
+      	<%@include file="/base/footer.jsp"%>
     </footer>
-    <!-- footer ≥°.-->
+    <!-- footer ÎÅù.-->
     </div>
 </body>
 </html>
