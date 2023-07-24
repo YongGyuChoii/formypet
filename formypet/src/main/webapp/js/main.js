@@ -1,5 +1,7 @@
 $(function(){
 	
+	var count = 0; //class 1개씩 증가하기 위한 변수
+	
 	//회원일때 옵션 불러오기
 	$(document).on("click",".btnIcon",function(){
 		
@@ -23,6 +25,13 @@ $(function(){
 						var select = $(this).parent().parent().find("select[name='optionSelect"+i+"']");
 						select.children('option:not(:first)').remove(); //셀렉트박스 옵션 초기화
 						select.removeClass("d-none"); //display block 변경
+						
+						//셀렉트 하면 append 할 div 초기화
+						var optionChoose = $(this).parent().parent().find(".optionChoose");
+						optionChoose.empty();
+						count=0; //class 초기화
+						
+						//빈값이 아니라면 옵션 추가
 						if(data[i].oc1 != ""){
 							select.append(`<option value='${data[i].oc1}'>${data[i].oc1}</option>`);
 						}
@@ -49,31 +58,45 @@ $(function(){
 	
 	//select에 대한 클릭 함수
 	$("select[name=optionSelect0]").change(function(){
+		if($(this).val() != "-[필수] 옵션을 선택해 주세요-"){
+			//셀렉트 하면 append 할 div
+			var optionChoose = $(this).parent().parent().parent().find(".optionChoose");
+			
+			//셀렉트 값 가져오기
+			var selectValue = $(this).val();
+			
+			//상품 이름 가져오기
+			var productName = $(this).parent().parent().parent().children().eq(0).text();
+			
+			//상품 가격 가져오기
+			var salePrice1 = $(this).parent().parent().parent().children().eq(1).val();
+			//상품 가격 3자리마다 콤마 찍은 변수
+			var salePrice = salePrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			
+			//추가할 html코드
+			var html='';
+			html += '<div class="row"><div class="col-6 fw-bold">';
+			html += ''+productName+'<br><span class="text-muted optionText'+count+'">'+selectValue+'</span>';
+			html += '</div><div class="col-3 text-end">';
+			html += '<span class="material-symbols-outlined align-middle addIcon" style="font-size:20px;">add</span>';
+			html += ' <span class="align-middle numberIcon fw-bold">1</span>';
+			html += ' <span class="material-symbols-outlined align-middle removeIcon" style="font-size:20px;">remove</span>';
+			html += '</div><div class="col-3 text-end text-primary fw-bold align-middle">';
+			html += ''+salePrice+'원</div></div><hr />';
+			
+			optionChoose.append(html);
+			count++
+				
+		}
 		
-		//셀렉트 하면 append 할 div
-		var optionChoose = $(this).parent().parent().parent().find(".optionChoose");
+	});
+	
+	//두번째 셀렉트옵션
+	$("select[name=optionSelect1]").change(function(){
 		
-		//셀렉트 값 가져오기
-		var selectValue = $(this).val();
-		
-		//상품 이름 가져오기
-		var productName = $(this).parent().parent().parent().children().eq(0).text();
-		
-		//상품 가격 가져오기
-		var salePrice1 = $(this).parent().parent().parent().children().eq(1).val();
-		var salePrice = salePrice1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		//추가할 html코드
-		var html='';
-		html += '<div class="row"><div class="col-6 fw-bold">';
-		html += ''+productName+'<br><span class="text-muted">'+selectValue+'</span>';
-		html += '</div><div class="col-3 text-end">';
-		html += '<span class="material-symbols-outlined align-middle addIcon" style="font-size:20px;">add</span>';
-		html += ' <span class="align-middle numberIcon fw-bold">1</span>';
-		html += ' <span class="material-symbols-outlined align-middle removeIcon" style="font-size:20px;">remove</span>';
-		html += '</div><div class="col-3 text-end text-primary fw-bold align-middle">';
-		html += ''+salePrice+'원</div></div><hr />';
-		
-		optionChoose.append(html);
+		if($(this).val() != "-[필수] 옵션을 선택해 주세요-"){
+			
+		}
 		
 	});
 	
