@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@page import="cart.CartBean"%>
 <%@page import="java.util.*"%>
-<jsp:useBean id="cMgr" class="cart.CartMgr" />
+<jsp:useBean id="cMgr" class="cart.CartMgr" /> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:formatNumber value="${calPrice}" pattern="#,###"/>
 <%
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<CartBean> pAll = cMgr.getCartAll(); 
+	ArrayList<CartBean> pAll = cMgr.getCartAll(); 	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,12 +20,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/cart.js"></script>
     <style>     
       a {
         color: black;
         text-decoration: none;
       }
-
       p {
         margin-top: 1rem;
       }
@@ -50,7 +52,10 @@
           </colgroup>
           <thead>
             <tr>
-              <td style="text-align: left;"><input type="checkbox"></td>
+              <td style="text-align: left;">
+              	<input id="ProductItem" class="agreechkAll" type="checkbox" checked="checked" />
+       		  	<label for="ProductItem"></label>
+              </td>
               <td colspan="3">상품정보</td>
               <td>판매가</td>
               <td>수량</td>
@@ -58,32 +63,71 @@
               <td>합계</td>
             </tr>
           </thead>
+          <%for(CartBean cb : pAll) { %>
           <tbody>
+          <%
+         	 	int productViewPrice;
+              	if(cb.getProductSalePrice() == 0) {
+              		productViewPrice = cb.getProductPrice();
+              	} else {
+              		productViewPrice = cb.getProductSalePrice();
+              	}
+              	
+              	int calPrice;
+              	int deliveryFee;
+              	int totalViewPrice;
+              	
+              	calPrice = productViewPrice * cb.getCartCount(); 
+              	
+              	if(calPrice>=50000) {
+              		deliveryFee = 0;
+              	} else {
+              		deliveryFee = 3000;
+              	}
+              	             	
+              	if(deliveryFee == 0) {
+              		totalViewPrice = productViewPrice * cb.getCartCount();
+              	} else {
+              		totalViewPrice = productViewPrice * cb.getCartCount() + deliveryFee;
+              	}
+              	
+          %>
             <tr class="cart_table_detail">
-              <td><input type="checkbox"></td>
-              <td><a href="#"><img src="../images/cart/cart.jpg" alt=""></a></td>
-              <td colspan="2"><a href="#">캣 스크래쳐 위글 베어</a></td>
-              <td class="cart_table_button">
-                <strong>42,800원</strong>
-              </td>
               <td>
-                <button>-</button>
-                <input type="text" value="" style="width: 30px;">
-                <button>+</button>
+              		<input id="chack1" class="chack" type="checkbox" checked="checked" />
+        			<label for="chack1" class="chack_ele"></label>
               </td>
-              <td><p><strong>기본 3,000원</strong></p></td>
-              <td><strong>45,800원</strong></td>
+              <td><a href="#"><img src="../images/bathProduct/<%=cb.getProductImg()%>" alt=""></a></td>
+              <td colspan="2"><a href="#"><%=cb.getProductName()%></a></td>
+              <td class="cart_table_button">
+        	  	<%if(cb.getProductSalePrice() == 0) {%>
+        	  	<strong><%=cb.getProductPrice()%>원</strong>
+        	  	<%} else {%>
+        	  	<strong><del><%=cb.getProductPrice()%>원</del></strong>
+        	  	<br>
+        	  	<strong><%=cb.getProductSalePrice()%>원</strong>
+        	  	<%}%>
+              </td>                          
+              <td>
+                <button class="downBtn">-</button>
+                <input class="countBtn" type="text" value="<%=cb.getCartCount()%>" style="width: 30px;">                
+                <button class="upBtn">+</button>
+              </td>             
+              <td>
+              	<strong><p>배송비 3,000원<br><a style="font-size:10px">(50,000원 이상 구매시 무료!)</a></p></strong>   
+              </td>
+              <td><strong><%=calPrice%>원</strong></td>          
             </tr>
           </tbody>
+          <%}%>
           <tfoot>
             <tr>
-              <td colspan="3"> <button class="cart_table_button2">선택상품 삭제</button>
-              <button class="cart_table_button2" type="button" onclick="location='cart_empty.jsp';">전체상품 삭제</button>
+              <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
+              <button class="cart_table_button2" type="button" onclick="location='cartEmpty.jsp';">전체상품 삭제</button>
               </td>
               <td></td>
               <td></td>
-              <td colspan="3" style="text-align: right;"><strong>상품구매 금액 42,800 + 배송비 3,000원 = 합계 45,800원</strong></td>
-  
+              <td colspan="3" style="text-align: right;"><strong>상품구매 금액  + 배송비 3,000원 = 합계 45,800원</strong></td>
             </tr>
           </tfoot>
         </form>

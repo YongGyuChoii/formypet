@@ -95,7 +95,7 @@
                       <p class="fs-5 fw-bold mt-3">
                       <span class="fs-6 text-decoration-line-through fw-light me-1"><fmt:formatNumber value="<%=pb.getProductPrice() %>" pattern="#,###"/>원</span>
                       <fmt:formatNumber value="<%=pb.getProductSalePrice() %>" pattern="#,###"/>원
-                      <%//할인율 계산 ((정가-할인가) / 정가) * 100
+                      <%//할인율 계산 ((정가-할인가) / 정가) * 100 
 					  String salePercent;
 					  float salePer = (((float)pb.getProductPrice()-pb.getProductSalePrice()) / pb.getProductPrice()) * 100;
 					  salePercent = String.format("%.0f", salePer); //반올림

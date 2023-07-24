@@ -6,7 +6,35 @@ public class CartBean {
 	private int productKey;
 	private int cartCount;
 	private int memKey;
+	private String productName;
+	private int productPrice;
+	private int productSalePrice;
+	private String productImg;
 	
+	public String getProductImg() {
+		return productImg;
+	}
+	public void setProductImg(String productImg) {
+		this.productImg = productImg;
+	}
+	public int getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+	public int getProductSalePrice() {
+		return productSalePrice;
+	}
+	public void setProductSalePrice(int productSalePrice) {
+		this.productSalePrice = productSalePrice;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
 	public int getCartKey() {
 		return cartKey;
 	}

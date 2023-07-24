@@ -25,32 +25,38 @@ public class CartMgr {
 			e.printStackTrace();
 		}
 	}
-	
 
-		public ArrayList<CartBean> getCartAll(){
-			ArrayList<CartBean> pla = new ArrayList<CartBean>();
+	
+	public ArrayList<CartBean> getCartAll(){
+		ArrayList<CartBean> pla = new ArrayList<CartBean>();
 			
-			try {
-				con = pool.getConnection();
-				sql = "select * from cart where delYn='N' order by cartKey desc";
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
+		try {
+			con = pool.getConnection();
+			sql = "SELECT * FROM cart INNER JOIN product ON cart.productKey = product.productKey WHERE cartKey";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 				
-				while(rs.next()) {
-					CartBean bean = new CartBean();
-					bean.setCartKey(rs.getInt("cartKey"));
-					bean.setCartCount(rs.getInt("cartCount"));
-					bean.setMemKey(rs.getInt("memKey"));
-					bean.setProductKey(rs.getInt("productKey"));
-					
-					pla.add(bean);
-				}
-			}catch (Exception e) {
-				e.printStackTrace();
-			}finally {
-				pool.freeConnection(con,pstmt,rs);
+			while(rs.next()) {
+				CartBean bean = new CartBean();
+				bean.setCartKey(rs.getInt("cartKey"));
+				bean.setCartCount(rs.getInt("cartCount"));
+				bean.setMemKey(rs.getInt("memKey"));
+				bean.setProductKey(rs.getInt("productKey"));
+				bean.setProductName(rs.getString("productName"));
+				bean.setProductPrice(rs.getInt("productPrice"));
+				bean.setProductSalePrice(rs.getInt("productSalePrice"));
+				bean.setProductImg(rs.getString("productImg"));
+				pla.add(bean);
 			}
-			return pla;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			pool.freeConnection(con,pstmt,rs);
 		}
+		return pla;
+	}
+	
+		
 	
 }
