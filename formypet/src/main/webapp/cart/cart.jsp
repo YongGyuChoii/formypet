@@ -7,7 +7,7 @@
 <fmt:formatNumber value="${calPrice}" pattern="#,###"/>
 <%
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<CartBean> pAll = cMgr.getCartAll(); 	
+	ArrayList<CartBean> pAll = cMgr.getCartAll(); 
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -53,7 +53,7 @@
           <thead>
             <tr>
               <td style="text-align: left;">
-              	<input id="ProductItem" class="agreechkAll" type="checkbox" checked="checked" />
+              	<input id="ProductItem" class="agreechkAll" type="checkbox" checked="checked"/>
        		  	<label for="ProductItem"></label>
               </td>
               <td colspan="3">상품정보</td>
@@ -94,7 +94,7 @@
           %>
             <tr class="cart_table_detail">
               <td>
-              		<input id="chack1" class="chack" type="checkbox" checked="checked" />
+              		<input id="chack1" class="chack" type="checkbox" checked="checked">
         			<label for="chack1" class="chack_ele"></label>
               </td>
               <td><a href="#"><img src="../images/bathProduct/<%=cb.getProductImg()%>" alt=""></a></td>
@@ -107,12 +107,13 @@
         	  	<br>
         	  	<strong><%=cb.getProductSalePrice()%>원</strong>
         	  	<%}%>
-              </td>                          
+              </td>                        
               <td>
-                <button class="downBtn">-</button>
-                <input class="countBtn" type="text" value="<%=cb.getCartCount()%>" style="width: 30px;">                
-                <button class="upBtn">+</button>
-              </td>             
+                <button name="countBtn" class="downBtn">-</button>
+                <input name="countInput" class="countInput" type="text" value="<%=cb.getCartCount()%>" style="width: 30px;">                
+                <button name="countBtn" class="upBtn">+</button>
+              </td>
+              </from>             
               <td>
               	<strong><p>배송비 3,000원<br><a style="font-size:10px">(50,000원 이상 구매시 무료!)</a></p></strong>   
               </td>
@@ -123,7 +124,7 @@
           <tfoot>
             <tr>
               <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
-              <button class="cart_table_button2" type="button" onclick="location='cartEmpty.jsp';">전체상품 삭제</button>
+              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartDelete;'">전체상품 삭제</button>
               </td>
               <td></td>
               <td></td>

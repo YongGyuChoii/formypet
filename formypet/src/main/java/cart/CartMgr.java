@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.apache.jasper.tagplugins.jstl.core.Catch;
 
+import admin.ProductManagementBean;
 import product.ProductBean;
 import util.DBConnectionMgr;
 
@@ -57,6 +58,21 @@ public class CartMgr {
 		return pla;
 	}
 	
+	public void cartDeleteAll() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
 		
+		try {
+			con = pool.getConnection();
+			sql = "DELETE FROM cart";
+			pstmt = con.prepareStatement(sql);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
 	
 }
