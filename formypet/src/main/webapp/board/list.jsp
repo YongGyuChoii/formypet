@@ -9,7 +9,7 @@
 	  
       int totalRecord=0; //전체레코드수
 	  int numPerPage=10; // 페이지당 레코드 수 
-	  int pagePerBlock=15; //블럭당 페이지수 
+	  int pagePerBlock=5; //블럭당 페이지수 
 	  
 	  int totalPage=0; //전체 페이지 수
 	  int totalBlock=0;  //전체 블럭수 
@@ -67,11 +67,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Pet</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/board.css">
-    <link rel="stylesheet"  href="${pageContext.request.contextPath}/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/board.css">
+    <link rel="stylesheet"  href="../css/base.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <style>
+      table {
+        width: 100%;
+        min-width: 600px;
+      }
+    </style>
 <script>
 	function list() {
 		document.listFrm.action = "list.jsp";
@@ -112,9 +118,9 @@
         <%@include file="/base/header.jsp"%>
     </header>
     <!--header 끝-->
-
-		<div>
-			<img class="mainImg" src="../images/board/cs_center.jpg" alt="게시판" width="70%">
+		<br/>
+		<div class="mainImg" style="text-align : center;">
+			<img src="../images/board/cs_center.jpg" alt="게시판" width="1200" height="500">
 		</div>
 
     <!--main 시작-->
@@ -125,11 +131,9 @@
       }
  %>
 
-	<div class="container" align="center">
+	<div class="container" align="center" style="border:2px solid black; background-color: white;">
 		<br/>
-		<h2>BOARD</h2>
-		<br/>
-		<table align="center" width="1000">
+		<table align="center" width="1200">
 				<tr>
 					<td>Total : <%=totalRecord%>Articles(<font color="red">
 					<%=nowPage%>/<%=totalPage%>Pages</font>)</td>
@@ -138,7 +142,7 @@
 		
 		<!-- 게시판 본문 시작 -->
 		
-		<table align="center" width="1000" cellpadding="3">
+		<table align="center" width="1200" cellpadding="3">
 			<tr>
 				<td align="center" colspan="2">
 				<%
@@ -154,11 +158,11 @@
 				%>
 					  <table class="board_list">
 						<tr>
-							<td>번 호</td>
-							<td>제 목</td>
-							<td>이 름</td>
-							<td>날 짜</td>
-							<td>조회수</td>
+							<td width="70px">번 호</td>
+							<td width="300px">제 목</td>
+							<td width="120px">이 름</td>
+							<td	width="100px">날 짜</td>
+							<td width="70px">조회수</td>
 						</tr>
 						<%
 							  for (int i = 0;i<numPerPage; i++) {
@@ -201,35 +205,34 @@
 			<tr>
 				<td>
 				<!-- 페이징 및 블럭 처리 Start--> 
+				<a href="javascript:list()" class="btn btn-outline-secondary btn-sm" >첫 페이지</a>
 				<%
 	   				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
 	   				  int pageEnd = ((pageStart + pagePerBlock ) <= totalPage) ?  (pageStart + pagePerBlock): totalPage+1; 
 	   				  //하단 페이지 끝번호
 	   				  if(totalPage !=0){
 	    			  	if (nowBlock > 1) {%>
-	    			  		<a href="javascript:block('<%=nowBlock-1%>')">prev...</a><%}%>&nbsp; 
+	    			  		<a href="javascript:block('<%=nowBlock-1%>')" class="btn btn-outline-secondary btn-sm" >prev</a><%}%> 
 	    			  		<%for ( ; pageStart < pageEnd; pageStart++){%>
-	     			     	<a href="javascript:pageing('<%=pageStart %>')"> 
+	     			     	<a href="javascript:pageing('<%=pageStart %>')" class="btn btn-outline-secondary btn-sm"> 
 	     					<%if(pageStart==nowPage) {%><font color="blue"> <%}%>
-	     					[<%=pageStart %>] 
+	     					<%=pageStart %> 
 	     					<%if(pageStart==nowPage) {%></font> <%}%></a> 
-	    					<%}//for%>&nbsp; 
+	    					<%}//for%>
 	    					<%if (totalBlock > nowBlock ) {%>
-	    					<a href="javascript:block('<%=nowBlock+1%>')">.....next</a>
-	    			<%}%>&nbsp;  
+	    					<a href="javascript:block('<%=nowBlock+1%>')" class="btn btn-outline-secondary btn-sm" >next</a>
+	    			<%}%>
 	   			<%}%>
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="post.jsp">[글쓰기]</a> 
-					<a href="javascript:list()">[처음으로]</a>
-				</td>
+					<a href="post.jsp" class="btn btn-dark" >글쓰기</a></td>
 			</tr>
 		</table>
 		<!-- 게시판 본문 끝. -->
 			
 		<!-- 검색 폼 시작 -->
-		<hr width="1000"/>
+		<hr width="1300"/>
 		<form  name="searchFrm"  method="get" action="list.jsp">
 		<table width="600" cellpadding="4" cellspacing="0">
 	 		<tr>
