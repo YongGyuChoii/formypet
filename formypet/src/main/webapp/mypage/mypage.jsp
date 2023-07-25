@@ -1,20 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dog and Cat</title>
+    <title>For My Pet</title>
+    <link rel="stylesheet"  href="../css/base.css">
     <link rel="stylesheet"  href="../css/mypage.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+    <body>
     <div id="wrap">
-    <!-- header Ω√¿€-->
+    <!-- header ÏãúÏûë-->
     <header>
         <a href="index.html" class="logo">
             <h1>For My Pet</h1>
@@ -22,13 +23,13 @@
             <div id="navi1">
             <ul class="nav justify-content-end">
                 <li class="nav-item">
-                  <a class="nav-link active text-primary" aria-current="page" href="#">¿ÂπŸ±∏¥œ</a>
+                  <a class="nav-link active text-primary" aria-current="page" href="#">Ïû•Î∞îÍµ¨Îãà</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">∞Ì∞¥ºæ≈Õ</a>
+                  <a class="nav-link text-primary" href="#">Í≥†Í∞ùÏÑºÌÑ∞</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">∑Œ±◊æ∆øÙ</a>
+                  <a class="nav-link text-primary" href="#">Î°úÍ∑∏ÏïÑÏõÉ</a>
                 </li>
             </ul>
             </div>
@@ -36,30 +37,31 @@
             <div id="navi2">
             <div class="p-3 mb-2 bg-primary text-white">
             <nav class="nav">
-                <a class="nav-link text-white" aria-current="page" href="#">∏ﬁ¿Œ∆‰¿Ã¡ˆ</a>
-                <a class="nav-link text-white" href="#">ªÛ«∞∏Ò∑œ</a>
-                <a class="nav-link text-white" href="#">∞Ì∞¥ºæ≈Õ</a>
+                <a class="nav-link text-white" aria-current="page" href="#">Î©îÏù∏ÌéòÏù¥ÏßÄ</a>
+                <a class="nav-link text-white" href="#">ÏÉÅÌíàÎ™©Î°ù</a>
+                <a class="nav-link text-white" href="#">Í≥†Í∞ùÏÑºÌÑ∞</a>
               </nav>
             </div>
             </div>
       </header>
-    <!--header ≥°-->
 
-    <!--main Ω√¿€-->
-              <div class="container">    
+    <!--main ÏãúÏûë-->
+    <div class="container">
+      <section>
+       <div class="container">    
               <section>
               <div class="summaryContainer">
               <div class="item">
                   <div class="number">0</div>
-                  <div>¿‘±›∞·¡¶</div>
+                  <div>ÏûÖÍ∏àÍ≤∞Ï†ú</div>
                 </div>
                 <div class="item">
                   <div class="number">0</div>
-                  <div>πËº€¡ﬂ «»æ˜ ¥Î±‚</div>
+                  <div>Î∞∞ÏÜ°Ï§ë ÌîΩÏóÖ ÎåÄÍ∏∞</div>
                 </div>
                 <div class="item">
                   <div class="number">0</div>
-                  <div>πËº€øœ∑· «»æ˜øœ∑·</div>
+                  <div>Î∞∞ÏÜ°ÏôÑÎ£å ÌîΩÏóÖÏôÑÎ£å</div>
                 </div>
                 </div>  
                 <div class="shippingStatusContainer">
@@ -69,7 +71,7 @@
                 <div class="item">
                 <div>
             <a href="#"><i class="material-icons">paid</i></a>
-                <div class="text1">¿˚∏≥±›</div>
+                <div class="text1">Ï†ÅÎ¶ΩÍ∏à</div>
                 <div class="text2">7,060</div>
                 </div>
                 <div class="icon">  </div>
@@ -77,7 +79,7 @@
                 <div class="item">
                   <div>
                     <a href="#"><i class="material-icons"> local_parking</i></a>
-                    <div class="text1">∆˜¿Œ∆Æ</div>
+                    <div class="text1">Ìè¨Ïù∏Ìä∏</div>
                     <div class="text2">1,600</div>
                   </div>
                   <div class="icon">  </div>
@@ -85,7 +87,7 @@
                 <div class="item">
                   <div>
                     <a href="#"><i class="material-icons">copyright</i></a>
-                    <div class="text1">ƒÌ∆˘</div>
+                    <div class="text1">Ïø†Ìè∞</div>
                     <div class="text2">180</div>
                   </div>
                   <div class="icon">  </div>
@@ -93,7 +95,7 @@
                 <div class="item">
                   <div>
                     <a href="#"><i class="material-icons">menu_book</i></a>
-                    <div class="text1">»ƒ±‚</div>
+                    <div class="text1">ÌõÑÍ∏∞</div>
                     <div class="text2">0</div>
                   </div>
                 </div>     
@@ -104,24 +106,24 @@
             <div class="listContainer">
               <a href="${pageContext.request.contextPath}/mypage/mypageorder.jsp" class="item">
                   <div class="icon">ii</div>
-                  <div class="text">¡÷πÆ/πËº€/«»æ˜ ¡∂»∏<span class="circle"></span></div>
+                  <div class="text">Ï£ºÎ¨∏/Î∞∞ÏÜ°/ÌîΩÏóÖ Ï°∞Ìöå<span class="circle"></span></div>
                   <div class="right"> > </div>
               </a>
               <a href="#" class="item">
                   <div class="icon">ii</div>
-                  <div class="text">√Îº“/±≥»Ø/»Ø∫“ ≥ªø™</div>
+                  <div class="text">Ï∑®ÏÜå/ÍµêÌôò/ÌôòÎ∂à ÎÇ¥Ïó≠</div>
                   <div class="right"> > </div>
               </a>
              
               </a>
               <a href="${pageContext.request.contextPath}/mypage/mypageproduct.jsp""   class="item">
                   <div class="icon">ii</div>
-                  <div class="text">√÷±Ÿ∫ªªÛ«∞</div>
+                  <div class="text">ÏµúÍ∑ºÎ≥∏ÏÉÅÌíà</div>
                   <div class="right"> > </div>
               </a>
               <a href="#" class="item">
                   <div class="icon">ii</div>
-                  <div class="text">¬Ú«—ªÛ«∞</div>
+                  <div class="text">Ï∞úÌïúÏÉÅÌíà</div>
                   <div class="right"> > </div>
               </a>
             </div>
@@ -129,52 +131,31 @@
               <a href="${pageContext.request.contextPath}/mypage/mypageship.jsp" class="item">
                   <div class="icon">ii</div>
                   <div class="text">
-                    <span>πËº€¡ˆ ∞¸∏Æ</span>
+                    <span>Î∞∞ÏÜ°ÏßÄ Í¥ÄÎ¶¨</span>
                     <span class="smallLight"></span>    
                   </div>                
                   <div class="right">
                     <span class="blct"></span>
                     > </div>
               </a>
-              <a href="#" class="item">
-                  <div class="icon">ii</div>
-                  <div class="text">æÀ∏≤</div>
-                  <div class="right"> > </div>
-              </a>
-              <a href="#" class="item">
-                <div class="icon">ii</div>
-                <div class="text">º≥¡§</div>
-                <div class="right"> > </div>
-            </a>
+             
                  
           </div>
           </div>
     </div>
-    <!--main ≥°-->
-
-    <!-- ø¿∏•¬  ∏«¿ß ∏«æ∆∑° »≠ªÏ«• -->
-    <div class="rightAside2 rounded-pill">
-      <div class="rounded-circle"><a href="#wrap"><span class="material-icons">
-        expand_less
-        </span></a></div>
-      <div class="rounded-circle"><a href="#footer"><span class="material-icons">
-        expand_more
-        </span></a></div>
+      </section>
     </div>
-    <!-- ø¿∏•¬  ∏«¿ß ∏«æ∆∑° »≠ªÏ«• ≥° -->
+    <!--main ÎÅù-->
+
+    <!-- Ïò§Î•∏Ï™Ω Îß®ÏúÑ Îß®ÏïÑÎûò ÌôîÏÇ¥Ìëú -->
+    	<%@include file="/base/rightAside.jsp"%>
+    <!-- Ïò§Î•∏Ï™Ω Îß®ÏúÑ Îß®ÏïÑÎûò ÌôîÏÇ¥Ìëú ÎÅù -->
     
-    <!-- footer Ω√¿€-->
+    <!-- footer ÏãúÏûë-->
     <footer id="footer">
-      <nav>
-            <p>Dog And Cat</p>
-            <p>tel : 1234-5678 / Email : path@naver.com</p>
-            <p>Business License No : 394-81-01000[ªÁæ˜¿⁄¡§∫∏»Æ¿Œ]</p>
-            <p>¿¸¡÷Ω√ øœªÍ±∏ ∆»¥ﬁ∑Œ 184 2√˛</p>
-            <br>
-            <p>CEO : Joenseo </p>
-      </nav>
+      	<%@include file="/base/footer.jsp"%>
     </footer>
-    <!-- footer ≥°.-->
+    <!-- footer ÎÅù.-->
     </div>
 </body>
 </html>

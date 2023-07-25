@@ -10,7 +10,7 @@ public class ReviewBean {
 
     public ReviewBean(String title, String content, Image photo, double score) {
         this.title = title;
-        this.contents = content;
+        this.contents = contents;
         this.photo = photo;
         this.score = score;
     }
@@ -24,12 +24,12 @@ public class ReviewBean {
         this.title = title;
     }
 
-    public String getContent() {
+    public String getContents() {
         return contents;
     }
 
-    public void setContent(String content) {
-        this.contents = content;
+    public void setContent(String contents) {
+        this.contents = contents;
     }
 
     public Image getPhoto() {
