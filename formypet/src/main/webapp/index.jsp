@@ -98,19 +98,19 @@
 					        	<div class="col-3">옵션 선택</div>
 					        	<div class="col-6">
 									<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
-									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
 									</select>
 									<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
-									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
 									</select>
 									<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
-									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
 									</select>
 									<select name="optionSelect3" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
-									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
 									</select>
 									<select name="optionSelect4" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
-									  <option selected>-[필수] 옵션을 선택해 주세요-</option>
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
 									</select>
 					        	</div>
 					        </div>
