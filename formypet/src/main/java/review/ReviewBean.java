@@ -5,10 +5,10 @@ import java.awt.Image;
 public class ReviewBean {
     private String title;
     private String contents;
-    private Image photo;
-    private double score;
+    private String photo;
+    private int score;
 
-    public ReviewBean(String title, String content, Image photo, double score) {
+    public ReviewBean(String title, String content, String photo, int score) {
         this.title = title;
         this.contents = contents;
         this.photo = photo;
@@ -32,11 +32,11 @@ public class ReviewBean {
         this.contents = contents;
     }
 
-    public Image getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -44,7 +44,7 @@ public class ReviewBean {
         return score;
     }
 
-    public void setRating(double score) {
+    public void setRating(int score) {
         this.score = score;
     }
 
