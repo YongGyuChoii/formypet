@@ -54,13 +54,13 @@ public class ProductManagementMgr {
 			con = pool.getConnection();
 			//keyWord 값이 없는 경우 상품 조회
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select * from product order by productName desc limit ?,?";
+				sql = "select * from product order by productKey desc limit ?,?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, start);
 				pstmt.setInt(2, end);
 			} else { //keyField 와 keyWord 값이 있는 경우 상품 조회
 				sql = "select * from  product where " + keyField + " like ? ";
-				sql += "order by productName desc limit ?,?";
+				sql += "order by productKey desc limit ?,?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
 				pstmt.setInt(2, start);
@@ -140,10 +140,10 @@ public class ProductManagementMgr {
 			con = pool.getConnection();
 			//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
 			if (keyWord.equals("null") || keyWord.equals("")) {
-				sql = "select count(productName) from product";
+				sql = "select count(productKey) from product";
 				pstmt = con.prepareStatement(sql);
 			} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-				sql = "select count(productName) from  product where " + keyField + " like ? ";
+				sql = "select count(productKey) from  product where " + keyField + " like ? ";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, "%" + keyWord + "%");
 			}
@@ -182,7 +182,7 @@ public class ProductManagementMgr {
 			
 			try {
 				con = pool.getConnection();
-				sql = "select max(productName) from product"; //게시물이 총 몇개 인지 조회하는 쿼리
+				sql = "select max(productKey) from product"; //게시물이 총 몇개 인지 조회하는 쿼리
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
@@ -205,16 +205,16 @@ public class ProductManagementMgr {
 					filesize = (int) multi.getFile("productInfo").length();
 				}
 				if (multi.getFilesystemName("filename2") != null) {
-					filename2 = multi.getFilesystemName("productInfo");
-					filesize = (int) multi.getFile("productInfo").length();
+					filename2 = multi.getFilesystemName("productDetail");
+					filesize = (int) multi.getFile("productDetail").length();
 				}
 				if (multi.getFilesystemName("filename3") != null) {
-					filename3 = multi.getFilesystemName("productInfo");
-					filesize = (int) multi.getFile("productInfo").length();
+					filename3 = multi.getFilesystemName("productCaution");
+					filesize = (int) multi.getFile("productCaution").length();
 				}
 				if (multi.getFilesystemName("filename4") != null) {
 					filename4 = multi.getFilesystemName("productImg");
-					filesize = (int) multi.getFile("productInfo").length();
+					filesize = (int) multi.getFile("productImg").length();
 				}
 				
 				sql = "insert product(productName,productComment,productInfo,productDetail,productCaution,productPrice,productSalePrice,productCount,productKind,productImg,categoryKey)";
@@ -300,7 +300,7 @@ public class ProductManagementMgr {
 		}
 		
 		// 상품 리스트 리턴 메서드, 상품의 productName 값을 기준으로 해당 게시물을 조회한다.
-		public ProductManagementBean getpm(String productName) {
+		public ProductManagementBean getpm(int productKey) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -313,10 +313,10 @@ public class ProductManagementMgr {
 			try {
 				con = pool.getConnection();
 				//productName 값을 기준으로 product 테이블에서 게시물을 조회한다.
-				sql = "select * from product where productName=?";
+				sql = "select * from product where productKey=?";
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setString(1, productName);
+				pstmt.setInt(1, productKey);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					bean.setProductName(rs.getString("productName"));
@@ -329,8 +329,9 @@ public class ProductManagementMgr {
 					bean.setProductSalePrice(rs.getInt("productSalePrice"));
 					bean.setProductCount(rs.getInt("productCount"));
 					bean.setProductKind(rs.getString("productKind"));
-					bean.setProductImg(rs.getString("producImg"));
+					bean.setProductImg(rs.getString("productImg"));
 					bean.setCategoryKey(rs.getInt("categoryKey"));
+					bean.setProductKey(rs.getInt("productKey"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -340,7 +341,7 @@ public class ProductManagementMgr {
 			return bean;
 		}
 		
-		//productKey로 상품 조회하기
+		//productKey로 상품 조회하기(product_file)
 		public ProductManagementBean getpmbean(int productKey){
 				
 			Connection con = null;
@@ -354,7 +355,7 @@ public class ProductManagementMgr {
 			try {
 				con = pool.getConnection();
 				//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
-				sql = "select * from product_file where fileKey=?";
+				sql = "select * from product_file where productKey=?";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, productKey);
@@ -385,8 +386,8 @@ public class ProductManagementMgr {
 				con = pool.getConnection();
 				
 				//udfile 쿼리로 게시물을 수정한다.
-				//productName 으로 수정할 게시물을 찾아서 컬럼을 수정 한다.
-				sql = "update product set productName = ?, productComment = ?, productInfo = ?, productDetail = ?, productCaution = ?, productPrice = ?, productSalePrice = ? ,productCount = ? , productKind = ?, porductImg = ?, categoryKey = ? where productName = ?";
+				//productKey 으로 수정할 게시물을 찾아서 컬럼을 수정 한다.
+				sql = "update product set productName = ?, productComment = ?, productInfo = ?, productDetail = ?, productCaution = ?, productPrice = ?, productSalePrice = ? ,productCount = ? , productKind = ?, porductImg = ?, categoryKey = ? where productKey = ?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getProductName());
@@ -420,7 +421,7 @@ public class ProductManagementMgr {
 
 				//updateproduct_file 쿼리로 상품을 수정한다.
 				//productKey로 상품을 찾아서 컬럼을 수정한다.
-				sql = "update product_file set fileSaveName = ?, fileOriginalName = ?, size = ?, productKey = ? where fileKey = ?";
+				sql = "update product_file set fileSaveName = ?, fileOriginalName = ?, size = ?, productKey = ? where ProductKey = ?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getFileSaveName());

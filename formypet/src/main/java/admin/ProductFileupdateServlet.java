@@ -25,7 +25,7 @@ public class ProductFileupdateServlet extends HttpServlet {
 		ProductManagementMgr pmmgr = new ProductManagementMgr();
 		
 		//ProductManagementBean 클래스 객체인 pmbean에 session에 저장된 게시물 pmbean 데이터를 대입한다.
-		ProductManagementBean pmbean = (ProductManagementBean) session.getAttribute("bean");
+		ProductManagementBean bean = (ProductManagementBean) session.getAttribute("bean");
 		
 		String nowPage = request.getParameter("nowPage");
 		//String productKey = request.getParameter("productKey");
@@ -44,14 +44,14 @@ public class ProductFileupdateServlet extends HttpServlet {
 		puBean.setProductKind(request.getParameter("productKind"));
 		puBean.setProductImg(request.getParameter("productImg"));
 		puBean.setCategoryKey(Integer.parseInt(request.getParameter("categoryKey")));
-
+		puBean.setProductKey(Integer.parseInt(request.getParameter("productKey")));
 		
 		//수정할 내용이 담긴 데이터는 puBean 객체에 있고, (jsp 화면에서 이동해온 게시글 데이터)
 		//수정 전 내용이 담긴 데이터는 pmbean 객체에 있다. (수정 전 session 에 저장한 게시글 데이터)
 		
 		//ProductManagementMgr updateproduct() 메서드 호출
 		pmmgr.udfile(puBean);
-		String url = "productFileupdate.jsp?nowPage = " + nowPage + "&productKey=" + puBean.getProductKey();
+		String url = "../admin/read.jsp?nowPage = " + nowPage + "&productKey=" + puBean.getProductKey();
 		response.sendRedirect(url);
 	}
 }

@@ -72,12 +72,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+<div align="center" id = "wrap">
 <!-- header 시작-->
     <header>
         <%@include file="../admin/adminHeader.jsp"%>
       </header>
     <!--header 끝-->
-	<div align="center">
+	
 		<br/>
 		<h2>상품 목록</h2>
 		<br/>
@@ -90,7 +91,7 @@
 		
 		<!-- 게시판 본문 시작 -->
 		
-		<table align="center" width="600" cellpadding="3" height = "80%">
+		<table>
 			<tr>
 				<td align="center" colspan="2">
 				<%
@@ -100,19 +101,18 @@
 					  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
 					  
 					  if (vlist.isEmpty()) {
-						out.println("등록된 파일 없습니다.");
+						out.println("등록된 상품이 없습니다.");
 						
 					  } else {
 				%>
-					  <table width="100%" cellpadding="2" cellspacing="0">
-						<tr align="center" bgcolor="#D0D0D0" height="50%">
+					  <table>
+						<tr>
 							<td>상품 번호</td>
 							
 							<td>이름</td>
 							<td>수량</td>
 							<td>가격</td>
 							<td>할인가</td>
-							<td>상품 수정</td>
 						</tr>
 						<%
 							  for (int i = 0; i < numPerPage; i++) {
@@ -130,11 +130,10 @@
 						<tr>
 							
 							<td align="center"><%=productKey%></td>
-							<td align="center"><%=productName%></td>
+							<td align="center"><a href="javascript:read('<%=productKey%>')"><%=productName%></a></td>
 							<td align="center"><%=productCount%></td>
 							<td align="center"><%=productPrice%></td>
 							<td align="center"><%=productSalePrice%></td>
-							<td align="center"><input type = "submit" value = "상품 수정" ></td>
 							</tr>
 						<%}//for%>
 					</table> <%
@@ -201,12 +200,13 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="num"> 
+			<input type="hidden" name="productKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
-			<!-- 오른쪽 맨위 맨아래 화살표 -->
+	</div>
+	<!-- 오른쪽 맨위 맨아래 화살표 -->
     <%@include file="/base/rightAside.jsp"%>
     <!-- 오른쪽 맨위 맨아래 화살표 끝 -->
     
@@ -215,8 +215,6 @@
       <%@include file="/base/footer.jsp"%>
     </footer>   
     <!-- footer 끝.-->
-	</div>
-
 </body>
 </html>
 <script>
@@ -235,7 +233,11 @@
 		 document.readFrm.submit();
 	} 
 	
-
+	function read(productKey){
+		document.readFrm.productKey.value=productKey;
+		document.readFrm.action="../admin/read.jsp";
+		document.readFrm.submit();
+	}
 	
 	function check() {
 	     if (document.searchFrm.keyWord.value == "") {

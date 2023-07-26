@@ -3,20 +3,19 @@
 <%@ page import = "admin.ProductManagementBean" %>
 <jsp:useBean id="pmmgr" class="admin.ProductManagementMgr" />
 <%
+		 
 		//productmanagement.jsp페이지에서 이동한 productName,productKey,nowPage 파라미터를 받아 각 각 변수에 저장
-		
+
 		int productKey = Integer.parseInt(request.getParameter("productKey"));
 		
 		//System.out.println("productFileupdate.jsp productKey = " + productKey);
 		
 		String nowPage = request.getParameter("nowPage");
-
-		//pmmgr.getPMBean(productKey);
 		
 		 //session에 저장된 pmbean객체를 이용해서 게시물 정보를 각 각 변수에 저장 
 		ProductManagementBean bean = (ProductManagementBean) session.getAttribute("bean");
 		 
-		String pName = bean.getProductName();
+		String productName = bean.getProductName();
 		String productComment = bean.getProductComment();
 		String productInfo = bean.getProductInfo();
 		String productDetail = bean.getProductDetail();
@@ -27,113 +26,113 @@
 		String productKind = bean.getProductKind();
 		String productImg = bean.getProductImg();
 		int categoryKey = bean.getCategoryKey();
-		
-		
-		 
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>상품 수정 페이지</title>
+	<meta charset="UTF-8">
+	<title>상품 수정 페이지</title>
+	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
+	<script>
+	function check() {
+		document.updateFrm.submit();
+	}
+	</script>
 </head>
 <body>
-	<div align="center">
-		<br/><br/>
-		<table width="600" cellpadding="3">
-			<tr>
-				<td  align="center">상품 추가</td>
-			</tr>
-		</table>
-		<!-- form 태그의 action 이 BoardPostSevlet 클래스의 url 맵핑 을 찾아서 이동한다. -->
-		<form name="postFrm" method="post" action="ptfupdate" enctype="multipart/form-data">
-		<table width="800" cellpadding="3" align="center">
-			<tr>
-				<td align=center>
-				<table align="center" bgcolor = "skyblue">
-					<tr>
-						<td>상품 이름</td>
-						<td>
-						<input name="productName" value = "<%=pName %>" size="70" maxlength="100">
-						</td>
-					</tr>
-					<tr>
-						<td>상품 내용</td>
-				     	<td><input name="productComment" value = "<%=productComment %>" size="70" maxlength="100" >
-				     	</td>				     	
-					</tr>	
-					
-					<tr>
-						<td>상품 가격</td>
-						<td><input name="productPrice" value = "<%=productPrice %>" size="70" maxlength="100"></td>
-					</tr>
-					<tr>
-						<td>상품 할인 가격</td>
-						<td><input name="productSalePrice"  value = "<%=productSalePrice %>" size="70" maxlength="100"></td>
-					</tr>
-					<tr>
-					<tr>
-				     	<td>상품 개수</td> 
-				     	<td><input name="productCount" value = "<%=productCount %>" size="70" maxlength="100"></td>
-				    </tr>
-				 	<tr>
-				     	<td>애완동물 종 선택</td> 
-				     	<td><input name="productKind" value = "<%=productKind%>" size="70" maxlength="100"></td>
-				    </tr>	
-				    <tr>
-				     	<td>상품 카테고리</td> 
-				     	<td><input name="categoryKey" value = "<%=categoryKey %>" size="70" maxlength="100"></td>
-				    </tr>
-				 	<tr>
-				     	<td>상품 대표 이미지</td> 
-				     	<td id = "pti"><input type="file" name="productImg" value = "<%=productImg %>" size="70" maxlength="100">
-				     	<input type="button" onclick = "additem5()" value="추가">js파일 수정용으로 따로 만들기</td>
-				    </tr>
-				    <tr>
-						<td>상품 사이즈 사진</td>
-						<td id = "pd"><input type="file" name="productDetail" value = "<%=productDetail%>" size="70" maxlength="100">
-				     	<input type="button" onclick = "additem3()" value="추가"></td>
-					</tr>
-				    
-				    <tr>
-						<td>상품 설명 사진</td>
-						<td id = "pi"><input type="file" name="productInfo" value = "<%=productInfo%>" size="30" maxlength="30">
-				     	<input type="button" onclick = "additem2()" value="추가"></td>
-					</tr>
-					<tr>
-						<td>상품 주의사항 사진</td>
-						<td id = "pca"><input type="file" name="productCaution" value = "<%=productCaution%>" size="30" maxlength="30">
-				     	<input type="button" onclick = "additem4()" value="추가"></td>
-					</tr>
-					<tr>
-						<td colspan="2"><hr/></td>
-						</tr>
-					<tr>
-						<td colspan="2">
-						<td><input type="submit" value="수정 완료" id = click>
-						<input type="reset" value="다시 수정">
-						<input type="button" value="뒤로" onClick = "history.go(-1)">
-						</td>
-					</tr>
-					<tr>
-						<td>
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
+	<div align="center"><br/><br/>
+	<table width="600" cellpadding="3">
+	  <tr>
+	   <td bgcolor= "#002266" align="center"><font color = "#ffc303">상품 수정하기</font></td>
+	  </tr>
 	</table>
-	<input type = "hidden" name = "nowPage" value = "<%=nowPage %>">
-	<input type = "hidden" name = "productName" value = "<%=productKey %>">
-</form>
-</div>
+	<!-- boardUpdate 로 url맵핑된 서블릿으로 이동한다. -->
+	<form name="updateFrm" method="post" action="ptfupdate">
+	<table width="1200" cellpadding="7">
+	 <tr>
+	  <td>
+	   <table>
+	    <tr>
+	     <td>상품 이름</td>
+	     <td>
+		  <input name="productName" value="<%=productName%>" size="70" maxlength="100">
+		 </td>
+		</tr>
+		<tr>
+	     <td>상품 내용</td>
+	     <td>
+		  <input name="productComment" size="70" value="<%=productComment%>" maxlength="100">
+		 </td>
+	    <tr>
+	     <td>상품 가격</td>
+	     <td>
+		  <input name="productPrice" size="70" value="<%=productPrice%>" maxlength="100">
+		 </td>
+	    </tr>
+	    <tr>
+	     <td>상품 할인가</td>
+	     <td>
+		  <input name="productSalePrice" size="70" value="<%=productSalePrice%>" maxlength="100">
+		 </td>
+	    </tr>
+	   	<tr>
+	     <td>상품 수량</td>
+	     <td>
+		  <input name="productCount" size="70" value="<%=productCount%>" maxlength="100">
+		 </td>
+	    </tr>
+	   	<tr>
+	     <td>애완동물 종류</td>
+	     <td>
+		  <input name="productKind" type="radio"
+		  value="dog" <%
+		  if("dog".equals(productKind)){%>checked<%}%>>dog</input>
+		  <input name="productKind" type="radio" value="cat"
+		  <%if("cat".equals(productKind)){%>checked<%}%>>cat</input>
+		  <input name="productKind" type="radio" value="both"
+		  <%if("both".equals(productKind)){%>checked<%}%>>both</input>
+		 </td>
+	    </tr>
+	   	<tr>
+	     <td>상품 카테고리</td>
+	     <td>
+		  <input name="categoryKey" size="70" value="<%=categoryKey%>" maxlength="100">
+		 </td>
+	    </tr>
+	    <tr>
+			<td>상품 대표 이미지</td> 
+			<td id = "pti"><input name="productImg" value = "<%=productImg %>" size="70" maxlength="100"></td>
+		</tr>
+		<tr>
+			<td>상품 사이즈 사진</td>
+			<td id = "pd"><input name="productDetail" value = "<%=productDetail%>" size="70" maxlength="100"></td>
+		</tr>
+				    
+		<tr>
+			<td>상품 설명 사진</td>
+			<td id = "pi"><input name="productInfo" value = "<%=productInfo%>" size="70" maxlength="100"></td>
+		</tr>
+		<tr>
+			<td>상품 주의사항 사진</td>
+			<td id = "pca"><input name="productCaution" value = "<%=productCaution%>" size="70" maxlength="100"></td>
+		</tr>
+		<tr>
+	     <td colspan="2" height="5"><hr/></td>
+	    </tr>
+		<tr>
+	     <td colspan="2" height = "6">
+		  <input type="button" value="수정완료" onclick="check()">
+	      <input type="reset" value="다시수정"> 
+	      <input type="button" value="뒤로" onclick="history.go(-1)">
+		 </td>
+	    </tr> 
+	   </table>
+	  </td>
+	 </tr>
+	</table>
+	 <input type="hidden" name="nowPage" value="<%=nowPage %>">
+	 <input type='hidden' name="productKey" value="<%=productKey%>">
+	</form> 
+	</div>
 </body>
 </html>
-<script>
-
-	var click = document.getElementById("click");
-	click.onclick = function(event) {
-		self.close();
-	}
-	
-</script>
