@@ -109,7 +109,7 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn" class="downBtn">-</button>
+                <button name="countBtn" class="downBtn" onclick="location='minButton';">-</button>
                 <input name="countInput" class="countInput" type="text" value="<%=cb.getCartCount()%>" style="width: 30px;">                
                 <button name="countBtn" class="upBtn">+</button>
               </td>
@@ -124,7 +124,7 @@
           <tfoot>
             <tr>
               <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
-              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartDelete;'">전체상품 삭제</button>
+              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='test.jsp;'">전체상품 삭제</button>
               </td>
               <td></td>
               <td></td>
