@@ -1,14 +1,13 @@
 package cart;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import org.apache.jasper.tagplugins.jstl.core.Catch;
+import javax.servlet.http.HttpServletResponse;
 
-import admin.ProductManagementBean;
-import product.ProductBean;
 import util.DBConnectionMgr;
 
 public class CartMgr {
@@ -76,22 +75,35 @@ public class CartMgr {
 	}
 	
 	//회원 장바구니 추가(옵션x)
-	public void insertCart(int memKey, int productKey) {
+	public void insertCart(int memKey, int productKey, HttpServletResponse response) {
 		try {
 			con = pool.getConnection();
-			
-			sql = "insert into cart(cartCount,memKey,productKey) values(1,?,?)";
-			
+			sql = "select * from cart where memKey = ? and productKey = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, 1);
-			pstmt.setInt(2, memKey);
-			pstmt.setInt(3, productKey);
-			pstmt.executeUpdate();
-			
+			pstmt.setInt(1, memKey);
+			pstmt.setInt(2, productKey);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				response.setContentType("text/html; charset=UTF-8");
+				 
+				PrintWriter out = response.getWriter();
+				 
+				out.println("<script>alert('동일한 상품이 있습니다.');</script>");
+				 
+				out.flush();
+				out.close();
+			}else {
+				sql = "insert into cart(cartCount,memKey,productKey) values(1,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, 1);
+				pstmt.setInt(2, memKey);
+				pstmt.setInt(3, productKey);
+				pstmt.executeUpdate();
+			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			pool.freeConnection(con,pstmt);
+			pool.freeConnection(con,pstmt,rs);
 		}
 	}
 
