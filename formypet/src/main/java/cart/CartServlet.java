@@ -42,7 +42,7 @@ public class CartServlet extends HttpServlet {
 		
 		CartMgr cMgr = new CartMgr();
 		
-		cMgr.insertCart(memKey, productKey);
+		cMgr.insertCart(memKey, productKey, response);
 	}
 
 }
