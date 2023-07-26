@@ -14,6 +14,7 @@ public class BoardBean {
 	private int count; //게시물 조회수 변수
 	private String filename; //게시물 업로드 파일 이름 변수
 	private int filesize; //게시물 업로드 파일 크기 변수
+	private int memKey;
 
 	public int getNum() {
 		return num;
@@ -86,6 +87,12 @@ public class BoardBean {
 	}
 	public void setFilesize(int filesize) {
 		this.filesize = filesize;
+	}
+	public int getMemKey() {
+		return memKey;
+	}
+	public void setMemKey(int memKey) {
+		this.memKey = memKey;
 	}
 
 }

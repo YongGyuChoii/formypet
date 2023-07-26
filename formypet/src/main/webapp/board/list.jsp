@@ -131,7 +131,7 @@
       }
  %>
 
-	<div class="container" align="center" style="border:2px solid black; background-color: white;">
+	<div class="container" align="center" style="border:2px solid white; background-color: white;">
 		<br/>
 		<table align="center" width="1200">
 				<tr>

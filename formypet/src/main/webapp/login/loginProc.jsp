@@ -18,15 +18,15 @@
 		  String msg = "로그인에 실패 하였습니다.";
 		  
 		  //MemberMgr 클래스 loginMember() 메서드 호출 하여 결과값은 boolean 타입 으로 return 
-		  boolean result = mMgr.loginMember(memId,memPw);
+	//	  boolean result = mMgr.loginMember(memId,memPw);
 		  
-		  if(result){
+	//	  if(result){
 			  //result 결과값이 true 일때 
 		    session.setAttribute("idKey",memId);
 			  //session에 id 저장.
 		    msg = "로그인에 성공 하였습니다.";
 		    url = "../index.jsp";
-		  }
+	//	  }
 	%>
 </body>
 </html>

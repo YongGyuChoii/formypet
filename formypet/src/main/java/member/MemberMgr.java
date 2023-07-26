@@ -80,7 +80,8 @@ public class MemberMgr {
 				}
 				
 	// 로그인 처리
-	public boolean loginMember(String memId, String memPw) {
+	public MemberBean loginMember(int memKey) {
+		MemberBean bean = new MemberBean();
 					
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -88,26 +89,27 @@ public class MemberMgr {
 						
 		String sql = null;
 						
-		boolean flag = false;
 						
 		try {
 			con = pool.getConnection();
 							
-			sql = "select memId from member where memId = ? and memPw = ?";
+			sql = "select memId from member where memKey = ?";
 			//id 컬럼을 찾는 select 쿼리를 작성한다. where 절 에 매개변수로 받은 id, pwd를 입력함.
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, memId);
-			pstmt.setString(2, memPw);
-							
+
+			pstmt.setInt(1, memKey);				
 			rs = pstmt.executeQuery();
+			if(rs.next()) {
+
+			}
 							
-			flag = rs.next();
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				pool.freeConnection(con, pstmt, rs);
 				}
-				return flag;
+				return bean;
 			}
 		
 }
