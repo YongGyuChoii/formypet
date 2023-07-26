@@ -4,11 +4,11 @@ $(function(){
 	
 	// 비어있는 새로운 set 을 만듬
 	let setA = new Set();
-	let setB;
+	let setB = [];
 	let html = []; //html 넣을 배열 선언
 	
 	let setC = new Set();
-	let setD;
+	let setD = [];
 	
 	//회원일때 옵션 불러오기
 	$(document).on("click",".btnIcon",function(){
@@ -40,6 +40,8 @@ $(function(){
 						count=0; //class 초기화
 						setA.clear(); //set 초기화
 						setC.clear();
+						setB = []; //배열초기화
+						setD = [];
 						html = [];
 						
 						//빈값이 아니라면 옵션 추가
@@ -69,7 +71,8 @@ $(function(){
 	
 	//select에 대한 클릭 함수
 	$("select[name=optionSelect0]").change(function(){
-		if($(this).val() != ""){
+		//select가 하나일때
+		if($(this).val() != "" && $(this).next().css("display") == "none"){
 			count=0; // 카운트 초기화
 			//셀렉트 하면 append 할 div
 			var optionChoose = $(this).parent().parent().parent().find(".optionChoose");
@@ -110,13 +113,13 @@ $(function(){
 			}
 			//div 초기화 시켜주고
 			optionChoose.empty();
+
 			//html 출력
 			for(var i=0; i<html.length; i++){
 				optionChoose.append(html[i]);
 				$(this).find('option:eq(0)').prop('selected',true); //옵션 초깃값 초기화
 			}
 		}
-		
 	});
 	
 	//두번째 셀렉트옵션
@@ -126,14 +129,16 @@ $(function(){
 			count=0; // 카운트 초기화
 			//optionChoose div 가져오기
 			var optionChoose = $(this).parent().parent().parent().find(".optionChoose");
+			//첫번째 옵션 셀렉트
+			var selectValue0 = $(this).prev().val();
 			//셀렉트 값 가져오기
-			var selectValue = $(this).val();
-			for(var i=0; i<setB.length; i++){
-				if(setC.has(setB[i]+"/"+selectValue)){
-					alert("이미 추가한 옵션입니다.");
-				}else{
-					setC.add(setB[i]+"/"+selectValue);
-				}
+			var selectValue1 = $(this).val();
+			
+			//select 처음꺼 선택 + 지금 셀렉트 값
+			if(setC.has(selectValue0+"/"+selectValue1)){
+				alert("이미 추가한 옵션입니다.");
+			}else{
+				setC.add(selectValue0+"/"+selectValue1);
 			}
 			
 			setD = Array.from(setC); //set을 array로 변환
@@ -167,9 +172,26 @@ $(function(){
 			//html 출력
 			for(var i=0; i<html.length; i++){
 				optionChoose.append(html[i]);
-				$(this).find('option:eq(0)').prop('selected',true); //옵션 초깃값 초기화
 			}
 		}
 	});
 	
 });
+
+function fnCartInsert(){
+	var productKey = $(this).parent().parent().find("input[name='productKey']").val();
+	
+	$.ajax({
+			type : "POST",
+			url: "/formypet/cart/CartServlet",
+			data : { productKey:productKey, memKey:memKey },
+			dataType : "json",
+			success : function() { 
+				alert("장바구니에 추가되었습니다.");
+				
+			},
+			errer : function() {
+				alert('errer');
+			}
+		});
+}

@@ -75,4 +75,23 @@ public class CartMgr {
 		}
 	}
 	
+	//회원 장바구니 추가(옵션x)
+	public void insertCart(int memKey, int productKey) {
+		try {
+			con = pool.getConnection();
+			
+			sql = "insert into cart(cartCount,memKey,productKey) values(1,?,?)";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, memKey);
+			pstmt.setInt(3, productKey);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			pool.freeConnection(con,pstmt);
+		}
+	}
 }
