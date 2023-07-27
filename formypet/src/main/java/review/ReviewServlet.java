@@ -35,15 +35,15 @@ public class ReviewServlet {
         String password = "0000"; // 본인의 MySQL 비밀번호
 
         try {
-        	ReviewServlet ReviewMgr = new ReviewServlet(url, user, password);
+        	ReviewServlet ReviewMain = new ReviewServlet(url, user, password);
         	
 
             // 리뷰 정보 추가 예시
-        	ReviewMgr.addReview("맛있는 음식!", "정말 맛있어요!", 5, "photo1.jpg");
-        	ReviewMgr.addReview("친절한 서비스", "직원들이 친절하고 좋았습니다.", 4, "photo2.jpg");
+        	ReviewMain.addReview("제로 워터리스 샴푸!", "써보니까 확실히 인기 있는 이유룰 알겠어요.", 5, "photo1.jpg");
+        	ReviewMain.addReview("제로 워터리스 샴푸!", "써보니까 확실히 인기 있는 이유룰 알겠어요.", 5, "photo2.jpg");
 
             // 연결 종료
-        	ReviewMgr.close();
+        	ReviewMain.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

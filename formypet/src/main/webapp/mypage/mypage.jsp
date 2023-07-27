@@ -94,7 +94,7 @@
                 </div>     
                 <div class="item">
                   <div>
-                    <a href="#"><i class="material-icons">menu_book</i></a>
+                    <a href="${pageContext.request.contextPath}/mypage/myreview.jsp#"><i class="material-icons">menu_book</i></a>
                     <div class="text1">후기</div>
                     <div class="text2">0</div>
                   </div>
