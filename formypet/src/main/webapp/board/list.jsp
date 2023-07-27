@@ -124,12 +124,6 @@
 		</div>
 
     <!--main 시작-->
- <%
-	  String userID = null;
-      if (session.getAttribute("idKey") != null){
-          userID = (String) session.getAttribute("idKey");
-      }
- %>
 
 	<div class="container" align="center" style="border:2px solid white; background-color: white;">
 		<br/>

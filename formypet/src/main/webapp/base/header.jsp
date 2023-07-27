@@ -4,8 +4,8 @@
 	<h1>For my Pet</h1>
 </a>
 <% 
-	String id = (String)session.getAttribute("idKey");  
- 	if(id!=null && id!=""){
+	Integer memKey = (Integer)session.getAttribute("idKey");
+ 	if(memKey!=null){
 %>
 <div id="navi1">
 <ul class="nav justify-content-end me-4">
