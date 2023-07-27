@@ -96,9 +96,8 @@ public class CartMgr {
 			}else {
 				sql = "insert into cart(cartCount,memKey,productKey) values(1,?,?)";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, 1);
-				pstmt.setInt(2, memKey);
-				pstmt.setInt(3, productKey);
+				pstmt.setInt(1, memKey);
+				pstmt.setInt(2, productKey);
 				pstmt.executeUpdate();
 			}
 		}catch(Exception e) {

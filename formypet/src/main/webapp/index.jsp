@@ -14,6 +14,7 @@
 	ArrayList<ProductBean> wlist = pMgr.getWalkList(); //플레이룸
 	
 	int count = 0; //모달을 위한 변수
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -63,6 +64,7 @@
               <%for(ProductBean b : blist){ %>
               	<div class="mainContent1">
 	              	<input type="hidden" name="productKey" value="<%=b.getProductKey() %>" />
+	              	<input type="hidden" name="memKey" value="<%=memKey %>" />
 	                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진"></a>
 	                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=b.getProductName() %></p></a>
 	                <p class="fs-5 fw-bold mt-3">
@@ -89,7 +91,7 @@
 					        <p class="fw-bold">
 					        	<%=b.getProductName() %>
 					        </p>
-					        <input type="hidden" value="<%=b.getProductSalePrice() %>" />
+					        <input type="hidden" name="productSalePrice" value="<%=b.getProductSalePrice() %>" />
 					        <hr />
 					        <div class="row">
 					        	<div class="col-3">
@@ -106,12 +108,6 @@
 									<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
 									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
 									</select>
-									<select name="optionSelect3" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
-									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
-									</select>
-									<select name="optionSelect4" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
-									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
-									</select>
 					        	</div>
 					        </div>
 					        
@@ -123,13 +119,14 @@
 							</div>
 							<hr />
 							
+							<input type="hidden" name="productCount" value="<%=b.getProductCount() %>" />
 							<div class="optionChoose">
 							</div>
 							
 							<div class="mt-5">
 								<span class="fw-bold fs-6">총 상품금액</span>(수량) :
-								<span class="fw-bold text-primary fs-3">25,400</span>원
-								(<span class="fs-6">2</span>개)
+								<span class="fw-bold text-primary fs-3 totalPrice">0</span>원
+								(<span class="fs-6 totalCount">0</span>개)
 							</div>
 								
 					      </div>
