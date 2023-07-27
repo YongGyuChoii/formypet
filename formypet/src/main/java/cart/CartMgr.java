@@ -26,7 +26,7 @@ public class CartMgr {
 		}
 	}
 
-	
+	//장바구니 상품 가져오기
 	public ArrayList<CartBean> getCartAll(){
 		ArrayList<CartBean> pla = new ArrayList<CartBean>();
 			
@@ -57,6 +57,7 @@ public class CartMgr {
 		return pla;
 	}
 	
+	//장바구니 비우기
 	public void cartDeleteAll() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -104,6 +105,27 @@ public class CartMgr {
 			e.printStackTrace();
 		}finally {
 			pool.freeConnection(con,pstmt,rs);
+		}
+	}
+	
+	//장바구니 수량 변경
+	public void cartQuantity(CartBean bean) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE cart SET cartCount=? WHERE cartKey=?;";			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bean.getCartCount());
+			pstmt.setInt(2, bean.getCartKey());	
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
 		}
 	}
 

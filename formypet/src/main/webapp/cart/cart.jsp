@@ -7,7 +7,9 @@
 <fmt:formatNumber value="${calPrice}" pattern="#,###"/>
 <%
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<CartBean> pAll = cMgr.getCartAll(); 
+	ArrayList<CartBean> pAll = cMgr.getCartAll(); 	
+	
+
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -63,9 +65,11 @@
               <td>합계</td>
             </tr>
           </thead>
-          <%for(CartBean cb : pAll) { %>
+
           <tbody>
-          <%
+          	<%for(CartBean cb : pAll) { %>
+            <tr class="cart_table_detail">
+            <%
          	 	int productViewPrice;
               	if(cb.getProductSalePrice() == 0) {
               		productViewPrice = cb.getProductPrice();
@@ -92,7 +96,6 @@
               	}
               	
           %>
-            <tr class="cart_table_detail">
               <td>
               		<input id="chack1" class="chack" type="checkbox" checked="checked">
         			<label for="chack1" class="chack_ele"></label>
@@ -109,18 +112,18 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn" class="downBtn" onclick="location='minButton';">-</button>
-                <input name="countInput" class="countInput" type="text" value="<%=cb.getCartCount()%>" style="width: 30px;">                
+                <button name="countBtn" class="downBtn">-</button>
+                <input id="countInput" class="countInput" type="text" value="<%=cb.getCartCount()%>" style="width: 30px;">                
                 <button name="countBtn" class="upBtn">+</button>
               </td>
-              </from>             
+              </from>
               <td>
               	<strong><p>배송비 3,000원<br><a style="font-size:10px">(50,000원 이상 구매시 무료!)</a></p></strong>   
               </td>
               <td><strong><%=calPrice%>원</strong></td>          
             </tr>
+            <%}%>
           </tbody>
-          <%}%>
           <tfoot>
             <tr>
               <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
