@@ -119,9 +119,3 @@ table-body {
     
     }
     /* table 레이아웃 끝 */
-    a{
-    text-decoration : none;
-    }
-    A:link {text-decoration:none;color:#696969}
-	A:hover{text-decoration:none;color:#66CCFF}
-	A:visited {text-decoration:none;color:#330066}

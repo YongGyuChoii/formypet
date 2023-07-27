@@ -21,10 +21,16 @@ public class ProductManagementBean {
 	private int fileKey;
 	private String filename;//db x product용 변수
 	private String filesize;//db x product용 변수
-	private String ip; //파일 등록시 작성자의 
-	private int pos; //파일 등록시 게시물의 상대적인 위치값 변수
 	private int ref; //부모 글 변수
-	private int depth; //리스트 깊이 변수
+	private int ocKey; //option_code db
+	private String oc1; //option_code db
+	private String oc2;//option_code db
+	private String oc3;//option_code db
+	private String oc4;//option_code db
+	private String oc5;//option_code db
+	
+	
+	
 	public String getProductName() {
 		return productName;
 	}
@@ -82,17 +88,26 @@ public class ProductManagementBean {
 	public String getFilesize() {
 		return filesize;
 	}
-	public String getIp() {
-		return ip;
-	}
-	public int getPos() {
-		return pos;
-	}
 	public int getRef() {
 		return ref;
 	}
-	public int getDepth() {
-		return depth;
+	public int getOcKey() {
+		return ocKey;
+	}
+	public String getOc1() {
+		return oc1;
+	}
+	public String getOc2() {
+		return oc2;
+	}
+	public String getOc3() {
+		return oc3;
+	}
+	public String getOc4() {
+		return oc4;
+	}
+	public String getOc5() {
+		return oc5;
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
@@ -151,21 +166,26 @@ public class ProductManagementBean {
 	public void setFilesize(String filesize) {
 		this.filesize = filesize;
 	}
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
-	public void setPos(int pos) {
-		this.pos = pos;
-	}
 	public void setRef(int ref) {
 		this.ref = ref;
 	}
-	public void setDepth(int depth) {
-		this.depth = depth;
+	public void setOcKey(int ocKey) {
+		this.ocKey = ocKey;
 	}
-	
-	
-	
-	
+	public void setOc1(String oc1) {
+		this.oc1 = oc1;
+	}
+	public void setOc2(String oc2) {
+		this.oc2 = oc2;
+	}
+	public void setOc3(String oc3) {
+		this.oc3 = oc3;
+	}
+	public void setOc4(String oc4) {
+		this.oc4 = oc4;
+	}
+	public void setOc5(String oc5) {
+		this.oc5 = oc5;
+	}
 
 }

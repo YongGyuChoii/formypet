@@ -33,6 +33,10 @@
 				  </li>
 				   <li>
 				    <a class="nav-link text-white" href="../admin/productManagement.jsp">상품 관리</a>
+				        <ul class="depth_1">
+					      <li><a href="../admin/productManagement.jsp">상품 관리</a></li>
+					      <li><a href="../admin/productManagement2.jsp">상품 사진 관리</a></li>
+					    </ul>
 				  </li>
 				   <li>
 				    <a class="nav-link text-white" href="../admin/csCenterManagement.jsp">고객센터 관리</a>

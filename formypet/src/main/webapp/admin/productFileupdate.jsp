@@ -26,6 +26,7 @@
 		String productKind = bean.getProductKind();
 		String productImg = bean.getProductImg();
 		int categoryKey = bean.getCategoryKey();
+		int productKey1 = bean.getProductKey();
 %>
 <!DOCTYPE html>
 <html>
@@ -52,37 +53,43 @@
 	 <tr>
 	  <td>
 	   <table>
+	   	<tr>
+	     <td bgcolor= "#002266"><font color = "#ffc303">상품 번호</font></td>
+	     <td>
+		  <input name="productKey" value="<%=productKey%>" size="70" maxlength="100">
+		 </td>
+		</tr>
 	    <tr>
-	     <td>상품 이름</td>
+	     <td bgcolor= "#002266"><font color = "#ffc303">상품 이름</font></td>
 	     <td>
 		  <input name="productName" value="<%=productName%>" size="70" maxlength="100">
 		 </td>
 		</tr>
 		<tr>
-	     <td>상품 내용</td>
+	     <td bgcolor= "#002266"><font color = "#ffc303">상품 내용</font></td>
 	     <td>
 		  <input name="productComment" size="70" value="<%=productComment%>" maxlength="100">
 		 </td>
 	    <tr>
-	     <td>상품 가격</td>
+	     <td bgcolor= "#002266"><font color = "#ffc303">상품 가격</font></td>
 	     <td>
 		  <input name="productPrice" size="70" value="<%=productPrice%>" maxlength="100">
 		 </td>
 	    </tr>
 	    <tr>
-	     <td>상품 할인가</td>
+	     <td bgcolor= "#002266"><font color = "#ffc303">상품 할인가</font></td>
 	     <td>
 		  <input name="productSalePrice" size="70" value="<%=productSalePrice%>" maxlength="100">
 		 </td>
 	    </tr>
 	   	<tr>
-	     <td>상품 수량</td>
+	     <td bgcolor= "#002266"><font color = "#ffc303">상품 수량</font></td>
 	     <td>
 		  <input name="productCount" size="70" value="<%=productCount%>" maxlength="100">
 		 </td>
 	    </tr>
 	   	<tr>
-	     <td>애완동물 종류</td>
+	     <td bgcolor= "#002266"><font color = "#ffc303">애완동물 종류</font></td>
 	     <td>
 		  <input name="productKind" type="radio"
 		  value="dog" <%
@@ -94,26 +101,26 @@
 		 </td>
 	    </tr>
 	   	<tr>
-	     <td>상품 카테고리</td>
+	     <td bgcolor= "#002266"><font color = "#ffc303">상품 카테고리</font></td>
 	     <td>
 		  <input name="categoryKey" size="70" value="<%=categoryKey%>" maxlength="100">
 		 </td>
 	    </tr>
 	    <tr>
-			<td>상품 대표 이미지</td> 
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 대표 이미지</font></td> 
 			<td id = "pti"><input name="productImg" value = "<%=productImg %>" size="70" maxlength="100"></td>
 		</tr>
 		<tr>
-			<td>상품 사이즈 사진</td>
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 사이즈 사진</font></td>
 			<td id = "pd"><input name="productDetail" value = "<%=productDetail%>" size="70" maxlength="100"></td>
 		</tr>
 				    
 		<tr>
-			<td>상품 설명 사진</td>
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 설명 사진</font></td>
 			<td id = "pi"><input name="productInfo" value = "<%=productInfo%>" size="70" maxlength="100"></td>
 		</tr>
 		<tr>
-			<td>상품 주의사항 사진</td>
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 주의사항 사진</font></td>
 			<td id = "pca"><input name="productCaution" value = "<%=productCaution%>" size="70" maxlength="100"></td>
 		</tr>
 		<tr>

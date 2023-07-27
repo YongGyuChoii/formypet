@@ -12,7 +12,7 @@
 	  String keyWord = request.getParameter("keyWord");
 	  
 	  ProductManagementBean bean = pmmgr.getpm(productKey);//게시물 가져오기
-	  
+	  ProductManagementBean bean2 = pmmgr.getpmbean(productKey);//product_file db 게시물 가져오기
 	  //bean 객체 에서 getter 메서드를 이용하여 파라미터를 가져와서 화면에 출력하기 위해 각 변수에 대입한다.
 	  String productName = bean.getProductName();
 	  String productComment = bean.getProductComment();
@@ -26,6 +26,10 @@
 	  String productKind = bean.getProductKind();
 	  int categoryKey = bean.getCategoryKey();
 	  int productKey1 = bean.getProductKey();
+	  String fileOriginalName = bean2.getFileOriginalName();//product_file
+	  String fileSaveName = bean2.getFileSaveName();//product_file
+	  int size = bean2.getSize();//product_file
+	  int fileKey = bean2.getFileKey();//product_file
 	  
 	  session.setAttribute("bean", bean);//상품을 세션에 저장 
 %>
@@ -70,6 +74,18 @@
 	 <tr> 
 	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 수량</font></td>
 	    <td colspan="3"><%=productCount%></td>
+	 </tr>
+	 <tr> 
+	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품사진 파일 번호</font></td>
+	    <td colspan="3"><%=fileKey%></td>
+	 </tr>
+	 <tr> 
+	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품사진 원본 이름</font></td>
+	    <td colspan="3"><%=fileOriginalName%></td>
+	 </tr>
+	 <tr> 
+	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 사진 용량</font></td>
+	    <td colspan="3"><%=size%></td>
 	 </tr>
 	 <tr>
 	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">애완동물 종류</font></td>
@@ -123,7 +139,8 @@
 	  <td align="center" colspan="2"> 
 	 <hr/>
 	 [ <a href="../admin/productManagement.jsp" >상품 리스트</a> | 
-	 <a href="../admin/productFileupdate.jsp?nowPage=<%=nowPage%>&productKey=<%=productKey%>" >수 정</a> ]
+	 <a href="../admin/productFileupdate.jsp?nowPage=<%=nowPage%>&productKey=<%=productKey%>" >수 정</a> |
+	 <a href="../admin/productPicupdate.jsp?nowPage=<%=nowPage%>&productKey=<%=productKey%>" >상세 수 정</a> ]
 	  </td>
 	 </tr>
 	</table>

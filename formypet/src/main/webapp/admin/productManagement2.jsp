@@ -8,7 +8,7 @@
 	  
       int totalRecord=0; //전체레코드수
 	  int numPerPage=10; // 페이지당 레코드 수 
-	  int pagePerBlock=500; //블럭당 페이지수 
+	  int pagePerBlock=20; //블럭당 페이지수 
 	  
 	  int totalPage=0; //전체 페이지 수
 	  int totalBlock=0;  //전체 블럭수 
@@ -28,7 +28,7 @@
 	 //keyWord : 검색 키워드 저장하는 변수
 	  
 	//ProductManagementBean 클래스를 참조한 return 타입으로 vector배열 vlist 선언
-	Vector<ProductManagementBean> vlist = null;
+	Vector<ProductManagementBean> vlist2 = null;
 	
 	if (request.getParameter("keyWord") != null) {
 		keyWord = request.getParameter("keyWord");
@@ -49,7 +49,7 @@
 	 end = numPerPage;
 	
 	//ProductManagementMgr 클래스 getTotalCount 메서드 호출하여 총 게시물 수 가져오기.
-	totalRecord = pMMgr.getTotalCount(keyField, keyWord);
+	totalRecord = pMMgr.getTotalCount2(keyField, keyWord);
 	
 	//전체 페이지수 계산, 122개의 레코드(게시물)가 있다면 122/10 을 연산하여, Math클래스의 ceil() 메서드로  
 	//결과값의 소숫점을 반올림 하여 페이지를 구성.
@@ -80,7 +80,7 @@
     <!--header 끝-->
 	
 		<br/>
-		<h2>상품 목록</h2>
+		<h2>상품사진 목록</h2>
 		<br/>
 		<table align="center" width="600">
 				<tr>
@@ -96,11 +96,11 @@
 				<td align="center" colspan="2">
 				<%
 					//ProductManagementMgr 클래스 getpmList() 메서드 호출 
-					  vlist = pMMgr.getpmList(keyField, keyWord, start, end);
+					  vlist2 = pMMgr.getpmList2(keyField, keyWord, start, end);
 					  
-					  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수
+					  listSize = vlist2.size();//브라우저 화면에 보여질 게시물갯수
 					  
-					  if (vlist.isEmpty()) {
+					  if (vlist2.isEmpty()) {
 						out.println("등록된 상품이 없습니다.");
 						
 					  } else {
@@ -108,32 +108,31 @@
 					  <table>
 						<tr>
 							<td>상품 번호</td>
-							
-							<td>이름</td>
-							<td>수량</td>
-							<td>가격</td>
-							<td>할인가</td>
+							<td>상품사진 번호</td>
+							<td>원본 이름</td>
+							<td>사본 이름</td>
+							<td>용량</td>
 						</tr>
 						<%
 							  for (int i = 0; i < numPerPage; i++) {
 								if (i == listSize) break;
 								
-								ProductManagementBean bean = vlist.get(i);
+								ProductManagementBean bean = vlist2.get(i);
 								int productKey = bean.getProductKey();
-								String productName = bean.getProductName();
-								int productCount = bean.getProductCount();
-								int productPrice = bean.getProductPrice();
-								int productSalePrice = bean.getProductSalePrice();
+								int fileKey = bean.getFileKey();
+								String fileOriginalName = bean.getFileOriginalName();
+								String fileSaveName = bean.getFileSaveName();
+								int size = bean.getSize();
 					
 								
 						%>
 						<tr>
 							
 							<td align="center"><%=productKey%></td>
-							<td align="center"><a href="javascript:read('<%=productKey%>')"><%=productName%></a></td>
-							<td align="center"><%=productCount%></td>
-							<td align="center"><%=productPrice%></td>
-							<td align="center"><%=productSalePrice%></td>
+							<td align="center"><a href="javascript:read('<%=fileKey%>')"><%=fileKey%></a></td>
+							<td align="center"><%=fileOriginalName%></td>
+							<td align="center"><%=fileSaveName%></td>
+							<td align="center"><%=size%></td>
 							</tr>
 						<%}//for%>
 					</table> <%
@@ -167,8 +166,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="productFileupload.jsp">[상품 등록]</a> 
-					<a href="productPicupload.jsp">[상품 상세 등록]</a> 
+					<a href="../admin/productPicupload.jsp">[상품 상세 등록]</a> 
 					<a href="javascript:productManagement()">[처음으로]</a>
 				</td>
 			</tr>
@@ -177,14 +175,13 @@
 			
 		<!-- 검색 폼 시작 -->
 		<hr width="600"/>
-		<form  name="searchFrm"  method="get" action="../admin/productManagement.jsp">
+		<form  name="searchFrm"  method="get" action="../admin/productManagement2.jsp">
 		<table width="600" cellpadding="4" cellspacing="0">
 	 		<tr>
 	  			<td align="center" valign="bottom">
 	   				<select name="keyField" size="1" >
 	    				<option value="productKey">상품 번호</option>
 	    				<option value="fileKey">상품 파일 번호</option>
-	    				<option value="productName">상품 이름</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
 	   				<input type="button"  value="찾기" onClick="javascript:check()">
@@ -200,7 +197,7 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="productKey"> 
+			<input type="hidden" name="fileKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
@@ -219,7 +216,7 @@
 </html>
 <script>
 	function productManagement() {
-		document.listFrm.action = "../admin/productManagement.jsp";
+		document.listFrm.action = "../admin/productManagement2.jsp";
 		document.listFrm.submit();
 	}
 	
@@ -233,9 +230,9 @@
 		 document.readFrm.submit();
 	} 
 	
-	function read(productKey){
-		document.readFrm.productKey.value=productKey;
-		document.readFrm.action="../admin/read.jsp";
+	function read(fileKey){
+		document.readFrm.fileKey.value=fileKey;
+		document.readFrm.action="../admin/read2.jsp";
 		document.readFrm.submit();
 	}
 	

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/admin/productFileupload")
-public class ProductFileuploadServlet extends HttpServlet {
+@WebServlet("/admin/productPicupload")
+public class ProductPicuploadServlet extends HttpServlet {
 
 	//servlet 을 이용하여 이용할 클래스 의 객체를 생성하고, 메서드를 호출 한다.
 	//기존의 jsp 페이지 에서 자바 빈즈 로 usebean 이용하여 이용할 클래스 선언하고, 
@@ -18,17 +18,17 @@ public class ProductFileuploadServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		System.out.println("productFileuploadServlet 서블릿 접근 완료.");
+		System.out.println("ProductPicuploadServlet 서블릿 접근 완료.");
 	
 		request.setCharacterEncoding("UTF-8"); 
 		
 		//productManagementMgr 클래스 객체 생성
 		ProductManagementMgr prmMgr = new ProductManagementMgr();
 		
-		//productManagementMgr 클래스에 정의된 uplpro() 메서드를 호출한다.
-		//매개변수를 request(요청) 객체 로 하여, uplpro() 메서드 안에서 파라미터 를 처리 할 수 있다.
-		prmMgr.uplpro(request);
-		response.sendRedirect("../admin/productManagement.jsp");
+		//productManagementMgr 클래스에 정의된 upprof() 메서드를 호출한다.
+		//매개변수를 request(요청) 객체 로 하여, upprof() 메서드 안에서 파라미터 를 처리 할 수 있다.
+		prmMgr.upprof(request);
+		response.sendRedirect("../admin/productManagement2.jsp");//응답 시 이동
 		
 	}
 }
