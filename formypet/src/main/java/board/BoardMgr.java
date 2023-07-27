@@ -160,8 +160,8 @@ public class BoardMgr {
 				//UtilMgr 클래스 replace 메서드를 호출 하여 <(부등호) 를 &lt; 로 바꾼다.
 				content = UtilMgr.replace(content, "<", "&lt;");
 			}
-			sql = "insert board(name,content,subject,ref,pos,depth,regdate,pass,count,filename,filesize)";
-			sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?, ?)";
+			sql = "insert board(name,content,subject,ref,pos,depth,regdate,pass,count,filename,filesize,memKey)";
+			sql += "values(?, ?, ?, ?, 0, 0, now(), ?, 0, ?, ?, ?)";
 			//작성날짜 regdate 컬럼은 now() 로 현재 날짜를 자동으로 입력 합니다.
 			pstmt = con.prepareStatement(sql);
 			
@@ -172,6 +172,7 @@ public class BoardMgr {
 			pstmt.setString(5, multi.getParameter("pass"));
 			pstmt.setString(6, filename);
 			pstmt.setInt(7, filesize);
+			pstmt.setInt(8, Integer.parseInt(multi.getParameter("memKey")));
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {

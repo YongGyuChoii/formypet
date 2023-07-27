@@ -78,6 +78,7 @@
 			</td>
 		</tr>
 	</table>
+	<input type="hidden" name="memKey" value="<%=memKey%>">
 	</form>
 	</div>
     <!--main 끝-->

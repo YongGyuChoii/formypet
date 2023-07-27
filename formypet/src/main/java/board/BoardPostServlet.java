@@ -18,9 +18,8 @@ public class BoardPostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-	
-		request.setCharacterEncoding("UTF-8"); 
-		
+		request.setCharacterEncoding("UTF-8");  
+				
 		//BoardMgr 클래스 객체 생성
 		BoardMgr bMgr = new BoardMgr();
 		
