@@ -3,13 +3,10 @@
 <%@page import="cart.CartBean"%>
 <%@page import="java.util.*"%>
 <jsp:useBean id="cMgr" class="cart.CartMgr" /> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:formatNumber value="${calPrice}" pattern="#,###"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	ArrayList<CartBean> pAll = cMgr.getCartAll(); 	
-	
-
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -67,21 +64,21 @@
           </thead>
 
           <tbody>
-          	<%for(CartBean cb : pAll) { %>
+          	<%for(int i=0; i<pAll.size(); i++) { %>
             <tr class="cart_table_detail">
             <%
          	 	int productViewPrice;
-              	if(cb.getProductSalePrice() == 0) {
-              		productViewPrice = cb.getProductPrice();
+              	if(pAll.get(i).getProductSalePrice() == 0) {
+              		productViewPrice = pAll.get(i).getProductPrice();
               	} else {
-              		productViewPrice = cb.getProductSalePrice();
+              		productViewPrice = pAll.get(i).getProductSalePrice();
               	}
               	
               	int calPrice;
               	int deliveryFee;
               	int totalViewPrice;
               	
-              	calPrice = productViewPrice * cb.getCartCount(); 
+              	calPrice = productViewPrice * pAll.get(i).getCartCount(); 
               	
               	if(calPrice>=50000) {
               		deliveryFee = 0;
@@ -90,39 +87,41 @@
               	}
               	             	
               	if(deliveryFee == 0) {
-              		totalViewPrice = productViewPrice * cb.getCartCount();
+              		totalViewPrice = productViewPrice * pAll.get(i).getCartCount();
               	} else {
-              		totalViewPrice = productViewPrice * cb.getCartCount() + deliveryFee;
-              	}
-              	
+              		totalViewPrice = productViewPrice * pAll.get(i).getCartCount() + deliveryFee;
+              	}              	
           %>
               <td>
               		<input id="chack1" class="chack" type="checkbox" checked="checked">
         			<label for="chack1" class="chack_ele"></label>
               </td>
-              <td><a href="#"><img src="../images/bathProduct/<%=cb.getProductImg()%>" alt=""></a></td>
-              <td colspan="2"><a href="#"><%=cb.getProductName()%></a></td>
+              <td><a href="#"><img src="../images/bathProduct/<%=pAll.get(i).getProductImg()%>" alt=""></a></td>
+              <td colspan="2"><a href="#"><%=pAll.get(i).getProductName()%></a></td>
               <td class="cart_table_button">
-        	  	<%if(cb.getProductSalePrice() == 0) {%>
-        	  	<strong><%=cb.getProductPrice()%>원</strong>
+        	  	<%if(pAll.get(i).getProductSalePrice() == 0) {%>
+        	  	<strong><fmt:formatNumber value="<%=pAll.get(i).getProductPrice()%>" pattern="#,###"/>원</strong>
         	  	<%} else {%>
-        	  	<strong><del><%=cb.getProductPrice()%>원</del></strong>
+        	  	<strong style="opacity: 0.5"><del><fmt:formatNumber value="<%=pAll.get(i).getProductPrice()%>" pattern="#,###"/>원</del></strong>
         	  	<br>
-        	  	<strong><%=cb.getProductSalePrice()%>원</strong>
+        	  	<strong><fmt:formatNumber value="<%=pAll.get(i).getProductSalePrice()%>" pattern="#,###"/>원</strong>
         	  	<%}%>
               </td>                        
               <td>
                 <button name="countBtn" class="downBtn">-</button>
-                <input id="countInput" class="countInput" type="text" value="<%=cb.getCartCount()%>" style="width: 30px;">                
+                <input id="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px;">                
                 <button name="countBtn" class="upBtn">+</button>
               </td>
               </from>
-              <td>
+              <% if(i == 0) {%>
+              <td rowspan=100%>
               	<strong><p>배송비 3,000원<br><a style="font-size:10px">(50,000원 이상 구매시 무료!)</a></p></strong>   
               </td>
-              <td><strong><%=calPrice%>원</strong></td>          
+			  <% } else { %>
+			  <% } %>
+              <td><strong><fmt:formatNumber value="<%=calPrice%>" pattern="#,###"/>원</strong></td>          
             </tr>
-            <%}%>
+          <% } %>
           </tbody>
           <tfoot>
             <tr>
