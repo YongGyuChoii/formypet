@@ -61,6 +61,10 @@
   </li>
   <li>
     <a class="nav-link text-white" href="${pageContext.request.contextPath}/board/list.jsp">고객센터</a>
+    <ul class="depth_1">
+      <li><a href="${pageContext.request.contextPath}/board/faq.jsp">FAQ</a></li>
+      <li><a href="${pageContext.request.contextPath}/board/list.jsp">게시판</a></li>
+    </ul>
   </li>
 </ul>
 </div>

@@ -1,78 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Gothic+A1&display=swap');
+@charset "UTF-8";
 
-
-
-body {
-	width: 100%; height: 100%;
-	position: relative;
-	font-family: 'Gothic A1', sans-serif !important;
-}
-
-
-#wrap {
-    min-height: 100%;
-    position: relative;
-    padding-bottom: 300px;
-   
-}
-
-.container {
-    width: 1200px;
-	min-height: 100vh;
-    margin: 0 auto;
-}
-
-
-table {
-    border-collapse: collapse;
-}
-
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-
-.board_list {
-    width: 100%;
-    border-top: 2px solid navy;
-}
-
-
-.board_list tr {
-    border-bottom: 1px solid #ccc;
-}
-
-.board_list th,
-.board_list td {
-    padding: 10px;
-    font-size: 14px;
-	text-align: center;
-}
-
-.board_list td {
-    text-align: center;
-}
-
-.board_list .tit {
-    text-align: left;
-}
-
-.board_list .tit:hover {
-    text-decoration: underline;
-}
-
-a .bt{
-	    border: 1px solid navy;
-    background: navy;
-    color: white;
-	
-}
-
-/* faq */
-
-.faq-heading{
+    .faq-heading{
     border-bottom: #777;
     padding: 20px 60px;
 }
@@ -97,19 +25,20 @@ flex-direction: column;
     outline: none;
     transition: 0.4s;
     margin: auto;
-
+	font-size: 30px;
 }
 .faq-body{
-    margin: auto;
-    /* text-align: center; */
+   margin: auto;
+    /* text-align: left; */
    width: 50%; 
    padding: auto;
+   font-size: 13px;
    
 }
 
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.active,
+
 .faq-page:hover {
     background-color: #F9F9F9;
 }
@@ -131,8 +60,7 @@ flex-direction: column;
     margin-left: 5px;
 }
 
-.active:after {
+.active.faq-page:after {
     content: "\2796";
     /* Unicode character for "minus" sign (-) */
 }
-
