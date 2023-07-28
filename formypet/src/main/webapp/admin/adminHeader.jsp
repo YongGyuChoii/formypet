@@ -36,6 +36,7 @@
 				        <ul class="depth_1">
 					      <li><a href="../admin/productManagement.jsp">상품 관리</a></li>
 					      <li><a href="../admin/productManagement2.jsp">상품 사진 관리</a></li>
+					      <li><a href="../admin/productManagement3.jsp">상품 옵션 관리</a></li>
 					    </ul>
 				  </li>
 				   <li>

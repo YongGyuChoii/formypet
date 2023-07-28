@@ -44,7 +44,7 @@
 	<div align="center"><br/><br/>
 	<table width="600" cellpadding="3">
 	  <tr>
-	   <td bgcolor= "#002266" align="center"><font color = "#ffc303">상품 수정하기</font></td>
+	   <td bgcolor= "#002266" align="center"><font color = "#ffc303"><%=productName %></font></td>
 	  </tr>
 	</table>
 	<!-- boardUpdate 로 url맵핑된 서블릿으로 이동한다. -->
@@ -91,9 +91,8 @@
 	   	<tr>
 	     <td bgcolor= "#002266"><font color = "#ffc303">애완동물 종류</font></td>
 	     <td>
-		  <input name="productKind" type="radio"
-		  value="dog" <%
-		  if("dog".equals(productKind)){%>checked<%}%>>dog</input>
+		  <input name="productKind" type="radio" value="dog"
+		  <%if("dog".equals(productKind)){%>checked<%}%>>dog</input>
 		  <input name="productKind" type="radio" value="cat"
 		  <%if("cat".equals(productKind)){%>checked<%}%>>cat</input>
 		  <input name="productKind" type="radio" value="both"
@@ -103,25 +102,37 @@
 	   	<tr>
 	     <td bgcolor= "#002266"><font color = "#ffc303">상품 카테고리</font></td>
 	     <td>
-		  <input name="categoryKey" size="70" value="<%=categoryKey%>" maxlength="100">
+		  <input name="categoryKey" type="radio" value="1"
+		  <%if(1 == categoryKey){%>checked<%}%>>목욕</input>
+		  <input name="categoryKey" type="radio" value="2"
+		  <%if(2 == categoryKey){%>checked<%}%>>배변/위생</input>
+		  <input name="categoryKey" type="radio" value="3"
+		  <%if(3 == categoryKey){%>checked<%}%>>미용/케어</input>
+		  <input name="categoryKey" type="radio" value="4"
+		  <%if(4 == categoryKey){%>checked<%}%>>홈/리빙</input>
+		  <input name="categoryKey" type="radio" value="5"
+		  <%if(5 == categoryKey){%>checked<%}%>>산책/놀이</input>
+		  <input name="categoryKey" type="radio" value="6"
+		  <%if(6 == categoryKey){%>checked<%}%>>간식/영양제</input>
+		  <input name="categoryKey" type="radio" value="7"
+		  <%if(7 == categoryKey){%>checked<%}%>>의류/악세사리</input>
 		 </td>
 	    </tr>
-	    <tr>
-			<td bgcolor= "#002266"><font color = "#ffc303">상품 대표 이미지</font></td> 
-			<td id = "pti"><input name="productImg" value = "<%=productImg %>" size="70" maxlength="100"></td>
-		</tr>
 		<tr>
-			<td bgcolor= "#002266"><font color = "#ffc303">상품 사이즈 사진</font></td>
-			<td id = "pd"><input name="productDetail" value = "<%=productDetail%>" size="70" maxlength="100"></td>
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 대표 이미지</font></td> 
+			<td id = "pti"><input type="file" name="productImg" size="70" maxlength="100">
 		</tr>
-				    
 		<tr>
 			<td bgcolor= "#002266"><font color = "#ffc303">상품 설명 사진</font></td>
-			<td id = "pi"><input name="productInfo" value = "<%=productInfo%>" size="70" maxlength="100"></td>
+			<td id = "pd"><input type="file" name="productInfo" size="70" maxlength="100">
+		</tr>    
+		<tr>
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 사이즈 사진</font></td>
+			<td id = "pi"><input type="file" name="productDetail" size="70" maxlength="100">
 		</tr>
 		<tr>
 			<td bgcolor= "#002266"><font color = "#ffc303">상품 주의사항 사진</font></td>
-			<td id = "pca"><input name="productCaution" value = "<%=productCaution%>" size="70" maxlength="100"></td>
+			<td id = "pca"><input type="file" name="productCaution" size="70" maxlength="100">
 		</tr>
 		<tr>
 	     <td colspan="2" height="5"><hr/></td>

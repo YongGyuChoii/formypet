@@ -180,7 +180,7 @@ public class ProductManagementMgr {
 					bean3.setOc3(rs.getString("oc3"));
 					bean3.setOc4(rs.getString("oc4"));
 					bean3.setOc5(rs.getString("oc5"));
-					bean3.setProductKey(rs.getInt("productKey"));//productKey가져오기
+					bean3.setProductKey(rs.getInt("productKey"));
 		 			
 		 			vlist3.add(bean3);
 
@@ -324,19 +324,19 @@ public class ProductManagementMgr {
 
 				if (multi.getFilesystemName("productInfo") != null) {
 					productInfo = multi.getFilesystemName("productInfo");
-					//filesize = (int) multi.getFile("productInfo").length();
+					filesize = (int) multi.getFile("productInfo").length();
 				}
 				if (multi.getFilesystemName("productDetail") != null) {
 					productDetail = multi.getFilesystemName("productDetail");
-					//filesize = (int) multi.getFile("productDetail").length();
+					filesize = (int) multi.getFile("productDetail").length();
 				}
 				if (multi.getFilesystemName("productCaution") != null) {
 					productCaution = multi.getFilesystemName("productCaution");
-					//filesize = (int) multi.getFile("productCaution").length();
+					filesize = (int) multi.getFile("productCaution").length();
 				}
 				if (multi.getFilesystemName("productImg") != null) {
 					productImg = multi.getFilesystemName("productImg");
-					//filesize = (int) multi.getFile("productImg").length();
+					filesize = (int) multi.getFile("productImg").length();
 				}
 				
 				sql = "insert product(productName,productComment,productInfo,productDetail,productCaution,productPrice,productSalePrice,productCount,productKind,productImg,categoryKey,productKey)";
@@ -428,6 +428,52 @@ public class ProductManagementMgr {
 		}
 		}
 		
+		//상품 등록 페이지 (option_code db용)
+				public void upoc(HttpServletRequest request) {//option_code db 업로드 설정
+
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					
+					String sql = null;
+					MultipartRequest multi = null;
+					
+					
+
+				try {
+					con = pool.getConnection();
+					sql = "select max(ocKey) from option_code"; 
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+						
+					int ref = 1;
+					
+					if (rs.next())
+						ref = rs.getInt(1) + 1;
+					
+					multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,new DefaultFileRenamePolicy());
+					sql = "insert into option_code(ocKey, oc1, oc2, oc3, oc4, oc5, productKey)";
+								
+					sql += "values(?, ?, ?, ?, ?, ?, ?)"; 
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setString(1,multi.getParameter("ocKey"));
+					pstmt.setString(2,multi.getParameter("oc1"));
+					pstmt.setString(3, multi.getParameter("oc2")); 
+					pstmt.setString(4, multi.getParameter("oc3")); 
+					pstmt.setString(5, multi.getParameter("oc4")); 
+					pstmt.setString(6, multi.getParameter("oc5")); 
+					pstmt.setInt(7, Integer.parseInt(multi.getParameter("productKey")));
+					pstmt.executeUpdate(); 
+				}catch (Exception e) {
+					e.printStackTrace();
+				}	
+				finally {
+					pool.freeConnection(con, pstmt, rs);
+				}
+				}
+		
 		// 상품 리스트 리턴 메서드, 상품의 productKey 값을 기준으로 해당 게시물을 조회한다.
 		public ProductManagementBean getpm(int productKey) {
 			
@@ -518,7 +564,7 @@ public class ProductManagementMgr {
 			
 			try {
 				con = pool.getConnection();
-				//productName 값을 기준으로 product 테이블에서 게시물을 조회한다.
+				//productKey 값을 기준으로 option_code 테이블에서 게시물을 조회한다.
 				sql = "select * from option_code where ocKey=?";
 				pstmt = con.prepareStatement(sql);
 				
@@ -526,7 +572,7 @@ public class ProductManagementMgr {
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
 					bean.setOcKey(rs.getInt("ocKey"));
-					//System.out.println(productKey);
+					
 					bean.setOc1(rs.getString("oc1"));
 					bean.setOc2(rs.getString("oc2"));
 					bean.setOc3(rs.getString("oc3"));
@@ -603,4 +649,33 @@ public class ProductManagementMgr {
 				pool.freeConnection(con, pstmt);
 			}
 		}
+		//상품 상세 내용 수정 (option_code db용)
+				public void updateoc(ProductManagementBean bean) {
+					
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					String sql = null;
+					
+					try {
+						con = pool.getConnection();
+
+						//updateproduct_file 쿼리로 상품을 수정한다.
+						//fileKey로 상품을 찾아서 컬럼을 수정한다.
+						sql = "update option_code set oc1 = ?, oc2 = ?,  oc3 = ?, oc4 = ?, oc5 = ?, productKey = ? where ocKey = ?";
+						
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, bean.getOc1());
+						pstmt.setString(2, bean.getOc2());	
+						pstmt.setString(3, bean.getOc3());
+						pstmt.setString(4, bean.getOc4());
+						pstmt.setString(5, bean.getOc5());
+						pstmt.setInt(6, bean.getProductKey());
+						pstmt.setInt(7, bean.getOcKey());
+						pstmt.executeUpdate();
+					}catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt);
+					}
+				}
 }

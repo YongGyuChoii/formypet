@@ -33,7 +33,7 @@
 	<div align="center"><br/><br/>
 	<table width="600" cellpadding="3">
 	  <tr>
-	   <td bgcolor= "#002266" align="center"><font color = "#ffc303"><%=fileKey2 %> 수정하기</font></td>
+	   <td bgcolor= "#002266" align="center"><font color = "#ffc303"><%=fileKey2 %></font></td>
 	  </tr>
 	</table>
 	<!-- boardUpdate 로 url맵핑된 서블릿으로 이동한다. -->
@@ -55,16 +55,13 @@
 		 </td>
 		</tr>
 		<tr>
-	     <td bgcolor= "#002266"><font color = "#ffc303">상품 원본사진</font></td>
-	     <td>
-		  <input name="fileOriginalName" size="70" value="<%=fileOriginalName%>" maxlength="100">
-		 </td>
-	    <tr>
-	     <td bgcolor= "#002266"><font color = "#ffc303">상품 사본사진</font></td>
-	     <td>
-		  <input name="fileSaveName" size="70" value="<%=fileSaveName%>" maxlength="100">
-		 </td>
-	    </tr>
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 원본사진</font></td>
+			<td><input type = "file" name="fileOriginalName" size="70" maxlength="100" ></td>				     	
+		</tr>	
+		<tr>
+			<td bgcolor= "#002266"><font color = "#ffc303">상품 사본사진</font></td>
+			<td><input type = "file" name="fileSaveName" size="70" maxlength="100"></td>
+		</tr>
 	    <tr>
 	     <td bgcolor= "#002266"><font color = "#ffc303">상품 사진 용량</font></td>
 	     <td>

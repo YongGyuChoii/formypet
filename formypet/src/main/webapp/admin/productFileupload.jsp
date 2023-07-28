@@ -63,7 +63,15 @@
 				    </tr>	
 				    <tr>
 				     	<td bgcolor= "#002266"><font color = "#ffc303">상품 카테고리</font></td> 
-				     	<td><input name="categoryKey" size="70" maxlength="100"></td>
+				     	<td>
+						  <input name="categoryKey" type="radio" value="1">목욕</input>
+						  <input name="categoryKey" type="radio" value="2">배변/위생</input>
+						  <input name="categoryKey" type="radio" value="3">미용/케어</input>
+						  <input name="categoryKey" type="radio" value="4">홈/리빙</input>
+						  <input name="categoryKey" type="radio" value="5">산책/놀이</input>
+						  <input name="categoryKey" type="radio" value="6">간식/영양제</input>
+						  <input name="categoryKey" type="radio" value="7">의류/악세사리</input>
+						 </td>
 				    </tr>
 				 	<tr>
 				     	<td bgcolor= "#002266"><font color = "#ffc303">상품 대표 이미지</font></td> 
@@ -87,12 +95,12 @@
 				     	<input type="button" onclick = "additem4()" value="추가"></td>
 					</tr>
 					<tr>
-						<td colspan="2"align="center"><hr/></td>
+						<td colspan="2" height = "5"><hr/></td>
 						
-						</tr>
+					</tr>
 					<tr align = center>
-						<td colspan="2">
-						<td><input type="submit" value="등록" id = click>
+						<td colspan="2" height = "6">
+						<input type="submit" value="등록" id = click>
 						<input type="reset" value="취소">
 						<a href="../admin/productManagement.jsp" ><input type = "button" value = "상품 리스트"></input></a>
 						</td>

@@ -6,13 +6,13 @@
 	  request.setCharacterEncoding("UTF-8");
 
 	  int productKey = Integer.parseInt(request.getParameter("productKey"));
+
 	  
 	  String nowPage = request.getParameter("nowPage");
 	  String keyField = request.getParameter("keyField");
 	  String keyWord = request.getParameter("keyWord");
 	  
 	  ProductManagementBean bean = pmmgr.getpm(productKey);//게시물 가져오기
-	  ProductManagementBean bean2 = pmmgr.getpmbean(productKey);//product_file db 게시물 가져오기
 	  //bean 객체 에서 getter 메서드를 이용하여 파라미터를 가져와서 화면에 출력하기 위해 각 변수에 대입한다.
 	  String productName = bean.getProductName();
 	  String productComment = bean.getProductComment();
@@ -25,13 +25,11 @@
 	  int productCount = bean.getProductCount();
 	  String productKind = bean.getProductKind();
 	  int categoryKey = bean.getCategoryKey();
+	
 	  int productKey1 = bean.getProductKey();
-	  String fileOriginalName = bean2.getFileOriginalName();//product_file
-	  String fileSaveName = bean2.getFileSaveName();//product_file
-	  int size = bean2.getSize();//product_file
-	  int fileKey = bean2.getFileKey();//product_file
-	  
-	  session.setAttribute("bean", bean);//상품을 세션에 저장 
+ 
+	  session.setAttribute("bean", bean);//상품을 세션에 저장 product db
+
 %>
 <!DOCTYPE html>
 <html>
@@ -54,7 +52,11 @@
 	 </tr>
 	 <tr>
 	  <td colspan="2">
-	   <table cellpadding="3" cellspacing="0" width="100%"> 
+	   <table cellpadding="3" cellspacing="0" width="100%">
+	  <tr> 
+	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303"> 상품 번호</font></td>
+	  	<td colspan="3"><%=productKey1%></td>
+	 </tr> 
 	 <tr> 
 	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303"> 상품 이름</font></td>
 	  	<td colspan="3"><%=productName%></td>
@@ -75,18 +77,6 @@
 	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 수량</font></td>
 	    <td colspan="3"><%=productCount%></td>
 	 </tr>
-	 <tr> 
-	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품사진 파일 번호</font></td>
-	    <td colspan="3"><%=fileKey%></td>
-	 </tr>
-	 <tr> 
-	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품사진 원본 이름</font></td>
-	    <td colspan="3"><%=fileOriginalName%></td>
-	 </tr>
-	 <tr> 
-	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 사진 용량</font></td>
-	    <td colspan="3"><%=size%></td>
-	 </tr>
 	 <tr>
 	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">애완동물 종류</font></td>
 	    <td colspan="3">
@@ -97,7 +87,32 @@
 		  <input name="productKind" type="radio" value="both"
 		  <%if("both".equals(productKind)){%>checked<%}%>>both</input>
 		 </td>
-	 </tr>	   
+	 </tr>	 
+	 <tr>
+	    <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 카테고리</font></td>
+	    <td colspan="3">
+		  <input name="categoryKey" type="radio" value= "1"
+		  <%if(1 == categoryKey){%>checked<%}%>>목욕</input>
+		  
+		  <input name="categoryKey" type="radio" value= "2"
+		  <%if(2 == categoryKey){%>checked<%}%>>배변/위생</input>
+		  
+		  <input name="categoryKey" type="radio" value= "3"
+		  <%if(3 == categoryKey){%>checked<%}%>>미용/케어</input>
+		 
+		  <input name="categoryKey" type="radio" value= "4"
+		  <%if(4 == categoryKey){%>checked<%}%>>홈/리빙</input>
+		  
+		  <input name="categoryKey" type="radio" value= "5"
+		  <%if(5 == categoryKey){%>checked<%}%>>산책/놀이</input>
+		  
+		  <input name="categoryKey" type="radio" value= "6"
+		  <%if(6 == categoryKey){%>checked<%}%>>간식/영양제</input>
+		  
+		  <input name="categoryKey" type="radio" value= "7"
+		  <%if(7 == categoryKey){%>checked<%}%>>의류/악세사리</input>
+		 </td>
+	 </tr>  
 	 <tr> 
 	     <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 대표 이미지</font></td>
 	     <td>
@@ -139,8 +154,7 @@
 	  <td align="center" colspan="2"> 
 	 <hr/>
 	 [ <a href="../admin/productManagement.jsp" >상품 리스트</a> | 
-	 <a href="../admin/productFileupdate.jsp?nowPage=<%=nowPage%>&productKey=<%=productKey%>" >수 정</a> |
-	 <a href="../admin/productPicupdate.jsp?nowPage=<%=nowPage%>&productKey=<%=productKey%>" >상세 수 정</a> ]
+	 <a href="../admin/productFileupdate.jsp?nowPage=<%=nowPage%>&productKey=<%=productKey%>" >수 정</a> ]
 	  </td>
 	 </tr>
 	</table>

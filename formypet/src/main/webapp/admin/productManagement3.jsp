@@ -21,7 +21,7 @@
 	  int start=0; //디비의 select 시작번호
 	  int end=10; //시작번호로 부터 가져올 select 갯수
 	  
-	  int listSize=0; //현재 읽어온 게시물의 수 product db
+	  int listSize=0; //현재 읽어온 게시물의 수
 	  
 		
 	String keyWord = "", keyField = ""; 
@@ -29,7 +29,7 @@
 	 //keyWord : 검색 키워드 저장하는 변수
 	  
 	//ProductManagementBean 클래스를 참조한 return 타입으로 vector배열 vlist 선언
-	Vector<ProductManagementBean> vlist = null; //product db
+	Vector<ProductManagementBean> vlist3 = null; //option_code db
 	
 	if (request.getParameter("keyWord") != null) {
 		keyWord = request.getParameter("keyWord");
@@ -50,7 +50,7 @@
 	 end = numPerPage;
 	
 	//ProductManagementMgr 클래스 getTotalCount 메서드 호출하여 총 게시물 수 가져오기.
-	totalRecord = pMMgr.getTotalCount(keyField, keyWord);
+	totalRecord = pMMgr.getTotalCount3(keyField, keyWord);
 	
 	//전체 페이지수 계산, 122개의 레코드(게시물)가 있다면 122/10 을 연산하여, Math클래스의 ceil() 메서드로  
 	//결과값의 소숫점을 반올림 하여 페이지를 구성.
@@ -73,14 +73,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+<div align="center" id = "wrap">
 <!-- header 시작-->
     <header>
         <%@include file="../admin/adminHeader.jsp"%>
       </header>
     <!--header 끝-->
-<div align="center" id = "wrap">	
+	
 		<br/>
-		<h2>상품 목록</h2>
+		<h2>상품옵션 목록</h2>
 		<br/>
 		<table align="center" width="600">
 				<tr>
@@ -96,47 +97,51 @@
 				<td align="center" colspan="2">
 				<%
 					//ProductManagementMgr 클래스 getpmList() 메서드 호출 
-					  vlist = pMMgr.getpmList(keyField, keyWord, start, end); //product db
+					  vlist3 = pMMgr.getpmList3(keyField, keyWord, start, end); //product db
 					  
-					  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수 product db
+					  listSize = vlist3.size();//브라우저 화면에 보여질 게시물갯수 product db
 					  
-					  if (vlist.isEmpty()) {
+					  if (vlist3.isEmpty()) {
 						out.println("등록된 상품이 없습니다.");
 						
 					  } else {
 				%>
 					  <table>
 						<tr>
+							<td>상품옵션 번호</td>
 							<td>상품 번호</td>
-							
-							<td>이름</td>
-							<td>수량</td>
-							<td>가격</td>
-							<td>할인가</td>
+							<td>옵션 1</td>
+							<td>옵션 2</td>
+							<td>옵션 3</td>
+							<td>옵션 4</td>
+							<td>옵션 5</td>
 						</tr>
 						<%
 							  for (int i = 0; i < numPerPage; i++) {
 								if (i == listSize) break;
 								
-								ProductManagementBean bean = vlist.get(i);
+								ProductManagementBean bean3 = vlist3.get(i);
 								
-								int productKey = bean.getProductKey();
-								String productName = bean.getProductName();
-								int productCount = bean.getProductCount();
-								int productPrice = bean.getProductPrice();
-								int productSalePrice = bean.getProductSalePrice();
+								int productKey = bean3.getProductKey();
+								int ocKey = bean3.getOcKey();
+								String oc1 = bean3.getOc1();
+								String oc2 = bean3.getOc2();
+								String oc3 = bean3.getOc3();
+								String oc4 = bean3.getOc4();
+								String oc5 = bean3.getOc5();
 								
 					
 								
 						%>
 						<tr>
 							
+							<td align="center"><a href="javascript:read('<%=ocKey%>')"><%=ocKey%></a></td>
 							<td align="center"><%=productKey%></td>
-							
-							<td align="center"><a href="javascript:read('<%=productKey%>')"><%=productName%></a></td>
-							<td align="center"><%=productCount%></td>
-							<td align="center"><%=productPrice%></td>
-							<td align="center"><%=productSalePrice%></td>
+							<td align="center"><%=oc1%></td>
+							<td align="center"><%=oc2%></td>
+							<td align="center"><%=oc3%></td>
+							<td align="center"><%=oc4%></td>
+							<td align="center"><%=oc5%></td>
 							</tr>
 						<%}//for%>
 					</table> <%
@@ -170,7 +175,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="productFileupload.jsp">[상품 등록]</a> 
+					<a href="productOupload.jsp">[상품옵션 등록]</a> 
 					<a href="javascript:productManagement()">[처음으로]</a>
 				</td>
 			</tr>
@@ -179,14 +184,13 @@
 			
 		<!-- 검색 폼 시작 -->
 		<hr width="600"/>
-		<form  name="searchFrm"  method="get" action="../admin/productManagement.jsp">
+		<form  name="searchFrm"  method="get" action="../admin/productManagement3.jsp">
 		<table width="600" cellpadding="4" cellspacing="0">
 	 		<tr>
 	  			<td align="center" valign="bottom">
 	   				<select name="keyField" size="1" >
 	    				<option value="productKey">상품 번호</option>
-	    				<option value="fileKey">상품 파일 번호</option>
-	    				<option value="productName">상품 이름</option>
+	    				<option value="ocKey">상품옵션 번호</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
 	   				<input type="button"  value="찾기" onClick="javascript:check()">
@@ -202,7 +206,7 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="productKey"> 
+			<input type="hidden" name="ocKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
@@ -221,7 +225,7 @@
 </html>
 <script>
 	function productManagement() {
-		document.listFrm.action = "../admin/productManagement.jsp";
+		document.listFrm.action = "../admin/productManagement3.jsp";
 		document.listFrm.submit();
 	}
 	
@@ -235,9 +239,9 @@
 		 document.readFrm.submit();
 	} 
 	
-	function read(productKey){
-		document.readFrm.productKey.value=productKey;
-		document.readFrm.action="../admin/read.jsp";
+	function read(ocKey){
+		document.readFrm.ocKey.value=ocKey;
+		document.readFrm.action="../admin/read3.jsp";
 		document.readFrm.submit();
 	}
 	
