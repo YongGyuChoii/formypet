@@ -50,18 +50,29 @@
                 </div>
                 
             </div>
-            
+           <!-- 제목 -->
+             <div class="tutle">
              <label for="title">제목:</label>
           <input type="text" id="title" name="title" required><br>
+          </div>
+              
+              <!-- 내용 -->
+                <div class="contents">
            <label for="contents">내용:</label><br>
                 <div class="review_contents">
                 <div class="warning_msg">5자 이상의 리뷰 내용을 작성해 주세요.</div>
                 <textarea rows="10" class="review_textarea"></textarea>
             </div>   
-            <div class="cmd">
+           
+           
+             <!-- 이미지 -->
+                <div class="photo">
                 <label for="image">이미지 업로드:</label>
                 <input type="file" id="image" name="image"><br>
-            
+                </div>
+                 
+                   <!-- 등록 -->
+                  <div class="cmd">
                 <input type="button" name="save" id="save" value="등록">
             </div>
         </form>

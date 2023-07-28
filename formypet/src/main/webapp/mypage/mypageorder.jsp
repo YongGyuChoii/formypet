@@ -5,6 +5,7 @@
 <head>
 <title>주문내역 조회 - 마이페이지 | </title>
 <link rel="stylesheet" type="text/css" href="../css/mypageorder.css">
+
 </head>
 <body>
 	<h1>주문 내역 조회</h1>
