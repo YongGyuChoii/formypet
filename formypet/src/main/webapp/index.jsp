@@ -65,6 +65,7 @@
               	<div class="mainContent1">
 	              	<input type="hidden" name="productKey" value="<%=b.getProductKey() %>" />
 	              	<input type="hidden" name="memKey" value="<%=memKey %>" />
+	              	<input type="hidden" name="productName" value="<%=b.getProductName() %>" />
 	                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><img src="images/bathProduct/<%=b.getProductImg() %>" alt="상품메인사진"></a>
 	                <a href="product/productDetail.jsp?productKey=<%=b.getProductKey()%>&categoryKey=<%=b.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=b.getProductName() %></p></a>
 	                <p class="fs-5 fw-bold mt-3">
@@ -76,7 +77,7 @@
 						<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
 		                shopping_bag
 		             	</span></a>
-	             	
+	             		
 					</p>
 					
 					<!-- Modal -->
@@ -133,8 +134,8 @@
 					      
 					      <div class="modal-footer">
 					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
-							  <button type="button" class="btn btn-light text-dark fw-bold">ADD TO CART</button>
-							  <button type="button" class="btn btn-primary fw-bold">BUY NOW</button>
+							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
 							</div>
 					      </div>
 					      

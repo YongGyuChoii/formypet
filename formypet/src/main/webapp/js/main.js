@@ -1,7 +1,5 @@
 $(function(){
 	
-	var count = 0; //class 1개씩 증가하기 위한 변수
-	
 	// 비어있는 새로운 set 을 만듬
 	let setA = new Set();
 	let setB = [];
@@ -25,10 +23,30 @@ $(function(){
 			context: this, //this를 success 안에서 현재 객체를 가르킬 수 있다.
 			success : function(data) { // Ajax 목적 : data를 얻기 위함
 				for(var i=0; i<data.length; i++){
-					//만약 옵션이 없다면 바로 카트에 추가
+					//만약 옵션이 없다면 한개만
 					if(data[i].oc1 == "" && data[i].oc2 == "" && data[i].oc3 == "" && data[i].oc4 == "" && data[i].oc5 == ""){
-						fnCartInsert(productKey,memKey);
-						break;
+						var productName = $(this).parent().parent().find("input[name='productName']").val();
+						var totalPrice = $(this).parent().parent().find('.totalPrice');
+						var productSalePrice = $(this).parent().parent().find("input[name='productSalePrice']").val();
+						var optionChoose = $(this).parent().parent().find('.optionChoose');
+						
+						optionChoose.empty();
+						
+						//추가할 html코드
+						var html2='';
+						html2 += '<div class="row"><div class="col-6 fw-bold">';
+						html2 += ''+productName+'<br><span class="text-muted optionText"></span>';
+						html2 += '</div><div class="col-3 text-end">';
+						html2 += '<span class="material-symbols-outlined align-middle addIcon" style="font-size:20px;">add</span>';
+						html2 += ' <span class="align-middle numberIcon fw-bold">1</span>';
+						html2 += ' <span class="material-symbols-outlined align-middle removeIcon" style="font-size:20px;">remove</span>';
+						html2 += '</div><div class="col-3 text-end text-primary fw-bold align-middle">';
+						html2 += '<span class="salePrice">'+productSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')+'</span>원</div></div><hr />';
+						
+						optionChoose.append(html2);
+						
+						$(this).parent().parent().find('.totalCount').text(1);
+						totalPrice.text(productSalePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 					}else { //옵션이 있다면
 						//셀렉트박스 찾아옴
 						var select = $(this).parent().parent().find("select[name='optionSelect"+i+"']");
@@ -39,7 +57,6 @@ $(function(){
 						//셀렉트 하면 append 할 div 초기화
 						var optionChoose = $(this).parent().parent().find(".optionChoose");
 						optionChoose.empty();
-						count=0; //class 초기화
 						setA.clear(); //set 초기화
 						setC.clear();
 						setB = []; //배열초기화
@@ -111,15 +128,13 @@ $(function(){
 				//추가할 html코드
 				html[i]='';
 				html[i] += '<div class="row"><div class="col-6 fw-bold">';
-				html[i] += ''+productName+'<br><span class="text-muted optionText'+count+'">'+setB[i]+'</span>';
+				html[i] += ''+productName+'<br><span class="text-muted optionText">'+setB[i]+'</span>';
 				html[i] += '</div><div class="col-3 text-end">';
 				html[i] += '<span class="material-symbols-outlined align-middle addIcon" style="font-size:20px;">add</span>';
 				html[i] += ' <span class="align-middle numberIcon fw-bold">1</span>';
 				html[i] += ' <span class="material-symbols-outlined align-middle removeIcon" style="font-size:20px;">remove</span>';
 				html[i] += '</div><div class="col-3 text-end text-primary fw-bold align-middle">';
 				html[i] += '<span class="salePrice">'+salePrice+'</span>원</div></div><hr />';
-				
-				count++
 				
 			}
 			//div 초기화 시켜주고
@@ -184,15 +199,13 @@ $(function(){
 				//추가할 html코드
 				html[i]='';
 				html[i] += '<div class="row"><div class="col-6 fw-bold">';
-				html[i] += ''+productName+'<br><span class="text-muted optionText'+count+'">'+setD[i]+'</span>';
+				html[i] += ''+productName+'<br><span class="text-muted optionText">'+setD[i]+'</span>';
 				html[i] += '</div><div class="col-3 text-end">';
 				html[i] += '<span class="material-symbols-outlined align-middle addIcon" style="font-size:20px;">add</span>';
 				html[i] += ' <span class="align-middle numberIcon fw-bold">1</span>';
 				html[i] += ' <span class="material-symbols-outlined align-middle removeIcon" style="font-size:20px;">remove</span>';
 				html[i] += '</div><div class="col-3 text-end text-primary fw-bold align-middle">';
 				html[i] += '<span class="salePrice">'+salePrice+'</span>원</div></div><hr />';
-				
-				count++
 				
 			}
 			//div 초기화 시켜주고
@@ -257,15 +270,13 @@ $(function(){
 				//추가할 html코드
 				html[i]='';
 				html[i] += '<div class="row"><div class="col-6 fw-bold">';
-				html[i] += ''+productName+'<br><span class="text-muted optionText'+count+'">'+setD[i]+'</span>';
+				html[i] += ''+productName+'<br><span class="text-muted optionText">'+setD[i]+'</span>';
 				html[i] += '</div><div class="col-3 text-end">';
 				html[i] += '<span class="material-symbols-outlined align-middle addIcon" style="font-size:20px;">add</span>';
 				html[i] += ' <span class="align-middle numberIcon fw-bold">1</span>';
 				html[i] += ' <span class="material-symbols-outlined align-middle removeIcon" style="font-size:20px;">remove</span>';
 				html[i] += '</div><div class="col-3 text-end text-primary fw-bold align-middle">';
 				html[i] += '<span class="salePrice">'+salePrice+'</span>원</div></div><hr />';
-				
-				count++
 				
 			}
 			//div 초기화 시켜주고
@@ -356,19 +367,54 @@ $(function(){
 		$(this).parent().parent().parent().parent().find('.totalCount').text(totalCount);
 	});
 	
+	//회원 장바구니 추가
+	$(document).on("click",".addCart",function(){
+		var productKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='productKey']").val();
+		var memKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memKey']").val();
+		
+		//상품수량
+		var cartCount = [];
+		var cartCount1 = $(this).parent().parent().parent().find('.numberIcon').get();
+		for(var i=0; i<cartCount1.length; i++){
+			cartCount[i] = cartCount1[i].innerHTML;
+			console.log(cartCount[i]);
+		}
+		
+		//상품옵션
+		var optionText = [];
+		var optionText1 = $(this).parent().parent().parent().find('.optionText').get();
+		var optionChoose = $(this).parent().parent().parent().find('.optionChoose');
+		for(var i=0; i<optionText1.length; i++){
+			optionText[i] = optionText1[i].innerHTML;
+			console.log(optionText[i]);
+		}
+		if(optionChoose.children().length < 1){
+			alert("한개 이상의 옵션을 선택해주세요.");
+		}else {
+			$.ajax({
+				type : "POST",
+				traditional: true,	// ajax 배열 넘기기 옵션!
+				url: "/formypet/cart/AddCartServlet",
+				data : { productKey:productKey, memKey:memKey, cartCount:cartCount, optionText:optionText },
+				dataType : "json",
+				success : function(data) { 
+					if(data == true){
+						alert('장바구니에 추가 되었습니다.')
+						if(confirm("장바구니로 이동 하시겠습니까?")){
+							 location.href = "cart/cart.jsp";
+						}else {
+						     location.reload();
+						}
+					}else {
+						alert('장바구니에 동일한 상품이 있습니다.');
+					}
+				},
+				errer : function() {
+					alert('errer');
+				}
+			});
+		}
+		
+	});
+	
 });
-
-function fnCartInsert(productKey, memKey){
-	$.ajax({
-			type : "POST",
-			url: "/formypet/cart/CartServlet",
-			data : { productKey:productKey, memKey:memKey },
-			dataType : "json",
-			success : function() { 
-				alert("장바구니에 추가되었습니다.");
-			},
-			errer : function() {
-				alert('errer');
-			}
-		});
-}
