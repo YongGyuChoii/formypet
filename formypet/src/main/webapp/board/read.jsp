@@ -36,7 +36,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Pet</title>
-    <link rel="stylesheet"  href="../css/board.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css">
     <link rel="stylesheet"  href="../css/base.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -64,7 +64,7 @@
     <div class="container" align="center">
       <section>
 	<br/><br/>
-	<table align="center" width="600" cellspacing="3">
+	<table align="center" width="800" cellspacing="3">
 	 <tr>
 	  <td bgcolor="#9CA2EE" height="25" align="center">글읽기</td>
 	 </tr>
@@ -73,28 +73,28 @@
 	   <table cellpadding="3" cellspacing="0" width="100%"> 
 	    <tr> 
 	  <td align="center" bgcolor="#DDDDDD" width="10%"> 이 름 </td>
-	  <td bgcolor="#FFFFE8"><%=name%></td>
+	  <td bgcolor="#FFFFE8">&nbsp;&nbsp;<%=name%></td>
 	  <td align="center" bgcolor="#DDDDDD" width="10%"> 등록날짜 </td>
-	  <td bgcolor="#FFFFE8"><%=regdate%></td>
+	  <td bgcolor="#FFFFE8">&nbsp;&nbsp;<%=regdate%></td>
 	 </tr>
 	 <tr> 
 	    <td align="center" bgcolor="#DDDDDD"> 제 목</td>
-	    <td bgcolor="#FFFFE8" colspan="3"><%=subject%></td>
+	    <td bgcolor="#FFFFE8" colspan="3">&nbsp;&nbsp;<%=subject%></td>
 	   </tr>
 	   <tr> 
 	     <td align="center" bgcolor="#DDDDDD">첨부파일</td>
 	     <td bgcolor="#FFFFE8" colspan="3">
 	     <% if( filename !=null && !filename.equals("")) {%>
-	  		<a href="javascript:down('<%=filename%>')"><%=filename%></a>
+	  		<a href="javascript:down('<%=filename%>')">&nbsp;&nbsp;<%=filename%></a>
 	  		 &nbsp;&nbsp;<font color="blue">(<%=filesize%>KBytes)</font>  
-	  		 <%} else{%> 등록된 파일이 없습니다.<%}%>
+	  		 <%} else{%>&nbsp;&nbsp;등록된 파일이 없습니다.<%}%>
 	     </td>
 	   </tr>
 	   <tr> 
 	    <td colspan="4"><br/><pre><%=content%></pre><br/></td>
 	   </tr>
 	   <tr>
-	    <td colspan="4" align="right">조회수<%=count%></td>
+	    <td colspan="4" align="right">조회수 <%=count%></td>
 	   </tr>
 	   </table>
 	  </td>

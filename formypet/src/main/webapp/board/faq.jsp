@@ -21,54 +21,106 @@
     <!--header 끝-->
 
     <!--main 시작-->
-    <div class="container">
-      <section>
+    <div>
+    	<div style="position:relative">
+    	<img src="../images/board/faq_main.jpg" alt="게시판" width="100%">
+    <div class="container" style="position:absolute; top:100px;">
       <br/><br/>
+      	<div>
         <h1 class="faq-heading" align="center">FAQ(자주 묻는 질문)</h1>
+        </div>
         <section class="faq-container">
             <div class="faq-one">
-
                 <!-- faq question -->
-                <h1 class="faq-page">Q. 주문 내역은 어디서 확인 하나요?</h1>
-
+                <h3 class="faq-page"><b>[주문/결제]</b> Q. 주문 내역은 어디서 확인 하나요?</h3>
                 <!-- faq answer -->
                 <div class="faq-body">
-                    <p>웹사이트 상단 마이 페이지 > 주문내역 > 주문 번호를 선택하시면 상세 주문내역 확인이 가능합니다.</p>
+                    <p>A. 웹사이트 상단 마이 페이지 > 주문내역 > 주문 번호를 선택하시면 상세 주문내역 확인이 가능합니다.</p>
                 </div>
             </div>
             <hr class="hr-line">
-
             <div class="faq-two">
-
                 <!-- faq question -->
-                <h1 class="faq-page">Q. 꼭 회원가입을 해야만 주문이 가능한가요?</h1>
-
+                <h3 class="faq-page"><b>[주문/결제]</b> Q. 꼭 회원가입을 해야만 주문이 가능한가요?</h3>
                 <!-- faq answer -->
-
                 <div class="faq-body">
-                    <p>비회원으로도 주문이 가능합니다. 주문해주실 때 '비회원 구매' 버튼을 눌러 주문을 해주시기 바랍니다.
+                    <p>A. 비회원으로도 주문이 가능합니다. 주문해주실 때 '비회원 구매' 버튼을 눌러 주문을 해주시기 바랍니다.
 						  회원을 위한 다양한 할인 및 혜택이 준비되어 있으니 회원가입을 해주시는 것을 권장 드립니다.</p>
                 </div>
             </div>
             <hr class="hr-line">
-
-
             <div class="faq-three">
-
                 <!-- faq question -->
-                <h1 class="faq-page">Q. 제품 배송은 얼마나 걸리나요?</h1>
-
+                <h3 class="faq-page"><b>[배송]</b> Q. 제품 배송은 얼마나 걸리나요?</h3>
+                <!-- faq answer -->
+                <div class="faq-body">
+                    <p>A. 주문하신 상품은 주문일로부터 2~3일 내에 출고로 안내를 드리고 있지만, 대부분 평일 오전 11시 결제 완료된 건은 가급적 당일 출고 처리하고 있습니다.
+						수령까지는 출고일 다음날로부터 1~3일 가량 소요됩니다. 공휴일 혹은 주말 주문의 경우, 순차 출고로 인해 배송에 시간이 좀 더 소요될 수 있습니다.</p>
+                </div>
+            </div>           
+            <hr class="hr-line">
+            <div class="faq-three">
+                <!-- faq question -->
+                <h3 class="faq-page"><b>[기타문의]</b> Q. 오프라인 매장은 없나요?</h3>
+                <!-- faq answer -->
+                <div class="faq-body">
+                    <p>A. 현재 F.M.P 에서는 공식적으로 운영되는 오프라인 매장은 없음을 안내 드립니다.
+							도매 형식으로 일반 반려동물 용품점 또는 동물병원 등에서 개별적으로 판매되고 있으며,
+							입점 매장 및 연락처 문의는 070-0000-0000 혹은 070-0000-0001로 문의주시면 
+							확인 후 안내 도움드리도록 하겠습니다. </p>
+                </div>
+            </div>
+            <hr class="hr-line">
+            <div class="faq-three">
+                <!-- faq question -->
+                <h3 class="faq-page">Q. 제품 배송은 얼마나 걸리나요?</h3>
                 <!-- faq answer -->
                 <div class="faq-body">
                     <p>주문하신 상품은 주문일로부터 2~3일 내에 출고로 안내를 드리고 있지만, 대부분 평일 오전 11시 결제 완료된 건은 가급적 당일 출고 처리하고 있습니다.
 						수령까지는 출고일 다음날로부터 1~3일 가량 소요됩니다. 공휴일 혹은 주말 주문의 경우, 순차 출고로 인해 배송에 시간이 좀 더 소요될 수 있습니다.</p>
                 </div>
             </div>
-            
-            
+            <hr class="hr-line">
+            <div class="faq-three">
+                <!-- faq question -->
+                <h3 class="faq-page">Q. 제품 배송은 얼마나 걸리나요?</h3>
+                <!-- faq answer -->
+                <div class="faq-body">
+                    <p>주문하신 상품은 주문일로부터 2~3일 내에 출고로 안내를 드리고 있지만, 대부분 평일 오전 11시 결제 완료된 건은 가급적 당일 출고 처리하고 있습니다.
+						수령까지는 출고일 다음날로부터 1~3일 가량 소요됩니다. 공휴일 혹은 주말 주문의 경우, 순차 출고로 인해 배송에 시간이 좀 더 소요될 수 있습니다.</p>
+                </div>
+            </div>
+            <hr class="hr-line">
+            <div class="faq-three">
+                <!-- faq question -->
+                <h3 class="faq-page">Q. 제품 배송은 얼마나 걸리나요?</h3>
+                <!-- faq answer -->
+                <div class="faq-body">
+                    <p>주문하신 상품은 주문일로부터 2~3일 내에 출고로 안내를 드리고 있지만, 대부분 평일 오전 11시 결제 완료된 건은 가급적 당일 출고 처리하고 있습니다.
+						수령까지는 출고일 다음날로부터 1~3일 가량 소요됩니다. 공휴일 혹은 주말 주문의 경우, 순차 출고로 인해 배송에 시간이 좀 더 소요될 수 있습니다.</p>
+                </div>
+            </div>
+            <div>
+          	<nav aria-label="Page navigation example" class="mt-5 mb-5">
+		  		<ul class="pagination justify-content-center">
+		    		<li class="page-item">
+		      		<a class="page-link text-dark" href="#">Previous</a>
+		    		</li>
+		    			<li class="page-item"><a class="page-link active text-dark" href="#">1</a></li>
+		   			    <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+		   			    <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+		     			<li class="page-item">
+		     		    <a class="page-link text-dark" href="#">Next</a>
+		    		</li>
+		  		</ul>
+	  		</nav>
+            </div>                                                                                   
         </section>
-      </section>
+     </div>    	
+    	</div>
+
     </div>
+    <br/><br/>
     <!--main 끝-->
 
     <!-- 오른쪽 맨위 맨아래 화살표 -->
