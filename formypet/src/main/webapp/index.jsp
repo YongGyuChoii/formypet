@@ -134,8 +134,13 @@
 					      
 					      <div class="modal-footer">
 					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <%if(memKey != null){ %>
 							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
 							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+							  <%} else {%>
+							  <button type="button" class="btn btn-light text-dark fw-bold addNoMemCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNoMemNow">BUY NOW</button>
+							  <%} %>
 							</div>
 					      </div>
 					      
@@ -168,16 +173,90 @@
               
               <%for(ProductBean s : slist){ %>
               	<div class="mainContent1">
-                <a href="product/productDetail.jsp?productKey=<%=s.getProductKey()%>&categoryKey=<%=s.getCategoryKey()%>"><img src="images/snackProduct/<%=s.getProductImg() %>" alt="상품메인사진"></a>
-                <a href="product/productDetail.jsp?productKey=<%=s.getProductKey()%>&categoryKey=<%=s.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=s.getProductName() %></p></a>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
-                <fmt:formatNumber value="<%=s.getProductPrice() %>" pattern="#,###"/>원</span>
-                <fmt:formatNumber value="<%=s.getProductSalePrice() %>" pattern="#,###"/>원
-                <a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
+              		<input type="hidden" name="productKey" value="<%=s.getProductKey() %>" />
+              		<input type="hidden" name="memKey" value="<%=memKey %>" />
+              		<input type="hidden" name="productName" value="<%=s.getProductName() %>" />
+                	<a href="product/productDetail.jsp?productKey=<%=s.getProductKey()%>&categoryKey=<%=s.getCategoryKey()%>"><img src="images/snackProduct/<%=s.getProductImg() %>" alt="상품메인사진"></a>
+                	<a href="product/productDetail.jsp?productKey=<%=s.getProductKey()%>&categoryKey=<%=s.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=s.getProductName() %></p></a>
+                	<p class="fs-5 fw-bold mt-3">
+                
+	                	<span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+	                	<fmt:formatNumber value="<%=s.getProductPrice() %>" pattern="#,###"/>원</span>
+	                	<fmt:formatNumber value="<%=s.getProductSalePrice() %>" pattern="#,###"/>원
+                	
+	                	<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
+		                	shopping_bag
+	             		</span></a>
+                
+                	</p>
+                
+                <!-- Modal -->
+				<div class="modal fade" id="exampleModal<%=count%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">옵션 선택</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        <p class="fw-bold">
+				        	<%=s.getProductName() %>
+				        </p>
+				        <input type="hidden" name="productSalePrice" value="<%=s.getProductSalePrice() %>" />
+				        <hr />
+				        <div class="row">
+				        	<div class="col-3">
+				        		<img src="images/snackProduct/<%=s.getProductImg() %>" alt="상품메인사진" />
+				        	</div>
+				        	<div class="col-3">옵션 선택</div>
+				        	<div class="col-6">
+								<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+								  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+								</select>
+								<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+								  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+								</select>
+								<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+								  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+								</select>
+				        	</div>
+				        </div>
+				        
+				        <div class="text-danger ms-3 mt-3 fw-bold fst-italic textDanger">
+							<span class="material-icons" style="font-size:12px;">
+								report_problem
+							</span>
+							위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
+						</div>
+						<hr />
+						
+						<input type="hidden" name="productCount" value="<%=s.getProductCount() %>" />
+						<div class="optionChoose">
+						</div>
+						
+						<div class="mt-5">
+							<span class="fw-bold fs-6">총 상품금액</span>(수량) :
+							<span class="fw-bold text-primary fs-3 totalPrice">0</span>원
+							(<span class="fs-6 totalCount">0</span>개)
+						</div>
+							
+				      </div>
+				      
+				      <div class="modal-footer">
+				        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+						  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
+						  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+						</div>
+				      </div>
+				      
+				    </div>
+				  </div>
+				</div>
+				<!-- Modal -->
+                
                 <span class="Best">BEST</span>
               	</div>
+              	<%count++;%>
               <%} %>
             </div>
 		</div>
@@ -200,16 +279,90 @@
               
               <%for(ProductBean l : llist){ %>
               	<div class="mainContent1">
+              	<input type="hidden" name="productKey" value="<%=l.getProductKey() %>" />
+           		<input type="hidden" name="memKey" value="<%=memKey %>" />
+          		<input type="hidden" name="productName" value="<%=l.getProductName() %>" />
                 <a href="product/productDetail.jsp?productKey=<%=l.getProductKey()%>&categoryKey=<%=l.getCategoryKey()%>"><img src="images/livingProduct/<%=l.getProductImg() %>" alt="상품메인사진"></a>
                 <a href="product/productDetail.jsp?productKey=<%=l.getProductKey()%>&categoryKey=<%=l.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=l.getProductName() %></p></a>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
-                <fmt:formatNumber value="<%=l.getProductPrice() %>" pattern="#,###"/>원</span>
-                <fmt:formatNumber value="<%=l.getProductSalePrice() %>" pattern="#,###"/>원
-                <a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
+                <p class="fs-5 fw-bold mt-3">
+                
+                	<span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+	                <fmt:formatNumber value="<%=l.getProductPrice() %>" pattern="#,###"/>원</span>
+	                <fmt:formatNumber value="<%=l.getProductSalePrice() %>" pattern="#,###"/>원
+	                
+	                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
+	                shopping_bag
+	             	</span></a>
+                
+                </p>
+                
+                <!-- Modal -->
+					<div class="modal fade" id="exampleModal<%=count%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">옵션 선택</h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        <p class="fw-bold">
+					        	<%=l.getProductName() %>
+					        </p>
+					        <input type="hidden" name="productSalePrice" value="<%=l.getProductSalePrice() %>" />
+					        <hr />
+					        <div class="row">
+					        	<div class="col-3">
+					        		<img src="images/livingProduct/<%=l.getProductImg() %>" alt="상품메인사진" />
+					        	</div>
+					        	<div class="col-3">옵션 선택</div>
+					        	<div class="col-6">
+									<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+					        	</div>
+					        </div>
+					        
+					        <div class="text-danger ms-3 mt-3 fw-bold fst-italic textDanger">
+								<span class="material-icons" style="font-size:12px;">
+									report_problem
+								</span>
+								위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
+							</div>
+							<hr />
+							
+							<input type="hidden" name="productCount" value="<%=l.getProductCount() %>" />
+							<div class="optionChoose">
+							</div>
+							
+							<div class="mt-5">
+								<span class="fw-bold fs-6">총 상품금액</span>(수량) :
+								<span class="fw-bold text-primary fs-3 totalPrice">0</span>원
+								(<span class="fs-6 totalCount">0</span>개)
+							</div>
+								
+					      </div>
+					      
+					      <div class="modal-footer">
+					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+							</div>
+					      </div>
+					      
+					    </div>
+					  </div>
+					</div>
+					<!-- Modal -->
+                
                 <span class="Best">BEST</span>
               	</div>
+              	<%count++;%>
               <%} %>
             </div>
 		</div>
@@ -229,16 +382,90 @@
               
               <%for(ProductBean c : clist){ %>
               	<div class="mainContent1">
+              	<input type="hidden" name="productKey" value="<%=c.getProductKey() %>" />
+           		<input type="hidden" name="memKey" value="<%=memKey %>" />
+           		<input type="hidden" name="productName" value="<%=c.getProductName() %>" />
                 <a href="product/productDetail.jsp?productKey=<%=c.getProductKey()%>&categoryKey=<%=c.getCategoryKey()%>"><img src="images/clothesProduct/<%=c.getProductImg() %>" alt="상품메인사진"></a>
                 <a href="product/productDetail.jsp?productKey=<%=c.getProductKey()%>&categoryKey=<%=c.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=c.getProductName() %></p></a>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
-                <fmt:formatNumber value="<%=c.getProductPrice() %>" pattern="#,###"/>원</span>
-                <fmt:formatNumber value="<%=c.getProductSalePrice() %>" pattern="#,###"/>원
-                <a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
+                <p class="fs-5 fw-bold mt-3">
+                
+	                <span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+	                <fmt:formatNumber value="<%=c.getProductPrice() %>" pattern="#,###"/>원</span>
+	                <fmt:formatNumber value="<%=c.getProductSalePrice() %>" pattern="#,###"/>원
+	                
+	                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
+		                shopping_bag
+	             	</span></a>
+                
+                </p>
+                
+                <!-- Modal -->
+					<div class="modal fade" id="exampleModal<%=count%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">옵션 선택</h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        <p class="fw-bold">
+					        	<%=c.getProductName() %>
+					        </p>
+					        <input type="hidden" name="productSalePrice" value="<%=c.getProductSalePrice() %>" />
+					        <hr />
+					        <div class="row">
+					        	<div class="col-3">
+					        		<img src="images/clothesProduct/<%=c.getProductImg() %>" alt="상품메인사진" />
+					        	</div>
+					        	<div class="col-3">옵션 선택</div>
+					        	<div class="col-6">
+									<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+					        	</div>
+					        </div>
+					        
+					        <div class="text-danger ms-3 mt-3 fw-bold fst-italic textDanger">
+								<span class="material-icons" style="font-size:12px;">
+									report_problem
+								</span>
+								위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
+							</div>
+							<hr />
+							
+							<input type="hidden" name="productCount" value="<%=c.getProductCount() %>" />
+							<div class="optionChoose">
+							</div>
+							
+							<div class="mt-5">
+								<span class="fw-bold fs-6">총 상품금액</span>(수량) :
+								<span class="fw-bold text-primary fs-3 totalPrice">0</span>원
+								(<span class="fs-6 totalCount">0</span>개)
+							</div>
+								
+					      </div>
+					      
+					      <div class="modal-footer">
+					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+							</div>
+					      </div>
+					      
+					    </div>
+					  </div>
+					</div>
+					<!-- Modal -->
+                
                 <span class="Best">BEST</span>
               	</div>
+              	<%count++;%>
               <%} %>
             </div>
 		</div>
@@ -261,16 +488,90 @@
               
               <%for(ProductBean w : wlist){ %>
               	<div class="mainContent1">
+              	<input type="hidden" name="productKey" value="<%=w.getProductKey() %>" />
+           		<input type="hidden" name="memKey" value="<%=memKey %>" />
+           		<input type="hidden" name="productName" value="<%=w.getProductName() %>" />
                 <a href="product/productDetail.jsp?productKey=<%=w.getProductKey()%>&categoryKey=<%=w.getCategoryKey()%>"><img src="images/walkProduct/<%=w.getProductImg() %>" alt="상품메인사진"></a>
                 <a href="product/productDetail.jsp?productKey=<%=w.getProductKey()%>&categoryKey=<%=w.getCategoryKey()%>"><p class="fs-5 fw-bold mt-3"><%=w.getProductName() %></p></a>
-                <p class="fs-5 fw-bold mt-3"><span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
-                <fmt:formatNumber value="<%=w.getProductPrice() %>" pattern="#,###"/>원</span>
-                <fmt:formatNumber value="<%=w.getProductSalePrice() %>" pattern="#,###"/>원
-                <a href="#"><span class="material-symbols-outlined ms-5">
-                  shopping_bag
-                </span></a></p>
+                <p class="fs-5 fw-bold mt-3">
+                
+                	<span class="fs-6 text-decoration-line-through fw-light me-1 text-secondary">
+	                <fmt:formatNumber value="<%=w.getProductPrice() %>" pattern="#,###"/>원</span>
+	                <fmt:formatNumber value="<%=w.getProductSalePrice() %>" pattern="#,###"/>원
+	                
+	                <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
+		                shopping_bag
+	             	</span></a>
+                
+                </p>
+                
+                <!-- Modal -->
+					<div class="modal fade" id="exampleModal<%=count%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">옵션 선택</h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        <p class="fw-bold">
+					        	<%=w.getProductName() %>
+					        </p>
+					        <input type="hidden" name="productSalePrice" value="<%=w.getProductSalePrice() %>" />
+					        <hr />
+					        <div class="row">
+					        	<div class="col-3">
+					        		<img src="images/walkProduct/<%=w.getProductImg() %>" alt="상품메인사진" />
+					        	</div>
+					        	<div class="col-3">옵션 선택</div>
+					        	<div class="col-6">
+									<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+									<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+									  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+									</select>
+					        	</div>
+					        </div>
+					        
+					        <div class="text-danger ms-3 mt-3 fw-bold fst-italic textDanger">
+								<span class="material-icons" style="font-size:12px;">
+									report_problem
+								</span>
+								위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
+							</div>
+							<hr />
+							
+							<input type="hidden" name="productCount" value="<%=w.getProductCount() %>" />
+							<div class="optionChoose">
+							</div>
+							
+							<div class="mt-5">
+								<span class="fw-bold fs-6">총 상품금액</span>(수량) :
+								<span class="fw-bold text-primary fs-3 totalPrice">0</span>원
+								(<span class="fs-6 totalCount">0</span>개)
+							</div>
+								
+					      </div>
+					      
+					      <div class="modal-footer">
+					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+							</div>
+					      </div>
+					      
+					    </div>
+					  </div>
+					</div>
+					<!-- Modal -->
+                
                 <span class="Best">BEST</span>
               	</div>
+              	<%count++;%>
               <%} %>
             </div>
 		</div>

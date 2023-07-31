@@ -377,7 +377,6 @@ $(function(){
 		var cartCount1 = $(this).parent().parent().parent().find('.numberIcon').get();
 		for(var i=0; i<cartCount1.length; i++){
 			cartCount[i] = cartCount1[i].innerHTML;
-			console.log(cartCount[i]);
 		}
 		
 		//상품옵션
@@ -386,7 +385,6 @@ $(function(){
 		var optionChoose = $(this).parent().parent().parent().find('.optionChoose');
 		for(var i=0; i<optionText1.length; i++){
 			optionText[i] = optionText1[i].innerHTML;
-			console.log(optionText[i]);
 		}
 		if(optionChoose.children().length < 1){
 			alert("한개 이상의 옵션을 선택해주세요.");
@@ -396,6 +394,53 @@ $(function(){
 				traditional: true,	// ajax 배열 넘기기 옵션!
 				url: "/formypet/cart/AddCartServlet",
 				data : { productKey:productKey, memKey:memKey, cartCount:cartCount, optionText:optionText },
+				dataType : "json",
+				success : function(data) { 
+					if(data == true){
+						alert('장바구니에 추가 되었습니다.')
+						if(confirm("장바구니로 이동 하시겠습니까?")){
+							 location.href = "cart/cart.jsp";
+						}else {
+						     location.reload();
+						}
+					}else {
+						alert('장바구니에 동일한 상품이 있습니다.');
+					}
+				},
+				errer : function() {
+					alert('errer');
+				}
+			});
+		}
+		
+	});
+	
+	//비회원 장바구니 추가
+	$(document).on("click",".addNoMemCart",function(){
+		var productKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='productKey']").val();
+		
+		//상품수량
+		var cartCount = [];
+		var cartCount1 = $(this).parent().parent().parent().find('.numberIcon').get();
+		for(var i=0; i<cartCount1.length; i++){
+			cartCount[i] = cartCount1[i].innerHTML;
+		}
+		
+		//상품옵션
+		var optionText = [];
+		var optionText1 = $(this).parent().parent().parent().find('.optionText').get();
+		var optionChoose = $(this).parent().parent().parent().find('.optionChoose');
+		for(var i=0; i<optionText1.length; i++){
+			optionText[i] = optionText1[i].innerHTML;
+		}
+		if(optionChoose.children().length < 1){
+			alert("한개 이상의 옵션을 선택해주세요.");
+		}else {
+			$.ajax({
+				type : "POST",
+				traditional: true,	// ajax 배열 넘기기 옵션!
+				url: "/formypet/cart/AddCartNoMemServlet",
+				data : { productKey:productKey, cartCount:cartCount, optionText:optionText },
 				dataType : "json",
 				success : function(data) { 
 					if(data == true){
