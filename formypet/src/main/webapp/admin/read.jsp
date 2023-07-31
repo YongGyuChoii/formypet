@@ -25,8 +25,8 @@
 	  int productCount = bean.getProductCount();
 	  String productKind = bean.getProductKind();
 	  int categoryKey = bean.getCategoryKey();
-	
 	  int productKey1 = bean.getProductKey();
+	  String delYn = bean.getDelYn();
  
 	  session.setAttribute("bean", bean);//상품을 세션에 저장 product db
 
@@ -145,7 +145,13 @@
 	  		 <%} else{%> 등록된 파일이 없습니다.<%}%>
 	     </td>
 	   </tr>
-
+	  <tr>
+	   		<td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 삭제</font></td>
+	    	<td colspan="3">
+		  	<input name="delYn" type="radio" value="Y"<%if("Y".equals(delYn)){%>checked<%}%>>Y</input>
+		  	<input name="delYn" type="radio" value="N"<%if("N".equals(delYn)){%>checked<%}%>>N</input>
+		 	</td>
+	 </tr>	
 	   
 	   </table>
 	  </td>

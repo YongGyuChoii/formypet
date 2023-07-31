@@ -15,6 +15,7 @@
 	  	int size = bean.getSize();
 	  	int productKey = bean.getProductKey();
 	  	int fileKey2 = bean.getFileKey();
+	  	String delYn = bean.getDelYn();
 
 %>
 <!DOCTYPE html>
@@ -63,12 +64,16 @@
 			<td><input type = "file" name="fileSaveName" size="70" maxlength="100"></td>
 		</tr>
 	    <tr>
-	     <td bgcolor= "#002266"><font color = "#ffc303">상품 사진 용량</font></td>
-	     <td>
-		  <input name="size" size="70" value="<%=size%>" maxlength="100">
-		 </td>
+		     <td bgcolor= "#002266"><font color = "#ffc303">상품 사진 용량</font></td>
+		     <td><input name="size" size="70" value="<%=size%>" maxlength="100"></td>
 	    </tr>
-	   	
+	   	<tr>
+	   		<td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 삭제</font></td>
+	    	<td colspan="3">
+		  	<input name="delYn" type="radio" value="Y"<%if("Y".equals(delYn)){%>checked<%}%>>Y</input>
+		  	<input name="delYn" type="radio" value="N"<%if("N".equals(delYn)){%>checked<%}%>>N</input>
+		 	</td>
+		</tr>
 		<tr>
 	     <td colspan="2" height="5"><hr/></td>
 	    </tr>

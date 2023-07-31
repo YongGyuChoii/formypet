@@ -34,7 +34,7 @@ public class ExpendsManagementMgr {
 		   //결과값 담을 ResultSet 객체 생성
 	       ResultSet rs = null;
 	       
-	       //RegisterBean 클래스 타입의 Vector 배열 vlist 선언
+	       //ExpendsManagementBean 클래스 타입의 Vector 배열 vlist 선언
 	       Vector<ExpendsManagementBean> vlist = new Vector<ExpendsManagementBean>();
 	       
 	       try {
@@ -51,13 +51,15 @@ public class ExpendsManagementMgr {
 	          //RegisterBean 클래스에 선언된 변수에 대입 한다.
 			  while (rs.next()) {
 				  
-				  ExpendsManagementBean bean = new ExpendsManagementBean();//RegisterBean 클래스 객체생성
+				 ExpendsManagementBean bean = new ExpendsManagementBean();
 	             bean.setExpendsDate(rs.getString("expendsDate"));
 			 	 bean.setExpendsSection (rs.getString("expendsSection"));
-			 	 //RegisterBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.
 				 bean.setExpendsContents (rs.getString("expendsContents"));	 			 
 	 			 bean.setExpendsValue(rs.getInt("expendsValue"));
+	 			 bean.setMexpends(rs.getInt("Mexpends")); //월별 매출 합계 메소드 
+	 			 bean.setYexpends(rs.getInt("Yexpends")); //년도별 매출 합계 메소드
 	 			 bean.setMemKey(rs.getInt("memKey"));
+	 			 bean.setExpendsKey(rs.getInt("expendsKey"));
 	 			 vlist.addElement(bean);
 	          }
 			  //예외처리

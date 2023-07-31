@@ -17,27 +17,37 @@
 
 </head>
 <body>
-    <div id="wrap">
+   
     <!-- header 시작-->
     <header>
         <%@include file="../admin/adminHeader.jsp"%>
       </header>
     <!--header 끝-->
-       <!-- table 시작 -->
-    <div class="container">
-        <section>
-            <div>
-                <table class="table-body">
+       <!-- table 시작 --> 
+<div id="wrap" align = "center">
+                    <br/>
                     <h2>구매 및 환불 관리</h2>
-                    <thead>
-                    <tr>
-                        <th>회원 구분</th>
-                        <th>환불 제목</th>
-                        <th>환불 내용</th>
-                        <th>환불 날짜</th>                
-                    </tr>
-                    </thead>
-                    <tbody>
+                    <br/>
+                    <table align = "center" width = "600">
+                    	<tr>
+                    		<td>
+                    		Total : #개
+                    		</td>
+                    	</tr>
+                    </table>
+                    
+                    <!-- 게시판 본문 시작 -->
+                    
+                    <table height = "600">
+                    	<tr>
+                    		<td align="center" colspan="2">
+                    	<table>
+	                   		<tr>
+		                        <td>회원 구분</td>
+		                        <td>환불 제목</td>
+		                        <td>환불 내용</td>
+		                        <td>환불 날짜</td>                
+	                    	</tr>
                     <%
               			Vector<BuyManagementBean> vlist = buyMMgr.getBuyManagementList();
                     	            int counter = vlist.size();
@@ -56,15 +66,13 @@
 		                <%
 			            }
 		                %>	
-		                <p>total records : <%=counter %></p>	                	            
+		                	                	            
                     </tr>
-                    </tbody>
-                </table>
-                
+                    </table>
+                </td>
+               </tr>
             </div>
-        </section>
-    </div>
-    <!--table 끝-->
+       <!--table 끝-->
     <!-- 오른쪽 맨위 맨아래 화살표 -->
     <%@include file="/base/rightAside.jsp"%>
     <!-- 오른쪽 맨위 맨아래 화살표 끝 -->

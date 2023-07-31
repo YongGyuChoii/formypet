@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
-<%@page import = "admin.ProductManagementBean" %>
-<jsp:useBean id = "pMMgr" class = "admin.ProductManagementMgr" scope = "page" />
+<%@page import = "admin.ReviewManagementBean" %>
+<jsp:useBean id = "rMMgr" class = "admin.ReviewManagementMgr" scope = "page" />
 <%	
 	  request.setCharacterEncoding("UTF-8");
 	  
       int totalRecord=0; //전체레코드수
 	  int numPerPage=10; // 페이지당 레코드 수 
-	  int pagePerBlock=20; //블럭당 페이지수 
+	  int pagePerBlock=500; //블럭당 페이지수 
 	  
 	  int totalPage=0; //전체 페이지 수
 	  int totalBlock=0;  //전체 블럭수 
@@ -21,14 +21,15 @@
 	  int start=0; //디비의 select 시작번호
 	  int end=10; //시작번호로 부터 가져올 select 갯수
 	  
-	  int listSize=0; //현재 읽어온 게시물의 수
+	  int listSize=0; //현재 읽어온 게시물의 수 review db
+	  
 		
 	String keyWord = "", keyField = ""; 
 	 //keyField : 이름,제목,내용 검색종류 를 저장하는 변수
 	 //keyWord : 검색 키워드 저장하는 변수
 	  
-	//ProductManagementBean 클래스를 참조한 return 타입으로 vector배열 vlist 선언
-	Vector<ProductManagementBean> vlist2 = null;
+	//ReviewManagementBean 클래스를 참조한 return 타입으로 vector배열 vlist 선언
+	Vector<ReviewManagementBean> vlist = null; //review db
 	
 	if (request.getParameter("keyWord") != null) {
 		keyWord = request.getParameter("keyWord");
@@ -48,8 +49,8 @@
 	 start = (nowPage * numPerPage)-numPerPage;
 	 end = numPerPage;
 	
-	//ProductManagementMgr 클래스 getTotalCount 메서드 호출하여 총 게시물 수 가져오기.
-	totalRecord = pMMgr.getTotalCount2(keyField, keyWord);
+	//ReviewManagementMgr 클래스 getTotalCount 메서드 호출하여 총 게시물 수 가져오기.
+	totalRecord = rMMgr.getTotalCount(keyField, keyWord);
 	
 	//전체 페이지수 계산, 122개의 레코드(게시물)가 있다면 122/10 을 연산하여, Math클래스의 ceil() 메서드로  
 	//결과값의 소숫점을 반올림 하여 페이지를 구성.
@@ -72,19 +73,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<div align="center" id = "wrap">
 <!-- header 시작-->
     <header>
         <%@include file="../admin/adminHeader.jsp"%>
       </header>
     <!--header 끝-->
-	
+<div align="center" id = "wrap" height = "1000">	
 		<br/>
-		<h2>상품사진 목록</h2>
+		<h2>리뷰 목록</h2>
 		<br/>
 		<table align="center" width="600">
 				<tr>
-					<td>Total : <%=totalRecord%>개(<font color="red">
+					<td>(임시 수정 할 예정)Total : <%=totalRecord%>개(<font color="red">
 					<%=nowPage%>/<%=totalPage%>Pages</font>)</td>
 				</tr>
 		</table>
@@ -95,44 +95,50 @@
 			<tr>
 				<td align="center" colspan="2">
 				<%
-					//ProductManagementMgr 클래스 getpmList() 메서드 호출 
-					  vlist2 = pMMgr.getpmList2(keyField, keyWord, start, end);
+					//ReviewManagementMgr 클래스 getpmList() 메서드 호출 
+					  vlist = rMMgr.getrvList(keyField, keyWord, start, end); //review db
 					  
-					  listSize = vlist2.size();//브라우저 화면에 보여질 게시물갯수
+					  listSize = vlist.size();//브라우저 화면에 보여질 게시물갯수 review db
 					  
-					  if (vlist2.isEmpty()) {
-						out.println("등록된 상품이 없습니다.");
+					  if (vlist.isEmpty()) {
+						out.println("등록된 리뷰가 없습니다.");
 						
 					  } else {
 				%>
 					  <table>
 						<tr>
-							<td>상품 번호</td>
-							<td>상품사진 번호</td>
-							<td>원본 이름</td>
-							<td>사본 이름</td>
-							<td>용량</td>
+							<td>리뷰 번호</td>
+							<td>회원 번호</td>
+							<td>리뷰 제목</td>
+							<td>리뷰 사진</td>
+							<td>리뷰 별점</td>
+							<td>옵션</td>
 						</tr>
 						<%
 							  for (int i = 0; i < numPerPage; i++) {
 								if (i == listSize) break;
 								
-								ProductManagementBean bean = vlist2.get(i);
-								int productKey = bean.getProductKey();
-								int fileKey = bean.getFileKey();
-								String fileOriginalName = bean.getFileOriginalName();
-								String fileSaveName = bean.getFileSaveName();
-								int size = bean.getSize();
+								ReviewManagementBean bean = vlist.get(i);
+								
+								int rvKey = bean.getRvKey();
+								String rvTitle = bean.getRvTitle();
+								String rvContents = bean.getRvContents();
+								String rvPhoto = bean.getRvPhoto();
+								int rvScore = bean.getRvScore();
+								int memKey = bean.getMemKey();
+								String optionValue = bean.getOptionValue();
+								
 					
 								
 						%>
 						<tr>
 							
-							<td align="center"><%=productKey%></td>
-							<td align="center"><a href="javascript:read('<%=fileKey%>')"><%=fileKey%></a></td>
-							<td align="center"><%=fileOriginalName%></td>
-							<td align="center"><%=fileSaveName%></td>
-							<td align="center"><%=size%></td>
+							<td align="center"><%=rvKey%></td>
+							<td align="center"><%=memKey%></td>
+							<td align="center"><a href="javascript:read('<%=rvKey%>')"><%=rvTitle%></a></td>
+							<td align="center"><%=rvPhoto%></td>
+							<td align="center"><%=rvScore%></td>
+							<td align="center"><%=optionValue%></td>
 							</tr>
 						<%}//for%>
 					</table> <%
@@ -166,8 +172,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="../admin/productPicupload.jsp">[상품 상세 등록]</a> 
-					<a href="javascript:productManagement()">[처음으로]</a>
+					<a href="javascript:reviewManagement()">[처음으로]</a>
 				</td>
 			</tr>
 		</table>
@@ -175,13 +180,14 @@
 			
 		<!-- 검색 폼 시작 -->
 		<hr width="600"/>
-		<form  name="searchFrm"  method="get" action="../admin/productManagement2.jsp">
+		<form  name="searchFrm"  method="get" action="../admin/reviewManagement.jsp">
 		<table width="600" cellpadding="4" cellspacing="0">
 	 		<tr>
 	  			<td align="center" valign="bottom">
 	   				<select name="keyField" size="1" >
-	    				<option value="productKey">상품 번호</option>
-	    				<option value="fileKey">상품 파일 번호</option>
+	    				<option value="rvKey">리뷰 번호</option>
+	    				<option value="memKey">회원 번호</option>
+	    				<option value="rvTitle">리뷰 제목</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
 	   				<input type="button"  value="찾기" onClick="javascript:check()">
@@ -197,7 +203,7 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="fileKey"> 
+			<input type="hidden" name="rvKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
@@ -212,12 +218,12 @@
       <%@include file="/base/footer.jsp"%>
     </footer>   
     <!-- footer 끝.-->
-   </div>
+    </div>
 </body>
 </html>
 <script>
-	function productManagement() {
-		document.listFrm.action = "../admin/productManagement2.jsp";
+	function reviewManagement() {
+		document.listFrm.action = "../admin/reviewManagement.jsp";
 		document.listFrm.submit();
 	}
 	
@@ -231,9 +237,9 @@
 		 document.readFrm.submit();
 	} 
 	
-	function read(fileKey){
-		document.readFrm.fileKey.value=fileKey;
-		document.readFrm.action="../admin/read2.jsp";
+	function read(rvKey){
+		document.readFrm.rvKey.value=rvKey;
+		document.readFrm.action="../admin/read4.jsp";
 		document.readFrm.submit();
 	}
 	

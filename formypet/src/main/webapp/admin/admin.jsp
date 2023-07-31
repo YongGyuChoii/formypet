@@ -77,6 +77,7 @@
             <p><a href="../admin/productManagement.jsp">상품 관리</a></p>
             <p><a href="../admin/csCenterManagement.jsp">고객 센터 관리</a></p>
             <p><a href="../admin/buyManagement.jsp">구매 및 환불 관리</a></p>
+            <p><a href="../admin/reviewManagement.jsp">리뷰 관리</a></p>
         </div>
       </div>
     <!--main 끝-->

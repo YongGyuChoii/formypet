@@ -36,6 +36,7 @@ public class ProductPicupdateServlet extends HttpServlet{
 		puBean.setFileOriginalName(request.getParameter("fileOriginalName"));
 		puBean.setSize(Integer.parseInt(request.getParameter("size")));
 		puBean.setProductKey(Integer.parseInt(request.getParameter("productKey")));
+		puBean.setDelYn(request.getParameter("delYn"));
 		
 		System.out.println("ProductPicupdateServlet.java = " + Integer.parseInt(request.getParameter("productKey")));
 		

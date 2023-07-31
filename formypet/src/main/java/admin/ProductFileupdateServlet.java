@@ -45,6 +45,7 @@ public class ProductFileupdateServlet extends HttpServlet {
 		puBean.setProductImg(request.getParameter("productImg"));
 		puBean.setCategoryKey(Integer.parseInt(request.getParameter("categoryKey")));
 		puBean.setProductKey(Integer.parseInt(request.getParameter("productKey")));
+		puBean.setDelYn(request.getParameter("delYn"));
 		
 		//수정할 내용이 담긴 데이터는 puBean 객체에 있고, (jsp 화면에서 이동해온 게시글 데이터)
 		//수정 전 내용이 담긴 데이터는 pmbean 객체에 있다. (수정 전 session 에 저장한 게시글 데이터)

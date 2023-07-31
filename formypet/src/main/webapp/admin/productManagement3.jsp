@@ -8,7 +8,7 @@
 	  
       int totalRecord=0; //전체레코드수
 	  int numPerPage=10; // 페이지당 레코드 수 
-	  int pagePerBlock=500; //블럭당 페이지수 
+	  int pagePerBlock=20; //블럭당 페이지수 
 	  
 	  int totalPage=0; //전체 페이지 수
 	  int totalBlock=0;  //전체 블럭수 
@@ -92,7 +92,7 @@
 		
 		<!-- 게시판 본문 시작 -->
 		
-		<table>
+		<table height = "600">
 			<tr>
 				<td align="center" colspan="2">
 				<%
@@ -211,7 +211,7 @@
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
-	</div>
+	
 	<!-- 오른쪽 맨위 맨아래 화살표 -->
     <%@include file="/base/rightAside.jsp"%>
     <!-- 오른쪽 맨위 맨아래 화살표 끝 -->
@@ -221,6 +221,7 @@
       <%@include file="/base/footer.jsp"%>
     </footer>   
     <!-- footer 끝.-->
+    </div>
 </body>
 </html>
 <script>

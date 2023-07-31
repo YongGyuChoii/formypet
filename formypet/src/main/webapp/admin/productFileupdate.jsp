@@ -27,6 +27,7 @@
 		String productImg = bean.getProductImg();
 		int categoryKey = bean.getCategoryKey();
 		int productKey1 = bean.getProductKey();
+		String delYn = bean.getDelYn();
 %>
 <!DOCTYPE html>
 <html>
@@ -134,6 +135,13 @@
 			<td bgcolor= "#002266"><font color = "#ffc303">상품 주의사항 사진</font></td>
 			<td id = "pca"><input type="file" name="productCaution" size="70" maxlength="100">
 		</tr>
+		<tr>
+	   		<td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 삭제</font></td>
+	    	<td colspan="3">
+		  	<input name="delYn" type="radio" value="Y"<%if("Y".equals(delYn)){%>checked<%}%>>Y</input>
+		  	<input name="delYn" type="radio" value="N"<%if("N".equals(delYn)){%>checked<%}%>>N</input>
+		 	</td>
+		</tr>	
 		<tr>
 	     <td colspan="2" height="5"><hr/></td>
 	    </tr>

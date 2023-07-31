@@ -45,6 +45,8 @@
 				   <li>
 				    <a class="nav-link text-white" href="../admin/buyManagement.jsp">구매 및 환불 관리</a>
 				  </li>
-				  
+				  <li>
+				    <a class="nav-link text-white" href="../admin/reviewManagement.jsp">리뷰 관리</a>
+				  </li>
 				</ul>
 			</div>

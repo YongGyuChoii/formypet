@@ -94,6 +94,7 @@
 						<td id = "pca"><input type="file" name="productCaution" size="70" maxlength="100">
 				     	<input type="button" onclick = "additem4()" value="추가"></td>
 					</tr>
+					
 					<tr>
 						<td colspan="2" height = "5"><hr/></td>
 						

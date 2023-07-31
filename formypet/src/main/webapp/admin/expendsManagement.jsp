@@ -16,7 +16,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <div id="wrap">
     <!-- header 시작-->
     <header>
         <%@include file="../admin/adminHeader.jsp"%>
@@ -24,8 +23,10 @@
     <!--header 끝-->
 
     <!-- table 시작 -->
+<div id="wrap" align = "center">
     <div class="container">
         <table class="table-body">
+        	<br/>
             <h2>매출 관리</h2>
             <thead>
             <tr>

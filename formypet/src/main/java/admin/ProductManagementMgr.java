@@ -281,7 +281,7 @@ public class ProductManagementMgr {
 					return totalCount;
 				}
 	//상품 등록 메서드
-	//상품 등록 메서드는 리턴타입이 void 이므로 반환값은 없다.
+	//상품 등록 메서드는 리턴타입이 void 이므로 반환값은 없다.//product db
 		public void uplpro(HttpServletRequest request) {
 			
 			Connection con = null; //연결객체
@@ -340,7 +340,7 @@ public class ProductManagementMgr {
 				}
 				
 				sql = "insert product(productName,productComment,productInfo,productDetail,productCaution,productPrice,productSalePrice,productCount,productKind,productImg,categoryKey,productKey)";
-				sql += "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				sql += "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";//12개
 				//작성날짜 regdate 컬럼은 now() 로 현재 날짜를 자동으로 입력 합니다.
 				pstmt = con.prepareStatement(sql);
 				
@@ -411,7 +411,7 @@ public class ProductManagementMgr {
 			sql = "insert into product_file(fileOriginalName,fileSaveName,size,productKey,fileKey)";
 						
 			sql += "values(?, ?, ?, ?, ?)"; //int로 바꾼후 0으로 바꾸기
-			//총 16개 Bean product 12개   product_file 5개
+			//총 19개 Bean product 12개   product_file 5개
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setString(1,fileOriginalName);//
@@ -507,6 +507,7 @@ public class ProductManagementMgr {
 					bean.setProductImg(rs.getString("productImg"));
 					bean.setCategoryKey(rs.getInt("categoryKey"));
 					bean.setProductKey(rs.getInt("productKey"));
+					bean.setDelYn(rs.getString("delYn"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -541,6 +542,7 @@ public class ProductManagementMgr {
 					bean.setSize(rs.getInt("size"));
 					bean.setProductKey(rs.getInt("productKey"));
 					bean.setFileKey(rs.getInt("fileKey"));
+					bean.setDelYn(rs.getString("delYn"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -599,7 +601,7 @@ public class ProductManagementMgr {
 				
 				//udfile 쿼리로 게시물을 수정한다.
 				//productKey 으로 수정할 게시물을 찾아서 컬럼을 수정 한다.
-				sql = "update product set productName = ?, productComment = ?, productInfo = ?, productDetail = ?, productCaution = ?, productPrice = ?, productSalePrice = ? ,productCount = ? , productKind = ?, productImg = ?, categoryKey = ? where productKey = ?";
+				sql = "update product set productName = ?, productComment = ?, productInfo = ?, productDetail = ?, productCaution = ?, productPrice = ?, productSalePrice = ? ,productCount = ? , productKind = ?, productImg = ?, categoryKey = ?, delYn = ? where productKey = ?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getProductName());
@@ -613,7 +615,8 @@ public class ProductManagementMgr {
 				pstmt.setString(9, bean.getProductKind());	
 				pstmt.setString(10, bean.getProductImg());
 				pstmt.setInt(11, bean.getCategoryKey());
-				pstmt.setInt(12, bean.getProductKey());
+				pstmt.setString(12, bean.getDelYn());
+				pstmt.setInt(13, bean.getProductKey());
 				pstmt.executeUpdate();
 				
 			} catch (Exception e) {
@@ -634,14 +637,15 @@ public class ProductManagementMgr {
 
 				//updateproduct_file 쿼리로 상품을 수정한다.
 				//fileKey로 상품을 찾아서 컬럼을 수정한다.
-				sql = "update product_file set fileOriginalName = ?, fileSaveName = ?,  size = ?, productKey = ? where fileKey = ?";
+				sql = "update product_file set fileOriginalName = ?, fileSaveName = ?,  size = ?, productKey = ?, delYn = ? where fileKey = ?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, bean.getFileOriginalName());
 				pstmt.setString(2, bean.getFileSaveName());	
 				pstmt.setInt(3, bean.getSize());
 				pstmt.setInt(4, bean.getProductKey());
-				pstmt.setInt(5, bean.getFileKey());
+				pstmt.setString(5, bean.getDelYn());
+				pstmt.setInt(6, bean.getFileKey());
 				pstmt.executeUpdate();
 			}catch (Exception e) {
 				e.printStackTrace();
