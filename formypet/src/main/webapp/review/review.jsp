@@ -1,5 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="review.ReviewMgr"%>
+<%@page import="review.ReviewBean"%>
+<%@page import="review.ReviewSave"%>
+<jsp:useBean id="ReviewSave" class="review.ReviewSave" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,7 +31,7 @@
 
  <div class="wrap">
         <h1>후기</h1>
-        <form name="reviewform" class="reviewform" method="post" action="/save">
+       <form name="reviewform" class="reviewform" method="post" action="save">
             <input type="hidden" name="rate" id="rate" value="0"/>
             <p class="title_star">별점과 이용경험을 남겨주세요.</p>
      
@@ -51,10 +55,10 @@
                 
             </div>
            <!-- 제목 -->
-             <div class="tutle">
+             <div class="title">
              <label for="title">제목:</label>
           <input type="text" id="title" name="title" required><br>
-          </div>
+          </div> 
               
               <!-- 내용 -->
                 <div class="contents">
@@ -73,7 +77,7 @@
                  
                    <!-- 등록 -->
                   <div class="cmd">
-                <input type="button" name="save" id="save" value="등록">
+                <input type="submit" name="save" id="save" value="등록">
             </div>
         </form>
     </div>

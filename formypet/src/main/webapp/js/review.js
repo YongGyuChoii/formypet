@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function(){
 		rating.setRate(null, 0);
 		document.querySelector('.review_textarea').value = '';
     });
+    
 });
 
 

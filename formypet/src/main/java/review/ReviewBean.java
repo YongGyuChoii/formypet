@@ -1,65 +1,47 @@
 package review;
 
-import java.awt.Image;
-
 public class ReviewBean {
-    private String title;
-    private String contents;
-    private String photo;
-    private int score;
-    private int memKey;
+
+    private String rvTitle; // 제목
+    private String rvContents; // 내용
+    private Integer rvScore; // 점수
+    private Integer memKey;
 
 
-    public ReviewBean(String title, String content, String photo, int score, int memKey,int codekey) {
-        this.title = title;
-        this.contents = contents;
-        this.photo = photo;
-        this.score = score;
-        this.memKey= memKey;
-
+    public String getRvTitle() {
+        return rvTitle;
     }
 
-  // 리뷰속성(제목,내용,사진,점수)
-    public String getTitle() {
-        return title;
+    public void setRvTitle(String rvTitle) {
+        this.rvTitle = rvTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContents() {
-        return contents;
-    }
-
-    public void setContent(String contents) {
-        this.contents = contents;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public int getRating() {
-        return score;
-    }
-
-    public void setRating(int score) {
-        this.score = score;
-    }
     
-    public int getMemKey() {
-		return memKey;
-	}
+    public String getRvContents() {
+        return rvContents;
+    }
+
+    public void setRvContents(String rvContents) {
+        this.rvContents = rvContents;
+    }
+
     
-	public void setcodekey(int codekey) {
-		this.memKey = memKey;
-	}
-	
-	
-	
+    public Integer getRvScore() {
+        return rvScore;
+    }
+
+    public void setRvScore(Integer rvScore) {
+        this.rvScore = rvScore;
+    }
+
+    
+    public Integer getMemKey() {
+        return memKey;
+    }
+
+    public void setMemKey(Integer memKey) {
+        this.memKey = memKey;
+    }
+
+    
 }

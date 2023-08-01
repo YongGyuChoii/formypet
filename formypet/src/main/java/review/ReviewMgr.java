@@ -1,31 +1,56 @@
 package review;
 
+import util.DBConnectionMgr;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import util.DBConnectionMgr;
 
 public class ReviewMgr {
 
-	private DBConnectionMgr pool;
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	String sql = null;
-	
-	public ReviewMgr() {
-		try {
-			pool = DBConnectionMgr.getInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+    private DBConnectionMgr pool;
+    Connection con = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    String sql = null;
 
+    public ReviewMgr() {
+        try {
+            pool = DBConnectionMgr.getInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    // 저장하기
+    public Integer saveReview(ReviewBean reviewBean) {
+
+        try {
+            con = pool.getConnection();
+            String query = "INSERT INTO REVIEW (rvTitle, rvContents, rvScore, memKey) VALUES (?, ?, ?, ?)";
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            pstmt = con.prepareStatement(query);
+            pstmt.setString(1, reviewBean.getRvTitle());
+            pstmt.setString(2, reviewBean.getRvContents());
+            pstmt.setInt(3, reviewBean.getRvScore());
+            pstmt.setInt(4, 0);
+            pstmt.setInt(5, 0);
+            System.out.println(pstmt.toString());
+
+            return pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("saveReview error ()" + e);
+        } finally {
+            pool.freeConnection(con,pstmt,rs);
+        }
+        System.out.println("진입");
+
+        return 0;
+    }
 
 
 }
-
-
