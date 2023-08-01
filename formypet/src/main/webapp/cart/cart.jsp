@@ -36,8 +36,10 @@
 			}
 		}
 	}
-	
-	ArrayList<ProductBean> pb = cMgr.insertNoMemCart(productKey);
+	ArrayList<ProductBean> pb = new ArrayList<>();
+	if(productKey != null) {
+		pb = cMgr.insertNoMemCart(productKey);	
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
