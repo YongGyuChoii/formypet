@@ -36,6 +36,7 @@
 			}
 		}
 	}
+	
 	ArrayList<ProductBean> pb = new ArrayList<>();
 	if(productKey != null) {
 		pb = cMgr.insertNoMemCart(productKey);	
@@ -131,7 +132,14 @@
         			<label for="chack1" class="chack_ele"></label>
               </td>
               <td><a href="#"><img src="../images/bathProduct/<%=pAll.get(i).getProductImg()%>" alt=""></a></td>
-              <td colspan="2"><a href="#"><%=pAll.get(i).getProductName()%></a></td>
+              <td colspan="2">
+              	<a href="#"><%=pAll.get(i).getProductName()%></a>
+              	<br>
+              	<%if(pAll.get(i).getOptionValue()==null) {%>
+              	<%} else {%>
+              	<a style="font-size:12px; opacity: 0.8"><%=pAll.get(i).getOptionValue()%></a>
+              	<%}%>
+              </td>
               <td class="cart_table_button">
         	  	<%if(pAll.get(i).getProductSalePrice() == 0) {%>
         	  	<strong><fmt:formatNumber value="<%=pAll.get(i).getProductPrice()%>" pattern="#,###"/>원</strong>
@@ -227,7 +235,14 @@
         			<label for="chack1" class="chack_ele"></label>
               </td>
               <td><a href="#"><img src="../images/bathProduct/<%=pb.get(i).getProductImg()%>" alt=""></a></td>
-              <td colspan="2"><a href="#"><%=pb.get(i).getProductName()%></a></td>
+              <td colspan="2">
+              	<a href="#"><%=pb.get(i).getProductName()%></a>
+              	<br>
+              	<%if(optionText[i] == null) {%>
+              	<%} else {%>
+              	<a style="font-size:12px; opacity: 0.8"><%=optionText[i]%></a>
+              	<%}%>
+              </td>
               <td class="cart_table_button">
         	  	<%if(pb.get(i).getProductSalePrice() == 0) {%>
         	  	<strong><fmt:formatNumber value="<%=pb.get(i).getProductPrice()%>" pattern="#,###"/>원</strong>
@@ -256,7 +271,7 @@
           <tfoot>
             <tr>
               <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
-              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='test.jsp;'">전체상품 삭제</button>
+              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">전체상품 삭제</button>
               </td>
               <td></td>
               <td></td>

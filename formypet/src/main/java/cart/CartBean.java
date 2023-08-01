@@ -10,7 +10,14 @@ public class CartBean {
 	private int productPrice;
 	private int productSalePrice;
 	private String productImg;
+	private String optionValue;
 	
+	public String getOptionValue() {
+		return optionValue;
+	}
+	public void setOptionValue(String optionValue) {
+		this.optionValue = optionValue;
+	}
 	public String getProductImg() {
 		return productImg;
 	}

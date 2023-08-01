@@ -45,6 +45,7 @@ public class CartMgr {
 				bean.setProductPrice(rs.getInt("productPrice"));
 				bean.setProductSalePrice(rs.getInt("productSalePrice"));
 				bean.setProductImg(rs.getString("productImg"));
+				bean.setOptionValue(rs.getString("optionValue"));
 				pla.add(bean);
 			}
 		}catch (Exception e) {
