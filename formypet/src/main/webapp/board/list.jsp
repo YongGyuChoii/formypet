@@ -58,7 +58,7 @@
 	nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock); //현재블럭 계산
 	
 	//전체 블록 계산, 방법은 전체 페이지수 계산법과 동일.
-	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
+	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산	
 %>
     
 <!DOCTYPE html>
@@ -77,6 +77,20 @@
         width: 100%;
         min-width: 600px;
       }
+		.mainImg1 {
+		    position: relative;
+		}
+		.mainImg2 {
+		    width: 100%;
+		    height: 650px;
+		}
+		.mainImgContent {
+		    position: absolute;
+		    color: white;
+		    bottom: 0;
+		    left: 50%;
+		    transform: translate(-50%, 0%);
+		}           
     </style>
 <script>
 	function list() {
@@ -119,8 +133,9 @@
     </header>
     <!--header 끝-->
 		<br/>
-		<div class="mainImg" style="text-align : center;">
-			<img src="../images/board/cs_center.jpg" alt="게시판" width="1200" height="500">
+		<div class="mainImg1" style="text-align : center;">
+			<img src="../images/board/cs_center.jpg" alt="게시판" width="1300" height="500">
+			<p class="fs-3 fw-bold mainImgContent">INQUIRY BOARD</p>
 		</div>
 
     <!--main 시작-->

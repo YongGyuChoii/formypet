@@ -93,6 +93,7 @@
 	 <input type="hidden" name="ref" value="<%=bean.getRef()%>">
 	 <input type="hidden" name="pos" value="<%=bean.getPos()%>">
 	 <input type="hidden" name="depth" value="<%=bean.getDepth()%>">
+	 <input type="hidden" name="memKey" value="<%=memKey%>">
 	</form> 
 	</div>
       </section>
