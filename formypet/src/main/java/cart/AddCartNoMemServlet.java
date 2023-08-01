@@ -40,7 +40,7 @@ public class AddCartNoMemServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding(encoding);
-		response.setContentType("text/html; charset="+encoding+"");
+		response.setContentType("text/html; charset=UTF-8");
 		boolean flag = false;
 		//프로덕트키, 멤키를 ajax에서 받아온다.
 		int productKey = Integer.parseInt(request.getParameter("productKey"));
@@ -55,15 +55,19 @@ public class AddCartNoMemServlet extends HttpServlet {
 				cartCount[i] = Integer.parseInt(cartCount1[i]);
 			}
 		}
-	    
+		
+		//모든 쿠키 얻어옴
 	    Cookie[] cookies = request.getCookies();
 	    if(cookies != null){
 	    	
-    	   for(int i=0;i<cookies.length;){
-    	    if(cookies[i].getName().equals("noMemCart")){
-    	    	System.out.println("1");
-    	    	String value = URLDecoder.decode(cookies[i].getValue(),encoding);
+    	   for(int k=0; k<cookies.length; k++){
+    		//쿠키 이름이 일치하는것 찾기
+    	    if(cookies[k].getName().equals("noMemCart")){
+    	    	String value = URLDecoder.decode(cookies[k].getValue(),encoding);
 		    	for(int j=0; j<cartCount.length; j++) {
+		    		if(optionText[j] == "") {
+		    			optionText[j] = null;
+		    		}
 					value += productKey+"-"+cartCount[j]+"-"+optionText[j]+",";
 				}
 		    	// 쿠키 이름 지정하여 생성( key, value 개념) 인코딩 해줌
@@ -72,12 +76,12 @@ public class AddCartNoMemServlet extends HttpServlet {
 			    cookie.setPath("/"); //모든 경로에서 접근 가능하도록 설정
 			    response.addCookie(cookie); //response에 Cookie 추가
 			    flag=true;
-		    	break;
-    	     
     	    }else {
-    	    	System.out.println("2");
     	    	String value="";
     	    	for(int j=0; j<cartCount.length; j++) {
+    	    		if(optionText[j] == "") {
+		    			optionText[j] = null;
+		    		}
     	    		value += productKey+"-"+cartCount[j]+"-"+optionText[j]+",";
 				}
 		    	// 쿠키 이름 지정하여 생성( key, value 개념) 인코딩 해줌
@@ -86,7 +90,6 @@ public class AddCartNoMemServlet extends HttpServlet {
 			    cookie.setPath("/"); //모든 경로에서 접근 가능하도록 설정
 			    response.addCookie(cookie); //response에 Cookie 추가.
 			    flag=true;
-    	    	break;
     	    }
     	    
     	   }

@@ -1,12 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.net.URLDecoder"%>
+<%@page import="javax.servlet.http.*"%>
+<%@page import="javax.servlet.*"%>    
 <%@page import="cart.CartBean"%>
 <%@page import="java.util.*"%>
-<jsp:useBean id="cMgr" class="cart.CartMgr" /> 
+<jsp:useBean id="cMgr" class="cart.CartMgr" />
+<%@page import="product.ProductBean"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<CartBean> pAll = cMgr.getCartAll(); 	
+	ArrayList<CartBean> pAll = cMgr.getCartAll();
+	
+	//쿠키 사용을 위한 비회원 장바구니
+	String[] value = null;
+	int[] productKey = null;
+	int[] cartCount = null;
+	String[] optionText = null;
+
+	Cookie[] cookies = request.getCookies(); //쿠키 전체 불러옴
+	if(cookies != null) { // 쿠키가 비어있지 않으면
+		for(int i=0; i<cookies.length; i++){
+			if(cookies[i].getName().equals("noMemCart")){ //쿠키에서 찾아옴
+				//찾은 value ,단위로 끊어줌
+				value = URLDecoder.decode(cookies[i].getValue(),"UTF-8").split(",");
+				productKey = new int[value.length];
+				cartCount = new int[value.length];
+				optionText = new String[value.length];
+			    for(int k=0; k<value.length; k++){ //-단위로 상품키, 수량, 옵션 배열 저장
+					productKey[k] = Integer.parseInt(value[k].split("-")[0]);
+					cartCount[k] = Integer.parseInt(value[k].split("-")[1]);
+					optionText[k] = value[k].split("-")[2];
+				}  
+			}
+		}
+	}
+	
+	ArrayList<ProductBean> pb = cMgr.insertNoMemCart(productKey);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -43,6 +74,8 @@
       <div class="cart_title">
         <h1><strong>CART</strong></h1>
       </div>
+      
+      <%if(memKey != null) {%>
       <table class="cart_table">
         <form>
           <colgroup>
@@ -138,6 +171,103 @@
         <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
         <button class="cart_big_button right">주문하기</button>
       </div>
+      <%} else {%>
+      <table class="cart_table">
+        <form>
+          <colgroup>
+            <col style="width: 27px;">
+            <col style="width: 100px;">
+          </colgroup>
+          <thead>
+            <tr>
+              <td style="text-align: left;">
+              	<input id="ProductItem" class="agreechkAll" type="checkbox" checked="checked"/>
+       		  	<label for="ProductItem"></label>
+              </td>
+              <td colspan="3">상품정보</td>
+              <td>판매가</td>
+              <td>수량</td>
+              <td>배송비</td>
+              <td>합계</td>
+            </tr>
+          </thead>
+
+          <tbody>
+          	<%for(int i=0; i<pb.size(); i++) { %>
+            <tr class="cart_table_detail">
+            <%
+         	 	int productViewPrice;
+              	if(pb.get(i).getProductSalePrice() == 0) {
+              		productViewPrice = pb.get(i).getProductPrice();
+              	} else {
+              		productViewPrice = pb.get(i).getProductSalePrice();
+              	}
+              	
+              	int calPrice;
+              	int deliveryFee;
+              	int totalViewPrice;
+              	
+              	calPrice = productViewPrice * cartCount[i];
+              	if(calPrice>=50000) {
+              		deliveryFee = 0;
+              	} else {
+              		deliveryFee = 3000;
+              	}
+              	             	
+              	if(deliveryFee == 0) {
+              		totalViewPrice = productViewPrice * cartCount[i];
+              	} else {
+              		totalViewPrice = productViewPrice * cartCount[i] + deliveryFee;
+              	}              	
+          %>
+              <td>
+              		<input id="chack1" class="chack" type="checkbox" checked="checked">
+        			<label for="chack1" class="chack_ele"></label>
+              </td>
+              <td><a href="#"><img src="../images/bathProduct/<%=pb.get(i).getProductImg()%>" alt=""></a></td>
+              <td colspan="2"><a href="#"><%=pb.get(i).getProductName()%></a></td>
+              <td class="cart_table_button">
+        	  	<%if(pb.get(i).getProductSalePrice() == 0) {%>
+        	  	<strong><fmt:formatNumber value="<%=pb.get(i).getProductPrice()%>" pattern="#,###"/>원</strong>
+        	  	<%} else {%>
+        	  	<strong style="opacity: 0.5"><del><fmt:formatNumber value="<%=pb.get(i).getProductPrice()%>" pattern="#,###"/>원</del></strong>
+        	  	<br>
+        	  	<strong><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice()%>" pattern="#,###"/>원</strong>
+        	  	<%}%>
+              </td>                        
+              <td>
+                <button name="countBtn" class="downBtn">-</button>
+                <input id="countInput" class="countInput" type="text" value="<%=cartCount[i]%>" style="width: 30px;">                
+                <button name="countBtn" class="upBtn">+</button>
+              </td>
+              </from>
+              <% if(i == 0) {%>
+              <td rowspan=100%>
+              	<strong><p>배송비 3,000원<br><a style="font-size:10px">(50,000원 이상 구매시 무료!)</a></p></strong>   
+              </td>
+			  <% } else { %>
+			  <% } %>
+              <td><strong><fmt:formatNumber value="<%=calPrice%>" pattern="#,###"/>원</strong></td>          
+            </tr>
+          <% } %>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
+              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='test.jsp;'">전체상품 삭제</button>
+              </td>
+              <td></td>
+              <td></td>
+              <td colspan="3" style="text-align: right;"><strong>상품구매 금액  + 배송비 3,000원 = 합계 45,800원</strong></td>
+            </tr>
+          </tfoot>
+        </form>
+      </table>
+      <div class="cart_bottom_button">
+        <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
+        <button class="cart_big_button right">주문하기</button>
+      </div>
+      <%} %>
   
       <table class="table_bottom">
         <colgroup>

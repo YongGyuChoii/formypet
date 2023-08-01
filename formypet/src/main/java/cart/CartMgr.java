@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import product.ProductBean;
 import util.DBConnectionMgr;
 
 public class CartMgr {
@@ -105,6 +106,49 @@ public class CartMgr {
 		return flag;
 	}
 	
+	//비회원 장바구니 추가
+	public ArrayList<ProductBean> insertNoMemCart(int[] productKey){
+		
+		ArrayList<ProductBean> inmc = new ArrayList<ProductBean>();
+		
+		for(int i=0; i<productKey.length; i++) {
+			try {
+				con = pool.getConnection();
+				sql = "SELECT * FROM product WHERE productKey = ? and delYn = 'N'";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, productKey[i]);
+				
+				rs = pstmt.executeQuery();
+					
+				if(rs.next()) {
+					ProductBean bean = new ProductBean();
+					bean.setProductKey(rs.getInt("productKey"));
+					bean.setProductName(rs.getString("productName"));
+					bean.setProductComment(rs.getString("productComment"));
+					bean.setProductInfo(rs.getString("productInfo"));
+					bean.setProductDetail(rs.getString("productDetail"));
+					bean.setProductCaution(rs.getString("productCaution"));
+					bean.setProductPrice(rs.getInt("productPrice"));
+					bean.setProductSalePrice(rs.getInt("productSalePrice"));
+					bean.setProductCount(rs.getInt("productCount"));
+					bean.setProductOrderCount(rs.getInt("productOrderCount"));
+					bean.setProductKind(rs.getString("productKind"));
+					bean.setProductImg(rs.getString("productImg"));
+					bean.setProductDate(rs.getString("productDate"));
+					bean.setDelYn(rs.getString("delYn"));
+					bean.setCategoryKey(rs.getInt("categoryKey"));
+					inmc.add(bean);
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				pool.freeConnection(con,pstmt,rs);
+			}
+		}
+		return inmc;
+	}
+	
 	//장바구니 수량 변경
 	public void cartQuantity(CartBean bean) {
 		Connection con = null;
@@ -149,11 +193,5 @@ public class CartMgr {
 			pool.freeConnection(con, pstmt);
 		}
 	}
-
-	
-	
-	
-	
-	
 	
 }
