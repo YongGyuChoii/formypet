@@ -78,8 +78,7 @@
               	int deliveryFee;
               	int totalViewPrice;
               	
-              	calPrice = productViewPrice * pAll.get(i).getCartCount(); 
-              	
+              	calPrice = productViewPrice * pAll.get(i).getCartCount();
               	if(calPrice>=50000) {
               		deliveryFee = 0;
               	} else {

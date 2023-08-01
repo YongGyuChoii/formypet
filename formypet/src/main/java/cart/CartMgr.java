@@ -125,5 +125,35 @@ public class CartMgr {
 			pool.freeConnection(con, pstmt);
 		}
 	}
+	
+	//장바구니 총금액
+	public void cartSum(int productSalePrice, int productPrice, int cartCount) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			con = pool.getConnection();
+			sql = "SELECT SUM(product.productSalePrice), SUM(product.productPrice), SUM(cart.cartCount)\r\n"
+					+ "FROM cart JOIN product\r\n"
+					+ "ON cart.productKey = product.productKey";			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, productSalePrice);
+			pstmt.setInt(2, productPrice);
+			pstmt.setInt(3, cartCount);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+	}
 
+	
+	
+	
+	
+	
+	
 }
