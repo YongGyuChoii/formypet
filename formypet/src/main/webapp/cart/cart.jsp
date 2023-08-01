@@ -29,8 +29,8 @@
 				cartCount = new int[value.length];
 				optionText = new String[value.length];
 			    for(int k=0; k<value.length; k++){ //-단위로 상품키, 수량, 옵션 배열 저장
-					productKey[k] = Integer.parseInt(value[k].split("-")[0]);
-					cartCount[k] = Integer.parseInt(value[k].split("-")[1]);
+					cartCount[k] = Integer.parseInt(value[k].split("-")[0]);
+					productKey[k] = Integer.parseInt(value[k].split("-")[1]);
 					optionText[k] = value[k].split("-")[2];
 				}  
 			}

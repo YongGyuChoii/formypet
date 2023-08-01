@@ -72,14 +72,14 @@ public class AddCartNoMemServlet extends HttpServlet {
 		    			flag=false;
 		    		}else {
 		    			value += cartCount[j]+"-"+productKey+"-"+optionText[j]+",";
-		    			// 쿠키 이름 지정하여 생성( key, value 개념) 인코딩 해줌
-						Cookie cookie = new Cookie("noMemCart", URLEncoder.encode(value, encoding)); 
-					    cookie.setMaxAge(60*60*24); //쿠키 유효 기간: 하루로 설정(60초 * 60분 * 24시간)
-					    cookie.setPath("/"); //모든 경로에서 접근 가능하도록 설정
-					    response.addCookie(cookie); //response에 Cookie 추가
 					    flag=true;
 		    		}
 				}
+		    	// 쿠키 이름 지정하여 생성( key, value 개념) 인코딩 해줌
+				Cookie cookie = new Cookie("noMemCart", URLEncoder.encode(value, encoding)); 
+			    cookie.setMaxAge(60*60*24); //쿠키 유효 기간: 하루로 설정(60초 * 60분 * 24시간)
+			    cookie.setPath("/"); //모든 경로에서 접근 가능하도록 설정
+			    response.addCookie(cookie); //response에 Cookie 추가
     	    }else {
     	    	String value="";
     	    	for(int j=0; j<cartCount.length; j++) {
