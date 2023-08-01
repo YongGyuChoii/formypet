@@ -65,6 +65,28 @@
   'GRAD' 0,
   'opsz' 20
 }
+/* 모달 바디 */
+.modal-body{
+	height: 600px;
+}
+.modal-body img{
+	width: 100%;
+}
+/* 경고부분 */
+.textDanger {
+	font-size: 5px;
+}
+/* +, - 아이콘 */
+.addIcon, .removeIcon {
+	border: 1px solid gray;
+	cursor: pointer;
+}
+
+/* 장바구니추가, 바로구매 버튼 */
+.groupBtn{
+	width: 100%; height: 70px;
+	border: solid #002266 1px;
+}
 .card-body a {
     color: black;
     text-decoration: none;

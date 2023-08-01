@@ -7,6 +7,8 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 	ArrayList<ProductBean> pAll = pMgr.getProductListAll(); //전체상품
+	
+	int count = 0; //모달을 위한 변수
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -21,7 +23,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  </head>
+	<script src="${pageContext.request.contextPath}/js/productList.js"></script>
+</head>
 <body>
   <div id="wrap">
     <!-- header 시작-->
@@ -73,6 +76,10 @@
             <%for(ProductBean pb : pAll){ %>
                 <div class="col">
                   <div class="card h-100 productCard">
+                  	<input type="hidden" name="productKey" value="<%=pb.getProductKey() %>" />
+	              	<input type="hidden" name="memKey" value="<%=memKey %>" />
+	              	<input type="hidden" name="productName" value="<%=pb.getProductName() %>" />
+	              	
                     <a href="productDetail.jsp?productKey=<%=pb.getProductKey() %>&categoryKey=<%=pb.getCategoryKey()%>">
                     <%if(pb.getCategoryKey() == 1){ %>
                     <img src="../images/bathProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
@@ -101,9 +108,94 @@
 					  salePercent = String.format("%.0f", salePer); //반올림
 					  %>
                       <span class="sale text-end ms-5"><%=salePercent%>%</span></p>
-                      <a href="#"><span class="material-symbols-outlined">
-                        shopping_bag
-                      </span></a>
+                      
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal<%=count%>" class="btnIcon"><span class="material-symbols-outlined">
+		                shopping_bag
+	             	  </span></a>
+	             	  
+	             	  <!-- Modal -->
+						<div class="modal fade" id="exampleModal<%=count%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h1 class="modal-title fs-5 fw-bold" id="exampleModalLabel">옵션 선택</h1>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <div class="modal-body">
+						        <p class="fw-bold">
+						        	<%=pb.getProductName() %>
+						        </p>
+						        <input type="hidden" name="productSalePrice" value="<%=pb.getProductSalePrice() %>" />
+						        <hr />
+						        <div class="row">
+						        	<div class="col-3">
+						        		<%if(pb.getCategoryKey() == 1){ %>
+						        		<img src="../images/bathProduct/<%=pb.getProductImg() %>" alt="상품메인사진" />
+						        		<%} else if(pb.getCategoryKey() == 2){%>
+						        		<img src="../images/hygieneProduct/<%=pb.getProductImg() %>" alt="상품메인사진" />
+						        		<%} else if(pb.getCategoryKey() == 3){%>
+						        		<img src="../images/beautyProduct/<%=pb.getProductImg() %>" alt="상품메인사진" />
+						        		<%} else if(pb.getCategoryKey() == 4){%>
+						        		<img src="../images/livingProduct/<%=pb.getProductImg() %>" alt="상품메인사진" />
+						        		<%} else if(pb.getCategoryKey() == 5){%>
+						        		<img src="../images/walkProduct/<%=pb.getProductImg() %>" alt="상품메인사진" />
+						        		<%} else if(pb.getCategoryKey() == 6){%>
+						        		<img src="../images/snackProduct/<%=pb.getProductImg() %>" alt="상품메인사진" />
+						        		<%} else if(pb.getCategoryKey() == 7){%>
+						        		<img src="../images/clothesProduct/<%=pb.getProductImg() %>" alt="상품메인사진" />
+						        		<%} %>
+						        	</div>
+						        	<div class="col-3">옵션 선택</div>
+						        	<div class="col-6">
+										<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+										  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+										</select>
+										<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+										  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+										</select>
+										<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+										  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+										</select>
+						        	</div>
+						        </div>
+						        
+						        <div class="text-danger ms-3 mt-3 fw-bold fst-italic textDanger">
+									<span class="material-icons" style="font-size:12px;">
+										report_problem
+									</span>
+									위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
+								</div>
+								<hr />
+								
+								<input type="hidden" name="productCount" value="<%=pb.getProductCount() %>" />
+								<div class="optionChoose">
+								</div>
+								
+								<div class="mt-5">
+									<span class="fw-bold fs-6">총 상품금액</span>(수량) :
+									<span class="fw-bold text-primary fs-3 totalPrice">0</span>원
+									(<span class="fs-6 totalCount">0</span>개)
+								</div>
+									
+						      </div>
+						      
+						      <div class="modal-footer">
+						        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+								  <%if(memKey != null){ %>
+								  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
+								  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+								  <%} else {%>
+								  <button type="button" class="btn btn-light text-dark fw-bold addNoMemCart">ADD TO CART</button>
+								  <button type="button" class="btn btn-primary fw-bold buyNoMemNow">BUY NOW</button>
+								  <%} %>
+								</div>
+						      </div>
+						      
+						    </div>
+						  </div>
+						</div>
+						<!-- Modal -->
+                      
                       <a><span class="material-symbols-outlined">
                         chat_bubble
                       </span></a>
@@ -114,6 +206,7 @@
                     </div>
                   </div>
                 </div>
+                <%count++;%>
             <%} %>
             </div>
         </div>
@@ -129,5 +222,6 @@
     </footer>
     <!-- footer 끝.-->
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

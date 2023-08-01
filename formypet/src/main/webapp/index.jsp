@@ -244,8 +244,13 @@
 				      
 				      <div class="modal-footer">
 				        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+						  <%if(memKey != null){ %>
 						  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
 						  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+						  <%} else {%>
+						  <button type="button" class="btn btn-light text-dark fw-bold addNoMemCart">ADD TO CART</button>
+						  <button type="button" class="btn btn-primary fw-bold buyNoMemNow">BUY NOW</button>
+						  <%} %>
 						</div>
 				      </div>
 				      
@@ -350,8 +355,13 @@
 					      
 					      <div class="modal-footer">
 					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <%if(memKey != null){ %>
 							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
 							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+							  <%} else {%>
+							  <button type="button" class="btn btn-light text-dark fw-bold addNoMemCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNoMemNow">BUY NOW</button>
+							  <%} %>
 							</div>
 					      </div>
 					      
@@ -453,8 +463,13 @@
 					      
 					      <div class="modal-footer">
 					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <%if(memKey != null){ %>
 							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
 							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+							  <%} else {%>
+							  <button type="button" class="btn btn-light text-dark fw-bold addNoMemCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNoMemNow">BUY NOW</button>
+							  <%} %>
 							</div>
 					      </div>
 					      
@@ -559,8 +574,13 @@
 					      
 					      <div class="modal-footer">
 					        <div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
+							  <%if(memKey != null){ %>
 							  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
 							  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+							  <%} else {%>
+							  <button type="button" class="btn btn-light text-dark fw-bold addNoMemCart">ADD TO CART</button>
+							  <button type="button" class="btn btn-primary fw-bold buyNoMemNow">BUY NOW</button>
+							  <%} %>
 							</div>
 					      </div>
 					      
