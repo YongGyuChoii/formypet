@@ -106,9 +106,10 @@
 					  } else {
 				%>
 					  <table>
-						<tr>
+						<tr class = "border">
 							<td>상품 번호</td>
 							<td>상품사진 번호</td>
+							
 							<td>원본 이름</td>
 							<td>사본 이름</td>
 							<td>용량</td>
@@ -123,13 +124,14 @@
 								String fileOriginalName = bean.getFileOriginalName();
 								String fileSaveName = bean.getFileSaveName();
 								int size = bean.getSize();
-					
+								//String productName = bean.getProductName();
 								
 						%>
 						<tr>
 							
 							<td align="center"><%=productKey%></td>
 							<td align="center"><a href="javascript:read('<%=fileKey%>')"><%=fileKey%></a></td>
+							
 							<td align="center"><%=fileOriginalName%></td>
 							<td align="center"><%=fileSaveName%></td>
 							<td align="center"><%=size%></td>

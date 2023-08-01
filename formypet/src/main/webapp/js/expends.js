@@ -1,4 +1,8 @@
-
+/*@expendspage
+@getMapping("../admin/expendspage/{id}")
+public String expendspage(@PathVariavle long id){
+	return "../admin/expendspage";
+}*/
 
 $(document).ready(function(){
 	

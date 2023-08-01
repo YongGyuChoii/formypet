@@ -106,7 +106,7 @@
 					  } else {
 				%>
 					  <table>
-						<tr>
+						<tr class = "border">
 							<td>상품 번호</td>
 							
 							<td>이름</td>

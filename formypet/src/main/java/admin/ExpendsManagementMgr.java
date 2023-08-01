@@ -2,74 +2,157 @@ package admin;
 
 import java.sql.*;
 import java.util.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Vector;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import admin.DBConnectionMgr;
 
 public class ExpendsManagementMgr {
-	//final 키워드를 사용하여 String 타입 변수를 선언한 다음, DB 연결에 필요한 정보를 대입합니다.
-	 	private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	 	
-	 	private final String JDBC_URL = "jdbc:mysql://localhost:3306/formypet";
-	 	
-	 	private final String USER = "root";
-	 	
-	 	private final String PASS = "0000";
+		private DBConnectionMgr pool;
+		//파일 업로드 관련 설정 작성
+		private static final String  SAVEFOLDER = "C:/jsp/myapp4/src/main/webapp/filestorage";
+		private static final String ENCTYPE = "UTF-8";
+		private static int MAXSIZE = 5*1024*1024;
+
+		public ExpendsManagementMgr() {
+		try {
+			pool = DBConnectionMgr.getInstance();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	 
-	 	public ExpendsManagementMgr() {
-	 		
-	 	 try{
-	 	   Class.forName(JDBC_DRIVER);//변수를 이용하여 연결정보 삽입.
-	 	   
-	 	   }catch(Exception e){
-	 	      System.out.println("Error : JDBC 드라이버 로딩 실패");
-	 	   }
-	     }
-	 
-	    public Vector<ExpendsManagementBean> geteMList() {
+	    public Vector<ExpendsManagementBean> geteMList(String keyField, String keyWord, int start, int end) {
 	    	
-	    	//DB 연결 하는 Connection 객체생성
-		   Connection conn = null;
-		   
-		   //SQL 쿼리 담을 Statement 객체 생성
-		   Statement stmt = null;
-		   
-		   //결과값 담을 ResultSet 객체 생성
-	       ResultSet rs = null;
+	    	Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String sql = null;
 	       
 	       //ExpendsManagementBean 클래스 타입의 Vector 배열 vlist 선언
 	       Vector<ExpendsManagementBean> vlist = new Vector<ExpendsManagementBean>();
 	       
 	       try {
-	    	  //DB연결 시작
-	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
-	          
-	          String strQuery = "select * from expends";
-	          
-	          stmt = conn.createStatement();
-	          
-	          rs = stmt.executeQuery(strQuery);
-	          
-	          //while 반복문을 사용하여 resultset 객체인 rs에 담긴 조회쿼리 결과를 
-	          //RegisterBean 클래스에 선언된 변수에 대입 한다.
+				con = pool.getConnection();
+				//keyWord 값이 없는 경우 게시물 조회
+				if (keyWord.equals("null") || keyWord.equals("")) {
+					sql = "SELECT * FROM (expends INNER JOIN product ON expends.productKey = product.productKey) INNER JOIN mem_order ON expends.memOrderKey = mem_order.memOrderKey WHERE expendsKey order by expendsKey desc limit ?, ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, start);
+					pstmt.setInt(2, end);
+				} else { //keyField 와 keyWord 값이 있는 경우 게시물 조회
+					sql = "SELECT * FROM (expends INNER JOIN product ON expends.productKey = product.productKey) INNER JOIN mem_order ON expends.memOrderKey = mem_order.memOrderKey WHERE expendsKey" + keyField + " like ? ";
+					sql += "order by expendsKey desc limit ? , ?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + keyWord + "%");
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, end);
+				}
+				rs = pstmt.executeQuery();
 			  while (rs.next()) {
 				  
 				 ExpendsManagementBean bean = new ExpendsManagementBean();
-	             bean.setExpendsDate(rs.getString("expendsDate"));
-			 	 bean.setExpendsSection (rs.getString("expendsSection"));
-				 bean.setExpendsContents (rs.getString("expendsContents"));	 			 
-	 			 bean.setExpendsValue(rs.getInt("expendsValue"));
-	 			 bean.setMexpends(rs.getInt("Mexpends")); //월별 매출 합계 메소드 
-	 			 bean.setYexpends(rs.getInt("Yexpends")); //년도별 매출 합계 메소드
-	 			 bean.setMemKey(rs.getInt("memKey"));
-	 			 bean.setExpendsKey(rs.getInt("expendsKey"));
-	 			 vlist.addElement(bean);
+	             bean.setExpendsKey(rs.getInt("expendsKey"));
+	             bean.setMemKey(rs.getInt("memKey"));
+	             bean.setProductKey(rs.getInt("productKey"));
+	             bean.setMemOrderKey(rs.getInt("memOrderKey"));
+	             bean.setCategoryKey(rs.getInt("categoryKey"));
+	             bean.setProductName(rs.getString("productName"));
+	             //bean.setOCount(rs.getInt("oCount"));
+			 	 bean.setProductPrice (rs.getInt("productPrice"));
+				 bean.setpDate (rs.getString("pDate"));
+	 			 vlist.add(bean);
 	          }
 			  //예외처리
-	       } catch (Exception ex) {
-	          System.out.println("Exception" + ex);
-	       } finally {
-	          if(rs!=null)   try{rs.close();}  catch(SQLException e){}
-			  if(stmt!=null) try{stmt.close();}catch(SQLException e){}
-		      if(conn!=null) try{conn.close();}catch(SQLException e){}
-	       }
+	       } catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
 	       return vlist; //결과 값을 vlist 로 리턴.
 	    }
+	    
+	 // memKey값을 기준으로 해당 게시물을 조회한다.
+		public ExpendsManagementBean getBoard(int expendsKey) {
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String sql = null;
+			
+			ExpendsManagementBean bean = new ExpendsManagementBean();
+			
+			try {
+				con = pool.getConnection();
+				//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
+				sql = "SELECT * FROM (expends INNER JOIN product ON expends.productKey = product.productKey) INNER JOIN mem_order ON expends.memOrderKey = mem_order.memOrderKey WHERE expendsKey = ? ";
+				pstmt = con.prepareStatement(sql);
+				
+				pstmt.setInt(1, expendsKey);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					bean.setExpendsKey(rs.getInt("expendsKey"));
+		             bean.setMemKey(rs.getInt("memKey"));
+		             bean.setProductKey(rs.getInt("productKey"));
+		             bean.setMemOrderKey(rs.getInt("memOrderKey"));
+		             bean.setCategoryKey(rs.getInt("categoryKey"));
+		             bean.setProductName(rs.getString("productName"));
+		             //bean.setOCount(rs.getInt("oCount"));
+				 	 bean.setProductPrice (rs.getInt("productPrice"));
+					 bean.setpDate (rs.getString("pDate"));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return bean;
+		}
+
+		//총 목록
+		public int getTotalCount(String keyField, String keyWord) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int totalCount = 0;
+			try {
+				con = pool.getConnection();
+				
+				//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
+				if (keyWord.equals("null") || keyWord.equals("")) {
+					sql = "select count(expendsKey) FROM expends INNER JOIN product ON expends.productKey = product.productKey WHERE expendsKey";
+					pstmt = con.prepareStatement(sql);
+				} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
+					sql = "select count(expendsKey) FROM  expends INNER JOIN product ON expends.productKey = product.productKey WHERE expendsKey "+ keyField + " like ? ";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "%" + keyWord + "%");
+				}
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					totalCount = rs.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return totalCount;
+		}
 	}
