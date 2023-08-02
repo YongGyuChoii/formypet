@@ -33,29 +33,21 @@ $(function(){
     $('.cart_table').on('click','.agreechkAll', common.allCheck)
     $('.cart_table').on('click','.chack', common.check)
     
+    var del = document.querySelector("#delete");
     
-    
-    $(document).on("click",".downBtn",function(){
-		//상품 가격
-		var price = $(this).parent().parent().parent().parent().find("input[name='productSalePrice']").val();
-		
-		var countProduct = $(this).prev().text();
-		countProduct = parseInt(cartCount);
-		if(countProduct <= 1){
-			alert("1개 이상이여야 합니다.");
-		}else{
-			countProduct -= 1;
-			price = price*countProduct;
+    del.onclick = () => {
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked){
+				list[i].parentElement.parentElement.remove();
+			}
 		}
-		$(this).prev().text(countProduct);
-		$(this).parent().next().children().text(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-});
+	} 
+    
+    
+  
 
-
-
-
- });
  
+});
 
 
 

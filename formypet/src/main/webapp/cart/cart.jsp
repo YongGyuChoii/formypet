@@ -128,7 +128,7 @@
               	}              	
           %>
               <td>
-              		<input id="chack1" class="chack" type="checkbox" checked="checked">
+              		<input id="chack1" class="chack" type="checkbox" checked="checked" name="chkList">
         			<label for="chack1" class="chack_ele"></label>
               </td>
               <td><a href="#"><img src="../images/bathProduct/<%=pAll.get(i).getProductImg()%>" alt=""></a></td>
@@ -167,7 +167,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
+              <td colspan="3"> <button class="cart_table_button2" id="deleteSelec" >선택상품 삭제</button>
               <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='test.jsp;'">전체상품 삭제</button>
               </td>
               <td></td>
@@ -231,16 +231,16 @@
               	}              	
           %>
               <td>
-              		<input id="chack1" class="chack" type="checkbox" checked="checked">
+              		<input id="chack1" class="chack" type="checkbox" checked="checked" name="checkRow">
         			<label for="chack1" class="chack_ele"></label>
               </td>
               <td><a href="#"><img src="../images/bathProduct/<%=pb.get(i).getProductImg()%>" alt=""></a></td>
               <td colspan="2">
               	<a href="#"><%=pb.get(i).getProductName()%></a>
               	<br>
-              	<%if(optionText[i] == null) {%>
-              	<%} else {%>
+              	<%if(optionText[i] != null) {%>
               	<a style="font-size:12px; opacity: 0.8"><%=optionText[i]%></a>
+              	<%} else {%>              	
               	<%}%>
               </td>
               <td class="cart_table_button">
@@ -270,7 +270,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3"> <button class="cart_table_button2" Onclick="location='cartDelete';">선택상품 삭제</button>
+              <td colspan="3"> <button class="cart_table_button2" id="delete">선택상품 삭제</button>
               <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">전체상품 삭제</button>
               </td>
               <td></td>
