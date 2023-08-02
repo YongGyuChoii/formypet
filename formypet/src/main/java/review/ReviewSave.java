@@ -23,6 +23,8 @@ public class ReviewSave extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+    	req.setCharacterEncoding("UTF-8");
 
     	System.out.println("ReviewSave.java 서블릿 진입.");
         String title = req.getParameter("title");
@@ -31,7 +33,7 @@ public class ReviewSave extends HttpServlet {
         System.out.println(contents);
  //       String[] ratingList = req.getParameterValues("rating");
        
-  //      Integer rating = Integer.parseInt(ratingList[ratingList.length-1]);
+ //       Integer rating = Integer.parseInt(ratingList[ratingList.length-1]);
 
         ReviewBean reviewBean = new ReviewBean();
         reviewBean.setRvTitle(title);
@@ -43,7 +45,9 @@ public class ReviewSave extends HttpServlet {
         ReviewMgr reviewMgr = new ReviewMgr();
         System.out.println("saveReview 메서드 호출전");
         int result = reviewMgr.saveReview(reviewBean);
-        System.out.println(result);
+        System.out.println("saveReview 메서드 호출후");
+
+    
 
     }
 }

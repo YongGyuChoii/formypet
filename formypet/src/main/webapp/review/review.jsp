@@ -1,9 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="review.ReviewMgr"%>
-<%@page import="review.ReviewBean"%>
-<%@page import="review.ReviewSave"%>
-<jsp:useBean id="ReviewSave" class="review.ReviewSave" />
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,7 +29,7 @@
  <div class="wrap">
         <h1>후기</h1>
        <form name="reviewform" class="reviewform" method="post" action="save">
-            <input type="hidden" name="rate" id="rate" value="0"/>
+            <input type="hidden" name="score" id="rate" value="0"/>
             <p class="title_star">별점과 이용경험을 남겨주세요.</p>
      
             <div class="review_rating rating_point">
@@ -62,23 +59,24 @@
               
               <!-- 내용 -->
                 <div class="contents">
-           <label for="contents">내용:</label><br>
+           <label for="content">내용:</label><br>
                 <div class="review_contents">
                 <div class="warning_msg">5자 이상의 리뷰 내용을 작성해 주세요.</div>
-                <textarea rows="10" class="review_textarea"></textarea>
+                <textarea rows="10" class="review_textarea" id="contents" name="contents"></textarea>
             </div>   
-           
+           </div>
            
              <!-- 이미지 -->
                 <div class="photo">
                 <label for="image">이미지 업로드:</label>
-                <input type="file" id="image" name="image"><br>
+                <input type="file" id="photo" name="photo"><br>
                 </div>
                  
                    <!-- 등록 -->
                   <div class="cmd">
                 <input type="submit" name="save" id="save" value="등록">
             </div>
+            
         </form>
     </div>
       </section>

@@ -24,7 +24,7 @@ public class ReviewMgr {
 
     // 저장하기
     public Integer saveReview(ReviewBean reviewBean) {
-
+    	 System.out.println("Mgr 메서드 진입");
         try {
             con = pool.getConnection();
             String query = "INSERT INTO REVIEW (rvTitle, rvContents, rvScore, memKey) VALUES (?, ?, ?, ?)";
@@ -33,11 +33,12 @@ public class ReviewMgr {
 
             pstmt = con.prepareStatement(query);
             pstmt.setString(1, reviewBean.getRvTitle());
+            System.out.println("getRvTitle = " + reviewBean.getRvTitle());
             pstmt.setString(2, reviewBean.getRvContents());
+            System.out.println("getRvContents = " + reviewBean.getRvContents());
             pstmt.setInt(3, reviewBean.getRvScore());
+            System.out.println("getRvScore = " + reviewBean.getRvScore());
             pstmt.setInt(4, 0);
-            pstmt.setInt(5, 0);
-            System.out.println(pstmt.toString());
 
             return pstmt.executeUpdate();
 
