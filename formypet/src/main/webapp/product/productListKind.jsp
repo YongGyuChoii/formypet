@@ -6,7 +6,9 @@
 <jsp:useBean id="pMgr" class="product.ProductListMgr" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<ProductBean> pAll = pMgr.getProductListAll(); //전체상품
+	String productKind = request.getParameter("productKind");
+	String productKind2 = request.getParameter("productKind2");
+	ArrayList<ProductBean> pAll = pMgr.getKindList(productKind, productKind2); //kind별 상품
 	
 	int count = 0; //모달을 위한 변수
 %>

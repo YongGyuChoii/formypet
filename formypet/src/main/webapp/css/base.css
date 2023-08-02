@@ -7,6 +7,7 @@ body {
 	width: 100%; height: 100%;
 	position: relative;
 	font-family: 'Gothic A1', sans-serif !important;
+	padding-top: 125px;
 }
 
 #wrap {
@@ -23,7 +24,12 @@ body {
 
 /* 헤더 */
 header {
+	position:fixed;
+	top: 0;
+  	left: 0;
+  	right: 0;
     height: 125px;
+    z-index: 9999;
 }
 header a.logo h1 {
     position:relative;

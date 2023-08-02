@@ -44,19 +44,19 @@
   <li>
     <a class="nav-link text-white" href="${pageContext.request.contextPath}/product/productList.jsp">상품목록</a>
     <ul class="depth_1">
-      <li><a href="#">ALL</a></li>
-      <li><a href="#">BEST</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productList.jsp">ALL</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListBest.jsp">BEST</a></li>
       <li class="child-li">ㅡㅡㅡㅡㅡㅡㅡ</li>
-      <li><a href="#">목욕</a></li>
-      <li><a href="#">배변/위생</a></li>
-      <li><a href="#">미용/케어</a></li>
-      <li><a href="#">홈/리빙</a></li>
-      <li><a href="#">산책/놀이</a></li>
-      <li><a href="#">간식/영양제</a></li>
-      <li><a href="#">의류/악세사리</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListCate.jsp?categoryKey=1">목욕</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListCate.jsp?categoryKey=2">배변/위생</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListCate.jsp?categoryKey=3">미용/케어</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListCate.jsp?categoryKey=4">홈/리빙</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListCate.jsp?categoryKey=5">산책/놀이</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListCate.jsp?categoryKey=6">간식/영양제</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListCate.jsp?categoryKey=7">의류/악세사리</a></li>
       <li class="child-li">ㅡㅡㅡㅡㅡㅡㅡ</li>
-      <li><a href="#">FOR DOGS</a></li>
-      <li><a href="#">FOR CATS</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListKind.jsp?productKind=both&productKind2=dog">FOR DOGS</a></li>
+      <li><a href="${pageContext.request.contextPath}/product/productListKind.jsp?productKind=both&productKind2=cat">FOR CATS</a></li>
     </ul>
   </li>
   <li>

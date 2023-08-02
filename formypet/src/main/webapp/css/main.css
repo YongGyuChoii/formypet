@@ -9,7 +9,7 @@
 
 /* 섹션 */
 .section {
-    margin: 30px;
+    margin-left: 30px; margin-right: 30px; margin-botto: 30px;
     position: relative;
     background-color: white;
 }
@@ -82,7 +82,7 @@
 
 /* 모달 바디 */
 .modal-body{
-	height: 600px;
+	height: 500px;
 }
 /* 경고부분 */
 .textDanger {

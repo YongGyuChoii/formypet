@@ -3,13 +3,18 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="product.ProductBean"%>
 <%@page import="product.ProductFileBean"%>
+<%@page import="product.ProductOptionBean"%>
 <%@page import="java.util.*"%>
 <jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
+<jsp:useBean id="pMgr" class="product.ProductMgr" />
 <%
 	request.setCharacterEncoding("UTF-8");
 
 	int productKey = Integer.parseInt(request.getParameter("productKey"));
 	int categoryKey = Integer.parseInt(request.getParameter("categoryKey"));
+	
+	//상품 옵션담기
+	ArrayList<ProductOptionBean> pbof = pMgr.getOption(productKey);
 	
 	//상품1개 정보 담기
 	ProductBean pb = bMgr.getProduct(productKey);
@@ -50,8 +55,24 @@
     <link rel="stylesheet"  href="${pageContext.request.contextPath}/css/base.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/productDetail.js"></script>
+    <script>
+    //jsp 에서 js로 변수값 전달
+		var oc1 = new Array();
+		var oc2 = new Array();
+		var oc3 = new Array();
+		var oc4 = new Array();
+		var oc5 = new Array();
+		<%for(int i=0; i<pbof.size(); i++) {%>
+			oc1.push('<%=pbof.get(i).getOc1()%>')
+			oc2.push('<%=pbof.get(i).getOc2()%>')
+			oc3.push('<%=pbof.get(i).getOc3()%>')
+			oc4.push('<%=pbof.get(i).getOc4()%>')
+			oc5.push('<%=pbof.get(i).getOc5()%>')			
+		<%}%>
+	</script>
 </head>
 <body>
     <div id="wrap">
@@ -75,6 +96,7 @@
             <p class="best fw-bold">BEST</p>
             <%} %>
             <p class="fw-bold fs-3"><%=pb.getProductName() %></p>
+            <input type="hidden" name="productName" value="<%=pb.getProductName() %>"/>
             <div class="row mb-3">
             	<div class="col showInfo">
             		INFORMATION
@@ -100,16 +122,24 @@
 			<p class="fw-bold fs-4 mt-5"><fmt:formatNumber value="<%=pb.getProductSalePrice() %>" pattern="#,###"/>원 
 			<span class="text-secondary text-decoration-line-through ms-3"><fmt:formatNumber value="<%=pb.getProductPrice() %>" pattern="#,###"/>원</span> 
 			<span class="text-danger sale"><%=salePercent %>%</span></p>
+			<input type="hidden" name="productSalePrice" value="<%=pb.getProductSalePrice() %>" />
 			
 			<hr/>
 			
 			<div class="row">
 				<div class="col-4">
-					향 선택
+					옵션 선택
 				</div>
 				<div class="col-8">
-					<input type="radio" name="option" value="멜론향" class="me-1">멜론향
-					<input type="radio" name="option" value="고구마향" class="me-1 ms-3">고구마향
+					<select name="optionSelect0" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+					  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+					</select>
+					<select name="optionSelect1" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+					  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+					</select>
+					<select name="optionSelect2" class="form-select form-select-sm d-none" aria-label=".form-select-sm example">
+					  <option value="" selected>-[필수] 옵션을 선택해 주세요-</option>
+					</select>
 				</div>
 			</div>
 			
@@ -119,10 +149,15 @@
 				</span>
 				위 옵션선택 박스를 선택하시면 아래에 상품이 추가됩니다.
 			</div>
+			<hr />
+			
+			<input type="hidden" name="productCount" value="<%=pb.getProductCount() %>" />
+			<div class="optionChoose">
+			</div>
 			
 			<div class="mt-5 priceAll">
-				<span class="fw-bold">총 상품금액</span>(수량) : <span class="fw-bold fs-4">0원</span>
-				(<span>0개</span>)
+				<span class="fw-bold">총 상품금액</span>(수량) : <span class="fw-bold fs-4 totalPrice">0</span>원
+				(<span class="totalCount">0</span>개)
 			</div>
 			
 			<div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">

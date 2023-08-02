@@ -43,6 +43,12 @@
 	font-size: 14px;
 }
 
+/* +, - 아이콘 */
+.addIcon, .removeIcon {
+	border: 1px solid gray;
+	cursor: pointer;
+}
+
 /* 장바구니추가, 바로구매 버튼 */
 .groupBtn{
 	width: 100%; height: 70px;

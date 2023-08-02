@@ -6,7 +6,8 @@
 <jsp:useBean id="pMgr" class="product.ProductListMgr" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<ProductBean> pAll = pMgr.getProductListAll(); //전체상품
+	int categoryKey = Integer.parseInt(request.getParameter("categoryKey"));
+	ArrayList<ProductBean> pAll = pMgr.getCateList(categoryKey); //카테고리별 상품
 	
 	int count = 0; //모달을 위한 변수
 %>
@@ -34,7 +35,21 @@
   <!--header 끝-->
 
     <div class="productImg1">
+    	<%if(categoryKey == 1) {%>
+        <img class="productImg2" src="../images/bathProduct/bathMain.jpg" alt="카테고리사진">
+        <%} else if(categoryKey == 2){%>
+        <img class="productImg2" src="../images/hygieneProduct/hygieneMain.jpg" alt="카테고리사진">
+        <%} else if(categoryKey == 3){%>
+        <img class="productImg2" src="../images/beautyProduct/beautyMain.jpg" alt="카테고리사진">
+        <%} else if(categoryKey == 4){%>
+        <img class="productImg2" src="../images/livingProduct/livingMain.jpg" alt="카테고리사진">
+        <%} else if(categoryKey == 5){%>
         <img class="productImg2" src="../images/walkProduct/walkMain.jpg" alt="카테고리사진">
+        <%} else if(categoryKey == 6){%>
+        <img class="productImg2" src="../images/snackProduct/foodMain.jpg" alt="카테고리사진">
+        <%} else if(categoryKey == 7){%>
+        <img class="productImg2" src="../images/clothesProduct/clothesMain.png" alt="카테고리사진">
+        <%} %>
         <p class="fs-3 fw-bold productImgContent">ALL PRODUCTS</p>
     </div>
 

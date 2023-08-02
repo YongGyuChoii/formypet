@@ -6,7 +6,7 @@
 <jsp:useBean id="pMgr" class="product.ProductListMgr" />
 <%
 	request.setCharacterEncoding("UTF-8");
-	ArrayList<ProductBean> pAll = pMgr.getProductListAll(); //전체상품
+	ArrayList<ProductBean> pAll = pMgr.getBestList(); //베스트 상품
 	
 	int count = 0; //모달을 위한 변수
 %>
