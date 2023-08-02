@@ -20,6 +20,7 @@
 	  int size = bean.getSize();
 	  int fileKey2 = bean.getFileKey();
 	  String delYn = bean.getDelYn();
+	  String productName = bean.getProductName();
 	  
 	  session.setAttribute("bean", bean);//상품을 세션에 저장 
 %>
@@ -53,6 +54,11 @@
 	  	<td align="center" bgcolor= "#002266" ><font color = "#ffc303">상품사진 번호</font></td>
 	  	<td colspan="3"><%=fileKey2%></td>
 	 </tr>
+	 <tr>
+	  	<td align="center" bgcolor= "#002266" ><font color = "#ffc303">상품 이름</font></td>
+	  	<td colspan="3"><%=productName%></td>
+	 </tr>
+	 
 	<tr> 
 	     <td align="center"bgcolor= "#002266" ><font color = "#ffc303">상품 원본사진</font></td>
 	     <td>

@@ -72,13 +72,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<div align="center" id = "wrap">
+
 <!-- header 시작-->
     <header>
         <%@include file="../admin/adminHeader.jsp"%>
       </header>
     <!--header 끝-->
-	
+	<div align="center" id = "wrap">
 		<br/>
 		<h2>상품사진 목록</h2>
 		<br/>
@@ -109,7 +109,7 @@
 						<tr class = "border">
 							<td>상품 번호</td>
 							<td>상품사진 번호</td>
-							
+							<td>상품 이름</td>
 							<td>원본 이름</td>
 							<td>사본 이름</td>
 							<td>용량</td>
@@ -124,6 +124,7 @@
 								String fileOriginalName = bean.getFileOriginalName();
 								String fileSaveName = bean.getFileSaveName();
 								int size = bean.getSize();
+								String productName = bean.getProductName();
 								//String productName = bean.getProductName();
 								
 						%>
@@ -131,7 +132,7 @@
 							
 							<td align="center"><%=productKey%></td>
 							<td align="center"><a href="javascript:read('<%=fileKey%>')"><%=fileKey%></a></td>
-							
+							<td align="center"><%=productName%></td>
 							<td align="center"><%=fileOriginalName%></td>
 							<td align="center"><%=fileSaveName%></td>
 							<td align="center"><%=size%></td>

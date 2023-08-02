@@ -106,12 +106,12 @@
 					  <table width="100%" cellpadding="2" cellspacing="0">
 						<tr align="center"   class = "border">
 							<td>번 호</td>
-							<td>회원 번호</td>
+							<td>비회원 주문번호</td>
 							<td>회원 주문번호</td>
-							<td>상품 번호</td>
-							<td>카테고리</td>
+							<td>회원 번호</td>
 							<td>상품 이름</td>
-							<td>상품 가격</td>
+							<td>카테고리</td>
+							<td>총 지불 금액</td>
 							<td>주문 날짜</td>
 							
 						</tr>
@@ -119,26 +119,25 @@
 							  for (int i = 0;i<numPerPage; i++) {
 								if (i == listSize) break;
 								ExpendsManagementBean bean = vlist.get(i);
-							
-								int memKey = bean.getMemKey();
-								int expendsKey = bean.getExpendsKey();
-								String productName = bean.getProductName();
-								//int oCount = bean.getoCount();
-								int productPrice = bean.getProductPrice();
-								int productKey = bean.getProductKey();
-								String pDate = bean.getpDate();
-								int categoryKey = bean.getCategoryKey();
-								int memOrderKey = bean.getMemOrderKey();
+							int expendsKey = bean.getExpendsKey();
+							int memKey = bean.getMemKey();
+							int memOrderKey = bean.getMemOrderKey();
+							int nonMemOrderKey = bean.getNonMemOrderKey();
+							int categoryKey = bean.getCategoryKey();
+							int oPrice = bean.getoPrice();
+							String eDate = bean.geteDate();
+							String productName = bean.getProductName();
+
 						%>
 						<tr>
 							<td align = "center" ><%=expendsKey%></td>
+							<td align = "center"><%=nonMemOrderKey %></td>
+							<td align="center"><%=memOrderKey%></td>
 							<td align="center"><%=memKey%></td>
-							<td align = "center"><%=memOrderKey %></td>
-							<td align="center"><%=productKey%></td>
-							<td align="center"><%=categoryKey%></td>
 							<td align="center"><%=productName%></td>
-							<td align = "center"><%=productPrice %></td>
-							<td align="center"><%=pDate%></td>
+							<td align="center"><%=categoryKey%></td>
+							<td align = "center"><%=oPrice %></td>
+							<td align="center"><%=eDate%></td>
 
 							</tr>
 						<%}//for%>
@@ -186,10 +185,11 @@
 	 		<tr>
 	  			<td align="center" valign="bottom">
 	   				<select name="keyField" size="1" >
-	    				<option value="productName">상품 이름</option>
-	    				<option value="memKey">회원 번호</option>
 	    				<option value="expendsKey">번 호</option>
-	    				<option value="pDate">주문 날짜</option>
+	    				<option value="memKey">회원 번호</option>
+	    				<option value="memOrderKey">회원 주문번호</option>
+	    				<option value="nonMemOrderKey">비회원 주문번호</option>
+	    				<option value="productName">상품 이름</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
 	   				<input type="button"  value="찾기" onClick="javascript:check()">
@@ -205,7 +205,7 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="num"> 
+			<input type="hidden" name="expendsKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">

@@ -73,13 +73,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-<div align="center" id = "wrap">
+
 <!-- header 시작-->
     <header>
         <%@include file="../admin/adminHeader.jsp"%>
       </header>
     <!--header 끝-->
-	
+<div align="center" id = "wrap">	
 		<br/>
 		<h2>상품옵션 목록</h2>
 		<br/>

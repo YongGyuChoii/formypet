@@ -108,12 +108,12 @@ public class ProductManagementMgr {
 				con = pool.getConnection();
 				//keyWord 값이 없는 경우 상품 조회
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "select * from product_file order by fileKey desc limit ?,?";
+					sql = "SELECT * FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey order by fileKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, start);
 					pstmt.setInt(2, end);
 				} else { //keyField 와 keyWord 값이 있는 경우 상품 조회
-					sql = "select * from  product_file where " + keyField + " like ? ";
+					sql = "SELECT * FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey" + keyField + " like ? ";
 					sql += "order by fileKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%" + keyWord + "%");
@@ -130,7 +130,7 @@ public class ProductManagementMgr {
 					bean2.setFileSaveName(rs.getString("fileSaveName"));
 					bean2.setSize(rs.getInt("size"));
 					bean2.setProductKey(rs.getInt("productKey"));//productKey가져오기
-		 			
+		 			bean2.setProductName(rs.getString("productName"));
 		 			vlist2.add(bean2);
 
 				}
@@ -233,10 +233,10 @@ public class ProductManagementMgr {
 				con = pool.getConnection();
 				//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "select count(fileKey) from product_file";
+					sql = "select count(fileKey) FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey";
 					pstmt = con.prepareStatement(sql);
 				} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-					sql = "select count(fileKey) from  product_file where " + keyField + " like ? ";
+					sql = "select count(fileKey) FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey " + keyField + " like ? ";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%" + keyWord + "%");
 				}
@@ -531,7 +531,7 @@ public class ProductManagementMgr {
 			try {
 				con = pool.getConnection();
 				//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
-				sql = "select * from product_file where fileKey=?";
+				sql = "select * from product_file f inner join product p on f.productName = p.productName where fileKey = ?";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, fileKey);
@@ -543,6 +543,7 @@ public class ProductManagementMgr {
 					bean.setProductKey(rs.getInt("productKey"));
 					bean.setFileKey(rs.getInt("fileKey"));
 					bean.setDelYn(rs.getString("delYn"));
+					bean.setProductName(rs.getString("productName"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

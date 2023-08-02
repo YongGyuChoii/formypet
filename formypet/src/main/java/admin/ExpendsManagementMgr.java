@@ -51,12 +51,14 @@ public class ExpendsManagementMgr {
 				con = pool.getConnection();
 				//keyWord 값이 없는 경우 게시물 조회
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "SELECT * FROM (expends INNER JOIN product ON expends.productKey = product.productKey) INNER JOIN mem_order ON expends.memOrderKey = mem_order.memOrderKey WHERE expendsKey order by expendsKey desc limit ?, ?";
+					sql = "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
+							+ "INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey order by expendsKey desc limit ?, ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, start);
 					pstmt.setInt(2, end);
 				} else { //keyField 와 keyWord 값이 있는 경우 게시물 조회
-					sql = "SELECT * FROM (expends INNER JOIN product ON expends.productKey = product.productKey) INNER JOIN mem_order ON expends.memOrderKey = mem_order.memOrderKey WHERE expendsKey" + keyField + " like ? ";
+					sql = "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
+							+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey" + keyField + " like ? ";
 					sql += "order by expendsKey desc limit ? , ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%" + keyWord + "%");
@@ -69,13 +71,14 @@ public class ExpendsManagementMgr {
 				 ExpendsManagementBean bean = new ExpendsManagementBean();
 	             bean.setExpendsKey(rs.getInt("expendsKey"));
 	             bean.setMemKey(rs.getInt("memKey"));
-	             bean.setProductKey(rs.getInt("productKey"));
+	             bean.setOrdersKey(rs.getInt("ordersKey"));
 	             bean.setMemOrderKey(rs.getInt("memOrderKey"));
+	             bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
+	             bean.setProductKey(rs.getInt("productKey"));
 	             bean.setCategoryKey(rs.getInt("categoryKey"));
+	             bean.setoPrice(rs.getInt("oPrice"));
 	             bean.setProductName(rs.getString("productName"));
-	             //bean.setOCount(rs.getInt("oCount"));
-			 	 bean.setProductPrice (rs.getInt("productPrice"));
-				 bean.setpDate (rs.getString("pDate"));
+	             bean.seteDate(rs.getString("eDate"));
 	 			 vlist.add(bean);
 	          }
 			  //예외처리
@@ -100,22 +103,24 @@ public class ExpendsManagementMgr {
 			
 			try {
 				con = pool.getConnection();
-				//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
-				sql = "SELECT * FROM (expends INNER JOIN product ON expends.productKey = product.productKey) INNER JOIN mem_order ON expends.memOrderKey = mem_order.memOrderKey WHERE expendsKey = ? ";
+				//expendsKey 값을 기준으로 e 테이블 에서 게시물을 조회한다.
+				sql = "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
+						+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey = ? ";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, expendsKey);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					bean.setExpendsKey(rs.getInt("expendsKey"));
+					 bean.setExpendsKey(rs.getInt("expendsKey"));
 		             bean.setMemKey(rs.getInt("memKey"));
-		             bean.setProductKey(rs.getInt("productKey"));
+		             bean.setOrdersKey(rs.getInt("ordersKey"));
 		             bean.setMemOrderKey(rs.getInt("memOrderKey"));
+		             bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
+		             bean.setProductKey(rs.getInt("productKey"));
 		             bean.setCategoryKey(rs.getInt("categoryKey"));
+		             bean.setoPrice(rs.getInt("oPrice"));
 		             bean.setProductName(rs.getString("productName"));
-		             //bean.setOCount(rs.getInt("oCount"));
-				 	 bean.setProductPrice (rs.getInt("productPrice"));
-					 bean.setpDate (rs.getString("pDate"));
+		             bean.seteDate(rs.getString("eDate"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -137,10 +142,12 @@ public class ExpendsManagementMgr {
 				
 				//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "select count(expendsKey) FROM expends INNER JOIN product ON expends.productKey = product.productKey WHERE expendsKey";
+					sql =  "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
+							+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey";
 					pstmt = con.prepareStatement(sql);
 				} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-					sql = "select count(expendsKey) FROM  expends INNER JOIN product ON expends.productKey = product.productKey WHERE expendsKey "+ keyField + " like ? ";
+					sql =  "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
+							+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey "+ keyField + " like ? ";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%" + keyWord + "%");
 				}
