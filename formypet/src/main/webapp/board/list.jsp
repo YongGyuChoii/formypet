@@ -80,16 +80,15 @@
 		.mainImg1 {
 		    position: relative;
 		}
-		.mainImg2 {
-		    width: 100%;
-		    height: 650px;
-		}
 		.mainImgContent {
 		    position: absolute;
 		    color: white;
 		    bottom: 0;
 		    left: 50%;
 		    transform: translate(-50%, 0%);
+		}
+		a {
+    text-decoration: none;
 		}           
     </style>
 <script>
@@ -132,7 +131,6 @@
         <%@include file="/base/header.jsp"%>
     </header>
     <!--header 끝-->
-		<br/>
 		<div class="mainImg1" style="text-align : center;">
 			<img src="../images/board/cs_center.jpg" alt="게시판" width="1300" height="500">
 			<p class="fs-3 fw-bold mainImgContent">INQUIRY BOARD</p>
