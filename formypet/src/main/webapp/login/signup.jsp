@@ -27,6 +27,7 @@
 
     <!--main 시작-->
     <div class="container">
+    <section>
     <div class="signup">
       <form method="post" name="regFrm" action="memberProc.jsp">
           <h2>회원정보 입력</h2>
@@ -55,6 +56,7 @@
               <input type="submit" id="btn" value="회원가입" onclick="inputCheck()">
       </form>
     </div>
+        </section>
     </div>
     <!--main 끝-->
 
@@ -69,6 +71,4 @@
     <!-- footer 끝.-->
     </div>
 </body>
-</html>>
-
-  
+</html>

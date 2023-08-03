@@ -88,40 +88,9 @@
 		    transform: translate(-50%, 0%);
 		}
 		a {
-    text-decoration: none;
+    		text-decoration: none;
 		}           
     </style>
-<script>
-	function list() {
-		document.listFrm.action = "list.jsp";
-		document.listFrm.submit();
-	}
-	
-	function pageing(page) {
-		document.readFrm.nowPage.value = page;
-		document.readFrm.submit();
-	}
-	
-	function block(value){
-		 document.readFrm.nowPage.value=<%=pagePerBlock%>*(value-1)+1;
-		 document.readFrm.submit();
-	} 
-	
-	function read(num){
-		document.readFrm.num.value=num;
-		document.readFrm.action="read.jsp";
-		document.readFrm.submit();
-	}
-	
-	function check() {
-	     if (document.searchFrm.keyWord.value == "") {
-	   alert("검색어를 입력하세요.");
-	   document.searchFrm.keyWord.focus();
-	   return;
-	     }
-	  document.searchFrm.submit();
-	 }
-</script>
 
 </head>
 <body>
@@ -130,6 +99,7 @@
     <header>
         <%@include file="/base/header.jsp"%>
     </header>
+    <input type="hidden" id="memKey" value="<%=memKey %>">
     <!--header 끝-->
 		<div class="mainImg1" style="text-align : center;">
 			<img src="../images/board/cs_center.jpg" alt="게시판" width="1300" height="500">
@@ -233,7 +203,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="post.jsp" class="btn btn-dark" >글쓰기</a></td>
+					<a class="btn btn-dark" onclick="service()" >글쓰기</a></td>
 			</tr>
 		</table>
 		<!-- 게시판 본문 끝. -->
@@ -277,4 +247,46 @@
     </div>
 </body>
 </html>
+
+<script>
+	function list() {
+		document.listFrm.action = "list.jsp";
+		document.listFrm.submit();
+	}
+	
+	function pageing(page) {
+		document.readFrm.nowPage.value = page;
+		document.readFrm.submit();
+	}
+	
+	function block(value){
+		 document.readFrm.nowPage.value=<%=pagePerBlock%>*(value-1)+1;
+		 document.readFrm.submit();
+	} 
+	
+	function read(num){
+		document.readFrm.num.value=num;
+		document.readFrm.action="read.jsp";
+		document.readFrm.submit();
+	}
+	
+	function check() {
+	     if (document.searchFrm.keyWord.value == "") {
+	   alert("검색어를 입력하세요.");
+	   document.searchFrm.keyWord.focus();
+	   return;
+	     }
+	  document.searchFrm.submit();
+	 }
+	
+	function service() {
+		let memKey = "${idKey}"				
+		if(memKey == "") {
+			alert("로그인 후 사용하실 수 있습니다.");
+			location.href="${pageContext.request.contextPath}/board/list.jsp"
+		} else {
+			location.href="${pageContext.request.contextPath}/board/post.jsp"
+		}
+	}
+</script>
     
