@@ -504,3 +504,47 @@ input[type=radio] + label, input[type=checkbox] + label {
 .info {
 	font-size : 14px;
 }
+
+.paymentSubmit {
+	display: inline-block;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: #fff;
+    background-color: #113F8A;
+    width: 200px;
+    height: 50px;
+    padding-top: 16px
+}
+
+.cancel {
+	display: inline-block;
+    box-sizing: border-box;
+    padding: 2px 8px;
+    border: 1px lightgray solid;
+    border-radius: 2px;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: normal;
+    text-decoration: none;
+    vertical-align: middle;
+    word-spacing: -0.5px;
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+    color: black;
+    background-color: white;
+    width: 200px;
+    height: 50px;
+    padding-top: 16px
+}

@@ -429,6 +429,19 @@
         				</tbody>
         			</table>
         		</div>
+        		<div class="gMerge">
+        			<tbody>
+        					<tr class="payment">
+        						<td>
+        							<a href="#" id="btnCouponSelect" class="cancel">취소하기</a>
+        						</td>
+        						<td>
+        							<a href="#" id="btnCouponSelect" class="paymentSubmit">결제하기</a>
+        						</td>
+        					</tr>
+        			</tbody>
+        		</div>
+        		
         	</div>
         </div>
         

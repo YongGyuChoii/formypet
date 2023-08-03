@@ -20,7 +20,7 @@ $(function(){
                 $(e.target).prop("checked", false)
                 listAll.prop('checked', false);
             }
-            // 각자 하나씩 선택시 자동으로 전채선태도 활성화 시키기
+            // 각자 하나씩 선택시 자동으로 전채선택도 활성화 시키기
             var size = list.filter(':checked').length;
                 if(size == list.length) {
                     listAll.prop("checked", true);
@@ -33,19 +33,7 @@ $(function(){
     $('.cart_table').on('click','.agreechkAll', common.allCheck)
     $('.cart_table').on('click','.chack', common.check)
     
-    var del = document.querySelector("#delete");
     
-    del.onclick = () => {
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked){
-				list[i].parentElement.parentElement.remove();
-			}
-		}
-	} 
-    
-    
-  
-
  
 });
 

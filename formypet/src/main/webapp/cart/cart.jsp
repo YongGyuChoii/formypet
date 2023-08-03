@@ -100,6 +100,14 @@
           </thead>
 
           <tbody>
+          	<%
+        	int calPrice;
+          	int deliveryFee = 3000;
+          	int totalViewPrice;
+          	int total=0;
+          	int totalFinal=0;
+          	%>
+          	
           	<%for(int i=0; i<pAll.size(); i++) { %>
             <tr class="cart_table_detail">
             <%
@@ -109,17 +117,17 @@
               	} else {
               		productViewPrice = pAll.get(i).getProductSalePrice();
               	}
+                 
+              	total += productViewPrice * pAll.get(i).getCartCount();
+               	calPrice = productViewPrice * pAll.get(i).getCartCount();
               	
-              	int calPrice;
-              	int deliveryFee;
-              	int totalViewPrice;
-              	
-              	calPrice = productViewPrice * pAll.get(i).getCartCount();
-              	if(calPrice>=50000) {
+               	if(total>=50000) {
               		deliveryFee = 0;
               	} else {
               		deliveryFee = 3000;
               	}
+               	
+               	totalFinal = total + deliveryFee;
               	             	
               	if(deliveryFee == 0) {
               		totalViewPrice = productViewPrice * pAll.get(i).getCartCount();
@@ -154,7 +162,7 @@
                 <input id="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px;">                
                 <button name="countBtn" class="upBtn">+</button>
               </td>
-              </from>
+              </from>            
               <% if(i == 0) {%>
               <td rowspan=100%>
               	<strong><p>배송비 3,000원<br><a style="font-size:10px">(50,000원 이상 구매시 무료!)</a></p></strong>   
@@ -172,7 +180,7 @@
               </td>
               <td></td>
               <td></td>
-              <td colspan="3" style="text-align: right;"><strong>상품구매 금액  + 배송비 3,000원 = 합계 45,800원</strong></td>
+              <td colspan="3" style="text-align: right;"><strong>총 상품구매금액 <fmt:formatNumber value="<%=total%>" pattern="#,###"/>원  + 배송비 <fmt:formatNumber value="<%=deliveryFee%>" pattern="#,###"/>원 = 합계 <fmt:formatNumber value="<%=totalFinal%>" pattern="#,###"/>원</strong></td>
             </tr>
           </tfoot>
         </form>
@@ -180,7 +188,31 @@
       <div class="cart_bottom_button">
         <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
         <button class="cart_big_button right">주문하기</button>
-      </div>
+      </div>     
+      <table class="table_bottom">
+        <colgroup>
+          <col style="width: 17%;">
+          <col style="width: 17%;">
+          <col style="width: 19%;">
+          <col style="width: 17%;">
+          <col style="width: auto;">
+        </colgroup>
+        <thead>
+          <tr style="text-align: center;">
+            <th>총 상품금액</th>
+            <th>배송비</th>
+            <th colspan="4">결재 예정금액</th>
+          </tr>
+        </thead>
+        <tbody class="tbody_center">
+          <tr>
+            <td><strong><fmt:formatNumber value="<%=total%>" pattern="#,###"/>원</strong></td>
+            <td><strong>+<fmt:formatNumber value="<%=deliveryFee%>" pattern="#,###"/>원</strong></td>
+            <td colspan="4" style="color: blue;"><strong>=<fmt:formatNumber value="<%=totalFinal%>" pattern="#,###"/>원</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      
       <%} else {%>
       <table class="cart_table">
         <form>
@@ -201,8 +233,15 @@
               <td>합계</td>
             </tr>
           </thead>
-
-          <tbody>
+          <tbody>          	
+          	<%
+        	int calPrice;
+          	int deliveryFee = 3000;
+          	int totalViewPrice;
+          	int total=0;
+          	int totalFinal=0;
+          	%>
+          	
           	<%for(int i=0; i<pb.size(); i++) { %>
             <tr class="cart_table_detail">
             <%
@@ -213,9 +252,8 @@
               		productViewPrice = pb.get(i).getProductSalePrice();
               	}
               	
-              	int calPrice;
-              	int deliveryFee;
-              	int totalViewPrice;
+              	total += productViewPrice * cartCount[i];
+               	calPrice = productViewPrice * cartCount[i];
               	
               	calPrice = productViewPrice * cartCount[i];
               	if(calPrice>=50000) {
@@ -223,6 +261,8 @@
               	} else {
               		deliveryFee = 3000;
               	}
+              	
+              	totalFinal = total + deliveryFee;
               	             	
               	if(deliveryFee == 0) {
               		totalViewPrice = productViewPrice * cartCount[i];
@@ -238,8 +278,8 @@
               <td colspan="2">
               	<a href="#"><%=pb.get(i).getProductName()%></a>
               	<br>
-              	<%if(optionText[i] != null) {%>
-              	<a style="font-size:12px; opacity: 0.8"><%=optionText[i]%></a>
+              	<%if(!optionText[i].equals("null")) {%>
+              	<a style="font-size:12px; opacity: 0.8">[옵션 : <%=optionText[i]%>]</a>
               	<%} else {%>              	
               	<%}%>
               </td>
@@ -270,12 +310,12 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3"> <button class="cart_table_button2" id="delete">선택상품 삭제</button>
+              <td colspan="3"> <button class="cart_table_button2" id="delete" onclick="location='cookieSelDel(test).jsp;'">선택상품 삭제</button>
               <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">전체상품 삭제</button>
               </td>
               <td></td>
               <td></td>
-              <td colspan="3" style="text-align: right;"><strong>상품구매 금액  + 배송비 3,000원 = 합계 45,800원</strong></td>
+              <td colspan="3" style="text-align: right;"><strong>총 상품구매금액 <fmt:formatNumber value="<%=total%>" pattern="#,###"/>원 + 배송비 <fmt:formatNumber value="<%=deliveryFee%>" pattern="#,###"/>원 = 합계 <fmt:formatNumber value="<%=totalFinal%>" pattern="#,###"/>원</strong></td>
             </tr>
           </tfoot>
         </form>
@@ -284,7 +324,6 @@
         <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
         <button class="cart_big_button right">주문하기</button>
       </div>
-      <%} %>
   
       <table class="table_bottom">
         <colgroup>
@@ -303,12 +342,13 @@
         </thead>
         <tbody class="tbody_center">
           <tr>
-            <td><strong>42,800원</strong></td>
-            <td><strong>+3,000원</strong></td>
-            <td colspan="4" style="color: blue;"><strong>=45,800원</strong></td>
+            <td><strong><fmt:formatNumber value="<%=total%>" pattern="#,###"/>원</strong></td>
+            <td><strong>+<fmt:formatNumber value="<%=deliveryFee%>" pattern="#,###"/>원</strong></td>
+            <td colspan="4" style="color: blue;"><strong>=<fmt:formatNumber value="<%=totalFinal%>" pattern="#,###"/>원</strong></td>
           </tr>
         </tbody>
       </table>
+      <% } %>
     </section>
     </div>
     <!--main 끝-->
