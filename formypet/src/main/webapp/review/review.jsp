@@ -1,6 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@page import="review.ReviewMgr"%>
+<%@page import="review.ReviewBean"%>
+<%@page import="review.ReviewSave"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,7 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/review.js"></script>
+    <script type="text/javascript" src="../js/review.js"></script>  
 </head>
 <body>
     <div id="wrap">
@@ -29,7 +31,7 @@
  <div class="wrap">
         <h1>후기</h1>
        <form name="reviewform" class="reviewform" method="post" action="save">
-            <input type="hidden" name="score" id="rate" value="0"/>
+            <input type="hidden" name="score" id="score" value="0"/>
             <p class="title_star">별점과 이용경험을 남겨주세요.</p>
      
             <div class="review_rating rating_point">
@@ -62,7 +64,7 @@
            <label for="content">내용:</label><br>
                 <div class="review_contents">
                 <div class="warning_msg">5자 이상의 리뷰 내용을 작성해 주세요.</div>
-                <textarea rows="10" class="review_textarea" id="contents" name="contents"></textarea>
+                <textarea rows="10"  id="contents" name="contents"></textarea>
             </div>   
            </div>
            

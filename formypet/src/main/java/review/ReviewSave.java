@@ -27,19 +27,36 @@ public class ReviewSave extends HttpServlet {
     	req.setCharacterEncoding("UTF-8");
 
     	System.out.println("ReviewSave.java 서블릿 진입.");
+    	//제목
         String title = req.getParameter("title");
         System.out.println(title);
+        //내용
         String contents = req.getParameter("contents");
         System.out.println(contents);
- //       String[] ratingList = req.getParameterValues("rating");
+        //사진
+        String photo = req.getParameter("photo");
+        System.out.println(photo);
+      
+       String[] ratingList = req.getParameterValues("score");
+        Integer score = Integer.parseInt(ratingList[ratingList.length-1]);
+        
+     
+        String optionValue = req.getParameter("optionValue");
+        System.out.println(optionValue);
+        
+     //   int memKey = Integer.parseInt(req.getParameter("memKey"));
        
- //       Integer rating = Integer.parseInt(ratingList[ratingList.length-1]);
+    //    Integer productkey = Integer.parseInt("productkey") ;
+    //   int productkey = Integer.parseInt(req.getParameter("productkey"));
+        
 
         ReviewBean reviewBean = new ReviewBean();
         reviewBean.setRvTitle(title);
         reviewBean.setRvContents(contents);
-        reviewBean.setRvScore(0);
+        reviewBean.setRvPhoto(photo);
+        reviewBean.setOptionValue(optionValue);
         reviewBean.setMemKey(0);
+        reviewBean.setProductKey(0);
 
 
         ReviewMgr reviewMgr = new ReviewMgr();
