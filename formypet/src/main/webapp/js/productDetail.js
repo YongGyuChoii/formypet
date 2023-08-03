@@ -338,7 +338,7 @@ $(function(){
 		var productCount = $("input[name='productCount']").val();
 		
 		//상품 가격
-		var price = $(this).parent().parent().parent().parent().find("input[name='productSalePrice']").val();
+		var price = $("input[name='productSalePrice']").val();
 
 		var countProduct = $(this).next().text(); //+옆에 상품수량
 		countProduct = parseInt(countProduct);
@@ -355,22 +355,22 @@ $(function(){
 		//전체 가격, 전체 수량
 		var totalCount = 0;
 		var totalPrice = 0;
-		var numberIcon = $(this).parent().parent().parent().find(".numberIcon").get();
-		var salePrice = $(this).parent().parent().parent().find(".salePrice").get();
+		var numberIcon = $(".numberIcon").get();
+		var salePrice = $(".salePrice").get();
 		for(var i=0; i<numberIcon.length; i++){
 			totalCount = totalCount + parseInt(numberIcon[i].innerHTML);
 		}
 		for(var i=0; i<salePrice.length; i++){
 			totalPrice = totalPrice + parseInt(salePrice[i].innerHTML.replace(",", ""));
 		}
-		$(this).parent().parent().parent().parent().find('.totalPrice').text(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-		$(this).parent().parent().parent().parent().find('.totalCount').text(totalCount);
+		$('.totalPrice').text(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+		$('.totalCount').text(totalCount);
 	});
 	
 	//상품수량 -
 	$(document).on("click",".removeIcon",function(){
 		//상품 가격
-		var price = $(this).parent().parent().parent().parent().find("input[name='productSalePrice']").val();
+		var price = $("input[name='productSalePrice']").val();
 		
 		var countProduct = $(this).prev().text();
 		countProduct = parseInt(countProduct);
@@ -386,34 +386,34 @@ $(function(){
 		//전체 가격, 전체 수량
 		var totalCount = 0;
 		var totalPrice = 0;
-		var numberIcon = $(this).parent().parent().parent().find(".numberIcon").get();
-		var salePrice = $(this).parent().parent().parent().find(".salePrice").get();
+		var numberIcon = $(".numberIcon").get();
+		var salePrice = $(".salePrice").get();
 		for(var i=0; i<numberIcon.length; i++){
 			totalCount = totalCount + parseInt(numberIcon[i].innerHTML);
 		}
 		for(var i=0; i<salePrice.length; i++){
 			totalPrice = totalPrice + parseInt(salePrice[i].innerHTML.replace(",", ""));
 		}
-		$(this).parent().parent().parent().parent().find('.totalPrice').text(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
-		$(this).parent().parent().parent().parent().find('.totalCount').text(totalCount);
+		$('.totalPrice').text(totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+		$('.totalCount').text(totalCount);
 	});
 	
 	//회원 장바구니 추가
 	$(document).on("click",".addCart",function(){
-		var productKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='productKey']").val();
-		var memKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memKey']").val();
+		var productKey = $("input[name='productKey']").val();
+		var memKey = $("input[name='memKey']").val();
 		
 		//상품수량
 		var cartCount = [];
-		var cartCount1 = $(this).parent().parent().parent().find('.numberIcon').get();
+		var cartCount1 = $('.numberIcon').get();
 		for(var i=0; i<cartCount1.length; i++){
 			cartCount[i] = cartCount1[i].innerHTML;
 		}
 		
 		//상품옵션
 		var optionText = [];
-		var optionText1 = $(this).parent().parent().parent().find('.optionText').get();
-		var optionChoose = $(this).parent().parent().parent().find('.optionChoose');
+		var optionText1 = $('.optionText').get();
+		var optionChoose = $('.optionChoose');
 		for(var i=0; i<optionText1.length; i++){
 			optionText[i] = optionText1[i].innerHTML;
 		}
@@ -430,7 +430,7 @@ $(function(){
 					if(data == true){
 						alert('장바구니에 추가 되었습니다.')
 						if(confirm("장바구니로 이동 하시겠습니까?")){
-							 location.href = "cart/cart.jsp";
+							 location.href = "../cart/cart.jsp";
 						}else {
 						     location.reload();
 						}
@@ -448,19 +448,19 @@ $(function(){
 	
 	//비회원 장바구니 추가
 	$(document).on("click",".addNoMemCart",function(){
-		var productKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='productKey']").val();
+		var productKey = $("input[name='productKey']").val();
 		
 		//상품수량
 		var cartCount = [];
-		var cartCount1 = $(this).parent().parent().parent().find('.numberIcon').get();
+		var cartCount1 = $('.numberIcon').get();
 		for(var i=0; i<cartCount1.length; i++){
 			cartCount[i] = cartCount1[i].innerHTML;
 		}
 		
 		//상품옵션
 		var optionText = [];
-		var optionText1 = $(this).parent().parent().parent().find('.optionText').get();
-		var optionChoose = $(this).parent().parent().parent().find('.optionChoose');
+		var optionText1 = $('.optionText').get();
+		var optionChoose = $('.optionChoose');
 		for(var i=0; i<optionText1.length; i++){
 			optionText[i] = optionText1[i].innerHTML;
 		}
@@ -477,7 +477,7 @@ $(function(){
 					if(data == true){
 						alert('장바구니에 추가 되었습니다.')
 						if(confirm("장바구니로 이동 하시겠습니까?")){
-							 location.href = "cart/cart.jsp";
+							 location.href = "../cart/cart.jsp";
 						}else {
 						     location.reload();
 						}

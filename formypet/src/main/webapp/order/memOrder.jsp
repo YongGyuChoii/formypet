@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,7 +11,10 @@
     <link rel="stylesheet"  href="../css/order.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="../js/order.js"></script>
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
     <div id="wrap">
@@ -27,8 +31,8 @@
         <div class="titleArea">
         	<h2>Order</h2>
         </div>
-      <div class="memOrderJsp">  
-      <div clss="orderListArea"> 
+      <div class="memOrderJsp"> </div> 
+      <div class="orderListArea"> </div>
         <div class="headTitle">
         	<h3>국내배송상품 주문내역</h3>
         	<p class="button">
@@ -36,7 +40,7 @@
         	</p>
         </div>
         <div class="gBorder">
-        	<table border="1" summary>
+        	<table border="1">
         		<caption></caption>
         		<colgroup>
         			<col style="width:27px">
@@ -51,7 +55,7 @@
         		</colgroup>
         		<thead>
         			<tr>
-        				<th scope="col" class>
+        				<th scope="col">
         					<input type="checkbox" onclick="#">
         				</th>
         				<th scope="col">이미지</th>
@@ -66,7 +70,7 @@
         		</thead>
         		<tfoot class="tableFoot">
         			<tr>
-        				<td class></td>
+        				<td></td>
         				<td colspan="8">
         					<span class="footLeft">[기본배송]</span>
         					상품구매금액
@@ -84,7 +88,7 @@
         		</tfoot>
         		<tbody class="tableBody">
         			<tr class="bTable">
-        				<td class>
+        				<td>
         					<input type="checkbox">
         				</td>
         				<td class="firstLine">
@@ -113,7 +117,7 @@
         						<br>
         					</div>
         				</td>
-        				<td rowspan="1" class style="text-align: center;">[조건]</td>
+        				<td rowspan="1" style="text-align: center;">[조건]</td>
         				<td class="fourth">
         					<strong>
         						<span id="bodyTotalPrice">32,900</span>
@@ -140,7 +144,7 @@
         		<p class="required">* 필수입력사항</p>
         	</div>
         	<div class="orderImpormation">
-        		<table border="1" summary>
+        		<table border="1">
         			<colgroup>
         				<col style="width:139px;">
         				<col style="width:auto;">
@@ -152,10 +156,10 @@
         						<input id="orderName" name="orderName" type="text" size="15">
         					</td>
         				</tr>
-        				<tr class>
+        				<tr>
         					<th scope="row">휴대전화</th>
-          					<td class>
-          						<select id="orderPhone1" name="orderPhone1" value="010">
+          					<td>
+          						<select id="orderPhone1" name="orderPhone1">
           							<option value="010">010</option>
           						</select>
           						-				
@@ -199,14 +203,14 @@
         		<p class="required">* 필수입력사항</p>
         	</div>
         	<div class="orderImpormation">
-        		<table border="1" summary>
+        		<table border="1">
         			<caption>배송 정보 입력</caption>
         			<colgroup>
         				<col style="width:139px;">
         				<col style="width:auto;">
         			</colgroup>
-        			<tbody class>
-        				<tr class>
+        			<tbody>
+        				<tr>
         					<th scope="row">배송지 선택</th>
         					<td>
         						<div class="address">
@@ -237,10 +241,10 @@
         						<span class="grid">나머지주소(선택입력가능)</span>
         					</td>
         				</tr>
-        				<tr class>
+        				<tr>
         					<th scope="row">휴대전화</th>
         					<td>
-          						<select id="orderPhone1" name="orderPhone1" value="010">
+          						<select id="orderPhone1" name="orderPhone1">
           							<option value="010">010</option>
           						</select>
           						-
@@ -251,7 +255,7 @@
         				</tr>
         			</tbody>
         			<tbody class="delivery">
-        				<tr class>
+        				<tr>
         					<th scope="row">배송메시지</th>
         					<td>
         						<textarea id="delMessage" name="delMessage" cols="70"></textarea>
@@ -265,7 +269,7 @@
         		<h3>추가정보</h3>
         	</div>
         	<div class="orderImpormation">
-        		<table border="1" summary>
+        		<table border="1">
         			<caption>추가 정보 입력</caption>
         			<colgroup>
         				<col style="width:139px;">
@@ -295,11 +299,11 @@
         </div>
         <div class="totalArea">
         	<div class="totalTable">
-        		<table border="1" summary>
+        		<table border="1">
         			<caption>결제 예정 금액</caption>
         			<colgroup>
         				<col style="width:33.33%">
-        				<col style="width:33.33%" class>
+        				<col style="width:33.33%">
         				<col style="width:33.33%">
         			</colgroup>
         			<thead>
@@ -307,7 +311,7 @@
         					<th scope="col">
         						<strong>총 주문 금액</strong>
         					</th>
-        					<th scope="col" class>
+        					<th scope="col">
         						<strong>총 할인 + 부가결제 금액</strong>
         					</th>
         					<th scope="col">
@@ -348,7 +352,7 @@
         	</div>
         	<div class="detail">
         		<div class="gMerge">
-        			<table border="1" summary>
+        			<table border="1">
         				<colgroup>
         					<col style="width:139px">
         					<col style="width:auto">
@@ -374,7 +378,7 @@
         		</div>
         		
         		<div class="gMerge">
-        			<table border="1" summary>
+        			<table border="1">
         				<caption>부가결제 내역</caption>
         				<colgroup>
         					<col style="width:139px">
@@ -433,7 +437,7 @@
         			<li class="item1">안심클릭 결제모듈이 설치되지 않은 경우 ActiveX 수동설치</li>
         			<li class="item2">안심클릭 결제모듈이 설치되지 않은 경우 ActiveX 수동설치</li>
         		</ol>
-        		<div class>
+        		<div>
         			<h4>아래의 쇼핑몰일 경우에는 모든 브라우저 사용이 가능합니다.</h4>
         			<ol>
         				<li class="item1">KG이니시스, KCP, LG U+를 사용하는 쇼핑몰일 경우</li>

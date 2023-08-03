@@ -96,6 +96,8 @@
             <p class="best fw-bold">BEST</p>
             <%} %>
             <p class="fw-bold fs-3"><%=pb.getProductName() %></p>
+            <input type="hidden" name="productKey" value="<%=pb.getProductKey() %>" />
+           	<input type="hidden" name="memKey" value="<%=memKey %>" />
             <input type="hidden" name="productName" value="<%=pb.getProductName() %>"/>
             <div class="row mb-3">
             	<div class="col showInfo">
@@ -161,9 +163,15 @@
 			</div>
 			
 			<div class="btn-group mt-4 groupBtn" role="group" aria-label="Basic mixed styles example">
-			  <button type="button" class="btn btn-light text-dark fw-bold">ADD TO CART</button>
-			  <button type="button" class="btn btn-primary fw-bold">BUY NOW</button>
+			  <%if(memKey != null){ %>
+			  <button type="button" class="btn btn-light text-dark fw-bold addCart">ADD TO CART</button>
+			  <button type="button" class="btn btn-primary fw-bold buyNow">BUY NOW</button>
+			  <%} else {%>
+			  <button type="button" class="btn btn-light text-dark fw-bold addNoMemCart">ADD TO CART</button>
+			  <button type="button" class="btn btn-primary fw-bold buyNoMemNow">BUY NOW</button>
+			  <%} %>
 			</div>
+			
         </div>
         
       </div>

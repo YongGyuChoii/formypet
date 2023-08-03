@@ -462,4 +462,25 @@ $(function(){
 		
 	});
 	
+	//회원 바로구매
+	$(document).on("click",".buyNow",function(){
+		var memKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memKey']").val();
+		if(confirm("구매하시겠습니까?")){
+			$.ajax({
+				type : "POST",
+				traditional: true,	// ajax 배열 넘기기 옵션!
+				url: "/formypet/order/MemOrderServlet",
+				data : {memKey:memKey},
+				dataType : "json",
+				success : function(data) { 
+					
+				},
+				errer : function() {
+					alert('errer');
+				}
+			});
+		}
+		
+	});
+	
 });
