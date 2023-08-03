@@ -62,7 +62,7 @@ public class ProductManagementMgr {
 				sql = "select * from  product where " + keyField + " like ? ";
 				sql += "order by productKey desc limit ?,?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + keyWord + "%");
+				pstmt.setString(1,keyWord);
 				pstmt.setInt(2, start);
 				pstmt.setInt(3, end);
 			}
@@ -108,15 +108,15 @@ public class ProductManagementMgr {
 				con = pool.getConnection();
 				//keyWord 값이 없는 경우 상품 조회
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "SELECT * FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey order by fileKey desc limit ?,?";
+					sql = "SELECT * FROM product_file INNER JOIN product ON product_file.productKey = product.productKey order by fileKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, start);
 					pstmt.setInt(2, end);
 				} else { //keyField 와 keyWord 값이 있는 경우 상품 조회
-					sql = "SELECT * FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey" + keyField + " like ? ";
+					sql = "SELECT * FROM product_file INNER JOIN product ON product_file.productKey = product.productKey where product_file." + keyField + " like ? ";
 					sql += "order by fileKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%" + keyWord + "%");
+					pstmt.setString(1,keyWord);
 					pstmt.setInt(2, start);
 					pstmt.setInt(3, end);
 				}
@@ -157,15 +157,15 @@ public class ProductManagementMgr {
 				con = pool.getConnection();
 				//keyWord 값이 없는 경우 상품 조회
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "select * from option_code order by ocKey desc limit ?,?";
+					sql = "SELECT * FROM option_code INNER JOIN product ON option_code.productKey = product.productKey order by ocKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, start);
 					pstmt.setInt(2, end);
 				} else { //keyField 와 keyWord 값이 있는 경우 상품 조회
-					sql = "select * from  option_code where " + keyField + " like ? ";
+					sql = "SELECT * FROM option_code INNER JOIN product ON option_code.productKey = product.productKey where option_code." + keyField + " like ? ";
 					sql += "order by ocKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%" + keyWord + "%");
+					pstmt.setString(1,keyWord);
 					pstmt.setInt(2, start);
 					pstmt.setInt(3, end);
 				}
@@ -181,6 +181,7 @@ public class ProductManagementMgr {
 					bean3.setOc4(rs.getString("oc4"));
 					bean3.setOc5(rs.getString("oc5"));
 					bean3.setProductKey(rs.getInt("productKey"));
+					bean3.setProductName(rs.getString("productName"));
 		 			
 		 			vlist3.add(bean3);
 
@@ -207,9 +208,9 @@ public class ProductManagementMgr {
 				sql = "select count(productKey) from product";
 				pstmt = con.prepareStatement(sql);
 			} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-				sql = "select count(productKey) from  product where " + keyField + " like ? ";
+				sql = "select count(productKey) from  product where product." + keyField + " like ? ";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "%" + keyWord + "%");
+				pstmt.setString(1,keyWord );
 			}
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -233,12 +234,12 @@ public class ProductManagementMgr {
 				con = pool.getConnection();
 				//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "select count(fileKey) FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey";
+					sql = "select count(fileKey) FROM product_file INNER JOIN product p ON product_file.productKey = p.productKey";
 					pstmt = con.prepareStatement(sql);
 				} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-					sql = "select count(fileKey) FROM product_file f INNER JOIN product p ON f.productKey = p.productKey WHERE fileKey " + keyField + " like ? ";
+					sql = "select count(fileKey) FROM product_file INNER JOIN product p ON product_file.productKey = p.productKey where product_file." + keyField + " like ? ";
 					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%" + keyWord + "%");
+					pstmt.setString(1,keyWord);
 				}
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
@@ -262,12 +263,12 @@ public class ProductManagementMgr {
 						con = pool.getConnection();
 						//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
 						if (keyWord.equals("null") || keyWord.equals("")) {
-							sql = "select count(ocKey) from option_code";
+							sql = "select count(ocKey) FROM option_code INNER JOIN product ON option_code.productKey = product.productKey";
 							pstmt = con.prepareStatement(sql);
 						} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-							sql = "select count(ocKey) from  option_code where " + keyField + " like ? ";
+							sql = "select count(ocKey) FROM option_code INNER JOIN product ON option_code.productKey = product.productKey where option_code." + keyField + " like ? ";
 							pstmt = con.prepareStatement(sql);
-							pstmt.setString(1, "%" + keyWord + "%");
+							pstmt.setString(1,keyWord);
 						}
 						rs = pstmt.executeQuery();
 						if (rs.next()) {
@@ -517,7 +518,7 @@ public class ProductManagementMgr {
 			return bean;
 		}
 		
-		//productKey로 상품 조회하기(product_file)
+		//fileKey로 상품 조회하기(product_file)
 		public ProductManagementBean getpmbean(int fileKey){
 				
 			Connection con = null;
@@ -531,7 +532,7 @@ public class ProductManagementMgr {
 			try {
 				con = pool.getConnection();
 				//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
-				sql = "select * from product_file f inner join product p on f.productName = p.productName where fileKey = ?";
+				sql = "select * from product_file inner join product p on product_file.productKey = p.productKey where fileKey = ?";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, fileKey);
@@ -554,7 +555,7 @@ public class ProductManagementMgr {
 				
 		}
 
-		// 상품 리스트 리턴 메서드, 상품의 productKey 값을 기준으로 해당 게시물을 조회한다.
+		// 상품 리스트 리턴 메서드, ocKey 값을 기준으로 해당 게시물을 조회한다.
 		public ProductManagementBean getpm3(int ocKey) {
 			
 			Connection con = null;
@@ -568,7 +569,7 @@ public class ProductManagementMgr {
 			try {
 				con = pool.getConnection();
 				//productKey 값을 기준으로 option_code 테이블에서 게시물을 조회한다.
-				sql = "select * from option_code where ocKey=?";
+				sql = "select * from option_code INNER JOIN product on option_code.productKey = product.productKey where ocKey=?";
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setInt(1, ocKey);
@@ -582,6 +583,7 @@ public class ProductManagementMgr {
 					bean.setOc4(rs.getString("oc4"));
 					bean.setOc5(rs.getString("oc5"));
 					bean.setProductKey(rs.getInt("productKey"));
+					bean.setProductName(rs.getString("productName"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

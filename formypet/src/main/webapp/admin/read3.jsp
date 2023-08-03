@@ -18,6 +18,7 @@
 	  String oc3 = bean3.getOc3();//option_code
 	  String oc4 = bean3.getOc4();//option_code
 	  String oc5 = bean3.getOc5();//option_code
+	  String productName = bean3.getProductName();
 	  int productKey = bean3.getProductKey();//option_code 용 
 
 	  session.setAttribute("bean3",bean3);
@@ -45,12 +46,16 @@
 	  <td colspan="2">
 	   <table cellpadding="3" cellspacing="0" width="100%">
 	  <tr> 
-	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303"> 상품 번호</font></td>
+	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303">상품 옵션번호</font></td>
 	  	<td colspan="3"><%=ocKey%></td>
 	 </tr> 
 	 <tr> 
-	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303"> 상품 옵션번호</font></td>
+	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303">상품 번호</font></td>
 	  	<td colspan="3"><%=productKey%></td>
+	 </tr>
+	 <tr> 
+	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303">상품 이름</font></td>
+	  	<td colspan="3"><%=productName%></td>
 	 </tr>
 	 <tr> 
 	  	<td align="center"  bgcolor= "#002266" ><font color = "#ffc303">옵션 1</font></td>

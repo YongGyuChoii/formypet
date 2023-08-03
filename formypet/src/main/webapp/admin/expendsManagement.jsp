@@ -189,7 +189,6 @@
 	    				<option value="memKey">회원 번호</option>
 	    				<option value="memOrderKey">회원 주문번호</option>
 	    				<option value="nonMemOrderKey">비회원 주문번호</option>
-	    				<option value="productName">상품 이름</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
 	   				<input type="button"  value="찾기" onClick="javascript:check()">
@@ -238,11 +237,6 @@
 		 document.readFrm.submit();
 	} 
 	
-	function read(expendsKey){
-		document.readFrm.expendsKey.value=expendsKey;
-		document.readFrm.action="../admin/read.jsp";
-		document.readFrm.submit();
-	}
 	
 	function check() {
 	     if (document.searchFrm.keyWord.value == "") {

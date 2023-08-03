@@ -8,6 +8,7 @@ public class ReviewManagementBean {
 	private int rvScore;
 	private int memKey;
 	private String optionValue;
+	private int productKey;
 	
 	
 	public int getRvKey() {
@@ -31,6 +32,10 @@ public class ReviewManagementBean {
 	public String getOptionValue() {
 		return optionValue;
 	}
+	public int getProductKey() {
+		return productKey;
+	}
+	
 	
 	
 	public void setRvKey(int rvKey) {
@@ -54,4 +59,10 @@ public class ReviewManagementBean {
 	public void setOptionValue(String optionValue) {
 		this.optionValue = optionValue;
 	}
+	public void setProductKey(int productKey) {
+		this.productKey = productKey;
+	}
+	
+	
+	
 }

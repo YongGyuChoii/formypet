@@ -185,7 +185,6 @@
 	  			<td align="center" valign="bottom">
 	   				<select name="keyField" size="1" >
 	    				<option value="productKey">상품 번호</option>
-	    				<option value="fileKey">상품 파일 번호</option>
 	    				<option value="productName">상품 이름</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
