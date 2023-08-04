@@ -35,17 +35,15 @@ public class ReviewSave extends HttpServlet {
         String photo = req.getParameter("photo");
         System.out.println(photo);
       
-       String[] ratingList = req.getParameterValues("score");
+       String[] ratingList = req.getParameterValues("rating");
+    
         Integer score = Integer.parseInt(ratingList[ratingList.length-1]);
         
      
         String optionValue = req.getParameter("optionValue");
         System.out.println(optionValue);
         
-     //   int memKey = Integer.parseInt(req.getParameter("memKey"));
-       
-    //    Integer productkey = Integer.parseInt("productkey") ;
-    //   int productkey = Integer.parseInt(req.getParameter("productkey"));
+    
         
 
         ReviewBean reviewBean = new ReviewBean();
