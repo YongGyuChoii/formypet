@@ -1,5 +1,8 @@
 package review;
 
+import java.math.BigDecimal;
+
+
 public class ReviewBean {
 
     private String rvTitle; // 제목
@@ -7,8 +10,8 @@ public class ReviewBean {
     private String rvPhoto; // 사진
     private Integer rvScore; // 점수
     private String optionValue; // 옵션
-    private Integer memKey;
-    private Integer productKey;
+    private BigDecimal memKey;
+    private BigDecimal productKey;
     
 
 //제목
@@ -60,20 +63,32 @@ public class ReviewBean {
     }
     
     //제품
-    public Integer getProductKey() {
+    public BigDecimal getProductKey() {
         return productKey;
     }
 
-    public void setProductKey(Integer productKey) {
+    public void setProductKey(BigDecimal productKey) {
         this.productKey = productKey;
     }
 
     //회원
-    public Integer getMemKey() {
+    public BigDecimal getMemKey() {
         return memKey;
     }
 
-    public void setMemKey(Integer memKey) {
+    public void setMemKey(BigDecimal memKey) {
         this.memKey = memKey;
     }
+    @Override
+    public String toString() {
+        return "ReviewBean{" +
+                "rvTitle='" + rvTitle + '\'' +
+                ", rvContents='" + rvContents + '\'' +
+                ", rvPhoto='" + rvPhoto + '\'' +
+               ", optionValue='" + optionValue + '\'' +
+                ", rvScore=" + rvScore +
+                ", memKey=" + memKey +
+                ", productKey=" + productKey +
+                '}';
+}
 }

@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.math.BigDecimal;
 
 @WebServlet("/review/save")
 public class ReviewSave extends HttpServlet {
@@ -54,9 +52,12 @@ public class ReviewSave extends HttpServlet {
         reviewBean.setRvTitle(title);
         reviewBean.setRvContents(contents);
         reviewBean.setRvPhoto(photo);
+        reviewBean.setRvScore(score);
         reviewBean.setOptionValue(optionValue);
-        reviewBean.setMemKey(0);
-        reviewBean.setProductKey(0);
+       
+        reviewBean.setMemKey(new BigDecimal("2"));
+        reviewBean.setProductKey(new BigDecimal("2"));
+
 
 
         ReviewMgr reviewMgr = new ReviewMgr();

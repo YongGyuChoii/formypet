@@ -28,13 +28,19 @@ public class ReviewMgr {
     // 저장하기
     public Integer saveReview(ReviewBean reviewBean) {
     	 System.out.println("Mgr 메서드 진입");
+    	 
+
+         PreparedStatement pstmt = null;
+
+    	 
         try {
             con = pool.getConnection();
             String query = "INSERT INTO REVIEW (rvTitle, rvContents,rvPhoto ,rvScore,optionValue ,memKey,productKey) VALUES (?,?,?,?,?,?,?)";
-            pstmt = con.prepareStatement(sql);
-            rs = pstmt.executeQuery();
-
+         
             pstmt = con.prepareStatement(query);
+       
+
+        
             pstmt.setString(1, reviewBean.getRvTitle());
             System.out.println("getRvTitle = " + reviewBean.getRvTitle());
             
@@ -50,8 +56,10 @@ public class ReviewMgr {
             pstmt.setString(5, reviewBean.getOptionValue());
             System.out.println("getOptionValue = " + reviewBean.getOptionValue());
             
-        	pstmt.setInt(6, 0);
-            pstmt.setInt(7, 0);
+            pstmt.setBigDecimal(6, reviewBean.getMemKey());
+            pstmt.setBigDecimal(7, reviewBean.getProductKey());
+
+            System.out.println(pstmt.toString());
             return pstmt.executeUpdate();
           
         } catch (Exception e) {
