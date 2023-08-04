@@ -35,6 +35,8 @@
 				}  
 			}
 		}
+	} else {
+		
 	}
 	
 	ArrayList<ProductBean> pb = new ArrayList<>();
@@ -158,9 +160,9 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn" class="downBtn">-</button>
-                <input id="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px;">                
-                <button name="countBtn" class="upBtn">+</button>
+                <button name="countBtn" class="downBtn" onclick="location:'test.jsp';">-</button>
+                <input name="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px;">                
+                <button name="countBtn" class="upBtn" onclick="fnCalCount('p',this);">+</button>
               </td>
               </from>            
               <% if(i == 0) {%>
@@ -171,6 +173,7 @@
 			  <% } %>
               <td><strong><fmt:formatNumber value="<%=calPrice%>" pattern="#,###"/>원</strong></td>          
             </tr>
+
           <% } %>
           </tbody>
           <tfoot>
@@ -269,7 +272,7 @@
               	} else {
               		totalViewPrice = productViewPrice * cartCount[i] + deliveryFee;
               	}              	
-          %>
+          	%>
               <td>
               		<input id="chack1" class="chack" type="checkbox" checked="checked" name="checkRow">
         			<label for="chack1" class="chack_ele"></label>
@@ -293,9 +296,9 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn" class="downBtn">-</button>
-                <input id="countInput" class="countInput" type="text" value="<%=cartCount[i]%>" style="width: 30px;">                
-                <button name="countBtn" class="upBtn">+</button>
+                <input type="button" name="countBtn" id="downBtn">+</input>
+                <input name="countInput" class="countInput" type="text" value="<%=cartCount[i]%>" style="width: 30px;">                
+                <input type="button" name="countBtn" id="upBtn" >-</input>
               </td>
               </from>
               <% if(i == 0) {%>

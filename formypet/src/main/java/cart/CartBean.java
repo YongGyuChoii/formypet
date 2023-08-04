@@ -11,7 +11,14 @@ public class CartBean {
 	private int productSalePrice;
 	private String productImg;
 	private String optionValue;
+	private int categoryKey;
 	
+	public int getCategoryKey() {
+		return categoryKey;
+	}
+	public void setCategoryKey(int categoryKey) {
+		this.categoryKey = categoryKey;
+	}
 	public String getOptionValue() {
 		return optionValue;
 	}

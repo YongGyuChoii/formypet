@@ -46,6 +46,7 @@ public class CartMgr {
 				bean.setProductSalePrice(rs.getInt("productSalePrice"));
 				bean.setProductImg(rs.getString("productImg"));
 				bean.setOptionValue(rs.getString("optionValue"));
+				bean.setCategoryKey(rs.getInt("categoryKey"));
 				pla.add(bean);
 			}
 		}catch (Exception e) {
@@ -150,18 +151,17 @@ public class CartMgr {
 		return inmc;
 	}
 	
-	//장바구니 수량 변경
-	public void cartQuantity(CartBean bean) {
+	//장바구니 수량 변경+
+	public void cartQuantity(int cartKey) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		
 		try {
 			con = pool.getConnection();
-			sql = "UPDATE cart SET cartCount=? WHERE cartKey=?;";			
+			sql = "UPDATE cart SET cartCount=cartCount+1 WHERE cartKey=?;";			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, bean.getCartCount());
-			pstmt.setInt(2, bean.getCartKey());	
+			pstmt.setInt(1, cartKey);	
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {

@@ -32,7 +32,7 @@ $(function(){
 
     $('.cart_table').on('click','.agreechkAll', common.allCheck)
     $('.cart_table').on('click','.chack', common.check)
-    
+
     
  
 });
