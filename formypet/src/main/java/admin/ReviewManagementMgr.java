@@ -75,7 +75,7 @@ public class ReviewManagementMgr {
 					bean.setMemKey(rs.getInt("memKey")); //회원키
 					bean.setOptionValue(rs.getString("optionValue")); //
 					bean.setRvKey(rs.getInt("rvKey")); //리뷰 고유 번호
-		 			
+		 			bean.setProductKey(rs.getInt("productKey"));
 		 			vlist.add(bean);
 				}
 			}catch(Exception e) {
@@ -141,6 +141,7 @@ public class ReviewManagementMgr {
 							bean.setMemKey(rs.getInt("memKey"));
 							bean.setOptionValue(rs.getString("OptionValue"));
 							bean.setRvKey(rs.getInt("rvKey"));
+							bean.setProductKey(rs.getInt("productKey"));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

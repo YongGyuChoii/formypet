@@ -35,7 +35,7 @@ public class ExpendsManagementMgr {
 			e.printStackTrace();
 		}
 	}
-	 
+	 //매출 리스트 expends db
 	    public Vector<ExpendsManagementBean> geteMList(String keyField, String keyWord, int start, int end) {
 	    	
 	    	Connection con = null;
@@ -51,14 +51,16 @@ public class ExpendsManagementMgr {
 				con = pool.getConnection();
 				//keyWord 값이 없는 경우 게시물 조회
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
-							+ "INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey order by expendsKey desc limit ?, ?";
+					sql = "SELECT * FROM ((expends INNER JOIN product ON expends.productKey = product.productKey)"
+							+ "INNER JOIN orders ON expends.ordersKey = orders.ordersKey) where expendsKey"
+							+ " order by expendsKey desc limit ?, ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, start);
 					pstmt.setInt(2, end);
 				} else { //keyField 와 keyWord 값이 있는 경우 게시물 조회
-					sql = "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
-							+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey" + keyField + " like ? ";
+					sql = "SELECT * FROM ((expends INNER JOIN product ON expends.productKey = product.productKey)"
+							+ "INNER JOIN orders ON expends.ordersKey = orders.ordersKey)"
+							+ "WHERE expends." + keyField + " like ? ";
 					sql += "order by expendsKey desc limit ? , ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%" + keyWord + "%");
@@ -90,7 +92,7 @@ public class ExpendsManagementMgr {
 	       return vlist; //결과 값을 vlist 로 리턴.
 	    }
 	    
-	 // memKey값을 기준으로 해당 게시물을 조회한다.
+	 // expendsKey값을 기준으로 해당 게시물을 조회한다. expends db
 		public ExpendsManagementBean getBoard(int expendsKey) {
 			
 			Connection con = null;

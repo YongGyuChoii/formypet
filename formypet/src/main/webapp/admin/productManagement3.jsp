@@ -110,6 +110,7 @@
 						<tr class = "border">
 							<td>상품옵션 번호</td>
 							<td>상품 번호</td>
+							<td>상품 이름</td>
 							<td>옵션 1</td>
 							<td>옵션 2</td>
 							<td>옵션 3</td>
@@ -124,6 +125,7 @@
 								
 								int productKey = bean3.getProductKey();
 								int ocKey = bean3.getOcKey();
+								String productName = bean3.getProductName();
 								String oc1 = bean3.getOc1();
 								String oc2 = bean3.getOc2();
 								String oc3 = bean3.getOc3();
@@ -137,6 +139,7 @@
 							
 							<td align="center"><a href="javascript:read('<%=ocKey%>')"><%=ocKey%></a></td>
 							<td align="center"><%=productKey%></td>
+							<td align="center"><%=productName%></td>
 							<td align="center"><%=oc1%></td>
 							<td align="center"><%=oc2%></td>
 							<td align="center"><%=oc3%></td>
