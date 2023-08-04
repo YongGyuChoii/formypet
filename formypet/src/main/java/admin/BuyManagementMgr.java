@@ -2,99 +2,175 @@ package admin;
 
 import java.sql.*;
 import java.util.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Vector;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.PageContext;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import admin.DBConnectionMgr;
+import util.UtilMgr;
+import admin.BuyManagementBean;
 
 public class BuyManagementMgr {
-	//final 키워드를 사용하여 String 타입 변수를 선언한 다음, DB 연결에 필요한 정보를 대입합니다.
-	 	private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	 	
-	 	private final String JDBC_URL = "jdbc:mysql://localhost:3306/formypet";
-	 	
-	 	private final String USER = "root";
-	 	
-	 	private final String PASS = "0000";
+		private DBConnectionMgr pool;
+		
+		public BuyManagementMgr() {
+			try {
+				pool = DBConnectionMgr.getInstance();
+				} catch (Exception e) {
+				e.printStackTrace();
+				}
+		}
 	 
-	 	public BuyManagementMgr() {
-	 		
-	 	 try{
-	 	   Class.forName(JDBC_DRIVER);//변수를 이용하여 연결정보 삽입.
-	 	  
-	 	   
-	 	   }catch(Exception e){
-	 	      System.out.println("Error : JDBC 드라이버 로딩 실패");
-	 	   }
-	     }
-	 
-	 	public Vector<BuyManagementBean> getBuyManagementList() {
-	    	
-	    	//DB 연결 하는 Connection 객체생성
-		   Connection conn = null;
-		   
-		   //SQL 쿼리 담을 Statement 객체 생성
-		   Statement stmt = null;
-		   
-		   //결과값 담을 ResultSet 객체 생성
-	       ResultSet rs = null;
-	       
-	       //RegisterBean 클래스 타입의 Vector 배열 vlist 선언
-	       Vector<BuyManagementBean> vlist = new Vector<BuyManagementBean>();
-	       
-	       try {
-	    	  //DB연결 시작
-	          conn = DriverManager.getConnection(JDBC_URL, USER, PASS);
-	          
-	          String strQuery = "select * from buy_and_refund";
-	          
-	          stmt = conn.createStatement();
-	          
-	          rs = stmt.executeQuery(strQuery);
-	          
-	          //while 반복문을 사용하여 resultset 객체인 rs에 담긴 조회쿼리 결과를 
-	          //RegisterBean 클래스에 선언된 변수에 대입 한다.
-			  while (rs.next()) {
-				  
-				  BuyManagementBean bean = new BuyManagementBean();//RegisterBean 클래스 객체생성
-	             
-			 	 bean.setMemOrderKey (rs.getString("memOrderKey"));
-			 	 //RegisterBean 클래스의 setter 메서드를 이용하여 변수에 데이터베이스 에서 조회된 결과 값을 담는다.
-				 bean.setNonMemOrderKey (rs.getString("nonMemOrderKey"));	 			 
-	 			 bean.setBuyandrefundTitle (rs.getString("buyandrefundTitle"));
-	 			 bean.setBuyandrefundContents (rs.getString("buyandrefundContents"));	 			
-	 			 bean.setBuyandrefundDate (rs.getInt("buyandrefundDate"));	 			
-	 			 vlist.addElement(bean);
-	          }
-			  //예외처리
-	       } catch (Exception ex) {
-	          System.out.println("Exception" + ex);
-	       } finally {
-	          if(rs!=null)   try{rs.close();}  catch(SQLException e){}
-			  if(stmt!=null) try{stmt.close();}catch(SQLException e){}
-		      if(conn!=null) try{conn.close();}catch(SQLException e){}
-	       }
-	       return vlist; //결과 값을 vlist 로 리턴.
-	    }
-//	    //회원 비회원 구분
-//	    public boolean checkMember(String memOrderKey) {
-//	    	Connection con  = null;
-//	    	PreparedStatement pstmt = null;
-//	    	ResultSet rs = null;
-//	    	String sql = null;
-//	    	boolean flag = false;
-//	    	try {
-//	    		con = DriverManager.getConnection(JDBC_URL, USER, PASS);
-//	    		sql = "select memOrderKey from buy_and_refund where memOrderKey = ?";
-//	    		pstmt = con.prepareStatement(sql);
-//	    		pstmt.setString(1, memOrderKey);
-//	    		flag = pstmt.executeQuery().next();
-//	    	}
-//	    	catch (Exception e) {
-//	    		e.printStackTrace();
-//	    	}
-//	    	finally {
-//		          if(rs!=null)   try{rs.close();}  catch(SQLException e){}
-//				  if(pstmt!=null) try{pstmt.close();}catch(SQLException e){}
-//			      if(con!=null) try{con.close();}catch(SQLException e){}
-//		       }
-//		       return flag; //결과 값을 vlist 로 리턴.
-//
-//	    }
+		//환불 리스트(product db)
+		public Vector<BuyManagementBean> getbList(String keyField, String keyWord, int start, int end) {
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			String sql = null;
+			
+			Vector<BuyManagementBean> vlist = new Vector<BuyManagementBean>();
+			
+			try {
+				
+				con = pool.getConnection();
+				//keyWord 값이 없는 경우 상품 조회
+				if (keyWord.equals("null") || keyWord.equals("")) {
+					sql = "select * from b_refund b INNER JOIN product p on b.productKey = p.productKey order by brKey desc limit ?,?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, start);
+					pstmt.setInt(2, end);
+				} else { //keyField 와 keyWord 값이 있는 경우 상품 조회
+					sql = "select * from b_refund b INNER JOIN product p on b.productKey = p.productKey where b." + keyField + " like ? ";
+					sql += "order by brKey desc limit ?,?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1,keyWord);
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, end);
+				}
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					BuyManagementBean bean = new BuyManagementBean();
+					bean.setBrKey(rs.getInt("brKey"));
+					bean.setMemKey(rs.getInt("memKey"));
+					bean.setProductKey(rs.getInt("productKey"));
+					bean.setMemOrderKey(rs.getInt("memOrderKey"));
+					bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
+					bean.setOrdersKey(rs.getInt("ordersKey"));
+					bean.setrYn(rs.getString("rYn"));
+				 	//bean.setReCause(rs.getString("reCause"));
+				 	bean.setProductName(rs.getString("productName"));
+		 			vlist.add(bean);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				pool.freeConnection(con,pstmt,rs);
+			}
+			return vlist;
+		}
+		//상품 수	(product_file db용)
+				public int getTotalCount(String keyField, String keyWord) {
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					String sql = null;
+					int totalCount = 0;
+					try {
+						con = pool.getConnection();
+						//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
+						if (keyWord.equals("null") || keyWord.equals("")) {
+							sql = "select count(brKey) FROM b_refund b INNER JOIN product p on b.productKey = p.productKey";
+							pstmt = con.prepareStatement(sql);
+						} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
+							sql = "select count(brKey) FROM b_refund b INNER JOIN product p on b.productKey = p.productKey where b." + keyField + " like ? ";
+							pstmt = con.prepareStatement(sql);
+							pstmt.setString(1,keyWord);
+						}
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							totalCount = rs.getInt(1);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt, rs);
+					}
+					return totalCount;
+				}
+				//brKey로 상품 조회하기(product_file)
+				public BuyManagementBean getbbean(int brKey){
+						
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					ResultSet rs = null;
+					
+					String sql = null;
+					
+					BuyManagementBean bean = new BuyManagementBean();
+					
+					try {
+						con = pool.getConnection();
+						//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
+						sql = "select * from b_refund b INNER JOIN product p on b.productKey = p.productKey where brKey = ?";
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setInt(1, brKey);
+						rs = pstmt.executeQuery();
+						if (rs.next()) {
+							bean.setBrKey(rs.getInt("brKey"));
+							bean.setMemKey(rs.getInt("memKey"));
+							bean.setProductKey(rs.getInt("productKey"));
+							bean.setMemOrderKey(rs.getInt("memOrderKey"));
+							bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
+							bean.setOrdersKey(rs.getInt("ordersKey"));
+							bean.setrYn(rs.getString("rYn"));
+						 	//bean.setReCause(rs.getString("reCause"));
+						 	bean.setProductName(rs.getString("productName"));
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt, rs);
+					}
+					return bean;
+						
+				}
+				//승인 거절 값 db로 보내기
+				public void ryn(int brKey) {
+					
+					Connection con = null;
+					PreparedStatement pstmt = null;
+					String sql = null;
+					
+					try {
+						con = pool.getConnection();
+						
+						//ryn 쿼리로 게시물을 수정한다.
+						//brKey 으로 수정할 게시물을 찾아서 컬럼을 수정 한다.
+						sql = "update b_refund set rYn = ? where brKey";
+						BuyManagementBean bean = new BuyManagementBean();
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, bean.getrYn());
+						pstmt.executeUpdate();
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						pool.freeConnection(con, pstmt);
+					}
+				}
 	}

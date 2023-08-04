@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:useBean id = "rvmmgr" class = "admin.ReviewManagementMgr" />
-<%@page import = "admin.ReviewManagementBean"%>
+<jsp:useBean id = "bmmgr" class = "admin.BuyManagementMgr" />
+<%@page import = "admin.BuyManagementBean"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,31 +10,31 @@
 <%
 	request.setCharacterEncoding("UTF-8");	
 	String nowPage = request.getParameter("nowPage"); 
-	int rvKey = Integer.parseInt(request.getParameter("rvKey"));
+	int brKey = Integer.parseInt(request.getParameter("brKey"));
 	
-	ReviewManagementBean bean = (ReviewManagementBean) session.getAttribute("bean"); //read4에 저장한 세션 불러오기
-	rvmmgr.delrv(rvKey); 
+	bmmgr.ryn(brKey); //
 	String url = "../admin/buyManagement.jsp?nowPage=" + nowPage ;
 	response.sendRedirect(url);
 
 %>
 <script type = "text/javascript">
 	function check() {
-		document.delFrm.submit();
+		document.uFrm.submit();
 	}
 	
 	function ch() {
-		document.delFrm.self.close();
+		document.uFrm.self.close();
 	}
 </script>
 </head>
 <body>
 	<div align="center">
 			<br />
-			<form name="delFrm" method="post" action = "../admin/rvdelete.jsp">
+			<form name="uFrm" method="post" action = "../admin/buyudate.jsp">
 
 				<input type = "hidden" name = "nowPage" value = "<%=nowPage%>">
-				<input type = "hidden" name = "rvKey" value = "<%=rvKey%>">
+				<input type = "hidden" name = "brKey" value = "<%=brKey%>">
+				<input type = "hidden" name = "rYn" value = "N">
 			</form>
 		</div>
 </body>
