@@ -28,6 +28,7 @@ public class BoardReplyServlet extends HttpServlet {
 		reBean.setRef(Integer.parseInt(request.getParameter("ref"))); 
 		reBean.setPos(Integer.parseInt(request.getParameter("pos"))); 
 		reBean.setDepth(Integer.parseInt(request.getParameter("depth"))); 
+		reBean.setMemKey(Integer.parseInt(request.getParameter("memKey"))); 
 		reBean.setPass(request.getParameter("pass"));
 		
 		

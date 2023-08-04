@@ -387,8 +387,8 @@ public class BoardMgr {
 		try {
 			con = pool.getConnection();
 			
-			sql = "insert board (name,content,subject,ref,pos,depth,regdate,pass,count)";
-			sql += "values(?,?,?,?,?,?,now(),?,0)";
+			sql = "insert board (name,content,subject,ref,pos,depth,regdate,pass,count,memKey)";
+			sql += "values(?,?,?,?,?,?,now(),?,0,?)";
 			
 			//답글 이기 때문에 depth와 pos 의 값을 1씩 증가.
 			int depth = bean.getDepth() + 1;
@@ -402,6 +402,7 @@ public class BoardMgr {
 			pstmt.setInt(5, pos);
 			pstmt.setInt(6, depth);
 			pstmt.setString(7, bean.getPass());
+			pstmt.setInt(8, bean.getMemKey());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {

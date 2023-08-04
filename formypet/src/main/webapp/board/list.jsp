@@ -137,7 +137,7 @@
 						<tr>
 							<td width="70px">번 호</td>
 							<td width="300px">제 목</td>
-							<td width="120px">이 름</td>
+							<td width="120px">작성자</td>
 							<td	width="100px">날 짜</td>
 							<td width="70px">조회수</td>
 						</tr>
