@@ -1,6 +1,16 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.util.*"%>
+<%@page import="product.ProductBean"%>
+<%@page import="member.MemberBean"%>
+<%
+	//상품, 멤버, 상품수량, 옵션값 세션에서 가져오기
+	ArrayList<ProductBean> pb = (ArrayList)session.getAttribute("pb");
+	MemberBean mb = (MemberBean)session.getAttribute("mb");
+	int[] cartCount = (int[])session.getAttribute("cartCount");
+	String[] optionText = (String[])session.getAttribute("optionText");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -51,7 +61,7 @@
         			<col style="width:98px">
         			<col style="width:98px">
         			<col style="width:85px">
-        			<col style="width:98px">
+        			<col style="width:100px">
         		</colgroup>
         		<thead>
         			<tr>
@@ -87,27 +97,44 @@
         			</tr>
         		</tfoot>
         		<tbody class="tableBody">
+        			<%for(int i=0; i<pb.size(); i++){ %>
         			<tr class="bTable">
         				<td>
         					<input type="checkbox">
         				</td>
         				<td class="firstLine">
-        					<a href="#">
-        						<img style="max-width: 75px;" style="text-align:center;" src="../images/cart/cart.jpg">
+        					<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey()%>&categoryKey=<%=pb.get(i).getCategoryKey()%>">
+        						<%if(pb.get(i).getCategoryKey() == 1){ %>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/bathProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 2){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/hygieneProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 3){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/beautyProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 4){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/livingProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 5){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/walkProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 6){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/snackProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 7){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/clothesProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} %>
         					</a>
         				</td>
         				<td class="secondLine">
         					<strong class="name">
-        						<a href="#" class="proName">세이프 쿨젤매트</a>
+        						<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey()%>&categoryKey=<%=pb.get(i).getCategoryKey()%>" class="proName"><%=pb.get(i).getProductName() %></a>
         					</strong>
-        					<div class="option">[옵션 : 세이프 쿨젤매트 S]</div>
+        					<%if(optionText[i] != ""){ %>
+        					<div class="option">[옵션 : <%=optionText[i] %>]</div>
+        					<%} %>
         				</td>	
         				<td class="thirdLine">
         					<div id="productPrice">
-        						<strong>32,900원</strong>
+        						<strong><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice() %>" pattern="#,###"/></strong>
         					</div>
         				</td>
-        				<td style="text-align: center;">1</td>
+        				<td style="text-align: center;"><%=cartCount[i] %></td>
         				<td>
         					<span id="reserves" class="text3"></span>
         				</td>
@@ -120,11 +147,11 @@
         				<td rowspan="1" style="text-align: center;">[조건]</td>
         				<td class="fourth">
         					<strong>
-        						<span id="bodyTotalPrice">32,900</span>
-        						원
+        						<span id="bodyTotalPrice"><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice() * cartCount[i] %>" pattern="#,###"/></span>원
         					</strong>
         				</td>
         			</tr>
+        			<%} %>
         		</tbody>
         	</table>
         </div>
@@ -419,9 +446,6 @@
         		<div class="gMerge">
         			<tbody>
         					<tr class="payment">
-        						<td>
-        							<a href="#" id="btnCouponSelect" class="cansel">취소하기</a>
-        						</td>
         						<td>
         							<a href="#" id="btnCouponSelect" class="paymentSubmit">결제하기</a>
         						</td>

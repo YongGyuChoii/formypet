@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
+import product.ProductOptionBean;
+
 //MemberMgr 클래스는 jsp 페이지에서 자바빈즈 를 사용하여 정의된 메서드를 호출하는 DAO 와 비슷한 역할을 합니다.
 //각 기능에 맞는 메서드를 정의 하여, 메서드 호출시 DB연결, 쿼리문 처리, 결과값 return 하는 클래스 입니다.
 //앞으로 회원가입처리, 회원정보조회 등..기능이 추가 될수록 그에 맞는 메서드를 추가로 정의 하여 사용합니다.
@@ -115,6 +117,45 @@ public class MemberMgr {
 				}
 				return bean;
 			}
+	
+	//멤버에 대한 정보 불러오기
+	public MemberBean getInfoMem(int memKey) {
+		Connection con = null; 
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		
+		MemberBean bean = new MemberBean();
+		
+		try {
+			con = pool.getConnection();
+			//tblMember 테이블 insert 쿼리
+			sql = "select * from member where memKey = ?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, memKey);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bean.setMemKey(rs.getInt("memKey"));
+				bean.setMemId(rs.getString("memId"));
+				bean.setMemPhone1(rs.getInt("memPhone1"));
+				bean.setMemPhone2(rs.getInt("memPhone2"));
+				bean.setMemEmail1(rs.getString("memEmail1"));
+				bean.setMemEmail2(rs.getString("memEmail2"));
+				bean.setMemAddress(rs.getString("memAddress"));
+				bean.setMemName(rs.getString("memName"));
+				bean.setMemResident1(rs.getInt("memResident1"));
+				bean.setMemResident2(rs.getInt("memResident2"));
+				bean.setMemPoint(rs.getInt("memPoint"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
+		return bean;
+	}
 		
 }
 

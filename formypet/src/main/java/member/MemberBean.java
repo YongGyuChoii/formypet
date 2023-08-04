@@ -13,6 +13,7 @@ public class MemberBean {
 	private String memName;
 	private int memResident1;
 	private int memResident2;
+	private int memPoint;
 	
 	//getter와 setter
 	public int getMemKey() {
@@ -20,6 +21,12 @@ public class MemberBean {
 	}
 	public void setMemKey(int memKey) {
 		this.memKey = memKey;
+	}
+	public int getMemPoint() {
+		return memPoint;
+	}
+	public void setMemPoint(int memPoint) {
+		this.memPoint = memPoint;
 	}
 	public String getMemId() {
 		return memId;

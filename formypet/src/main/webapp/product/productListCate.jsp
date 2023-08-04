@@ -97,20 +97,21 @@
 	              	
                     <a href="productDetail.jsp?productKey=<%=pb.getProductKey() %>&categoryKey=<%=pb.getCategoryKey()%>">
                     <%if(pb.getCategoryKey() == 1){ %>
-                    <img src="../images/bathProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <img src="../images/bathProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인">
                     <%} else if(pb.getCategoryKey() == 2){%>
-                    <img src="../images/hygieneProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <img src="../images/hygieneProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인">
                     <%} else if(pb.getCategoryKey() == 3){%>
-                    <img src="../images/beautyProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <img src="../images/beautyProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인">
                     <%} else if(pb.getCategoryKey() == 4){%>
-                    <img src="../images/livingProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <img src="../images/livingProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인">
                     <%} else if(pb.getCategoryKey() == 5){%>
-                    <img src="../images/walkProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <img src="../images/walkProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인">
                     <%} else if(pb.getCategoryKey() == 6){%>
-                    <img src="../images/snackProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <img src="../images/snackProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인">
                     <%} else if(pb.getCategoryKey() == 7){%>
-                    <img src="../images/clothesProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인"></a>
+                    <img src="../images/clothesProduct/<%=pb.getProductImg() %>" class="card-img-top" alt="상품메인">
                     <%} %>
+                    </a>
                     <div class="card-body">
                       <a href="productDetail.jsp?productKey=<%=pb.getProductKey() %>&categoryKey=<%=pb.getCategoryKey()%>"><h5 class="card-title fw-bold"><%=pb.getProductName() %></h5></a>
                       <p class="card-text cardText fw-bold"><%=pb.getProductComment() %></p>

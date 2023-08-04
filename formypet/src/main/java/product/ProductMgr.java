@@ -259,5 +259,46 @@ public class ProductMgr {
 			
 			return pob;
 		}
+		
+		//상품 구매로 넘겨줄 상품
+		public ArrayList<ProductBean> buyForProduct(int[] productKey){
+			ArrayList<ProductBean> pb = new ArrayList<>();
+			
+			for(int i=0; i<productKey.length; i++) {
+				try {
+					con = pool.getConnection();
+					//productKey 값을 기준으로 product 테이블 에서 상품을 조회한다.
+					sql = "select * from product where productKey=?";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, productKey[i]);
+					rs = pstmt.executeQuery();
+					if(rs.next()) {
+						ProductBean bean = new ProductBean();
+						bean.setProductKey(rs.getInt("productKey"));
+						bean.setProductName(rs.getString("productName"));
+						bean.setProductComment(rs.getString("productComment"));
+						bean.setProductInfo(rs.getString("productInfo"));
+						bean.setProductDetail(rs.getString("productDetail"));
+						bean.setProductCaution(rs.getString("productCaution"));
+						bean.setProductPrice(rs.getInt("productPrice"));
+						bean.setProductSalePrice(rs.getInt("productSalePrice"));
+						bean.setProductCount(rs.getInt("productCount"));
+						bean.setProductOrderCount(rs.getInt("productOrderCount"));
+						bean.setProductKind(rs.getString("productKind"));
+						bean.setProductImg(rs.getString("productImg"));
+						bean.setProductDate(rs.getString("productDate"));
+						bean.setDelYn(rs.getString("delYn"));
+						bean.setCategoryKey(rs.getInt("categoryKey"));
+						pb.add(bean);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					pool.freeConnection(con, pstmt, rs);
+				}
+			}
+			return pb;
+		}
 
 }
