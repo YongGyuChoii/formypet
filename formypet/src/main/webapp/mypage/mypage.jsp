@@ -13,42 +13,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-    <body>
     <div id="wrap">
     <!-- header 시작-->
     <header>
-        <a href="index.html" class="logo">
-            <h1>For My Pet</h1>
-        </a>
-            <div id="navi1">
-            <ul class="nav justify-content-end">
-                <li class="nav-item">
-                  <a class="nav-link active text-primary" aria-current="page" href="#">장바구니</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">고객센터</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link text-primary" href="#">로그아웃</a>
-                </li>
-            </ul>
-            </div>
-
-            <div id="navi2">
-            <div class="p-3 mb-2 bg-primary text-white">
-            <nav class="nav">
-                <a class="nav-link text-white" aria-current="page" href="#">메인페이지</a>
-                <a class="nav-link text-white" href="#">상품목록</a>
-                <a class="nav-link text-white" href="#">고객센터</a>
-              </nav>
-            </div>
-            </div>
-      </header>
+        <%@include file="/base/header.jsp"%>
+    </header>
+    <!--header 끝-->
 
     <!--main 시작-->
     <div class="container">
       <section>
-       <div class="container">    
+    <div class="container">    
               <section>
               <div class="summaryContainer">
               <div class="item">
@@ -84,14 +59,7 @@
                   </div>
                   <div class="icon">  </div>
                 </div>     
-                <div class="item">
-                  <div>
-                    <a href="#"><i class="material-icons">copyright</i></a>
-                    <div class="text1">쿠폰</div>
-                    <div class="text2">180</div>
-                  </div>
-                  <div class="icon">  </div>
-                </div>     
+               
                 <div class="item">
                   <div>
                     <a href="${pageContext.request.contextPath}/mypage/myreview.jsp#"><i class="material-icons">menu_book</i></a>
@@ -142,8 +110,7 @@
                  
           </div>
           </div>
-    </div>
-      </section>
+    </div>      </section>
     </div>
     <!--main 끝-->
 

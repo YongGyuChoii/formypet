@@ -53,8 +53,8 @@ public class ReviewSave extends HttpServlet {
         reviewBean.setRvScore(score);
         reviewBean.setOptionValue(optionValue);
        
-        reviewBean.setMemKey(new BigDecimal("2"));
-        reviewBean.setProductKey(new BigDecimal("2"));
+        reviewBean.setMemKey(new BigDecimal("1"));
+        reviewBean.setProductKey(new BigDecimal("1"));
 
 
 
