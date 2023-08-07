@@ -69,24 +69,7 @@
         				<th scope="col">합계</th>
         			</tr>
         		</thead>
-        		<tfoot class="tableFoot">
-        			<tr>
-        				<td class></td>
-        				<td colspan="8">
-        					<span class="footLeft">[기본배송]</span>
-        					상품구매금액
-        					<strong>65,800
-        					</strong>
-        					+ 배송비
-        					<span id="delPin">3,000</span>
-        					= 합계 :
-        					<strong class="text1">
-        						<span id="totalPrice" class="text2">35,900</span>
-        						원
-        					</strong>
-        				</td>
-        			</tr>
-        		</tfoot>
+        		
         		<tbody class="tableBody">
         			<tr class="bTable">
         				<td class>
@@ -127,6 +110,25 @@
         				</td>
         			</tr>
         		</tbody>
+        		
+        		<tfoot class="tableFoot">
+        			<tr>
+        				<td class></td>
+        				<td colspan="8">
+        					<span class="footLeft">[기본배송]</span>
+        					상품구매금액
+        					<strong>65,800
+        					</strong>
+        					+ 배송비
+        					<span id="delPin">3,000</span>
+        					= 합계 :
+        					<strong class="text1">
+        						<span id="totalPrice" class="text2">35,900</span>
+        						원
+        					</strong>
+        				</td>
+        			</tr>
+        		</tfoot>
         	</table>
         </div>
         <div class="buttonBase">
@@ -379,12 +381,6 @@
         						<td>
         							<strong id="totalAddsaleView">0</strong>
         							원
-        						</td>
-        					</tr>
-        					<tr class="couponSelect">
-        						<th scope="row">쿠폰할인</th>
-        						<td>
-        							<a href="#" id="btnCouponSelect" class="btnSubmit">쿠폰적용</a>
         						</td>
         					</tr>
         				</tbody>

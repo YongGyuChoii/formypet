@@ -198,6 +198,7 @@ td.firstLine img {
     white-space: nowrap;
     color: #083681;
     background-color: #ececec;
+    cursor: pointer;
 }
 
 .buttonRight {

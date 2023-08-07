@@ -48,7 +48,7 @@
         <div class="headTitle">
         	<h3>국내배송상품 주문내역</h3>
         	<p class="button">
-        		<a href="#" class="btnNormal">이전페이지</a>
+        		<a href="#" class="btnNormal" onclick="history.back()">이전페이지</a>
         	</p>
         </div>
         <div class="gBorder">
@@ -68,7 +68,6 @@
         		<thead>
         			<tr>
         				<th scope="col">
-        					<input type="checkbox" onclick="#">
         				</th>
         				<th scope="col">이미지</th>
         				<th scope="col">상품정보</th>
@@ -80,29 +79,12 @@
         				<th scope="col">합계</th>
         			</tr>
         		</thead>
-        		<tfoot class="tableFoot">
-        			<tr>
-        				<td></td>
-        				<td colspan="8">
-        					<span class="footLeft">[기본배송]</span>
-        					상품구매금액
-        					<strong>65,800
-        					</strong>
-        					+ 배송비
-        					<span id="delPin">3,000</span>
-        					= 합계 :
-        					<strong class="text1">
-        						<span id="totalPrice" class="text2">35,900</span>
-        						원
-        					</strong>
-        				</td>
-        			</tr>
-        		</tfoot>
+        		
         		<tbody class="tableBody">
         			<%for(int i=0; i<pb.size(); i++){ %>
         			<tr class="bTable">
         				<td>
-        					<input type="checkbox">
+        					<input type="checkbox" name="checkProduct">
         				</td>
         				<td class="firstLine">
         					<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey()%>&categoryKey=<%=pb.get(i).getCategoryKey()%>">
@@ -137,33 +119,52 @@
         					</div>
         				</td>
         				<td style="text-align: center;"><%=cartCount[i] %></td>
-        				<td>
-        					<span id="reserves" class="text3"></span>
+        				<td style="text-align: center;">
+        					<span id="reserves" class="text3"><fmt:formatNumber value="<%=(pb.get(i).getProductSalePrice() * cartCount[i]) * 0.02 %>" pattern="#,###"/>원</span>
         				</td>
-        				<td>
+        				<td style="text-align: center;">
         					<div class="text3">
         						기본배송
         						<br>
         					</div>
         				</td>
         				<td rowspan="1" style="text-align: center;">[조건]</td>
-        				<td class="fourth">
+        				<td class="fourth" style="text-align: center;">
         					<strong>
-        						<span id="bodyTotalPrice"><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice() * cartCount[i] %>" pattern="#,###"/></span>원
+        						<span id="bodyTotalPrice" class="totalPrevPrice"><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice() * cartCount[i] %>" pattern="#,###"/></span>원
         					</strong>
         				</td>
         			</tr>
         			<%} %>
         		</tbody>
+        		
+        		<tfoot class="tableFoot">
+        			<tr>
+        				<td></td>
+        				<td colspan="8">
+        					<span class="footLeft">[기본배송]</span>
+        					상품구매금액
+        					<strong><span class="totalPrice"></span>
+        					</strong>
+        					+ 배송비
+        					<span id="delPin" class="deliveryPrice"></span>
+        					= 합계 :
+        					<strong class="text1">
+        						<span id="totalRealPrice" class="totalRealPrice"></span>
+        						원
+        					</strong>
+        				</td>
+        			</tr>
+        		</tfoot>
         	</table>
         </div>
         <div class="buttonBase">
         	<span class="buttonLeft">
         		<strong class="baseText">선택상품을</strong>
-        		<a href="#" id="baseDelete" class="btnEm">X 삭제하기</a>
+        		<a id="baseDelete" class="btnEm">X 삭제하기</a>
         	</span>
         	<span class="buttonRight">
-        		<a href="#" class="btnNormal">이전페이지</a>
+        		<a href="#" class="btnNormal" onclick="history.back()">이전페이지</a>
         	</span>
         </div>
         
@@ -204,8 +205,8 @@
         					<td>
         						<input id="orderEmai1" name="orderEmail1" type="text" value="<%=mb.getMemEmail1() %>">
         						@
-        						<input id="orderEmail2" name="orderEmail" type="text" value="<%=mb.getMemEmail2() %>">
-        						<select id="orderEmail3">
+        						<input id="orderEmail2" name="orderEmail2" type="text" value="<%=mb.getMemEmail2() %>">
+        						<select id="orderEmail3" name="orderEmail3">
         							<option value="">-선택-</option>
     								<option value="naver.com">naver.com</option>
     								<option value="gmail.com">gmail.com</option>
@@ -214,7 +215,6 @@
     								<option value="korea.com">korea.com</option>
     								<option value="nate.com">nate.com</option>
     								<option value="yahoo.com">yahoo.com</option>
-    								<option value="직접입력">직접입력</option>
         						</select>
         						<ul class="orderBlank">
         							<li>이메일을 통해 주문처리과정을 보내드립니다</li>
@@ -264,7 +264,7 @@
         						<input type="text" id="sample6_address" name="delZipcode2" placeholder="주소">
         						<span class="grid">기본 주소</span>
         						<br>
-        						<input type="text" id="sample6_detailAddress" name="delZipcode3" placeholder="상세주소">
+        						<input type="text" id="sample6_detailAddress" name="delZipcode3" placeholder="상세주소" value="">
         						<span class="grid">나머지주소(선택입력가능)</span>
         					</td>
         				</tr>
@@ -394,12 +394,6 @@
         							원
         						</td>
         					</tr>
-        					<tr class="couponSelect">
-        						<th scope="row">쿠폰할인</th>
-        						<td>
-        							<a href="#" id="btnCouponSelect" class="btnSubmit">쿠폰적용</a>
-        						</td>
-        					</tr>
         				</tbody>
         			</table>
         		</div>
@@ -429,7 +423,7 @@
         							<p>
         								<input id="inputMilage" name="inputMilage" type="text">
         								원 (총 사용가능 적립금 :
-        								<strong class="txtWarn">0</strong>
+        								<strong class="txtWarn"><fmt:formatNumber value='<%=mb.getMemPoint() %>' pattern="#,###"/></strong>
         								원)
         							</p>
         							<ul class="info">
@@ -542,7 +536,9 @@
     			delName.val('<%=mb.getMemName()%>'); 
     			delZipcode1.val('<%=delZipcode[0]%>'); 
     			delZipcode2.val('<%=delZipcode[1]%>');
-    			delZipcode3.val('');
+    			if("<%=mb.getMemAddress2()%>" != "null" && "<%=mb.getMemAddress2()%>" != ""){
+    				delZipcode3.val('<%=mb.getMemAddress2()%>');
+    			}	
     			delPhone2.val('<%=mb.getMemPhone1()%>'); 
     			delPhone3.val('<%=mb.getMemPhone2()%>'); 
     		}else {

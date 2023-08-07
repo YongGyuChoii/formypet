@@ -1,5 +1,68 @@
 $(function(){
 	
+	//상품구매금액 합계 구하기
+	var totalPrevPrice = [];
+	var sum = 0; //토탈 계산을 위한 변수
+	var regex = /[^0-9]/g; //숫자만 추출하기 위한 변수
+	var totalPrevPrice2 = $('.totalPrevPrice').get();
+	for(var i=0; i<totalPrevPrice2.length; i++){
+			totalPrevPrice[i] = parseInt(totalPrevPrice2[i].innerHTML.replace(regex, ""));
+			sum += totalPrevPrice[i];
+	}	
+	$('.totalPrice').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	
+	//배송비 50000원 이상이면 무료
+	if(sum >= 50000){
+		$('.deliveryPrice').text(0);
+		$('.totalRealPrice').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	}else {
+		$('.deliveryPrice').text("3,000");
+		var sum2 = sum + 3000;
+		$('.totalRealPrice').text(sum2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+	}
+	
+	//체크한 상품의 행 삭제
+	$(".btnEm").on('click', function() {
+		if($('input:checkbox[name="checkProduct"]:checked').length === 0){
+			alert('삭제할 항목이 없습니다.');
+		}else {
+			if(confirm("정말 삭제하시겠습니까?")){
+				$('input:checkbox[name="checkProduct"]:checked').each(function(k,kVal){
+					let a = kVal.parentElement.parentElement;
+					$(a).remove();
+					//상품구매금액 합계 구하기
+					var totalPrevPrice = [];
+					var sum = 0; //토탈 계산을 위한 변수
+					var regex = /[^0-9]/g; //숫자만 추출하기 위한 변수
+					var totalPrevPrice2 = $('.totalPrevPrice').get();
+					for(var i=0; i<totalPrevPrice2.length; i++){
+							totalPrevPrice[i] = parseInt(totalPrevPrice2[i].innerHTML.replace(regex, ""));
+							sum += totalPrevPrice[i];
+					}	
+					$('.totalPrice').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+					
+					//배송비 50000원 이상이면 무료
+					if(sum >= 50000){
+						$('.deliveryPrice').text(0);
+						$('.totalRealPrice').text(sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+					}else {
+						$('.deliveryPrice').text("3,000");
+						var sum2 = sum + 3000;
+						$('.totalRealPrice').text(sum2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+					}
+				});
+			}
+		}
+	});
+	
+	//이메일 셀렉트
+	$("select[name=orderEmail3]").change(function(){
+		var orderEmail3 = $(this).val();
+		var orderEmail2 = $('input[name="orderEmail2"]');
+		if(orderEmail3 != ""){
+			orderEmail2.val(orderEmail3);
+		}
+	});
 	
 	
 });
