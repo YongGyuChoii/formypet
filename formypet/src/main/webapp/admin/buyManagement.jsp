@@ -124,9 +124,10 @@
 								
 								int brKey = bean.getBrKey();
 								int memKey = bean.getMemKey();
-								int memOrderKey = bean.getMemOrderKey();
-								int nonMemOrderKey = bean.getNonMemOrderKey();
+								String memOrderKey = bean.getMemOrderKey();
+								String nonMemOrderKey = bean.getNonMemOrderKey();
 								String productName = bean.getProductName();
+								
 						%>
 						<tr>
 							
@@ -137,9 +138,9 @@
 							<td align="center">환불 사유 넣을 예정</td>
 							<td align="center">
 							<a href="javascript:readY('<%=brKey%>')">
-							<input name="rYn" type="button" value="Y" width = "300"></a>
+							<input  type="button" value="승인"></a>
 							<a href="javascript:readN('<%=brKey%>')">
-							<input name="rYn" type="button" value="N" width = "300">
+							<input  type="button" value="거절">
 							</a>
 							</td>
 						</tr>
@@ -206,7 +207,14 @@
 			<input type="hidden" name="reload" value="true"> 
 			<input type="hidden" name="nowPage" value="1">
 		</form>
-		<form name="readFrm" method="get">
+		<form name="readFrm" method="post" action = "read5.jsp">
+			<input type="hidden" name="brKey"> 
+			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
+			<input type="hidden" name="keyField" value="<%=keyField%>"> 
+			<input type="hidden" name="keyWord" value="<%=keyWord%>">
+		</form>
+		</form>
+		<form name="readFrm2" method="post" action = "read6.jsp">
 			<input type="hidden" name="brKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
@@ -251,13 +259,15 @@
 	  document.searchFrm.submit();
 	 }
 	function readY(brKey){
-		document.readFrm.productKey.value=brKey;
+		document.readFrm.brKey.value=brKey;
+		console.log("readY 수행1 완료");
 		document.readFrm.submit();
-		document.readFrm.action="../admin/buyudate.jsp";
+		console.log("readY 수행2 완료");
+
 	}
 	function readN(brKey){
-		document.readFrm.productKey.value=brKey;
-		document.readFrm.submit();
-		document.readFrm.action="../admin/buyudateN.jsp";
+		document.readFrm2.brKey.value=brKey;
+		document.readFrm2.submit();
+
 	}
 </script>

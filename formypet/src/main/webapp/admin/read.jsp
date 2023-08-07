@@ -41,6 +41,7 @@
 		function list(){
 		   	
 			document.listFrm.submit();
+		}
  
 	</script>
 </head>

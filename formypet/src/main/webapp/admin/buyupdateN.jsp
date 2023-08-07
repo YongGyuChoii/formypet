@@ -12,7 +12,8 @@
 	String nowPage = request.getParameter("nowPage"); 
 	int brKey = Integer.parseInt(request.getParameter("brKey"));
 	
-	bmmgr.ryn(brKey); //
+	BuyManagementBean bean = (BuyManagementBean) session.getAttribute("bean");
+	bmmgr.ryn(bean); //
 	String url = "../admin/buyManagement.jsp?nowPage=" + nowPage ;
 	response.sendRedirect(url);
 

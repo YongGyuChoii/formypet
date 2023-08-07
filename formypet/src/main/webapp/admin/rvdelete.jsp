@@ -14,7 +14,7 @@
 	
 	ReviewManagementBean bean = (ReviewManagementBean) session.getAttribute("bean"); //read4에 저장한 세션 불러오기
 	rvmmgr.delrv(rvKey); 
-	String url = "../admin/buyManagement.jsp?nowPage=" + nowPage ;
+	String url = "../admin/reviewManagement.jsp?nowPage=" + nowPage ;
 	response.sendRedirect(url);
 
 %>

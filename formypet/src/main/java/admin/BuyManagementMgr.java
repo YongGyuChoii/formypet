@@ -67,8 +67,8 @@ public class BuyManagementMgr {
 					bean.setBrKey(rs.getInt("brKey"));
 					bean.setMemKey(rs.getInt("memKey"));
 					bean.setProductKey(rs.getInt("productKey"));
-					bean.setMemOrderKey(rs.getInt("memOrderKey"));
-					bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
+					bean.setMemOrderKey(rs.getString("memOrderKey"));
+					bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
 					bean.setOrdersKey(rs.getInt("ordersKey"));
 					bean.setrYn(rs.getString("rYn"));
 				 	//bean.setReCause(rs.getString("reCause"));
@@ -111,7 +111,7 @@ public class BuyManagementMgr {
 					}
 					return totalCount;
 				}
-				//brKey로 상품 조회하기(product_file)
+				//brKey로 상품 조회하기(b_refund)
 				public BuyManagementBean getbbean(int brKey){
 						
 					Connection con = null;
@@ -125,7 +125,7 @@ public class BuyManagementMgr {
 					try {
 						con = pool.getConnection();
 						//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
-						sql = "select * from b_refund b INNER JOIN product p on b.productKey = p.productKey where brKey = ?";
+						sql = "select * from b_refund INNER JOIN product on b_refund.productKey = product.productKey where brKey = ?";
 						pstmt = con.prepareStatement(sql);
 						
 						pstmt.setInt(1, brKey);
@@ -134,8 +134,8 @@ public class BuyManagementMgr {
 							bean.setBrKey(rs.getInt("brKey"));
 							bean.setMemKey(rs.getInt("memKey"));
 							bean.setProductKey(rs.getInt("productKey"));
-							bean.setMemOrderKey(rs.getInt("memOrderKey"));
-							bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
+							bean.setMemOrderKey(rs.getString("memOrderKey"));
+							bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
 							bean.setOrdersKey(rs.getInt("ordersKey"));
 							bean.setrYn(rs.getString("rYn"));
 						 	//bean.setReCause(rs.getString("reCause"));
@@ -149,8 +149,9 @@ public class BuyManagementMgr {
 					return bean;
 						
 				}
-				//승인 거절 값 db로 보내기
-				public void ryn(int brKey) {
+
+				//내용 수정 (b_refund db용)
+				public void ryn(BuyManagementBean bean) {
 					
 					Connection con = null;
 					PreparedStatement pstmt = null;
@@ -159,12 +160,19 @@ public class BuyManagementMgr {
 					try {
 						con = pool.getConnection();
 						
-						//ryn 쿼리로 게시물을 수정한다.
+
 						//brKey 으로 수정할 게시물을 찾아서 컬럼을 수정 한다.
-						sql = "update b_refund set rYn = ? where brKey";
-						BuyManagementBean bean = new BuyManagementBean();
+						sql = "update b_refund set rYn = ? where brKey = ?";
+						
 						pstmt = con.prepareStatement(sql);
+						
+						//pstmt.setInt(1, bean.getProductKey());
+						//pstmt.setInt(2, bean.getMemKey());
+						//pstmt.setString(3, bean.getMemOrderKey());
+						//pstmt.setString(4, bean.getNonMemOrderKey());
+						//pstmt.setInt(5, bean.getOrdersKey());
 						pstmt.setString(1, bean.getrYn());
+						pstmt.setInt(2, bean.getBrKey());
 						pstmt.executeUpdate();
 						
 					} catch (Exception e) {
