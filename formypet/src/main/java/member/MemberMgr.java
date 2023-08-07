@@ -54,8 +54,8 @@ public class MemberMgr {
 					try {
 						con = pool.getConnection();
 						//tblMember 테이블 insert 쿼리
-						sql = "insert member(memId,memPw,memName,memEmail1,memEmail2,memAddress,memPhone1"
-								+ ",memPhone2,memResident1,memResident2)values(?,?,?,?,?,?,?,?,?,?)";
+						sql = "insert member(memId,memPw,memName,memEmail1,memEmail2,memAddress,memAddress2,memPhone1"
+								+ ",memPhone2,memResident1,memResident2)values(?,?,?,?,?,?,?,?,?,?,?)";
 						
 						pstmt = con.prepareStatement(sql);
 						
@@ -65,10 +65,11 @@ public class MemberMgr {
 						pstmt.setString(4, bean.getMemEmail1());
 						pstmt.setString(5, bean.getMemEmail2());
 						pstmt.setString(6, bean.getMemAddress());
-						pstmt.setInt(7, bean.getMemPhone1());
-						pstmt.setInt(8, bean.getMemPhone2());
-						pstmt.setInt(9, bean.getMemResident1());
-						pstmt.setInt(10, bean.getMemResident2());
+						pstmt.setString(7, bean.getMemAddress2());
+						pstmt.setInt(8, bean.getMemPhone1());
+						pstmt.setInt(9, bean.getMemPhone2());
+						pstmt.setInt(10, bean.getMemResident1());
+						pstmt.setInt(11, bean.getMemResident2());
 
 						if (pstmt.executeUpdate() == 1) 
 							//쿼리 수행결과 가 1이면 ,(1개의 레코드가 처리가 되었다면)
@@ -144,6 +145,7 @@ public class MemberMgr {
 				bean.setMemEmail1(rs.getString("memEmail1"));
 				bean.setMemEmail2(rs.getString("memEmail2"));
 				bean.setMemAddress(rs.getString("memAddress"));
+				bean.setMemAddress2(rs.getString("memAddress2"));
 				bean.setMemName(rs.getString("memName"));
 				bean.setMemResident1(rs.getInt("memResident1"));
 				bean.setMemResident2(rs.getInt("memResident2"));

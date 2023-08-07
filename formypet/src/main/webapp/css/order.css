@@ -345,7 +345,7 @@ input[type=radio] + label, input[type=checkbox] + label {
     font-size: 14px;
 }
 
-#delZipcode2 {
+#sample6_address {
 	width: 450px;
     margin: 5px 5px 0 0;
 }
@@ -356,7 +356,7 @@ input[type=radio] + label, input[type=checkbox] + label {
     text-align: left;
 }
 
-#delZipcode3 {
+#sample6_detailAddress {
 	width: 450px;
     margin: 5px 5px 0 0;
 }

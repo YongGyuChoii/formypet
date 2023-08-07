@@ -8,6 +8,7 @@
 	//상품, 멤버, 상품수량, 옵션값 세션에서 가져오기
 	ArrayList<ProductBean> pb = (ArrayList)session.getAttribute("pb");
 	MemberBean mb = (MemberBean)session.getAttribute("mb");
+	String delZipcode[] = mb.getMemAddress().split("/"); //주소 쪼개기
 	int[] cartCount = (int[])session.getAttribute("cartCount");
 	String[] optionText = (String[])session.getAttribute("optionText");
 %>
@@ -25,6 +26,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../js/order.js"></script>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
     <div id="wrap">
@@ -180,7 +182,7 @@
         				<tr>
         					<th scope="row">주문하시는 분</th>
         					<td>
-        						<input id="orderName" name="orderName" type="text" size="15">
+        						<input id="orderName" name="orderName" type="text" size="15" value="<%=mb.getMemName()%>">
         					</td>
         				</tr>
         				<tr>
@@ -190,9 +192,9 @@
           							<option value="010">010</option>
           						</select>
           						-				
-          						<input id="orderPhone2" name="orderPhone2" maxlength="4" type="text">
+          						<input id="orderPhone2" name="orderPhone2" maxlength="4" type="text" value="<%=mb.getMemPhone1()%>">
           						- 				
-          						<input id="orderPhone3" name="orderPhone3" maxlength="4" type="text">
+          						<input id="orderPhone3" name="orderPhone3" maxlength="4" type="text" value="<%=mb.getMemPhone2()%>">
           					</td>
           				</tr>
         			</tbody>
@@ -200,9 +202,9 @@
         				<tr>
         					<th scope="row">이메일</th>
         					<td>
-        						<input id="orderEmai1" name="orderEmail1" type="text">
+        						<input id="orderEmai1" name="orderEmail1" type="text" value="<%=mb.getMemEmail1() %>">
         						@
-        						<input id="orderEmail2" name="orderEmail" type="text">
+        						<input id="orderEmail2" name="orderEmail" type="text" value="<%=mb.getMemEmail2() %>">
         						<select id="orderEmail3">
         							<option value="">-선택-</option>
     								<option value="naver.com">naver.com</option>
@@ -241,30 +243,28 @@
         					<th scope="row">배송지 선택</th>
         					<td>
         						<div class="address">
-        							<input id="sameAddr1" name="sameAddr1" type="radio" autocomplete="off">
+        							<input id="sameAddr1" name="sameAddr" type="radio" autocomplete="off" value="existAddr">
         							<label for="sameAddr1">주문자 정보와 동일</label>
-        							<input id="sameAddr2" name="sameAddr2" type="radio" sutocomplete="off">
+        							<input id="sameAddr2" name="sameAddr" type="radio" autocomplete="off" value="newAddr">
         							<label for="sameAddr2">새로운 배송지</label>
-        							<a href="#" id="btnAddr" class="btnNormal">주소록 보기</a>
         						</div>
         					</td>
         				</tr>
         				<tr>
         					<th scope="row">받으시는 분</th>
         					<td>
-        						<input id="delName1" name="delName2" type="text">
+        						<input id="delName1" name="delName2" type="text" value="">
         					</td>
         				</tr>
         				<tr>
         					<th scope="row">배송주소</th>
         					<td>
-        						<input id="delZipcode1" name="delZipcode1" type="text" maxlength="6">
-        						<a href="#" id="btnZipcode" class="btnNormal">우편번호</a>
-        						<br>
-        						<input id="delZipcode2" name="delZipcode2" type="text">
+        						<input type="text" id="sample6_postcode" name="delZipcode1" placeholder="우편번호">
+        						<input type="button" class="btnNormal" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+        						<input type="text" id="sample6_address" name="delZipcode2" placeholder="주소">
         						<span class="grid">기본 주소</span>
         						<br>
-        						<input id="delZipcode3" name="delZipcode3" type="text">
+        						<input type="text" id="sample6_detailAddress" name="delZipcode3" placeholder="상세주소">
         						<span class="grid">나머지주소(선택입력가능)</span>
         					</td>
         				</tr>
@@ -523,6 +523,39 @@
     </footer>
     <!-- footer 끝.-->
     </div>
+    
+    <script>
+    $(function(){
+    	
+    	//배송지 선택 부분
+    	$("input[name='sameAddr']").on('click', function() {
+    		
+        	var valueCheck = $("input[name='sameAddr']:checked").val(); //체크값
+        	var delName = $("input[name='delName2']"); //받으시는분 이름
+			var delZipcode1 = $("input[name='delZipcode1']"); //주소 
+			var delZipcode2 = $("input[name='delZipcode2']"); //주소 
+			var delZipcode3 = $("input[name='delZipcode3']"); //주소
+			var delPhone2 = $("input[name='delPhone2']"); //핸드폰1 
+			var delPhone3 = $("input[name='delPhone3']"); //핸드폰2
+			
+        	if(valueCheck == "existAddr"){
+    			delName.val('<%=mb.getMemName()%>'); 
+    			delZipcode1.val('<%=delZipcode[0]%>'); 
+    			delZipcode2.val('<%=delZipcode[1]%>');
+    			delZipcode3.val('');
+    			delPhone2.val('<%=mb.getMemPhone1()%>'); 
+    			delPhone3.val('<%=mb.getMemPhone2()%>'); 
+    		}else {
+    			delName.val(""); 
+    			delZipcode1.val(""); 
+    			delZipcode2.val(""); 
+    			delZipcode3.val(""); 
+    			delPhone2.val(""); 
+    			delPhone3.val(""); 
+    		}
+    	});
+    	
+    });
+    </script>
 </body>
 </html>
-    

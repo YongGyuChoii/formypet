@@ -10,6 +10,7 @@ public class MemberBean {
 	private String memEmail1;
 	private String memEmail2;
 	private String memAddress;
+	private String memAddress2;
 	private String memName;
 	private int memResident1;
 	private int memResident2;
@@ -69,6 +70,12 @@ public class MemberBean {
 	}
 	public void setMemAddress(String memAddress) {
 		this.memAddress = memAddress;
+	}
+	public String getMemAddress2() {
+		return memAddress2;
+	}
+	public void setMemAddress2(String memAddress2) {
+		this.memAddress2 = memAddress2;
 	}
 	public String getMemName() {
 		return memName;
