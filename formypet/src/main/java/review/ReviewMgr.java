@@ -5,8 +5,11 @@ import util.DBConnectionMgr;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Vector;
 
 import com.oreilly.servlet.MultipartRequest;
+
+import board.BoardBean;
 
 public class ReviewMgr {
 
@@ -56,8 +59,8 @@ public class ReviewMgr {
             pstmt.setString(5, reviewBean.getOptionValue());
             System.out.println("getOptionValue = " + reviewBean.getOptionValue());
             
-            pstmt.setBigDecimal(6, reviewBean.getMemKey());
-            pstmt.setBigDecimal(7, reviewBean.getProductKey());
+            pstmt.setInt(6, reviewBean.getMemKey());
+            pstmt.setInt(7, reviewBean.getProductKey());
 
             System.out.println(pstmt.toString());
             return pstmt.executeUpdate();
@@ -72,6 +75,74 @@ public class ReviewMgr {
 
         return 0;
     }
+    
+	// 게시판 리스트
+	public Vector<ReviewBean> getReviewList() {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = null;
+		
+		Vector<ReviewBean> vlist = new Vector<ReviewBean>();
+		
+		try {
+			con = pool.getConnection();
+			//keyField 와 keyWord 값이 있는 경우 게시물 조회
+			sql = "SELECT rvKey,rvTitle,rvContents,rvScore,memKey FROM review";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				ReviewBean bean = new ReviewBean();
+				bean.setRvKey(rs.getInt("rvKey"));
+				bean.setRvTitle(rs.getString("rvTitle"));
+				bean.setRvContents(rs.getString("rvContents"));
+				bean.setRvScore(rs.getInt("rvScore"));
+				bean.setMemKey(rs.getInt("memKey"));
+				vlist.add(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+	
+	//총 게시물수
+	public int getTotalCount(String keyField, String keyWord) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			
+			//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
+			if (keyWord.equals("null") || keyWord.equals("")) {
+				sql = "select count(num) from board";
+				pstmt = con.prepareStatement(sql);
+			} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
+				sql = "select count(num) from  board where " + keyField + " like ? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%" + keyWord + "%");
+			}
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount;
+	}
 
 
 }

@@ -5,16 +5,24 @@ import java.math.BigDecimal;
 
 public class ReviewBean {
 
-    private String rvTitle; // 제목
+	private int rvKey;
+	private String rvTitle; // 제목
     private String rvContents; // 내용
     private String rvPhoto; // 사진
     private Integer rvScore; // 점수
     private String optionValue; // 옵션
-    private BigDecimal memKey;
-    private BigDecimal productKey;
+    private Integer memKey;
+    private Integer productKey;
     
 
 //제목
+    public int getRvKey() {
+		return rvKey;
+	}
+
+	public void setRvKey(int rvKey) {
+		this.rvKey = rvKey;
+	}
     public String getRvTitle() {
         return rvTitle;
     }
@@ -63,20 +71,20 @@ public class ReviewBean {
     }
     
     //제품
-    public BigDecimal getProductKey() {
+    public Integer getProductKey() {
         return productKey;
     }
 
-    public void setProductKey(BigDecimal productKey) {
+    public void setProductKey(Integer productKey) {
         this.productKey = productKey;
     }
 
     //회원
-    public BigDecimal getMemKey() {
+    public Integer getMemKey() {
         return memKey;
     }
 
-    public void setMemKey(BigDecimal memKey) {
+    public void setMemKey(Integer memKey) {
         this.memKey = memKey;
     }
     @Override

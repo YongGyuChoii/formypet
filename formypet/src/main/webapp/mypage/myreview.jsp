@@ -1,5 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="review.ReviewBean"%>
+<%@page import="review.ReviewBean"%>
+<%@page import="java.util.Vector"%>
+    <jsp:useBean id="rvMgr" class="review.ReviewMgr" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,13 +20,14 @@
     <!-- header 시작-->
     <header>
         <%@include file="/base/header.jsp"%>
+        <input type="hidden" id="memKey" value="<%=memKey %>">
     </header>
     <!--header 끝-->
 
     <!--main 시작-->
     <div class="container">
       <section>
-      <h2>MY POSTS</h2>
+      <h2>내 후기</h2>
         <div class="xans-element- xans-myshop xans-myshop-boardpackage "><div class="xans-element- xans-myshop xans-myshop-boardlisthead "><p>분류 선택 <select id="board_sort" name="board_sort" fw-filter="" fw-label="" fw-msg="" onchange="BOARD.change_sort('boardSearchForm', this);">
 <option value="D">작성 일자별</option>
 <option value="C">분류별</option>
@@ -42,24 +47,38 @@
 <col style="width:55px;">
 </colgroup>
 <thead><tr>
-<th scope="col">번호</th>
-                <th scope="col">분류</th>
+				<th scope="col">회원</th>
+                <th scope="col">번호</th>
                 <th scope="col">제목</th>
-                <th scope="col">작성자</th>
-                <th scope="col">작성일</th>
-                <th scope="col">조회</th>
+                <th scope="col">내용</th>
+                <th scope="col">리뷰점수</th>
             </tr></thead>
 <tbody class=" center">
 <tr class="xans-record-">
+<% 
+	Vector<ReviewBean> vlist = null;
+
+	vlist = rvMgr.getReviewList();
+	
+	for(int i=0; i<vlist.size(); i++) {
+		
+		ReviewBean bean = vlist.get(i);
+		
+		int num = bean.getRvKey();
+		String rvTitle = bean.getRvTitle();
+		String rvContents = bean.getRvContents();
+		int rvScore = bean.getRvScore();
+		int memKey1 = bean.getMemKey(); 
+		
+	%>
 <td>1</td>
-                <td><a href="/board/review/4/" class="txtEm">REVIEW</a></td>
-                <td class="left subject"> <a href="/board/product/read.html?no=1780375&amp;board_no=4">아직 구매안했지만 꼭 사고싶습니다  집 고양이가 정말 좋을 할거 같네요 </a> <img src="http://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_attach2.gif" alt="파일첨부" class="ec-common-rwd-image"></td>
-                <td>한****</td>
-                <td><span class="txtNum">2023-07-28</span></td>
-                <td><span class="txtNum">20</span></td>
+                <td><a><%=num%></a></td>
+                <td class="left subject"> <a href="#"><%=rvTitle %></a> </td>
+                <td><%=rvContents%></td>
                 
-            </tr>
-          
+                <td><span class="txtNum"><%=rvScore%></span></td>
+            </tr> 
+          <% } %>
 </tbody>
 </table>
 <p class="message displaynone">게시물이 없습니다.</p>
