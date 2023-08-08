@@ -50,6 +50,7 @@
         	<p class="button">
         		<a href="#" class="btnNormal" onclick="history.back()">이전페이지</a>
         	</p>
+        	<input type="hidden" name="memKey" value="<%=memKey %>" />
         </div>
         <div class="gBorder">
         	<table border="1">
@@ -85,6 +86,7 @@
         			<tr class="bTable">
         				<td>
         					<input type="checkbox" name="checkProduct">
+        					<input type="hidden" name="productKey" value="<%=pb.get(i).getProductKey() %>" />
         				</td>
         				<td class="firstLine">
         					<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey()%>&categoryKey=<%=pb.get(i).getCategoryKey()%>">
@@ -120,10 +122,10 @@
         				</td>
         				<td style="text-align: center;"><%=cartCount[i] %></td>
         				<td style="text-align: center;">
-        					<span id="reserves" class="text3"><fmt:formatNumber value="<%=(pb.get(i).getProductSalePrice() * cartCount[i]) * 0.02 %>" pattern="#,###"/>원</span>
+        					<span id="reserves" class="text3"><fmt:formatNumber value="<%=(pb.get(i).getProductSalePrice() * cartCount[i]) * 0.02 %>" pattern="#,###"/></span>원
         				</td>
         				<td style="text-align: center;">
-        					<div class="text3">
+        					<div>
         						기본배송
         						<br>
         					</div>
@@ -203,7 +205,7 @@
         				<tr>
         					<th scope="row">이메일</th>
         					<td>
-        						<input id="orderEmai1" name="orderEmail1" type="text" value="<%=mb.getMemEmail1() %>">
+        						<input id="orderEmail1" name="orderEmail1" type="text" value="<%=mb.getMemEmail1() %>">
         						@
         						<input id="orderEmail2" name="orderEmail2" type="text" value="<%=mb.getMemEmail2() %>">
         						<select id="orderEmail3" name="orderEmail3">
@@ -339,7 +341,7 @@
         						<strong>총 주문 금액</strong>
         					</th>
         					<th scope="col">
-        						<strong>총 할인 + 부가결제 금액</strong>
+        						<strong>구매시 적립금</strong>
         					</th>
         					<th scope="col">
         						<strong>총 결제예정 금액</strong>
@@ -351,16 +353,16 @@
         					<td class="price">
         						<div class="boxText">
         							<strong>
-        								<span id="totalPriceView" class="text10">35,900</span>
+        								<span id="totalPriceView" class="totalPriceView"></span>
         								원
         							</strong>
         						</div>
         					</td>
         					<td class="option">
         						<div class="boxText">
-        							<strong>-</strong>
+        							<strong>+</strong>
         							<strong>
-        								<span id="totalSaleView" class="text10">0</span>
+        								<span id="totalPointView" class="totalPointView"></span>
         							</strong>
         						</div>
         					</td>
@@ -368,7 +370,7 @@
         						<div class="boxText">
         							<strong>=</strong>
         							<strong>
-        								<span id="totalView" class="text10">35,900</span>
+        								<span id="totalView" class="totalView"></span>
         								원
         							</strong>
         						</div>
@@ -378,50 +380,20 @@
         		</table>
         	</div>
         	<div class="detail">
-        		<div class="gMerge">
-        			<table border="1">
-        				<colgroup>
-        					<col style="width:139px">
-        					<col style="width:auto">
-        				</colgroup>
-        				<tbody>
-        					<tr class="text20">
-        						<th scope="row">
-        							<strong>총 할인금액</strong>
-        						</th>
-        						<td>
-        							<strong id="totalAddsaleView">0</strong>
-        							원
-        						</td>
-        					</tr>
-        				</tbody>
-        			</table>
-        		</div>
         		
         		<div class="gMerge">
         			<table border="1">
-        				<caption>부가결제 내역</caption>
+        				<caption>적립금 사용</caption>
         				<colgroup>
         					<col style="width:139px">
         					<col style="width:auto">
         				</colgroup>
-        				<tbody>
-        					<tr class="text20">
-        						<th scope="row">
-        							<strong>총 부가결제금액</strong>
-        						</th>
-        						<td>
-        							<strong id="totalAddplayView">0</strong>
-        							원
-        						</td>
-        					</tr>
-        				</tbody>
         				<tbody class="milage">
         					<tr>
         						<th scope="row">적립금</th>
         						<td>
         							<p>
-        								<input id="inputMilage" name="inputMilage" type="text">
+        								<input id="inputMilage" name="inputMilage" type="number" value=0>
         								원 (총 사용가능 적립금 :
         								<strong class="txtWarn"><fmt:formatNumber value='<%=mb.getMemPoint() %>' pattern="#,###"/></strong>
         								원)
@@ -441,7 +413,7 @@
         			<tbody>
         					<tr class="payment">
         						<td>
-        							<a href="#" id="btnCouponSelect" class="paymentSubmit">결제하기</a>
+        							<a id="btnCouponSelect" class="paymentSubmit">결제하기</a>
         						</td>
         					</tr>
         			</tbody>
