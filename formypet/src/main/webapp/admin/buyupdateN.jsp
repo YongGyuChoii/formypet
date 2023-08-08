@@ -8,35 +8,38 @@
 <meta charset="UTF-8">
 <title></title>
 <%
-	request.setCharacterEncoding("UTF-8");	
-	String nowPage = request.getParameter("nowPage"); 
+
 	int brKey = Integer.parseInt(request.getParameter("brKey"));
-	
+	String nowPage = request.getParameter("nowPage");
+
 	BuyManagementBean bean = (BuyManagementBean) session.getAttribute("bean");
-	bmmgr.ryn(bean); //
-	String url = "../admin/buyManagement.jsp?nowPage=" + nowPage ;
-	response.sendRedirect(url);
+	int brKey1 = bean.getBrKey();
+	String rYn = bean.getrYn();
+	System.out.println(rYn + " = rYn완료 ");
+	//BuyManagementBean bbean = new BuyManagementBean();
+	//bbean.setBrKey(Integer.parseInt(request.getParameter("brKey")));
+	//bbean.setrYn(request.getParameter("rYn"));
+	//bmmgr.ryn(bean); 
 
 %>
-<script type = "text/javascript">
-	function check() {
-		document.uFrm.submit();
-	}
-	
-	function ch() {
-		document.uFrm.self.close();
-	}
-</script>
+
 </head>
 <body>
-	<div align="center">
-			<br />
-			<form name="uFrm" method="post" action = "../admin/buyudate.jsp">
 
-				<input type = "hidden" name = "nowPage" value = "<%=nowPage%>">
-				<input type = "hidden" name = "brKey" value = "<%=brKey%>">
-				<input type = "hidden" name = "rYn" value = "N">
+			<br /><form name="uFrm" method="post" action = "././rupdate" >
+					<input type = "hidden"name = "brKey" value = <%=brKey1 %>>
+					<input  type = "hidden" name="rYn" value="N">
+					<!-- <input type="submit" value="전송"> -->
+				<%System.out.println("환불" + rYn); %>
+					 <input type="hidden" name="nowPage" value="<%=nowPage %>">
+					 <input type='hidden' name="brKey" value="<%=brKey%>">
 			</form>
-		</div>
 </body>
 </html>
+<script>
+
+	document.uFrm.submit();
+	//window.open("about:blank","_self").close();
+	//location.href = "buyManagement.jsp";
+
+</script>

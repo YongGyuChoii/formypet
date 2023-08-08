@@ -3,28 +3,33 @@
 <%@page import="admin.BuyManagementBean"%>
 <jsp:useBean id="brmmgr" class="admin.BuyManagementMgr"/>
 <%
-	  request.setCharacterEncoding("UTF-8");
+	  	request.setCharacterEncoding("UTF-8");
 
-	  int brKey = Integer.parseInt(request.getParameter("brKey"));
+	  	int brKey = Integer.parseInt(request.getParameter("brKey"));
 
-	  System.out.println("read5.jsp 페이지 brKey = " + brKey);
+	  	System.out.println("read5.jsp 페이지 brKey = " + brKey);
 	  
-	  String nowPage = request.getParameter("nowPage");
-	  String keyField = request.getParameter("keyField");
-	  String keyWord = request.getParameter("keyWord");
+	  	String nowPage = request.getParameter("nowPage");
+	  	String keyField = request.getParameter("keyField");
+	  	String keyWord = request.getParameter("keyWord");
 	  
-	  BuyManagementBean bean = brmmgr.getbbean(brKey);//게시물 가져오기
-	  //bean 객체 에서 getter 메서드를 이용하여 파라미터를 가져와서 화면에 출력하기 위해 각 변수에 대입한다.
+	  	BuyManagementBean bean = brmmgr.getbbean(brKey);//게시물 가져오기
+	
+	  	//bean 객체 에서 getter 메서드를 이용하여 파라미터를 가져와서 화면에 출력하기 위해 각 변수에 대입한다.
+		//BuyManagementBean brbean = (BuyManagementBean) session.getAttribute("bean");
 		int brKey1 = bean.getBrKey();
-		int memKey = bean.getMemKey();
-		String memOrderKey = bean.getMemOrderKey();
-		String nonMemOrderKey = bean.getNonMemOrderKey();
-		int productKey = bean.getProductKey();
-		System.out.println(productKey);
 		String rYn = bean.getrYn();
-		int ordersKey = bean.getOrdersKey();
-		session.setAttribute("bean", bean);
-		System.out.println("bean 출력 확인 = " + bean);
+		
+		  session.setAttribute("bean", bean);
+		//BuyManagementBean bbean = new BuyManagementBean();
+		//bbean.setBrKey(Integer.parseInt(request.getParameter("brKey")));
+		//System.out.println(brKey + " = brKey완료 ");
+		//bbean.setrYn(request.getParameter("rYn"));
+		//System.out.println(rYn + " = rYn완료 ");
+		//update 쿼리 ryn(bean) 메소드
+		//brmmgr.ryn(bbean); 
+		//String url = "../admin/buyManagement.jsp";
+		//response.sendRedirect(url);
 %>
 <!DOCTYPE html>
 <html>
@@ -32,33 +37,44 @@
 	<meta charset="UTF-8">
 	<title><%=brKey %></title>
 	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
-<script type="text/javascript">
-		function list(){
-		   	
-			document.readFrm.submit();
-		}
- 
-	</script>
+
 </head>
 <body > 
-		<input type="hidden" value = <%=brKey1 %>>
-		<input type="hidden" value = <%=memKey %>>
-		<input type="hidden" value = <%=memOrderKey %>>
-		<input type="hidden" value = <%=nonMemOrderKey %>>
-		<input type = "hidden" value = <%=productKey %>>
-		<input type="hidden" value = <%=rYn%>>
-		<input type="hidden" value = <%=ordersKey%>>
-	 <a href="../admin/buyupdate.jsp?nowPage=<%=nowPage%>&brKey=<%=brKey%>"><input type= "button" value= "네"></a>
-	 <a href = "../admin/buyManagement.jsp"><input type = "button" value = "아니오"></a>
 		
-	<form name="readFrm" method="post" action = "buyManagement.jsp">
-			<input type="hidden" name="brKey"> 
-			<input type="hidden" name="nowPage" value="<%=nowPage%>">
-			<%if(!(keyWord==null || keyWord.equals(""))){ %>
-			<input type="hidden" name="keyField" value="<%=keyField%>"> 
-			<input type="hidden" name="keyWord" value="<%=keyWord%>">
-			<%}%>
-		</form>
+		<%System.out.println("rYn 값 = " + rYn); %>
+		<div align = "center">
+		<br/>
+		<br/>
+		<br/>
+		<h2>환불 승인합니다.</h2>
+		<br/>
+		<input type="hidden" name = "brKey" value = <%=brKey1 %>>
+		<input type="hidden" id = "ryn" name ="rYn" value = "<%=rYn%>">
+		<%System.out.println("rYn 값 = " + rYn); %>
+		<td>
+		<a href = "../admin/buyupdate.jsp?nowPage=<%=nowPage%>&brKey=<%=brKey%>"><input type= "submit"  value= "네"></a>
+	 	<a href = "../admin/buyManagement.jsp"><input type = "button" value = "아니오"></a>
+	 	<td>
+		</div>
+
+		<form name="listFrm" method="post" action="../admin/buyManagemnet.jsp">
+		<input type="hidden" name="nowPage" value="<%=nowPage%>">
+		<%if(!(keyWord==null || keyWord.equals(""))){ %>
+		<input type="hidden" name="keyField" value="<%=keyField%>">
+		<input type="hidden" name="keyWord" value="<%=keyWord%>">
+		<%}%>
+	</form>
 
 </body>
 </html>
+<script type="text/javascript">
+		function list(){
+		   	
+			document.listFrm.submit();
+		}
+ 
+		var ryn = document.getElementById("ryn").value;
+		console.log(ryn);
+		//document.self.close();
+		
+	</script>
