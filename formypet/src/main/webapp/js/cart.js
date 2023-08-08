@@ -1,5 +1,6 @@
 /*체크박스*/
 $(function(){
+	
     var listAll = $("input[type='checkbox'].agreechkAll");    //전체 클릭하는 엘리먼트에 .agreechkAll 클랙스가 추가되어야 한다.
     var list = $("input[type='checkbox'].chack");    //각각 클릭하는 엘리먼트에 .chack 클랙스가 추가되어야 한다.
     var common = {
@@ -28,14 +29,13 @@ $(function(){
                     listAll.prop("checked", false);
                 }
             },
+           
         }
 
     $('.cart_table').on('click','.agreechkAll', common.allCheck)
     $('.cart_table').on('click','.chack', common.check)
-
-    
- 
-});
+	
+ });
 
 
 

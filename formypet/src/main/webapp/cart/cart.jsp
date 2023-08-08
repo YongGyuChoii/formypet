@@ -100,7 +100,7 @@
               <td>합계</td>
             </tr>
           </thead>
-
+		  
           <tbody>
           	<%
         	int calPrice;
@@ -109,9 +109,9 @@
           	int total=0;
           	int totalFinal=0;
           	%>
-          	
+          		
           	<%for(int i=0; i<pAll.size(); i++) { %>
-            <tr class="cart_table_detail">
+            <tr class="cart_table_detail"> 
             <%
          	 	int productViewPrice;
               	if(pAll.get(i).getProductSalePrice() == 0) {
@@ -173,13 +173,13 @@
 			  <% } %>
               <td><strong><fmt:formatNumber value="<%=calPrice%>" pattern="#,###"/>원</strong></td>          
             </tr>
-
           <% } %>
+          
           </tbody>
           <tfoot>
             <tr>
               <td colspan="3"> <button class="cart_table_button2" id="deleteSelec" >선택상품 삭제</button>
-              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='test.jsp;'">전체상품 삭제</button>
+              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartDeleteAll.jsp;'">장바구니 비우기</button>
               </td>
               <td></td>
               <td></td>
@@ -245,7 +245,7 @@
           	int totalFinal=0;
           	%>
           	
-          	<%for(int i=0; i<pb.size(); i++) { %>
+          	<%for(int i=0; i<pb.size(); i++) { %>	
             <tr class="cart_table_detail">
             <%
          	 	int productViewPrice;
@@ -313,8 +313,8 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3"> <button class="cart_table_button2" id="delete" onclick="location='cookieSelDel(test).jsp;'">선택상품 삭제</button>
-              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">전체상품 삭제</button>
+              <td colspan="3"> <button class="cart_table_button2" id="delete" onclick="goDelete();">선택상품 삭제</button>
+              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">장바구니 비우기</button>
               </td>
               <td></td>
               <td></td>

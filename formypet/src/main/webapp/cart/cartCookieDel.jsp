@@ -21,7 +21,7 @@
 	%>
 	<script>
 		alert("장바구니가 비었습니다.");
-		location.href="../index.jsp";
+		location.href="./cartEmpty.jsp";
 	</script>
 </body>
 </html>

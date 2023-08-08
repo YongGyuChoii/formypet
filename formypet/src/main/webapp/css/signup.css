@@ -12,7 +12,8 @@
             background-color: #EEEFF1;
             border-radius: 5px;
             text-align: center;
-            margin: 200px auto;}
+            margin: 200px auto;
+            }
 
           input {
             width: 80%;
@@ -20,21 +21,24 @@
             margin: 10px 0;
             box-sizing: border-box;
             border-radius: 5px;
-            border: none;}
+            border: none;
+            }
 
           #btn {
             background-color: #717473;
             font-size: 15px;
             width: 30%;
             margin-bottom: 30px;
-            color: white;}
+            color: white;
+            }
             
-             #btn2 {
+           #btn2 {
             background-color: #717473;
             font-size: 15px;
             width: 30%;
             margin-bottom: 30px;
-            color: white;}
+            color: white;
+            }
             
           .in { margin-bottom: 10px;}
           
@@ -42,9 +46,9 @@
           	margin-bottom: 10px;
           	width: 163px;}
           	
-          .maildomain {
+          #memEmail2 {
           	margin-bottom: 10px;
-          	width: 100px;
+          	width: 120px;
           }
           
           .call {
@@ -52,10 +56,36 @@
           	width: 123px
           }
           
-          .resident {
+         .resident {
           	margin-bottom: 10px;
           	width: 193px
           }
-
+			
+		 #postcode {
+		 	margin-bottom: 5px;
+		 	width: 245px;
+		 }
+		 
+		 .btnNormal {
+		 	margin-bottom: 10px;
+		 	width: 150px;
+		 	background-color: #afafaf;
+    		padding: 5px 3px;
+		 }
+		 
+		 .add {
+		 	margin-bottom: 5px;
+		 }
+		 
+		 .check {
+		 	width: 80px;
+		 	background-color: #afafaf;
+		 	padding: 3px 3px
+		 }
+		 
+		 .id {
+		 	margin-bottom: 10px;
+		 	width: 315px;
+		 }
          
 /*signup css ³¡*/
