@@ -5,7 +5,8 @@
 <jsp:useBean id = "bmmgr" class = "admin.BuyManagementMgr" scope = "page" />
 <%	
 	  request.setCharacterEncoding("UTF-8");
-	  
+	  String rYn = request.getParameter("rYn");
+	  System.out.println(rYn + " ryn 출력");
       int totalRecord=0; //전체레코드수
 	  int numPerPage=10; // 페이지당 레코드 수 
 	  int pagePerBlock=20; //블럭당 페이지수 
@@ -82,7 +83,7 @@
     <!--header 끝-->
 <div align="center" id = "wrap">	
 		<br/>
-		<h2>상품 목록</h2>
+		<h2>환불 목록</h2>
 		<br/>
 		<table align="center" width="600">
 				<tr>
@@ -137,10 +138,11 @@
 							<td align="center"><%=productName%></td>
 							<td align="center">환불 사유 넣을 예정</td>
 							<td align="center">
-							<a href="javascript:readY('<%=brKey%>')">
+							<a href="read5.jsp?nowPage<%=nowPage%>&brKey=<%=brKey%>" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;">
 							<input  type="button" value="승인"></a>
-							<a href="javascript:readN('<%=brKey%>')">
+							<a href="read6.jsp?nowPage<%=nowPage%>&brKey=<%=brKey%>" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;">
 							<input  type="button" value="거절">
+							<% //session.setAttribute("bean", bean);%>
 							</a>
 							</td>
 						</tr>
@@ -207,7 +209,7 @@
 			<input type="hidden" name="reload" value="true"> 
 			<input type="hidden" name="nowPage" value="1">
 		</form>
-		<form name="readFrm" method="post" action = "read5.jsp">
+		<form name="readFrm" method="post">
 			<input type="hidden" name="brKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
@@ -263,11 +265,14 @@
 		console.log("readY 수행1 완료");
 		document.readFrm.submit();
 		console.log("readY 수행2 완료");
-
+		window.open("read5.jsp?nowPage=<%=nowPage%>",'readFrm','window팝업', 'width=500, height=300, menubar=no, status=no, toolbar=no');
 	}
 	function readN(brKey){
 		document.readFrm2.brKey.value=brKey;
+		console.log("readY 수행1 완료");
 		document.readFrm2.submit();
+		console.log("readY 수행2 완료");
+		
 
 	}
 </script>

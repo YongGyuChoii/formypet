@@ -12,8 +12,9 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/admin/rupdate")
 
-public class BuyFileupdateServletY extends HttpServlet {
-		protected void doPost(HttpServletRequest request, HttpServletResponse response)
+public class BuyupServlet extends HttpServlet {
+		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		System.out.println("BuyFileupdateServletY 진입.");
@@ -45,12 +46,13 @@ public class BuyFileupdateServletY extends HttpServlet {
 		//puBean.setOrdersKey(Integer.parseInt(request.getParameter("ordersKey")));
 		
 		puBean.setrYn(request.getParameter("rYn"));
+		System.out.println("BuyFileupdateServletY rYn = " + request.getParameter("rYn") );
 		
 		//BuyManagementMgr ryn 메소드 호출
 		rmmgr.ryn(puBean);
 		System.out.println("ok");
 		String url = "../admin/buyManagement.jsp";
-	response.sendRedirect(url);
+		//response.sendRedirect(url);
 		
 	}
 		
