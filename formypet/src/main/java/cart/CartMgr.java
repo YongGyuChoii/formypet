@@ -58,7 +58,7 @@ public class CartMgr {
 	}
 	
 	//장바구니 비우기
-	public void cartDeleteAll() {
+	public void cartDeleteAll(CartBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -152,16 +152,15 @@ public class CartMgr {
 	}
 	
 	//장바구니 수량 변경+
-	public void cartQuantity(int cartKey) {
+	public void cartQuantity(CartBean bean) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		
 		try {
 			con = pool.getConnection();
-			sql = "UPDATE cart SET cartCount=cartCount+1 WHERE cartKey=?;";			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, cartKey);	
+			sql = "UPDATE cart SET cartCount=cartCount+1 WHERE cartKey=?";			
+			pstmt = con.prepareStatement(sql);	
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -171,28 +170,28 @@ public class CartMgr {
 		}
 	}
 	
-	//장바구니 총금액
-	public void cartSum(int productSalePrice, int productPrice, int cartCount) {
+	//장바구니 선택삭제
+	public void cartSelDel(int cartKey) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		
 		try {
 			con = pool.getConnection();
-			sql = "SELECT SUM(product.productSalePrice), SUM(product.productPrice), SUM(cart.cartCount)\r\n"
-					+ "FROM cart JOIN product\r\n"
-					+ "ON cart.productKey = product.productKey";			
+			sql = "DELETE FROM cart WHERE cartKey=?";
+			pstmt = setInt(1, cartKey);
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, productSalePrice);
-			pstmt.setInt(2, productPrice);
-			pstmt.setInt(3, cartCount);
 			pstmt.executeUpdate();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			pool.freeConnection(con, pstmt);
 		}
+	}
+
+	private PreparedStatement setInt(int i, int cartKey) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

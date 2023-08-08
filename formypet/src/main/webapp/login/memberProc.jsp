@@ -14,9 +14,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
+	<%	
 		boolean result = mgr.insertMember(bean);
 		//MemberMgr 클래스 insertMember() 메서드 호출
+		
 		String msg = "회원가입에 실패 하였습니다.";
 		String location = "signup.jsp";
 		//result 에 담긴 결과값이 true 이면 아래 출력

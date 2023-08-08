@@ -21,7 +21,7 @@
 			<br/><b><%= memId%></b>
 			<%
 				if (result) { //result 변수에 저장된 결과값이 true 이면
-					out.println("는 이미 존재한는 ID입니다.<p/>");
+					out.println("는 이미 존재하는 ID입니다.<p/>");
 				} else { //result 변수에 저장된 결과값이 false 이면
 					out.println("는 사용 가능 합니다.<p/>");
 				}
