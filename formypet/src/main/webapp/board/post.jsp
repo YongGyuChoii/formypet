@@ -1,5 +1,9 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%     
+    String memId = (String)session.getAttribute("idkey2");   
+    %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +23,8 @@
     	h2 {
         font-weight: bold;
     	color: #2b2b2b;
-  		font-size: 40px;
+  		font-size: 30px;
+  		text-decoration: underline;
     	}
     
         table.table2{
@@ -27,7 +32,7 @@
                 border-spacing: 1px;
                 text-align: left;
                 line-height: 1.5;
-                border-top: 1px solid #ccc;
+
                 margin : 30px 10px;
         }
         table.table2 tr {
@@ -41,9 +46,10 @@
                  width: 100px;
                  padding: 10px;
                  vertical-align: top;
-                 border-bottom: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
                  font-size: 14px;
         }
+
  
 </style>
 </head>
@@ -61,24 +67,12 @@
     <br/>
 		<form name="postFrm" method="post" action="boardPost" enctype="multipart/form-data">
 		<div>
-		<h2>Q & A</h2>
+		<h2>INQUIRY</h2>
 		</div>
-		<br/>
         <table  style="padding-top:50px" align=center width=1200 border=0 cellpadding=2 >
                 <tr>
                 <td bgcolor=white>
-                <table class = "table2">
-
-                        <tr>
-                        <td>작성자</td>
-                        <td><input type = text name="name" size=20> </td>
-                        </tr>
-
-                        <tr>
-                        <td>비밀번호</td>
-                        <td><input type="password" name="pass" size=20 maxlength=10></td>
-                        </tr>
-                                        
+                <table class = "table2">             
                         <tr>
                         <td>제  목</td>
                         <td><select name="subject" onchange="subDisplay(this.form)" width="390px";>
@@ -94,7 +88,7 @@
  
                         <tr>
                         <td>내  용</td>
-                        <td><textarea name="content" cols=150 rows=20></textarea></td>
+                        <td><textarea name="content" cols=150 rows=15 placeholder="궁금한 점이 있으시다면 문의를 남겨주세요."></textarea></td>
                         </tr>
  							           
            				<tr>
@@ -108,27 +102,25 @@
 		  			 	TEXT<input type=radio name="contentType" value="TEXT" checked>
 		  			 	</td>
 	 					</tr>
-	 					
-	 				<tr>
-					<td colspan="2"></td>
-					</tr>
-					
-					<tr>
-					<td align="right">
-						 <input type="submit" class="btn btn-dark" value="등록">
-					</td>
-					<td align="left">
-						<input type="button" class="btn btn-dark" value="리스트" onClick="javascript:location.href='list.jsp'"> 
-					</tr>	    				
+	 	
+	 	                <tr>
+                        <td>비밀번호</td>
+                        <td><input type="password" name="pass" size=20 maxlength=10></td>
+                        </tr>
                         
+					<tr>
+					<td><input type="button" class="btn btn-dark" value="리스트" onClick="javascript:location.href='list.jsp'"></td>
+					<td align="right"><input type="submit" class="btn btn-dark" value="등록"></td>
+					</tr>	    				
+  
                 </table>
                 </td>
                 </tr>
         </table>
         <input type="hidden" name="memKey" value="<%=memKey%>">
+        <input type="hidden" name="name" value="<%=memId%>">
         </form>
         </div>
-        <br/><br/>
     <!--main 끝-->
 
     <!-- 오른쪽 맨위 맨아래 화살표 -->

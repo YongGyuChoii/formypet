@@ -4,7 +4,9 @@
 <%
 	  String nowPage = request.getParameter("nowPage");
 	  String subject = bean.getSubject();
-	  String content = bean.getContent(); 
+	  String content = bean.getContent();
+	  
+	  String memId = (String)session.getAttribute("idkey2");   
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -42,11 +44,6 @@
 	 <tr>
 	  <td>
 	   <table>
-	    <tr>
-	     <td width="20%">성 명</td>
-	     <td width="80%">
-		  <input name="name" size="30" maxlength="20"></td>
-	    </tr>
 	    <tr>
 	     <td>제 목</td>
 	     <td>
@@ -94,6 +91,7 @@
 	 <input type="hidden" name="pos" value="<%=bean.getPos()%>">
 	 <input type="hidden" name="depth" value="<%=bean.getDepth()%>">
 	 <input type="hidden" name="memKey" value="<%=memKey%>">
+     <input type="hidden" name="name" value="<%=memId%>">
 	</form> 
 	</div>
       </section>

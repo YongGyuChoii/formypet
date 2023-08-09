@@ -83,6 +83,7 @@
 					</td>
 				</tr>
 			</table>
+			<br/>
 			<!-- 비밀번호를 화면에서 input 태그에 입력 받은뒤 삭제완료 버튼을 누르면 check() 자바스크립트 함수 호출 한 다음
 				다시 자신 페이지인(delete.jsp)로 파라미터를 갖고 이동.(입력 받은 파라미터를 갖고 페이지를 새로고침 한다고 생각하면 됨)   -->
 			<form name="delFrm" method="post" action="delete.jsp">
@@ -101,7 +102,6 @@
 								<tr>
 									<td align="center">
 										<input type="button" value="삭제완료" onClick="check()"> 
-										<input type="reset" value="다시쓰기">
 										<input type="button" value="뒤로" onClick="history.go(-1)">
 									</td>
 								</tr>
