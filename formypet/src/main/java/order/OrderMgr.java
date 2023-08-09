@@ -26,7 +26,9 @@ public class OrderMgr {
 	}
 	
 	//회원구매
-	public boolean insertMemOrder(String rName, String rAddress, String rPhone, String requestPro, int pointPrice, int productPrice, int memKey) {
+	public boolean insertMemOrder(String rName, String rAddress, String rPhone, String requestPro, int pointPrice, 
+									int productPrice, int memKey, int[] productKey, 
+									int[] oCount, int[] oPrice, int[] oPoint, String[] optionValue) {
 		boolean flag = true;
 	    
 		//랜덤 주문번호 생성
@@ -54,7 +56,7 @@ public class OrderMgr {
 	    	yOrN = "N";
 	    }
 	    		
-		try {
+		try { //mem_order 테이블 추가
 			con = pool.getConnection();
 			sql = "insert into mem_order(memOrderKey,rName,rAddress,rPhone,request,pointPrice,productPrice,deliveryFreeYn,memKey)"
 				+ " values('"+trade_code+"',?,?,?,?,?,?,'"+yOrN+"',?)";
@@ -72,7 +74,89 @@ public class OrderMgr {
 		}finally {
 			pool.freeConnection(con,pstmt,rs);
 		}
+		
+		for(int i=0; i<productKey.length; i++) {
+			try { //orders 테이블 추가
+				con = pool.getConnection();
+				sql = "insert into orders(memOrderKey,productKey,oCount,oPrice,oStatus,oPoint,optionValue)"
+					+ " values('"+trade_code+"',?,?,?,'상품준비중',?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, productKey[i]);
+				pstmt.setInt(2, oCount[i]);
+				pstmt.setInt(3, oPrice[i]);
+				pstmt.setInt(4, oPoint[i]);
+				pstmt.setString(5, optionValue[i]);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				pool.freeConnection(con,pstmt,rs);
+			}
+		}
+		
 		return flag;
 	}
 	
+	//구매시 회원 포인트 관리
+	public void memPoint(int pointPrice, int[] oPoint, int memKey) {
+		
+		try { //회원 포인트에서 사용한 포인트 빼주기
+			con = pool.getConnection();
+			sql = "UPDATE member set memPoint = memPoint-? WHERE memKey = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, pointPrice);
+			pstmt.setInt(2, memKey);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			pool.freeConnection(con,pstmt);
+		}
+		
+		for(int i=0; i<oPoint.length; i++) {
+			try { //회원 포인트에서 적립된 포인트 더하기
+				con = pool.getConnection();
+				sql = "UPDATE member set memPoint = memPoint+? WHERE memKey = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, oPoint[i]);
+				pstmt.setInt(2, memKey);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				pool.freeConnection(con,pstmt);
+			}
+		}
+	}
+	
+	//상품 구매시 상품재고량, 상품 주문수량 관리
+	public void productCount(int[] productKey, int[] oCount) {
+		for(int i=0; i<productKey.length; i++) {
+			try { //회원 포인트에서 적립된 포인트 더하기
+				con = pool.getConnection();
+				sql = "UPDATE product set productCount = productCount-? WHERE productKey = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, oCount[i]);
+				pstmt.setInt(2, productKey[i]);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				pool.freeConnection(con,pstmt);
+			}
+		}
+		for(int i=0; i<productKey.length; i++) {
+			try { //회원 포인트에서 적립된 포인트 더하기
+				con = pool.getConnection();
+				sql = "UPDATE product set productOrderCount = productOrderCount+1 WHERE productKey = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, productKey[i]);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				pool.freeConnection(con,pstmt);
+			}
+		}
+	}
 }

@@ -114,13 +114,16 @@
         					<%if(optionText[i] != ""){ %>
         					<div class="option">[옵션 : <%=optionText[i] %>]</div>
         					<%} %>
+        					<input type="hidden" name="optionValue" value="<%=optionText[i] %>" />
         				</td>	
         				<td class="thirdLine">
         					<div id="productPrice">
         						<strong><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice() %>" pattern="#,###"/></strong>
         					</div>
         				</td>
-        				<td style="text-align: center;"><%=cartCount[i] %></td>
+        				<td style="text-align: center;"><%=cartCount[i] %>
+        					<input type="hidden" name="oCount" value="<%=cartCount[i] %>" />
+        				</td>
         				<td style="text-align: center;">
         					<span id="reserves" class="text3"><fmt:formatNumber value="<%=(pb.get(i).getProductSalePrice() * cartCount[i]) * 0.02 %>" pattern="#,###"/></span>원
         				</td>

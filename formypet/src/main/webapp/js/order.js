@@ -128,6 +128,26 @@ $(function(){
 		$("input[name=productKey]").each(function(index, item){
 	    	productKey.push($(item).val());
 		});
+		//옵션 배열로 담기
+		var optionValue = new Array();
+		$("input[name='optionValue']").each(function(index, item){
+	    	optionValue.push($(item).val());
+		});
+		//상품 수량 배열 담기
+		var oCount = new Array();
+		$("input[name='oCount']").each(function(index, item){
+	    	oCount.push($(item).val());
+		});
+		//상품 가격 배열 담기
+		var oPrice = new Array();
+		$(".totalPrevPrice").each(function(index, item){
+	    	oPrice.push($(item).text().replace(regex, ""));
+		});
+		//적립금 배열 담기
+		var oPoint = new Array();
+		$(".text3").each(function(index, item){
+	    	oPoint.push($(item).text().replace(regex, ""));
+		});
 		
 		//가지고 있는 포인트 가져오기
 		var txtWarn2 = $('.txtWarn').text();
@@ -203,6 +223,10 @@ $(function(){
 			alert('포인트가 부족합니다.');
 			flag=false;
 		}
+		if(inputMilage.trim() == ""){
+			alert('포인트 사용 안할시 0을 입력해주세요');
+			flag=false;
+		}
 		
 		//유효성 검사가 다완료 한다면 결제하기 툴 실행
 		if(flag==true){
@@ -225,7 +249,7 @@ $(function(){
 						type : "POST",
 						traditional: true,	// ajax 배열 넘기기 옵션!
 						url: "/formypet/order/MemBuyServlet",
-						data : {delName2:delName2, delZipcode1:delZipcode1, delZipcode2:delZipcode2, delZipcode3:delZipcode3, delPhone2:delPhone2, delPhone3:delPhone3, delMessage:delMessage, inputMilage:inputMilage, totalView:totalView, memKey:memKey},
+						data : {oPoint:oPoint, oPrice:oPrice, oCount:oCount, optionValue:optionValue, productKey:productKey, delName2:delName2, delZipcode1:delZipcode1, delZipcode2:delZipcode2, delZipcode3:delZipcode3, delPhone2:delPhone2, delPhone3:delPhone3, delMessage:delMessage, inputMilage:inputMilage, totalView:totalView, memKey:memKey},
 						dataType : "json",
 						success : function(data) { 
 							window.location.href="/formypet/index.jsp";
