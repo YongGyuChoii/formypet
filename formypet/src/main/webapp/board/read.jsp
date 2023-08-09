@@ -27,7 +27,7 @@
 	  String filename = bean.getFilename(); 
 	  int filesize = bean.getFilesize();
 	  int count = bean.getCount();
-	  
+	  	  
 	  session.setAttribute("bean", bean);//게시물을 세션에 저장
 %>
 <!DOCTYPE html>

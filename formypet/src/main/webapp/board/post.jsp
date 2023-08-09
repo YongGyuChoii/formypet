@@ -61,7 +61,7 @@
     <br/>
 		<form name="postFrm" method="post" action="boardPost" enctype="multipart/form-data">
 		<div>
-		<h2>Q&A</h2>
+		<h2>Q & A</h2>
 		</div>
 		<br/>
         <table  style="padding-top:50px" align=center width=1200 border=0 cellpadding=2 >
@@ -143,30 +143,3 @@
     </div>
 </body>
 </html>
-<script language="javascript">
-
-function subDisplay(frm) {
-
-    var subject = frm.subject.selectedIndex;
-
-    switch( subject ){
-	   case 0:
-	     frm.subject.value = '문의 내용을 구체적으로 작성해주시면 정확하고 빠른 답변에 도움이 됩니다. \n\nㅇ 문의제품 : ㅇ 문의사항 : ㅇ 기타 : ';
-		 break;
-	   case 1:
-	     frm.subject.value = '(국X은행) 0XX-XX-XXXX-XXX';
-		 break;
-	   case 2:
-	     frm.subject.value = '(기X은행) XXX-0XXXXX-0X-0XX';
-		 break;
-	   case 3:
-	     frm.subject.value = '(우X은행) 1XX-XX-0XXXXXXX';
-		 break;
-	   case 4:
-	     frm.subject.value = '(주X은행) 0XXXXXX-0X-0XXXXX';
-		 break;
-    }
-	
-    return true;
-}
-</script>
