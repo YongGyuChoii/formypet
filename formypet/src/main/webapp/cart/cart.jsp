@@ -5,6 +5,8 @@
 <%@page import="javax.servlet.http.*"%>
 <%@page import="javax.servlet.*"%>    
 <%@page import="cart.CartBean"%>
+<%@page import="product.ProductBean"%>
+<%@page import="product.ProductFileBean"%>
 <%@page import="java.util.*"%>
 <jsp:useBean id="cMgr" class="cart.CartMgr" />
 <%@page import="product.ProductBean"%> 
@@ -43,6 +45,7 @@
 	if(productKey != null) {
 		pb = cMgr.insertNoMemCart(productKey);	
 	}
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -63,6 +66,9 @@
       }
       p {
         margin-top: 1rem;
+      }
+      img {
+      	width: 80%;
       }
     </style>
 </head>
@@ -139,16 +145,36 @@
           %>
               <td>
               		<input id="chack1" class="chack" type="checkbox" checked="checked" name="chkList">
+              		<input type="hidden" name="productKey" value="<%=pAll.get(i).getProductKey() %>" />
+              		<input type="hidden" name="memKey" value="<%=memKey%>"/>
         			<label for="chack1" class="chack_ele"></label>
               </td>
-              <td><a href="#"><img src="../images/bathProduct/<%=pAll.get(i).getProductImg()%>" alt=""></a></td>
+              <td>
+              	<a href="../product/productDetail.jsp?productKey=<%=pAll.get(i).getProductKey() %>&categoryKey=<%=pAll.get(i).getCategoryKey()%>">
+                    <%if(pAll.get(i).getCategoryKey() == 1){ %>
+                    <img src="../images/bathProduct/<%=pAll.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pAll.get(i).getCategoryKey() == 2){%>
+                    <img src="../images/hygieneProduct/<%=pAll.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pAll.get(i).getCategoryKey() == 3){%>
+                    <img src="../images/beautyProduct/<%=pAll.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pAll.get(i).getCategoryKey() == 4){%>
+                    <img src="../images/livingProduct/<%=pAll.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pAll.get(i).getCategoryKey() == 5){%>
+                    <img src="../images/walkProduct/<%=pAll.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pAll.get(i).getCategoryKey() == 6){%>
+                    <img src="../images/snackProduct/<%=pAll.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pAll.get(i).getCategoryKey() == 7){%>
+                    <img src="../images/clothesProduct/<%=pAll.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} %>
+                 </a>
+              </td>
               <td colspan="2">
-              	<a href="#"><%=pAll.get(i).getProductName()%></a>
+              	<a href="../product/productDetail.jsp?productKey=<%=pAll.get(i).getProductKey() %>&categoryKey=<%=pAll.get(i).getCategoryKey()%>"><%=pAll.get(i).getProductName()%></a>
               	<br>
-              	<%if(pAll.get(i).getOptionValue()==null) {%>
-              	<%} else {%>
+              	<input type="hidden" name="optionValue" value="<%=pAll.get(i).getOptionValue()%>">
+              	<%if(pAll.get(i).getOptionValue() != null) {%>
               	<a style="font-size:12px; opacity: 0.8"><%=pAll.get(i).getOptionValue()%></a>
-              	<%}%>
+              	<%} %>
               </td>
               <td class="cart_table_button">
         	  	<%if(pAll.get(i).getProductSalePrice() == 0) {%>
@@ -190,7 +216,7 @@
       </table>
       <div class="cart_bottom_button">
         <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
-        <button class="cart_big_button right">주문하기</button>
+        <button class="cart_big_button right" id="buyNow">주문하기</button>
       </div>     
       <table class="table_bottom">
         <colgroup>

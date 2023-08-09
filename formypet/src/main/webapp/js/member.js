@@ -8,7 +8,10 @@ function selectOption() {
 
 	document.getElementById("memEmail2").value = select;
 	
+	
+	
 }
+
 
 //daum 우편번호
 function DaumPostcode() {
@@ -22,6 +25,7 @@ function DaumPostcode() {
                 var addr = ''; // 주소 변수
                 var extraAddr = ''; // 참고항목 변수
 
+				
                 //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
                 if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
                     addr = data.roadAddress;
@@ -73,6 +77,7 @@ function idCheck(memId) {
 			url = "idCheck.jsp?memId=" + memId;
 			//창 크기로 idCheck.jsp 페이지 열기
 			window.open(url, "IDCheck", "width=300,height=150");
+			var a = 1;
 }	
 
 function inputCheck(){
@@ -83,6 +88,7 @@ function inputCheck(){
 	document.getElementById("test").value = addr0 + "/" + addr1; 
 	
 	//회원가입 유효성검사
+	
 	if(document.regFrm.memId.value==""){
 		alert("아이디를 입력해 주세요.");
 		document.regFrm.memId.focus();

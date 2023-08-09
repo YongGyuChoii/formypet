@@ -35,8 +35,9 @@
           <h2>회원정보 입력</h2>          	  
               <input name="memId" type="text" id="uid" placeholder="아이디 (영문 소문자/숫자4~16자)" class="id" required>
               <input type="button" value="중복확인" class="check" onClick="idCheck(this.form.memId.value)">
-              <input name="memPw" type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" required>
-              <input name="repwd" type="password" placeholder="비밀번호 확인" class="in" required>
+              <input type="hidden" name="idDuplication" value="idUncheck">
+              <input name="memPw" type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" maxlength="10" required>
+              <input name="repwd" type="password" placeholder="비밀번호 확인" class="in" maxlength="10" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>
               <input name="memEmail1" type="text" placeholder="이메일" class="mail" required>@<input id="memEmail2" name="memEmail2" type="text" class="maildomain" required>
               <select id="memEmail3" name="memEmail3" onChange="selectOption()" style="width: 100px;">
@@ -57,7 +58,7 @@
               <input type="text" value="010" class="call">&nbsp;-&nbsp;
               <input name="memPhone1" type="tel" placeholder="전화번호" class="call" maxlength="4" required>&nbsp;-&nbsp;
               <input name="memPhone2" type="tel" placeholder="전화번호" class="call"  maxlength="4" required>
-              <input name="memResident1" type="text" id="resident" class="resident" placeholder="주민번호 앞 6자리" maxlength="6" required>&nbsp;-&nbsp;<input name="memResident2" type="text" id="resident" class="resident" placeholder="주민번호 뒷자리" maxlength="7" required>
+              <input name="memResident1" type="text" id="resident" class="resident" placeholder="주민번호 앞 6자리" maxlength="6" required>&nbsp;-&nbsp;<input name="memResident2" type="password" id="resident" class="resident" placeholder="주민번호 뒷자리" maxlength="7" required>
               <input type="reset" id="btn" value="취소">
               <input type="hidden" name="memAddress" id="test" value="">
               <input type="submit" id="btn" value="회원가입" onclick="inputCheck()">

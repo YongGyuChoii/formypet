@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import product.ProductBean;
+import product.ProductFileBean;
 import util.DBConnectionMgr;
 
 public class CartMgr {
@@ -192,6 +193,38 @@ public class CartMgr {
 	private PreparedStatement setInt(int i, int cartKey) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	//상품키로 상품사진 파일들 가져오기
+	public ArrayList<ProductFileBean> getProductFile(int productKey){
+		ArrayList<ProductFileBean> pfbList = new ArrayList<>();
+			
+		try {
+			con = pool.getConnection();
+			//productKey 값을 기준으로 product_file 테이블 에서 파일을 조회한다.
+			sql = "select * from product_file where productKey=? and delYn='N'";
+			pstmt = con.prepareStatement(sql);
+				
+			pstmt.setInt(1, productKey);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ProductFileBean pfb = new ProductFileBean();
+				pfb.setFileKey(rs.getInt("fileKey"));
+				pfb.setFileOriginalName(rs.getString("fileOriginalName"));
+				pfb.setFileSaveName(rs.getString("fileSaveName"));
+				pfb.setSize(rs.getInt("size"));
+				pfb.setDelYn(rs.getString("delYn"));
+				pfb.setFileCreatedDate(rs.getString("fileCreatedDate"));
+				pfb.setFileDeletedDate(rs.getString("fileDeletedDate"));
+				pfb.setProductKey(rs.getInt("productKey"));
+				pfbList.add(pfb);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			pool.freeConnection(con,pstmt,rs);
+		}
+		return pfbList;
 	}
 	
 }
