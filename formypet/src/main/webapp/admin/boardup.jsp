@@ -3,14 +3,26 @@
 <%@ page import="board.BoardBean"%>
 
 <% 
-		
+      Integer memKey = (Integer)session.getAttribute("idKey");
 	  int num = Integer.parseInt(request.getParameter("num"));
 	  String nowPage = request.getParameter("nowPage");
+	  System.out.println("답변2 num ="+num);
 	  
 	  BoardBean bean = (BoardBean)session.getAttribute("bean");
-	  String subject = bean.getSubject();
-	  String name = bean.getName(); 
-	  String content = bean.getContent();
+	  	int num1 = bean.getNum();
+		int memKey1 = bean.getMemKey();
+		String subject = bean.getSubject();
+		String regdate = bean.getRegdate();
+		int count = bean.getCount();
+		String name = bean.getName();
+		String content = bean.getContent();
+		int pos = bean.getPos();
+		int ref = bean.getRef();
+		int depth = bean.getDepth();
+		String pass = bean.getPass();
+		String filename = bean.getFilename();
+		int filesize = bean.getFilesize();
+		System.out.println("bean의 담긴 num값 =" + num1);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -23,23 +35,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-		//패스워드 가 입력 되었는지 확인하는 check() 함수
-		function check() {
-		   if (document.updateFrm.pass.value == "") {
-			 alert("수정을 위해 패스워드를 입력하세요.");
-			 document.updateFrm.pass.focus();
-			 return false;
-			 }
-		   document.updateFrm.submit();
-		}
-	</script>
+
 </head>
 <body>
     <div id="wrap">
     <!-- header 시작-->
     <header>
-        <%@include file="/base/header.jsp"%>
+        <%@include file="../admin/adminHeader.jsp"%>
     </header>
     <!--header 끝-->
 
@@ -53,7 +55,7 @@
 	  </tr>
 	</table>
 	<!-- boardUpdate 로 url맵핑된 서블릿으로 이동한다. -->
-	<form name="updateFrm" method="post" action="boardUpdate">
+	<form name="updateFrm" method="post" action="../admin/boardUpdate">
 	<table width="600" cellpadding="7">
 	 <tr>
 	  <td>
@@ -76,16 +78,11 @@
 		 </td>
 	    </tr>
 		<tr>
-	     <td>비밀 번호</td> 
-	     <td><input type="password" name="pass" size="15" maxlength="15">
-	      수정 시에는 비밀번호가 필요합니다.</td>
-	    </tr>
-		<tr>
 	     <td colspan="2" height="5"><hr/></td>
 	    </tr>
 		<tr>
 	     <td colspan="2">
-		  <input type="button" value="수정완료" onClick="check()">
+		  <input type="button" value="수정완료" onclick = "check()" >
 	      <input type="reset" value="다시수정"> 
 	      <input type="button" value="뒤로" onClick="history.go(-1)">
 		 </td>
@@ -95,7 +92,9 @@
 	 </tr>
 	</table>
 	 <input type="hidden" name="nowPage" value="<%=nowPage %>">
-	 <input type='hidden' name="num" value="<%=num%>">
+	 <input type='hidden' name="num" value="<%=num1%>">
+	 <%System.out.println(num + " = 마지막쪽"); %>
+	 <input type = "hidden" name = "memKey" value = "<%=memKey1%>">
 	</form> 
 	</div>
       </section>
@@ -114,4 +113,9 @@
     </div>
 </body>
 </html>
+    <script>
+function check() {
+		   document.updateFrm.submit();
+}
+	</script>
     

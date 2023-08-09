@@ -46,14 +46,14 @@
 		<br/>
 		<br/>
 		<br/>
-		<h2>환불 승인합니다.</h2>
+		<h2>환불을 승인합니다.</h2>
 		<br/>
 		<input type="hidden" name = "brKey" value = <%=brKey1 %>>
 		<input type="hidden" id = "ryn" name ="rYn" value = "<%=rYn%>">
 		<%System.out.println("rYn 값 = " + rYn); %>
 		<td>
 		<a href = "../admin/buyupdate.jsp?nowPage=<%=nowPage%>&brKey=<%=brKey%>"><input type= "submit"  value= "네"></a>
-	 	<a href = "../admin/buyManagement.jsp"><input type = "button" value = "아니오"></a>
+	 	<a href = "../admin/buyManagement.jsp" onclick="window.open(this.href, '_close'); return false;"><input type = "button" value = "아니오"></a>
 	 	<td>
 		</div>
 
