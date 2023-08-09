@@ -1,6 +1,15 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page import="java.util.*"%>
+<%@page import="product.ProductBean"%>
+<%@page import="member.MemberBean"%>
+<%
+	//상품, 상품수량, 옵션값 세션에서 가져오기
+	ArrayList<ProductBean> pb = (ArrayList)session.getAttribute("pb");
+	int[] cartCount = (int[])session.getAttribute("cartCount");
+	String[] optionText = (String[])session.getAttribute("optionText");
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,7 +20,7 @@
     <link rel="stylesheet"  href="../css/order.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../js/order.js"></script>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
@@ -32,38 +41,35 @@
         <div class="titleArea">
         	<h2>Order</h2>
         </div>
-      <div class="memOrderJsp">  
-      <div clss="orderListArea"> 
+      <div class="memOrderJsp"> </div> 
+      <div class="orderListArea"> </div>
         <div class="headTitle">
         	<h3>국내배송상품 주문내역</h3>
         	<p class="button">
-        		<a href="#" class="btnNormal">이전페이지</a>
+        		<a href="#" class="btnNormal" onclick="history.back()">이전페이지</a>
         	</p>
         </div>
         <div class="gBorder">
-        	<table border="1" summary>
+        	<table border="1">
         		<caption></caption>
         		<colgroup>
         			<col style="width:27px">
         			<col style="width:92px">
         			<col style="width:auto">
         			<col style="width:98px">
-        			<col style="width:75px">
         			<col style="width:98px">
         			<col style="width:98px">
         			<col style="width:85px">
-        			<col style="width:98px">
+        			<col style="width:100px">
         		</colgroup>
         		<thead>
         			<tr>
-        				<th scope="col" class>
-        					<input type="checkbox" onclick="#">
+        				<th scope="col">
         				</th>
         				<th scope="col">이미지</th>
         				<th scope="col">상품정보</th>
         				<th scope="col">판매가</th>
         				<th scope="col">수량</th>
-        				<th scope="col">적립금</th>
         				<th scope="col">배송구분</th>
         				<th scope="col">배송비</th>
         				<th scope="col">합계</th>
@@ -71,59 +77,77 @@
         		</thead>
         		
         		<tbody class="tableBody">
+        			<%for(int i=0; i<pb.size(); i++){ %>
         			<tr class="bTable">
-        				<td class>
-        					<input type="checkbox">
+        				<td>
+        					<input type="checkbox" name="checkProduct">
+        					<input type="hidden" name="productKey" value="<%=pb.get(i).getProductKey() %>" />
         				</td>
         				<td class="firstLine">
-        					<a href="#">
-        						<img style="max-width: 75px;" style="text-align:center;" src="../images/cart/cart.jpg">
+        					<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey()%>&categoryKey=<%=pb.get(i).getCategoryKey()%>">
+        						<%if(pb.get(i).getCategoryKey() == 1){ %>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/bathProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 2){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/hygieneProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 3){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/beautyProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 4){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/livingProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 5){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/walkProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 6){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/snackProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} else if(pb.get(i).getCategoryKey() == 7){%>
+        						<img style="max-width: 75px;" style="text-align:center;" src="../images/clothesProduct/<%=pb.get(i).getProductImg()%>">
+        						<%} %>
         					</a>
         				</td>
         				<td class="secondLine">
         					<strong class="name">
-        						<a href="#" class="proName">세이프 쿨젤매트</a>
+        						<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey()%>&categoryKey=<%=pb.get(i).getCategoryKey()%>" class="proName"><%=pb.get(i).getProductName() %></a>
         					</strong>
-        					<div class="option">[옵션 : 세이프 쿨젤매트 S]</div>
+        					<%if(optionText[i] != ""){ %>
+        					<div class="option">[옵션 : <%=optionText[i] %>]</div>
+        					<%} %>
+        					<input type="hidden" name="optionValue" value="<%=optionText[i] %>" />
         				</td>	
         				<td class="thirdLine">
         					<div id="productPrice">
-        						<strong>32,900원</strong>
+        						<strong><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice() %>" pattern="#,###"/></strong>
         					</div>
         				</td>
-        				<td style="text-align: center;">1</td>
-        				<td>
-        					<span id="reserves" class="text3"></span>
+        				<td style="text-align: center;"><%=cartCount[i] %>
+        					<input type="hidden" name="oCount" value="<%=cartCount[i] %>" />
         				</td>
-        				<td>
-        					<div class="text3">
+        				<td style="text-align: center;">
+        					<div>
         						기본배송
         						<br>
         					</div>
         				</td>
-        				<td rowspan="1" class style="text-align: center;">[조건]</td>
-        				<td class="fourth">
+        				<td rowspan="1" style="text-align: center;">[조건]</td>
+        				<td class="fourth" style="text-align: center;">
         					<strong>
-        						<span id="bodyTotalPrice">32,900</span>
-        						원
+        						<span id="bodyTotalPrice" class="totalPrevPrice"><fmt:formatNumber value="<%=pb.get(i).getProductSalePrice() * cartCount[i] %>" pattern="#,###"/></span>원
         					</strong>
         				</td>
         			</tr>
+        			<%} %>
         		</tbody>
         		
         		<tfoot class="tableFoot">
         			<tr>
-        				<td class></td>
+        				<td></td>
         				<td colspan="8">
         					<span class="footLeft">[기본배송]</span>
         					상품구매금액
-        					<strong>65,800
+        					<strong><span class="totalPrice"></span>
         					</strong>
         					+ 배송비
-        					<span id="delPin">3,000</span>
+        					<span id="delPin" class="deliveryPrice"></span>
         					= 합계 :
         					<strong class="text1">
-        						<span id="totalPrice" class="text2">35,900</span>
+        						<span id="totalRealPrice" class="totalRealPrice"></span>
         						원
         					</strong>
         				</td>
@@ -134,10 +158,10 @@
         <div class="buttonBase">
         	<span class="buttonLeft">
         		<strong class="baseText">선택상품을</strong>
-        		<a href="#" id="baseDelete" class="btnEm">X 삭제하기</a>
+        		<a id="baseDelete" class="btnEm">X 삭제하기</a>
         	</span>
         	<span class="buttonRight">
-        		<a href="#" class="btnNormal">이전페이지</a>
+        		<a href="#" class="btnNormal" onclick="history.back()">이전페이지</a>
         	</span>
         </div>
         
@@ -147,7 +171,7 @@
         		<p class="required">* 필수입력사항</p>
         	</div>
         	<div class="orderImpormation">
-        		<table border="1" summary>
+        		<table border="1">
         			<colgroup>
         				<col style="width:139px;">
         				<col style="width:auto;">
@@ -156,19 +180,19 @@
         				<tr>
         					<th scope="row">주문하시는 분</th>
         					<td>
-        						<input id="orderName" name="orderName" type="text" size="15">
+        						<input id="orderName" name="orderName" type="text" size="15" value="">
         					</td>
         				</tr>
-        				<tr class>
+        				<tr>
         					<th scope="row">휴대전화</th>
-          					<td class>
-          						<select id="orderPhone1" name="orderPhone1" value="010">
+          					<td>
+          						<select id="orderPhone1" name="orderPhone1">
           							<option value="010">010</option>
           						</select>
           						-				
-          						<input id="orderPhone2" name="orderPhone2" maxlength="4" type="text">
+          						<input id="orderPhone2" name="orderPhone2" maxlength="4" type="text" value="">
           						- 				
-          						<input id="orderPhone3" name="orderPhone3" maxlength="4" type="text">
+          						<input id="orderPhone3" name="orderPhone3" maxlength="4" type="text" value="">
           					</td>
           				</tr>
         			</tbody>
@@ -176,10 +200,10 @@
         				<tr>
         					<th scope="row">이메일</th>
         					<td>
-        						<input id="orderEmai1" name="orderEmail1" type="text">
+        						<input id="orderEmail1" name="orderEmail1" type="text" value="">
         						@
-        						<input id="orderEmail2" name="orderEmail" type="text">
-        						<select id="orderEmail3">
+        						<input id="orderEmail2" name="orderEmail2" type="text" value="">
+        						<select id="orderEmail3" name="orderEmail3">
         							<option value="">-선택-</option>
     								<option value="naver.com">naver.com</option>
     								<option value="gmail.com">gmail.com</option>
@@ -188,7 +212,6 @@
     								<option value="korea.com">korea.com</option>
     								<option value="nate.com">nate.com</option>
     								<option value="yahoo.com">yahoo.com</option>
-    								<option value="직접입력">직접입력</option>
         						</select>
         						<ul class="orderBlank">
         							<li>이메일을 통해 주문처리과정을 보내드립니다</li>
@@ -206,7 +229,7 @@
         				<tr>
         					<th scope="row">주문조회 비밀번호 확인</th>
         					<td>
-        						<input id="orderPw2"  type="password">
+        						<input id="orderPw2" name="orderPw2"  type="password">
         					</td>
         				</tr>
         			</tbody>
@@ -219,48 +242,35 @@
         		<p class="required">* 필수입력사항</p>
         	</div>
         	<div class="orderImpormation">
-        		<table border="1" summary>
+        		<table border="1">
         			<caption>배송 정보 입력</caption>
         			<colgroup>
         				<col style="width:139px;">
         				<col style="width:auto;">
         			</colgroup>
-        			<tbody class>
-        				<tr class>
-        					<th scope="row">배송지 선택</th>
-        					<td>
-        						<div class="address">
-        							<input id="sameAddr1" name="sameAddr1" type="radio" autocomplete="off">
-        							<label for="sameAddr1">주문자 정보와 동일</label>
-        							<input id="sameAddr2" name="sameAddr2" type="radio" sutocomplete="off">
-        							<label for="sameAddr2">새로운 배송지</label>
-        							<a href="#" id="btnAddr" class="btnNormal">주소록 보기</a>
-        						</div>
-        					</td>
-        				</tr>
+        			<tbody>
         				<tr>
         					<th scope="row">받으시는 분</th>
         					<td>
-        						<input id="delName1" name="delName2" type="text">
+        						<input id="delName1" name="delName2" type="text" value="">
         					</td>
         				</tr>
         				<tr>
         					<th scope="row">배송주소</th>
         					<td>
-        						<input id="delZipcode1" name="delZipcode1" type="text" maxlength="6">
-        						<a href="#" id="btnZipcode" class="btnNormal">우편번호</a>
-        						<br>
-        						<input id="delZipcode2" name="delZipcode2" type="text">
+        						<input type="text" id="sample6_postcode" name="delZipcode1" placeholder="우편번호">
+        						<input type="button" class="btnNormal" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+        						<input type="text" id="sample6_address" name="delZipcode2" placeholder="주소">
         						<span class="grid">기본 주소</span>
         						<br>
-        						<input id="delZipcode3" name="delZipcode3" type="text">
+        						<input type="text" id="sample6_detailAddress" name="delZipcode3" placeholder="상세주소" value="">
         						<span class="grid">나머지주소(선택입력가능)</span>
         					</td>
         				</tr>
-        				<tr class>
+        				<tr>
         					<th scope="row">휴대전화</th>
         					<td>
-          						<select id="orderPhone1" name="orderPhone1" value="010">
+          						<select id="orderPhone1" name="orderPhone1">
           							<option value="010">010</option>
           						</select>
           						-
@@ -271,7 +281,7 @@
         				</tr>
         			</tbody>
         			<tbody class="delivery">
-        				<tr class>
+        				<tr>
         					<th scope="row">배송메시지</th>
         					<td>
         						<textarea id="delMessage" name="delMessage" cols="70"></textarea>
@@ -285,7 +295,7 @@
         		<h3>추가정보</h3>
         	</div>
         	<div class="orderImpormation">
-        		<table border="1" summary>
+        		<table border="1">
         			<caption>추가 정보 입력</caption>
         			<colgroup>
         				<col style="width:139px;">
@@ -315,11 +325,11 @@
         </div>
         <div class="totalArea">
         	<div class="totalTable">
-        		<table border="1" summary>
+        		<table border="1">
         			<caption>결제 예정 금액</caption>
         			<colgroup>
         				<col style="width:33.33%">
-        				<col style="width:33.33%" class>
+        				<col style="width:33.33%">
         				<col style="width:33.33%">
         			</colgroup>
         			<thead>
@@ -327,8 +337,8 @@
         					<th scope="col">
         						<strong>총 주문 금액</strong>
         					</th>
-        					<th scope="col" class>
-        						<strong>총 할인 + 부가결제 금액</strong>
+        					<th scope="col">
+        						<strong>구매시 적립금</strong>
         					</th>
         					<th scope="col">
         						<strong>총 결제예정 금액</strong>
@@ -340,16 +350,16 @@
         					<td class="price">
         						<div class="boxText">
         							<strong>
-        								<span id="totalPriceView" class="text10">35,900</span>
+        								<span id="totalPriceView" class="totalPriceView"></span>
         								원
         							</strong>
         						</div>
         					</td>
         					<td class="option">
         						<div class="boxText">
-        							<strong>-</strong>
+        							<strong>+</strong>
         							<strong>
-        								<span id="totalSaleView" class="text10">0</span>
+        								<span id="totalPointView" class="totalPointView"></span>
         							</strong>
         						</div>
         					</td>
@@ -357,85 +367,21 @@
         						<div class="boxText">
         							<strong>=</strong>
         							<strong>
-        								<span id="totalView" class="text10">35,900</span>
+        								<span id="totalView" class="totalView"></span>
         								원
         							</strong>
         						</div>
         					</td>
         				</tr>
+        				<tr class="payment">
+        					<td></td>
+        					<td></td>
+       						<td>
+       							<a id="btnCouponSelect2" class="paymentSubmit">결제하기</a>
+       						</td>
+       					</tr>
         			</tbody>
         		</table>
-        	</div>
-        	<div class="detail">
-        		<div class="gMerge">
-        			<table border="1" summary>
-        				<colgroup>
-        					<col style="width:139px">
-        					<col style="width:auto">
-        				</colgroup>
-        				<tbody>
-        					<tr class="text20">
-        						<th scope="row">
-        							<strong>총 할인금액</strong>
-        						</th>
-        						<td>
-        							<strong id="totalAddsaleView">0</strong>
-        							원
-        						</td>
-        					</tr>
-        				</tbody>
-        			</table>
-        		</div>
-        		
-        		<div class="gMerge">
-        			<table border="1" summary>
-        				<caption>부가결제 내역</caption>
-        				<colgroup>
-        					<col style="width:139px">
-        					<col style="width:auto">
-        				</colgroup>
-        				<tbody>
-        					<tr class="text20">
-        						<th scope="row">
-        							<strong>총 부가결제금액</strong>
-        						</th>
-        						<td>
-        							<strong id="totalAddplayView">0</strong>
-        							원
-        						</td>
-        					</tr>
-        				</tbody>
-        				<tbody class="milage">
-        					<tr>
-        						<th scope="row">적립금</th>
-        						<td>
-        							<p>
-        								<input id="inputMilage" name="inputMilage" type="text">
-        								원 (총 사용가능 적립금 :
-        								<strong class="txtWarn">0</strong>
-        								원)
-        							</p>
-        							<ul class="info">
-        								<li>적립금은 최소 2,500 이상일 때 결제가 가능합니다.</li>
-        								<li>최대 사용금액은 제한이 없습니다.</li>
-        								<li>1회 구매시 적립금 최대 사용금액은 0원입니다.</li>
-        								<li>적립금으로만 결제할 경우, 결제금액이 0으로 보여지는 것은 정상이며 [결제하기] 버튼을 누르면 주문이 완료됩니다.</li>
-        							</ul>
-        						</td>
-        					</tr>
-        				</tbody>
-        			</table>
-        		</div>
-        		<div class="gMerge">
-        			<tbody>
-        					<tr class="payment">
-        						<td>
-        							<a href="#" id="btnCouponSelect" class="paymentSubmit">결제하기</a>
-        						</td>
-        					</tr>
-        			</tbody>
-        		</div>
-        		
         	</div>
         </div>
         
@@ -457,7 +403,7 @@
         			<li class="item1">안심클릭 결제모듈이 설치되지 않은 경우 ActiveX 수동설치</li>
         			<li class="item2">안심클릭 결제모듈이 설치되지 않은 경우 ActiveX 수동설치</li>
         		</ol>
-        		<div class>
+        		<div>
         			<h4>아래의 쇼핑몰일 경우에는 모든 브라우저 사용이 가능합니다.</h4>
         			<ol>
         				<li class="item1">KG이니시스, KCP, LG U+를 사용하는 쇼핑몰일 경우</li>

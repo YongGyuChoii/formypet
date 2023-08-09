@@ -413,13 +413,22 @@
         			</table>
         		</div>
         		<div class="gMerge">
-        			<tbody>
-        					<tr class="payment">
-        						<td>
-        							<a id="btnCouponSelect" class="paymentSubmit">결제하기</a>
-        						</td>
-        					</tr>
-        			</tbody>
+	       			<table>
+	        			<colgroup>
+	        				<col style="width:33.33%">
+	        				<col style="width:33.33%">
+	        				<col style="width:33.33%">
+	        			</colgroup>
+	        			<tbody class="center">
+	        				<tr class="payment">
+	        					<td></td>
+	        					<td></td>
+	       						<td>
+	       							<a id="btnCouponSelect" class="paymentSubmit">결제하기</a>
+	       						</td>
+	       					</tr>
+	        			</tbody>
+	        		</table>
         		</div>
         	</div>
         </div>

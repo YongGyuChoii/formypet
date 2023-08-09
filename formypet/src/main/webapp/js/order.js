@@ -97,7 +97,7 @@ $(function(){
 	var IMP = window.IMP;   // 생략 가능
 	IMP.init("imp38383113"); // 예: imp00000000 
 	
-	$(document).on("click",".paymentSubmit",function(){
+	$(document).on("click","#btnCouponSelect",function(){
 		
 		var flag = true; //유효성 검사를 위한 변수
 		var regex = /[^0-9]/g; //숫자만 추출하기 위한 변수

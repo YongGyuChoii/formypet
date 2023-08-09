@@ -503,4 +503,44 @@ $(function(){
 		}
 	});
 	
+	//비회원 바로구매
+	$(document).on("click",".buyNoMemNow",function(){
+		var productKey = [];
+		
+		//상품수량
+		var cartCount = [];
+		var cartCount1 = $(this).parent().parent().parent().find('.numberIcon').get();
+		for(var i=0; i<cartCount1.length; i++){
+			cartCount[i] = cartCount1[i].innerHTML;
+			productKey[i] = $(this).parent().parent().parent().parent().parent().parent().find("input[name='productKey']").val();
+		}
+		
+		//상품옵션
+		var optionText = [];
+		var optionText1 = $(this).parent().parent().parent().find('.optionText').get();
+		var optionChoose = $(this).parent().parent().parent().find('.optionChoose');
+		for(var i=0; i<optionText1.length; i++){
+			optionText[i] = optionText1[i].innerHTML;
+		}
+		if(optionChoose.children().length < 1){
+			alert("한개 이상의 옵션을 선택해주세요.");
+		}else {
+			if(confirm("구매하시겠습니까?")){
+				$.ajax({
+					type : "POST",
+					traditional: true,	// ajax 배열 넘기기 옵션!
+					url: "/formypet/order/NoMemOrderServlet",
+					data : {productKey:productKey, cartCount:cartCount, optionText:optionText},
+					dataType : "json",
+					success : function(data) { 
+						window.location.href="/formypet/order/nonMemOrder.jsp";
+					},
+					errer : function() {
+						alert('errer');
+					}
+				});
+			}
+		}
+	});
+	
 });
