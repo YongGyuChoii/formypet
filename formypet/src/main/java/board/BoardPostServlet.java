@@ -19,6 +19,11 @@ public class BoardPostServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");  
+		
+		String num = request.getParameter("num");
+		String subject = request.getParameter("subject");
+		
+		System.out.println(subject);
 				
 		//BoardMgr 클래스 객체 생성
 		BoardMgr bMgr = new BoardMgr();

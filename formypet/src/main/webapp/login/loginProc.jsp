@@ -24,7 +24,7 @@
 		  if(memPw.equals(mb.getMemPw())){
 		    session.setAttribute("idKey",mb.getMemKey());
 		    session.setAttribute("idkey2",mb.getMemId());
-			  //session에 memKey 저장.
+			  //session에 memKey, memId 저장.
 		    msg = "로그인에 성공 하였습니다.";
 		    url = "../index.jsp";
 		  }

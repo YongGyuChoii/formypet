@@ -75,7 +75,7 @@
                 <table class = "table2">             
                         <tr>
                         <td>제  목</td>
-                        <td><select name="subject" onchange="subDisplay(this.form)" width="390px";>
+                        <td><select name="subject" width="390px";>
                         <option value="[상품] 상품관련 문의">[상품] 상품관련 문의</option>
                         <option value="[배송] 배송관련 문의">[배송] 배송관련 문의</option>
                         <option value="[주문취소] 주문취소 문의">[주문취소] 주문취소 문의</option>
@@ -109,8 +109,8 @@
                         </tr>
                         
 					<tr>
-					<td><input type="button" class="btn btn-dark" value="리스트" onClick="javascript:location.href='list.jsp'"></td>
-					<td align="right"><input type="submit" class="btn btn-dark" value="등록"></td>
+					<td><input type="button" class="btn btn-outline-primary" value="리스트" onClick="javascript:location.href='list.jsp'"></td>
+					<td align="right"><input type="button" class="btn btn-outline-primary" value="등록" onClick="javascript:check()"></td>
 					</tr>	    				
   
                 </table>
@@ -135,3 +135,15 @@
     </div>
 </body>
 </html>
+<script>
+
+function check() {
+    if (document.postFrm.content.value == ""||document.postFrm.pass.value == "" ) {
+  alert("모든 문항을 입력해주세요.");
+  document.postFrm.content.focus();
+  return;
+    }
+ document.postFrm.submit();
+}
+
+</script>

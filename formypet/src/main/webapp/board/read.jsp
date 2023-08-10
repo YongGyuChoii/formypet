@@ -102,10 +102,12 @@
 	 <tr>
 	  <td align="center" colspan="2"> 
 	 <hr/>
-	 [ <a href="javascript:list()" >리스트</a> | 
-	 <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" >수 정</a> |
-	 <a href="reply.jsp?nowPage=<%=nowPage%>" >답 변</a> |
-	 <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>">삭 제</a> ]<br/>
+	 <div class="btn-group" role="group" aria-label="Basic outlined example">
+	 <a href="javascript:list()" class="btn btn-outline-primary" >리스트</a> 
+	 <a href="update.jsp?nowPage=<%=nowPage%>&num=<%=num%>" class="btn btn-outline-primary" >수 정</a>
+	 <a href="reply.jsp?nowPage=<%=nowPage%>" class="btn btn-outline-primary" >답 변</a>
+	 <a href="delete.jsp?nowPage=<%=nowPage%>&num=<%=num%>" class="btn btn-outline-primary">삭 제</a>
+	 </div>
 	  </td>
 	 </tr>
 	</table>

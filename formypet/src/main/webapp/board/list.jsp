@@ -203,7 +203,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a class="btn btn-dark" onclick="service()" >문의하기</a></td>
+			    <a class="btn btn-outline-primary" onclick="service()" >문의하기</a></td>
 			</tr>
 		</table>
 		<!-- 게시판 본문 끝. -->
