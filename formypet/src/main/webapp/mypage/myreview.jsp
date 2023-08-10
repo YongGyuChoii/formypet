@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="review.ReviewBean"%>
-<%@page import="review.ReviewBean"%>
 <%@page import="java.util.Vector"%>
     <jsp:useBean id="rvMgr" class="review.ReviewMgr" />
 <!DOCTYPE html>
@@ -20,7 +19,6 @@
     <!-- header 시작-->
     <header>
         <%@include file="/base/header.jsp"%>
-        <input type="hidden" id="memKey" value="<%=memKey %>">
     </header>
     <!--header 끝-->
 
@@ -71,7 +69,7 @@
 		int memKey1 = bean.getMemKey(); 
 		
 	%>
-<td>1</td>
+                <td><a><%=memKey1%></a></td>
                 <td><a><%=num%></a></td>
                 <td class="left subject"> <a href="#"><%=rvTitle %></a> </td>
                 <td><%=rvContents%></td>

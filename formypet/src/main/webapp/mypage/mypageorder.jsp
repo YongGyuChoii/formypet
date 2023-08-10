@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+ <%@page import="order.OrderBean"%>
+
+<%@page import="java.util.Vector"%>
+ <jsp:useBean id="orderMgr" class="order.myOrderMgr" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,233 +32,63 @@
 				</tr>
 				</thead>
 				<tbody>
-														<tr >
-						<td>
-							<div class="n-prd-row">
-								<a href="#" class="img-block">
-																			<img src="../images/mypage/mypageorder1.jpg" alt="Texture Henly neck Knit (Black)">
-																	</a>
-								<ul class="info">
-																												<span class="exg-prd"></span>
-									
-									
-									
-																		
-																		<li class="name"><span>상품명:</span><a href="#">덴탈 클린 치약 플러스 (쌀/사과)</a></li>
-							<li class="option">
-										옵션 :
-																					쌀향
-																			</li>
-																										</ul>
-							</div>
-						</td>
-						<td>2023.07.07</td>
-						<td>
-							<a href="#">202307072040250002</a>
-											
-																		</td>
-						<td>68,548원<br><span class="txt-default">
-                                1개
-                                                            </span></td>
-						<td><div class="btn-set tooltip">
+		<% 
+	Vector<OrderBean> vlist = null;
+
+	vlist = orderMgr.getOrderList();
 	
-			<button type="button" class="n-link state"
-						onclick="deliveryStepShow(205635815)"
-					>구매 확정
-					</button>
-	
-			<br>
-		<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
-	</div>
-	</td>
-	<td >
-								<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp'">후기작성</button> <!-- test code -->				
-	<tr >
-			<td>
-			
-			
-			
-	 <!--상품2 -->		
-				<div class="n-prd-row">
-					<a href="/app/goods/2005081/0" class="img-block">
-																<img src="../images/mypage/mypageorder1.jpg" alt="Texture Henly neck Knit (Black)">
-														</a>
-					<ul class="info">
+	for(int i=0; i<vlist.size(); i++) {
+		
+		OrderBean bean = vlist.get(i);
+		
+		              
+		
+		int product = bean.getProductKey();		//상품				
+		String optionValue = bean.getOptionValue(); //옵션
+		String pDate = bean.getpDate(); //날짜
+		String memOrder=bean.getMemOrderkey(); //주문 번호
+		int productPrice = bean.getProductPrice();		// 가격	
+		int oCount = bean.getoCount();  //수량
+		
+		
+	%>												
 						
-					
-															
-						<li class="name"><span>상품명:</span><a href="#">덴탈 클린 치약 플러스 (쌀/사과)</a></li>
-						<li class="option">
-							옵션 :
-																		사과향
-																</li>
-																							</ul>
-				</div>
+		<td>
+			<div class="n-prd-row">
+			<a href="#" class="img-block">
+			<img src="../images/mypage/mypageorder1.jpg" alt="Texture Henly neck Knit (Black)">
+			</a>
+				<ul class="info">
+			<span class="exg-prd"></span>
+			<li class="name"><span>상품명:</span><a href="#"><%=product%></a></li>
+			<li class="option">옵션 :<%=optionValue%></li>
+			</ul> 
+			</div>	
 			</td>
-			<td>2023.07.07</td>
+				<td><%=pDate%></td>
 			<td>
-				<a href="#">202307072040250002</a>
-							
-															</td>
-			<td>68,548원<br><span class="txt-default">
-					1개
-												</span></td>
-			<td><div class="btn-set tooltip">
-
-			<button type="button" class="n-link state"
-			onclick="deliveryStepShow(205635815)"
-			>구매 확정
-			</button>
-
-			<br>
-			<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
-
-			</div>
-
-
-
+				<a href="#"><%=memOrder%></a>
 			</td>
-			<td >
-	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp'">후기작성</button> <!-- test code -->
-	
-	<tr>
-	<td>
-	
-	
-		 <!--상품3 -->	
-						<div class="n-prd-row">
-								<a href="#" class="img-block">
-																			<img src="../images/mypage/mypageorder1.jpg" alt="Texture Henly neck Knit (Black)">
-																	</a>
-								<ul class="info">
-																												<span class="exg-prd"></span>
-									
-									
-									
-																		
-																		<li class="name"><span>상품명:</span><a href="#">덴탈 클린 치약 플러스 (쌀/사과)</a></li>
-							<li class="option">
-										옵션 :
-																					쌀향
-																			</li>
-																										</ul>
-							</div>
-						</td>
-						<td>2023.07.07</td>
-						<td>
-							<a href="#">202307072040250002</a>
-											
-																		</td>
-						<td>68,548원<br><span class="txt-default">
-                                1개
-                                                            </span></td>
-						<td><div class="btn-set tooltip">
-	
+			
+				<td><%=productPrice%>원<br><span class="txt-default"> <%=oCount%></span></td>
+		<td>
+			<div class="btn-set tooltip">
 			<button type="button" class="n-link state"
-						onclick="deliveryStepShow(205635815)"
-					>구매 확정
-					</button>
-	
-			<br>
+			onclick="deliveryStepShow(205635815)">구매 확정</button><br>
 		<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
 	</div>
 	</td>
-	<td >
-								<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp'">후기작성</button> <!-- test code -->				
-	<tr >
-			<td>
-	
-	
-	<!--상품4 -->	
-						<div class="n-prd-row">
-								<a href="#" class="img-block">
-																			<img src="../images/mypage/mypageorder1.jpg" alt="Texture Henly neck Knit (Black)">
-																	</a>
-								<ul class="info">
-																												<span class="exg-prd"></span>
-									
-									
-									
-																		
-																		<li class="name"><span>상품명:</span><a href="#">덴탈 클린 치약 플러스 (쌀/사과)</a></li>
-							<li class="option">
-										옵션 :
-																					쌀향
-																			</li>
-																										</ul>
-							</div>
-						</td>
-						<td>2023.07.07</td>
-						<td>
-							<a href="#">202307072040250002</a>
-											
-																		</td>
-						<td>68,548원<br><span class="txt-default">
-                                1개
-                                                            </span></td>
-						<td><div class="btn-set tooltip">
-	
-			<button type="button" class="n-link state"
-						onclick="deliveryStepShow(205635815)"
-					>구매 확정
-					</button>
-	
-			<br>
-		<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
-	</div>
+		<td >
+	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp'">후기작성</button> <!-- test code -->				
 	</td>
-	<td >
-								<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp'">후기작성</button> <!-- test code -->				
-	<tr >
+	<tr > </tr>
 			<td>
 			
+	 <% } %>
 			
-			
-			<!--상품5 -->	
-						<div class="n-prd-row">
-								<a href="#" class="img-block">
-																			<img src="../images/mypage/mypageorder1.jpg" alt="Texture Henly neck Knit (Black)">
-																	</a>
-								<ul class="info">
-																												<span class="exg-prd"></span>
-									
-									
-									
-																		
-																		<li class="name"><span>상품명:</span><a href="#">덴탈 클린 치약 플러스 (쌀/사과)</a></li>
-							<li class="option">
-										옵션 :
-																					쌀향
-																			</li>
-																										</ul>
-							</div>
-						</td>
-						<td>2023.07.07</td>
-						<td>
-							<a href="#">202307072040250002</a>
-											
-																		</td>
-						<td>68,548원<br><span class="txt-default">
-                                1개
-                                                            </span></td>
-						<td><div class="btn-set tooltip">
+				
+
 	
-			<button type="button" class="n-link state"
-						onclick="deliveryStepShow(205635815)"
-					>구매 확정
-					</button>
-	
-			<br>
-		<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
-	</div>
-	</td>
-	<td >
-								<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp'">후기작성</button> <!-- test code -->				
-	<tr >
-			<td>
-	
-	
-	<!--header 끝-->
 	
 	
 	
