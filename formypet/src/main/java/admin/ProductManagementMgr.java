@@ -340,8 +340,8 @@ public class ProductManagementMgr {
 					filesize = (int) multi.getFile("productImg").length();
 				}
 				
-				sql = "insert product(productName,productComment,productInfo,productDetail,productCaution,productPrice,productSalePrice,productCount,productKind,productImg,categoryKey,productKey)";
-				sql += "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";//12개
+				sql = "insert product(productName,productComment,productInfo,productDetail,productCaution,productPrice,productSalePrice,productCount,productKind,productImg,categoryKey)";
+				sql += "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";//12개
 				//작성날짜 regdate 컬럼은 now() 로 현재 날짜를 자동으로 입력 합니다.
 				pstmt = con.prepareStatement(sql);
 				
@@ -356,7 +356,7 @@ public class ProductManagementMgr {
 				pstmt.setString(9, multi.getParameter("productKind"));
 				pstmt.setString(10, productImg);//
 				pstmt.setInt(11, Integer.parseInt(multi.getParameter("categoryKey")));
-				pstmt.setInt(12, Integer.parseInt(multi.getParameter("productKey")));
+				
 				pstmt.executeUpdate();
 				
 			} catch (Exception e) {
@@ -409,17 +409,17 @@ public class ProductManagementMgr {
 					size = (int) multi.getFile("fileSaveName").length();
 				}
 				
-			sql = "insert into product_file(fileOriginalName,fileSaveName,size,productKey,fileKey)";
+			sql = "insert into product_file(fileOriginalName,fileSaveName,size,productKey)";
 						
-			sql += "values(?, ?, ?, ?, ?)"; //int로 바꾼후 0으로 바꾸기
-			//총 19개 Bean product 12개   product_file 5개
+			sql += "values(?, ?, ?, ?)"; //int로 바꾼후 0으로 바꾸기
+			//총 15개 Bean product 11개   product_file 4개
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setString(1,fileOriginalName);//
 			pstmt.setString(2,fileSaveName);//
 			pstmt.setInt(3, size); //파일 용량
 			pstmt.setInt(4, Integer.parseInt(multi.getParameter("productKey"))); //상품 고유  키 꼭 입력 바람
-			pstmt.setInt(5, Integer.parseInt(multi.getParameter("fileKey")));
+			
 			pstmt.executeUpdate(); 
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -453,19 +453,19 @@ public class ProductManagementMgr {
 						ref = rs.getInt(1) + 1;
 					
 					multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,new DefaultFileRenamePolicy());
-					sql = "insert into option_code(ocKey, oc1, oc2, oc3, oc4, oc5, productKey)";
+					sql = "insert into option_code(oc1, oc2, oc3, oc4, oc5, productKey)";
 								
-					sql += "values(?, ?, ?, ?, ?, ?, ?)"; 
+					sql += "values(?, ?, ?, ?, ?, ?)"; 
 					
 					pstmt = con.prepareStatement(sql);
 					
-					pstmt.setString(1,multi.getParameter("ocKey"));
-					pstmt.setString(2,multi.getParameter("oc1"));
-					pstmt.setString(3, multi.getParameter("oc2")); 
-					pstmt.setString(4, multi.getParameter("oc3")); 
-					pstmt.setString(5, multi.getParameter("oc4")); 
-					pstmt.setString(6, multi.getParameter("oc5")); 
-					pstmt.setInt(7, Integer.parseInt(multi.getParameter("productKey")));
+					
+					pstmt.setString(1,multi.getParameter("oc1"));
+					pstmt.setString(2, multi.getParameter("oc2")); 
+					pstmt.setString(3, multi.getParameter("oc3")); 
+					pstmt.setString(4, multi.getParameter("oc4")); 
+					pstmt.setString(5, multi.getParameter("oc5")); 
+					pstmt.setInt(6, Integer.parseInt(multi.getParameter("productKey")));
 					pstmt.executeUpdate(); 
 				}catch (Exception e) {
 					e.printStackTrace();

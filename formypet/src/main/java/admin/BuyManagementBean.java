@@ -9,13 +9,11 @@ public class BuyManagementBean {
 	private String nonMemOrderKey;
 	private int ordersKey;
 	private String rYn; //환불 승인 거절
-	private String reCause; //환불 이유 나중에 바꿀 예정
-	//private int num;//나중에 추가 할 예정
+	private String subject; //환불 이유 나중에 바꿀 예정
+	private int num;//나중에 추가 할 예정
+	
+	
 	private String productName;
-	
-	
-	
-	
 	public int getBrKey() {
 		return brKey;
 	}
@@ -37,15 +35,15 @@ public class BuyManagementBean {
 	public String getrYn() {
 		return rYn;
 	}
-	public String getReCause() {
-		return reCause;
+	public String getSubject() {
+		return subject;
+	}
+	public int getNum() {
+		return num;
 	}
 	public String getProductName() {
 		return productName;
 	}
-	
-	
-	
 	public void setBrKey(int brKey) {
 		this.brKey = brKey;
 	}
@@ -67,8 +65,11 @@ public class BuyManagementBean {
 	public void setrYn(String rYn) {
 		this.rYn = rYn;
 	}
-	public void setReCause(String reCause) {
-		this.reCause = reCause;
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;

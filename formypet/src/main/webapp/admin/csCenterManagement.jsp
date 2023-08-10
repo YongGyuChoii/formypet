@@ -113,8 +113,6 @@
 							<td>제 목</td>
 							<td>날 짜</td>
 							<td>조회수</td>
-							<td>답 변</td>
-							<td>수 정</td>
 							<td>삭 제</td>
 						</tr>
 						<%
@@ -144,9 +142,8 @@
 							<td align="center"><a href="javascript:read('<%=num%>')"><%=subject%></a></td>
 							<td align="center"><%=regdate%></td>
 							<td align="center"><%=count%></td>
-							<td align="center"><a href="boardReply.jsp?nowPage<%=nowPage%>&num=<%=num%>"><input type = "button" value = "답변"></a></td>
-							<td align="center"><a href="boardup.jsp?nowPage<%=nowPage%>&num=<%=num%>"><input type = "button" value = "수정"></a></td>
-							<td align="center"><a href="bDelete.jsp?nowPage<%=nowPage%>&num=<%=num%>"><input type = "button" value = "삭제"></a></td>
+							<%System.out.println("page = "+ nowPage + " num = "+num); %>
+							<td align="center"><a href="javascript:deleted('<%=num%>')"><input type = "button" value = "삭제"></a></td>
 							</tr>
 							<input type = "hidden" value = <%=name %>>
 							<input type = "hidden" value = <%=content %>>

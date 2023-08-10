@@ -72,7 +72,6 @@
         <h2>관리자님 환영합니다!</h2>
         <br>
             <p><a href="../admin/csManagement.jsp">회원 관리</a></p>
-            <p><a href="../admin/categoryManagement.jsp">게시물 관리</a></p>
             <p><a href="../admin/expendsManagement.jsp">매출 관리</a></p>
             <p><a href="../admin/productManagement.jsp">상품 관리</a></p>
             <p><a href="../admin/csCenterManagement.jsp">고객 센터 관리</a></p>

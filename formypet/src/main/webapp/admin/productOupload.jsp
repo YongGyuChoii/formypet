@@ -23,12 +23,7 @@
 		<table width="1200" cellpadding="7">
 			<tr>
 				<td>
-				<table>
-					<tr>
-						<td bgcolor= "#002266"><font color = "#ffc303">상품옵션 번호</font></td>
-						<td>
-						<input name="ocKey" size="70" maxlength="100"></td>
-					</tr>				
+				<table>			
 					<tr>
 						<td bgcolor= "#002266"><font color = "#ffc303">상품 번호</font></td>
 						<td>

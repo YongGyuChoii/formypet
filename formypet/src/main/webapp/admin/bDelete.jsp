@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@page import="board.BoardBean"%>
-<jsp:useBean id="bMgr" class="board.BoardMgr" />    
+<jsp:useBean id="cmgr" class="admin.CsCenterManagementMgr" />    
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -26,7 +26,7 @@
 			//session에 저장된 bean 객체를 가져옴.
 			BoardBean bean = (BoardBean) session.getAttribute("bean");
 
-				bMgr.deleteBoard(num);	//BoardMgr 클래스의 deleteBoard() 메서드 호출하여 해당 게시물 삭제.
+				cmgr.delb(num);	//BoardMgr 클래스의 deleteBoard() 메서드 호출하여 해당 게시물 삭제.
 				
 				String url = "csCenterManagement.jsp?nowPage=" + nowPage;
 				

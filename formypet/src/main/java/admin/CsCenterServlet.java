@@ -47,6 +47,6 @@ public class CsCenterServlet extends HttpServlet {
 		
 		String nowPage = request.getParameter("nowPage");
 		
-		response.sendRedirect("list.jsp?nowPage="+nowPage);
+		response.sendRedirect("csCenterManagement.jsp?nowPage="+nowPage);
 	}
 }

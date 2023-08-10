@@ -33,7 +33,7 @@ public class BuyManagementMgr {
 				}
 		}
 	 
-		//환불 리스트(product db)
+		//환불 리스트(b_refund db)
 		public Vector<BuyManagementBean> getbList(String keyField, String keyWord, int start, int end) {
 			
 			Connection con = null;
@@ -49,12 +49,14 @@ public class BuyManagementMgr {
 				con = pool.getConnection();
 				//keyWord 값이 없는 경우 상품 조회
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "select * from b_refund b INNER JOIN product p on b.productKey = p.productKey order by brKey desc limit ?,?";
+					sql = "select * from b_refund INNER JOIN product on b_refund.productKey = product.productKey "
+							+ "inner join board on b_refund.num = board.num order by brKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, start);
 					pstmt.setInt(2, end);
 				} else { //keyField 와 keyWord 값이 있는 경우 상품 조회
-					sql = "select * from b_refund b INNER JOIN product p on b.productKey = p.productKey where b." + keyField + " like ? ";
+					sql = "select * from b_refund INNER JOIN product  on b_refund.productKey = product.productKey "
+							+ "inner join board on b_refund.num = board.num where b_refund." + keyField + " like ? ";
 					sql += "order by brKey desc limit ?,?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1,keyWord);
@@ -71,8 +73,9 @@ public class BuyManagementMgr {
 					bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
 					bean.setOrdersKey(rs.getInt("ordersKey"));
 					bean.setrYn(rs.getString("rYn"));
-				 	//bean.setReCause(rs.getString("reCause"));
+				 	bean.setSubject(rs.getString("subject"));
 				 	bean.setProductName(rs.getString("productName"));
+				 	bean.setNum(rs.getInt("num"));
 		 			vlist.add(bean);
 				}
 			}catch(Exception e) {
@@ -82,7 +85,7 @@ public class BuyManagementMgr {
 			}
 			return vlist;
 		}
-		//상품 수	(product_file db용)
+		//환불 요청수	(b_refund db용)
 				public int getTotalCount(String keyField, String keyWord) {
 					Connection con = null;
 					PreparedStatement pstmt = null;
@@ -93,10 +96,13 @@ public class BuyManagementMgr {
 						con = pool.getConnection();
 						//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
 						if (keyWord.equals("null") || keyWord.equals("")) {
-							sql = "select count(brKey) FROM b_refund b INNER JOIN product p on b.productKey = p.productKey";
+							sql = "select count(brKey) FROM b_refund INNER JOIN product on b_refund.productKey = product.productKey "
+									+ "inner join board on b_refund.num = board.num where brKey";
 							pstmt = con.prepareStatement(sql);
 						} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-							sql = "select count(brKey) FROM b_refund b INNER JOIN product p on b.productKey = p.productKey where b." + keyField + " like ? ";
+							sql = "select count(brKey) FROM b_refund INNER JOIN product on b_refund.productKey = product.productKey "
+									+ "inner join board on b_refund.num = board.num "
+									+ "where b_refund." + keyField + " like ? ";
 							pstmt = con.prepareStatement(sql);
 							pstmt.setString(1,keyWord);
 						}
@@ -125,7 +131,9 @@ public class BuyManagementMgr {
 					try {
 						con = pool.getConnection();
 						//num 값을 기준으로 tblBoard 테이블 에서 게시물을 조회한다.
-						sql = "select * from b_refund INNER JOIN product on b_refund.productKey = product.productKey where brKey = ?";
+						sql = "select * from b_refund INNER JOIN product on b_refund.productKey = product.productKey "
+								+ "inner join board  on b_refund.num = board.num "
+								+ "where brKey = ?";
 						pstmt = con.prepareStatement(sql);
 						
 						pstmt.setInt(1, brKey);
@@ -138,8 +146,9 @@ public class BuyManagementMgr {
 							bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
 							bean.setOrdersKey(rs.getInt("ordersKey"));
 							bean.setrYn(rs.getString("rYn"));
-						 	//bean.setReCause(rs.getString("reCause"));
+						 	bean.setSubject(rs.getString("subject"));
 						 	bean.setProductName(rs.getString("productName"));
+						 	bean.setNum(rs.getInt("num"));
 						}
 					} catch (Exception e) {
 						e.printStackTrace();

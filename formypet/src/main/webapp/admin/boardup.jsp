@@ -6,7 +6,8 @@
       Integer memKey = (Integer)session.getAttribute("idKey");
 	  int num = Integer.parseInt(request.getParameter("num"));
 	  String nowPage = request.getParameter("nowPage");
-	  System.out.println("답변2 num ="+num);
+	  System.out.println("boardup.jsp num = " + num);
+	  System.out.println("boardup.jsp memKey = " + memKey);
 	  
 	  BoardBean bean = (BoardBean)session.getAttribute("bean");
 	  	int num1 = bean.getNum();
@@ -22,7 +23,7 @@
 		String pass = bean.getPass();
 		String filename = bean.getFilename();
 		int filesize = bean.getFilesize();
-		System.out.println("bean의 담긴 num값 =" + num1);
+		System.out.println("bean의 담긴 num1값 =" + num1);
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -93,7 +94,7 @@
 	</table>
 	 <input type="hidden" name="nowPage" value="<%=nowPage %>">
 	 <input type='hidden' name="num" value="<%=num1%>">
-	 <%System.out.println(num + " = 마지막쪽"); %>
+	 <%System.out.println(num1 + " = 마지막쪽"); %>
 	 <input type = "hidden" name = "memKey" value = "<%=memKey1%>">
 	</form> 
 	</div>

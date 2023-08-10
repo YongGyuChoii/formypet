@@ -3,9 +3,11 @@
 <jsp:useBean id="bean" class="board.BoardBean" scope="session"/>
 <%
 	  String nowPage = request.getParameter("nowPage");
+	  
 	  String subject = bean.getSubject();
 	  String content = bean.getContent(); 
 	  Integer memKey = (Integer)session.getAttribute("idKey");
+	  //String memId = (String)session.getAttribute("idkey2");  
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,7 +40,7 @@
 	  </tr>
 	</table>
 	<!-- boardReply 로 url맵핑 된 BoardReplyServlet 으로 파라미터 이동. -->
-	<form method="post" action="../board/boardReply">
+	<form method="post" action="../admin/boardReply">
 	<table width="600" cellpadding="7">
 	 <tr>
 	  <td>

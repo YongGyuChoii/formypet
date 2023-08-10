@@ -30,11 +30,6 @@
 						<input name="productKey" size="70" maxlength="100"></td>
 					</tr>
 					<tr>
-						<td bgcolor= "#002266"><font color = "#ffc303">상품사진 번호</font></td>
-						<td>
-						<input name="fileKey" size="70" maxlength="100"></td>
-					</tr>
-					<tr>
 						<td bgcolor= "#002266"><font color = "#ffc303">상품 원본사진</font></td>
 				     	<td><input type = "file" name="fileOriginalName" size="70" maxlength="100" >
 				     	</td>				     	

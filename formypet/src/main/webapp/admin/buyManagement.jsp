@@ -128,15 +128,18 @@
 								String memOrderKey = bean.getMemOrderKey();
 								String nonMemOrderKey = bean.getNonMemOrderKey();
 								String productName = bean.getProductName();
+								int num = bean.getNum();
+								String subject = bean.getSubject();
+								if (subject.equals("[반품/환불] 반품/환불 문의")){
 								
 						%>
 						<tr>
-							
+							<input type = "hidden" value = "<%=num%>">
 							<td align="center"><%=brKey%></td>
 							<td align="center"><%=memOrderKey%></a></td>
 							<td align="center"><%=nonMemOrderKey%></td>
 							<td align="center"><%=productName%></td>
-							<td align="center">환불 사유 넣을 예정</td>
+							<td align="center"><%=subject%></td>
 							<td align="center">
 							<a href="read5.jsp?nowPage<%=nowPage%>&brKey=<%=brKey%>" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;">
 							<input  type="button" value="승인"></a>
@@ -146,7 +149,8 @@
 							</a>
 							</td>
 						</tr>
-						<%}//for%>
+						<%}
+						}//for%>
 					</table> <%
 	 			}//if
 	 		%>

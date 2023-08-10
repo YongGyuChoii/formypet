@@ -102,7 +102,9 @@
 	 <tr>
 	  <td align="center" colspan="2"> 
 	 <hr/>
-	 [ <a href="javascript:list()" >리스트</a> ]
+	[ <a href="javascript:list()" >리스트</a> | 
+	 <a href="boardup.jsp?nowPage=<%=nowPage%>&num=<%=num%>" >수 정</a> |
+	 <a href="boardReply.jsp?nowPage=<%=nowPage%>" >답 변</a> ]<br/>
 	  </td>
 	 </tr>
 	</table>

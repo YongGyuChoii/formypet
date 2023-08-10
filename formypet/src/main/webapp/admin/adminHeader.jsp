@@ -25,9 +25,7 @@
 				  <li>
 				    <a class="nav-link text-white" href="../admin/csManagement.jsp">회원 관리</a>
 				  </li>
-				   <li>
-				    <a class="nav-link text-white" href="../admin/categoryManagement.jsp">게시물 관리</a>
-				  </li>
+				   
 				   <li>
 				    <a class="nav-link text-white" href="../admin/expendsManagement.jsp">매출 관리</a>
 				  </li>

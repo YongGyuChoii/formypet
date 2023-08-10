@@ -207,7 +207,7 @@ public class CsCenterManagementMgr {
 						//답글 이기 때문에 depth와 pos 의 값을 1씩 증가.
 						int depth = bean.getDepth() + 1;
 						int pos = bean.getPos() + 1;
-						//int num = bean.getNum() +1;
+						
 						
 						pstmt = con.prepareStatement(sql);
 						pstmt.setString(1, bean.getName());
@@ -218,7 +218,6 @@ public class CsCenterManagementMgr {
 						pstmt.setInt(6, depth);
 						pstmt.setString(7, bean.getPass());
 						pstmt.setInt(8, bean.getMemKey());
-						//pstmt.setInt(9,bean.getNum());
 						pstmt.executeUpdate();
 						
 					} catch (Exception e) {

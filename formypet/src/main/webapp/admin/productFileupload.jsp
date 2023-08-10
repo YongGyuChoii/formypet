@@ -18,17 +18,12 @@
 				<td  align="center" bgcolor= "#002266"><font color = "#ffc303">상품 추가</font></td>
 			</tr>
 		</table>
-		<!-- form 태그의 action 이 BoardPostSevlet 클래스의 url 맵핑 을 찾아서 이동한다. -->
+		<!-- form 태그의 action 이 ProductFileuploadSevlet 클래스의 url 맵핑 을 찾아서 이동한다. -->
 		<form name="postFrm" method="post" action="productFileupload" enctype="multipart/form-data">
 		<table width="1200" cellpadding="7">
 			<tr>
 				<td>
 				<table>
-					<tr>
-						<td bgcolor= "#002266"><font color = "#ffc303">상품 번호</font></td>
-						<td>
-						<input name="productKey" size="70" maxlength="100"></td>
-					</tr>
 					<tr>
 						<td bgcolor= "#002266"><font color = "#ffc303">상품 이름</font></td>
 						<td>
@@ -50,7 +45,7 @@
 					</tr>
 					<tr>
 					<tr>
-				     	<td bgcolor= "#002266"><font color = "#ffc303">상품 개수</font></td> 
+				     	<td bgcolor= "#002266"><font color = "#ffc303">상품 수량</font></td> 
 				     	<td><input name="productCount" size="70" maxlength="100"></td>
 				    </tr>
 				 	<tr>
@@ -81,18 +76,18 @@
 				    <tr>
 						<td bgcolor= "#002266"><font color = "#ffc303">상품 설명 사진</font></td>
 						<td id = "pd"><input type="file" name="productInfo" size="70" maxlength="100">
-				     	<input type="button" onclick = "additem3()" value="추가"></td>
+				     	
 					</tr>
 				    
 				    <tr>
 						<td bgcolor= "#002266"><font color = "#ffc303">상품 사이즈 사진</font></td>
 						<td id = "pi"><input type="file" name="productDetail" size="70" maxlength="100">
-				     	<input type="button" onclick = "additem2()" value="추가"></td>
+				     	
 					</tr>
 					<tr>
 						<td bgcolor= "#002266"><font color = "#ffc303">상품 주의사항 사진</font></td>
 						<td id = "pca"><input type="file" name="productCaution" size="70" maxlength="100">
-				     	<input type="button" onclick = "additem4()" value="추가"></td>
+				     	
 					</tr>
 					
 					<tr>
