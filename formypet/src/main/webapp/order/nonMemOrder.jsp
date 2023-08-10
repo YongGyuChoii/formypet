@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="java.util.*"%>
 <%@page import="product.ProductBean"%>
-<%@page import="member.MemberBean"%>
 <%
 	//상품, 상품수량, 옵션값 세션에서 가져오기
 	ArrayList<ProductBean> pb = (ArrayList)session.getAttribute("pb");
@@ -223,7 +222,7 @@
         					<th scope="row">주문조회 비밀번호</th>
         					<td>
         						<input id="orderPw1" name="orderPw1" type="password">
-        						<span style="color: #707070; font-size: 12px;">(영문대소문자/숫자/특수문자 중 2가지 이상 조합, 6자~16자)</span>
+        						<span style="color: #707070; font-size: 12px;">(8~20자 영문 대소문자, 숫자, 특수문자를 사용하세요)</span>
         					</td>
         				</tr>
         				<tr>

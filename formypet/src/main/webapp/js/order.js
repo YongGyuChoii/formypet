@@ -269,6 +269,182 @@ $(function(){
 		}
 		
     });
+    
+    //비회원 구매
+    $(document).on("click","#btnCouponSelect2",function(){
+		
+		var flag = true; //유효성 검사를 위한 변수
+		var regex = /[^0-9]/g; //숫자만 추출하기 위한 변수
+		var regexPw = /^[A-Za-z0-9`~!@#\$%\^&\*\(\)\{\}\[\]\-_=\+\\|;:'"<>,\./\?]{8,20}$/; //주문조회 비번 유효성
+		
+		var orderName = $("input[name='orderName']").val(); //주문하시는분
+		var orderPhone2 = $("input[name='orderPhone2']").val(); //폰2
+		var orderPhone3 = $("input[name='orderPhone3']").val(); //폰3
+		var orderEmail1 = $("input[name='orderEmail1']").val(); //이메일1
+		var orderEmail2 = $("input[name='orderEmail2']").val(); //이메일1
+		var delName2 = $("input[name='delName2']").val(); //받으시는분
+		var delZipcode1 = $("input[name='delZipcode1']").val(); //우편번호
+		var delZipcode2 = $("input[name='delZipcode2']").val(); //주소
+		var delZipcode3 = $("input[name='delZipcode3']").val(); //주소2
+		var delPhone2 = $("input[name='delPhone2']").val(); //받으시는 폰2
+		var delPhone3 = $("input[name='delPhone3']").val(); //받으시는 폰3
+		var orderPw1 = $("input[name='orderPw1']").val(); //주문조회비번1
+		var orderPw2 = $("input[name='orderPw2']").val(); //주문조회비번2
+		var delMessage = $("textarea[name='delMessage']").val(); //배송메세지
+		
+		var totalView = $(".totalView").text(); //총 결제금액
+		totalView = parseInt(totalView.replace(regex, ""));
+		
+		//상품키 배열로 담기
+		var productKey = new Array();
+		$("input[name=productKey]").each(function(index, item){
+	    	productKey.push($(item).val());
+		});
+		//옵션 배열로 담기
+		var optionValue = new Array();
+		$("input[name='optionValue']").each(function(index, item){
+	    	optionValue.push($(item).val());
+		});
+		//상품 수량 배열 담기
+		var oCount = new Array();
+		$("input[name='oCount']").each(function(index, item){
+	    	oCount.push($(item).val());
+		});
+		//상품 가격 배열 담기
+		var oPrice = new Array();
+		$(".totalPrevPrice").each(function(index, item){
+	    	oPrice.push($(item).text().replace(regex, ""));
+		});
+		
+		//유효성 검사
+		var tableBody = $('.tableBody').children().length;
+		if(tableBody < 1){ //상품이 하나라도 없을시
+			alert('상품이 하나도 없습니다');
+			flag=false;
+		}
+		if(orderName.trim() == ""){ //주문하시는분
+			alert('주문 하시는분은 필수 항목입니다');
+			$("input[name='orderName']").focus();
+			flag=false;
+		}
+		if(orderPhone2.trim() == ""){ //폰2
+			alert('휴대전화는 필수 항목입니다');
+			$("input[name='orderPhone2']").focus();
+			flag=false;
+		}
+		if(orderPhone3.trim() == ""){ //폰3
+			alert('휴대전화는 필수 항목입니다');
+			$("input[name='orderPhone3']").focus();
+			flag=false;
+		}
+		if(orderEmail1.trim() == ""){ //이메일1
+			alert('이메일은 필수 항목입니다');
+			$("input[name='orderEmail1']").focus();
+			flag=false;
+		}
+		if(orderEmail2.trim() == ""){ //이메일2
+			alert('이메일은 필수 항목입니다');
+			$("input[name='orderEmail2']").focus();
+			flag=false;
+		}
+		if(delName2.trim() == ""){ //받으시는분
+			alert('받으시는분은 필수 항목입니다');
+			$("input[name='delName2']").focus();
+			flag=false;
+		}
+		if(delZipcode1.trim() == ""){ //우편번호
+			alert('우편번호는 필수 항목입니다');
+			$("input[name='delZipcode1']").focus();
+			flag=false;
+		}
+		if(delZipcode2.trim() == ""){ //주소
+			alert('주소는 필수 항목입니다');
+			$("input[name='delZipcode2']").focus();
+			flag=false;
+		}
+		if(delPhone2.trim() == ""){ //받으시는폰2
+			alert('휴대전화는 필수 항목입니다');
+			$("input[name='delPhone2']").focus();
+			flag=false;
+		}
+		if(delPhone3.trim() == ""){ //받으시는폰3
+			alert('휴대전화는 필수 항목입니다');
+			$("input[name='delPhone3']").focus();
+			flag=false;
+		}
+		var checked = $('#addrCheck').is(':checked');
+		if(!checked){ //주소확인 체크박스 체크여부
+			alert('주소 확인여부 체크를 해주세요');
+			$("input[name='addrCheck']").focus();
+			flag=false;
+		}
+		if(orderPw1.trim() == ""){ //주문조회 비번1
+			alert('비밀번호는 필수 항목입니다');
+			$("input[name='orderPw1']").focus();
+			flag=false;
+		}
+		if(!regexPw.test(orderPw1)) { //유효성 검사
+		  	alert("8~20자 영문 대소문자, 숫자, 특수문자를 사용하세요.");
+		  	$("input[name='orderPw1']").focus();
+		    flag=false;
+		}
+		if(orderPw2.trim() == ""){ //주문조회 비번2
+			alert('비밀번호는 필수 항목입니다');
+			$("input[name='orderPw2']").focus();
+			flag=false;
+		}
+		if(orderPw2 != orderPw1){ //주문조회 비번2
+			alert('비밀번호가 일치하지 않습니다.');
+			$("input[name='orderPw2']").focus();
+			flag=false;
+		}
+		
+		//유효성 검사가 다완료 한다면 결제하기 툴 실행
+		if(flag==true){
+			
+			IMP.request_pay({ // param
+	        pg: "html5_inicis",
+	        pay_method: "card",
+	        merchant_uid: 'merchant_' + new Date().getTime(),
+	        name: "ForMyPet",
+	        amount: 100,
+	        buyer_email: orderEmail1+"@"+orderEmail2,
+	        buyer_name: orderName,
+	        buyer_tel: "010-"+orderPhone2+"-"+orderPhone3,
+	        buyer_addr: delZipcode2+" "+delZipcode3,
+	        buyer_postcode: delZipcode1
+		    }, function (rsp) { // callback
+		        if (rsp.success) {
+		              
+		            $.ajax({
+						type : "POST",
+						traditional: true,	// ajax 배열 넘기기 옵션!
+						url: "/formypet/order/NoMemBuyServlet",
+						data : {orderName:orderName, orderPhone2:orderPhone2, orderPhone3:orderPhone3, 
+								orderEmail1:orderEmail1, orderEmail2:orderEmail2, orderPw1:orderPw1, 
+								delName2:delName2, delZipcode1:delZipcode1, delZipcode2:delZipcode2, 
+								delZipcode3:delZipcode3, delPhone2:delPhone2, delPhone3:delPhone3, 
+								delMessage:delMessage, totalView:totalView, productKey:productKey, 
+								optionValue:optionValue, oCount:oCount, oPrice:oPrice},
+						dataType : "json",
+						success : function(data) { 
+							window.location.href="/formypet/index.jsp";
+						},
+						errer : function() {
+							alert('errer');
+						}
+					});
+		              
+		        } else {
+		              
+		      	  console.log(rsp);
+		              
+		        }
+		    });
+		    
+		}
+		
+    });
 	
 });
 
