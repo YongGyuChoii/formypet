@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:useBean id="bean" class="board.BoardBean" scope="session"/>
+
 <%
 	  String nowPage = request.getParameter("nowPage");
 	  String subject = bean.getSubject();
@@ -19,6 +20,41 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+
+    <style>
+    	h2 {
+        font-weight: bold;
+    	color: #2b2b2b;
+  		font-size: 30px;
+  		text-decoration: underline;
+    	}
+    
+        table.table2{
+                border-collapse: separate;
+                border-spacing: 1px;
+                text-align: left;
+                line-height: 1.5;
+
+                margin : 30px 10px;
+        }
+        table.table2 tr {
+                 width: 50px;
+                 padding: 10px;
+                font-weight: bold;
+                vertical-align: top;
+                border-bottom: 1px solid #ccc;
+        }
+        table.table2 td {
+                 width: 100px;
+                 padding: 10px;
+                 vertical-align: top;
+				border-bottom: 1px solid #ccc;
+                 font-size: 14px;
+        }
+
+ 
+</style>
 </head>
 <body>
     <div id="wrap">
@@ -29,73 +65,52 @@
     <!--header 끝-->
 
     <!--main 시작-->
-    <div class="container">
-      <section>
-	<div align="center">
-	<br><br>
-	 <table width="600" cellpadding="3">
-	  <tr>
-	   <td bgcolor="#CCCC00" height="21" align="center">답변하기</td>
-	  </tr>
-	</table>
-	<!-- boardReply 로 url맵핑 된 BoardReplyServlet 으로 파라미터 이동. -->
-	<form method="post" action="boardReply">
-	<table width="600" cellpadding="7">
-	 <tr>
-	  <td>
-	   <table>
-	    <tr>
-	     <td>제 목</td>
-	     <td>
-		  <input name="subject" size="50" value="&#8627;답변 : <%=subject%>" maxlength="50"></td> 
-	    </tr>
-		<tr>
-	     <td>내 용</td>
-	     <td>
-		  <textarea name="content" rows="12" cols="50">
-	      	<%=content %>
-	      	========답변 글을 쓰세요.=======
-	      </textarea>
-	     </td>
-	    </tr>
-	    <tr>
-	     <td>비밀 번호</td> 
-	     <td>
-		  <input type="password" name="pass" size="15" maxlength="15"></td> 
-	    </tr>
-		<tr>
-	   	 <td>파일찾기</td> 
-	     <td><input type="file" name="filename" size="50" maxlength="50"></td>
-	   	</tr>
-	 	<tr>
-	 	 <td>내용타입</td>
-	 	 <td> HTML<input type=radio name="contentType" value="HTTP" >&nbsp;&nbsp;&nbsp;
-	  		TEXT<input type=radio name="contentType" value="TEXT" checked>
-	     </td>
-	 	</tr>
-	    <tr>
-	     <td colspan="2" height="5"><hr/></td>
-	    </tr>
-		<tr> 
-	     <td colspan="2">
-		  <input type="submit" value="답변등록" >
-	      <input type="reset" value="다시쓰기">
-	      <input type="button" value="뒤로" onClick="history.back()"></td>
-	    </tr> 
-	   </table>
-	  </td>
-	 </tr>
-	</table>
+    <br/><br/>
+    <div class="container" align="center">
+    <br/>
+		<form name="postFrm" method="post" action="boardReply">
+		<div>
+		<h2>REPLY</h2>
+		</div>
+        <table  style="padding-top:50px" align=center width=1200 border=0 cellpadding=2 >
+                <tr>
+                <td bgcolor=white>
+                <table class = "table2">
+                        <tr>
+                        <td>제  목</td>
+		  <td><input name="subject" size=60 maxlength=10 value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; re : <%=subject%>"></td>
+		  </tr>
+ 
+                        <tr>
+                        <td>내  용</td>
+                        <td><textarea name="content" cols=150 rows=15 placeholder="궁금한 점이 있으시다면 문의를 남겨주세요.">
+		<%=content %>
+		========답변 글을 쓰세요.=======
+		</textarea></td>
+                        </tr>
+	 	
+	 	  			 <tr>
+                        <td>비밀번호</td>
+                        <td><input type="password" name="pass" size=20 maxlength=10></td>
+                     </tr>
+                        
+					<tr>
+					<td><input type="button" class="btn btn-outline-primary" value="뒤로" onClick="history.back()"></td>
+					<td align="right"><input type="button" class="btn btn-outline-primary" value="등록" onClick="javascript:check()"></td>
+					</tr>	    				
+  
+                </table>
+                </td>
+                </tr>
+        </table>
 	 <input type="hidden" name="nowPage" value="<%=nowPage%>">
 	 <input type="hidden" name="ref" value="<%=bean.getRef()%>">
 	 <input type="hidden" name="pos" value="<%=bean.getPos()%>">
 	 <input type="hidden" name="depth" value="<%=bean.getDepth()%>">
 	 <input type="hidden" name="memKey" value="<%=memKey%>">
-     <input type="hidden" name="name" value="<%=memId%>">
-	</form> 
-	</div>
-      </section>
-    </div>
+    	 <input type="hidden" name="name" value="<%=memId%>">
+        </form>
+        </div>
     <!--main 끝-->
 
     <!-- 오른쪽 맨위 맨아래 화살표 -->
@@ -110,4 +125,15 @@
     </div>
 </body>
 </html>
-    
+<script>
+
+function check() {
+    if (document.postFrm.content.value == ""||document.postFrm.pass.value == "" ) {
+  alert("모든 문항을 입력해주세요.");
+  document.postFrm.content.focus();
+  return;
+    }
+ document.postFrm.submit();
+}
+
+</script>
