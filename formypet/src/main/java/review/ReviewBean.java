@@ -1,9 +1,9 @@
 package review;
 
-import java.math.BigDecimal;
+import member.MemberBean;
 
 
-public class ReviewBean {
+public class ReviewBean extends MemberBean {
 
 	private int rvKey;
 	private String rvTitle; // 제목
@@ -80,7 +80,7 @@ public class ReviewBean {
     }
 
     //회원
-    public Integer getMemKey() {
+    public int getMemKey() {
         return memKey;
     }
 

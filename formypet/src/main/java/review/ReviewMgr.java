@@ -5,11 +5,13 @@ import util.DBConnectionMgr;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import com.oreilly.servlet.MultipartRequest;
 
 import board.BoardBean;
+import product.ProductBean;
 
 public class ReviewMgr {
 
@@ -163,5 +165,65 @@ public class ReviewMgr {
 		return totalCount;
 	}
 
+	// 상품 상세페이지 리뷰 가져오기
+	public ArrayList<ReviewBean> getReviewProductList(int productKey, int start, int end){
+				
+	ArrayList<ReviewBean> rlist = new ArrayList<>();
+	
+		try {
+		
+		con = pool.getConnection();
+		
+		sql = "select * from review AS r INNER JOIN member AS m ON r.memKey = m.memKey where productKey=? order by rvKey desc LIMIT ?, ?";
+		pstmt = con.prepareStatement(sql);
+		
+		pstmt.setInt(1, productKey);
+		pstmt.setInt(2, start);
+		pstmt.setInt(3, end);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			ReviewBean bean = new ReviewBean();
+			bean.setRvKey(rs.getInt("rvKey"));
+			bean.setRvTitle(rs.getString("rvTitle"));
+			bean.setRvContents(rs.getString("rvContents"));
+			bean.setRvPhoto(rs.getString("rvPhoto"));
+			bean.setRvScore(rs.getInt("rvScore"));
+			bean.setMemKey(rs.getInt("memKey"));
+			bean.setOptionValue(rs.getString("optionValue"));
+			bean.setProductKey(rs.getInt("productKey"));
+			bean.setMemName(rs.getString("memName"));
+			rlist.add(bean);
+		}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con,pstmt,rs);
+		}
+		return rlist;
+	}
+	
+	//총 리뷰수 가져오기
+	public int getReviewCount(int productKey) {
+		int totalCount = 0;
+		try {
+			con = pool.getConnection();
+			sql = "select count(rvKey) from review where productKey = ?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, productKey);
 
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				totalCount = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return totalCount;
+	}
+	
 }

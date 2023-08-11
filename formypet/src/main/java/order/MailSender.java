@@ -30,6 +30,7 @@ public class MailSender {
         
 		// TLS의 포트번호는 587이며 SSL의 포트번호는 465이다.
 		prop.put("mail.smtp.port", "587");
+		// TSL버젼
 		prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
 
 		Authenticator auth = new MailAuth();

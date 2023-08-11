@@ -4,9 +4,11 @@
 <%@page import="product.ProductBean"%>
 <%@page import="product.ProductFileBean"%>
 <%@page import="product.ProductOptionBean"%>
+<%@page import="review.ReviewBean"%>
 <%@page import="java.util.*"%>
 <jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
 <jsp:useBean id="pMgr" class="product.ProductMgr" />
+<jsp:useBean id="rMgr" class="review.ReviewMgr" />
 <%
 	request.setCharacterEncoding("UTF-8");
 
@@ -44,6 +46,45 @@
 	String salePercent;
 	float salePer = (((float)pb.getProductPrice()-pb.getProductSalePrice()) / pb.getProductPrice()) * 100;
 	salePercent = String.format("%.0f", salePer); //반올림
+	
+	//페이징 처리 부분
+	int totalRecord = 0; //전체레코드수
+    int numPerPage = 5; //페이지당 레코드 수
+    int pagePerBlock = 5; //블럭당 페이지수
+    
+    int totalPage=0; //전체 페이지 수
+    int totalBlock=0; //전체 블럭 수
+	  
+    int nowPage=1;//현재페이지
+    int nowBlock=1;//현재블럭
+    
+    //데이터베이스 에서 select문 으로 게시물 조회시 limit절 을 통해 한 페이지에 필요한 만큼의 게시물을 가져오기 위해서
+    //start 와 end 변수 선언. start=0 , end=5 이므로 게시판 한 페이지에 총 5개의 게시물을 출력 한다.
+    int start=0; //디비의 select 시작번호
+    int end=5; //시작번호로 부터 가져올 select 갯수
+    
+    int listSize=0; //현재 읽어온 게시물의 수
+    
+  	//ReviewBean 클래스를 참조한 return 타입으로 ArrayList rlist 선언
+	ArrayList<ReviewBean> rlist = null;
+    
+	if (request.getParameter("nowPage") != null) {
+		nowPage = Integer.parseInt(request.getParameter("nowPage"));
+    }
+  
+    start = (nowPage * numPerPage)-numPerPage;
+    end = numPerPage;
+  
+    //ReviewMgr 클래스 getReviewCount 메서드 호출하여 총 게시물 수 가져오기.
+    totalRecord = rMgr.getReviewCount(productKey);
+  
+    //전체 페이지수 계산, 122개의 레코드(게시물)가 있다면 122/10 을 연산하여, Math클래스의 ceil() 메서드로  
+    //결과값의 소숫점을 반올림 하여 페이지를 구성.
+    totalPage = (int)Math.ceil((double)totalRecord / numPerPage); //전체페이지 수
+    nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock);//현재블럭 계산
+ 
+    //전체 블록 계산, 방법은 전체 페이지수 계산법과 동일.
+    totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock); //전체블럭계산
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -224,60 +265,105 @@
       </div>
       
       <div class="mt-5">
-      	<span class="fs-4">REVIEW</span> (<span class="fs-4 fw-bold">13,256</span>)
+      	<span class="fs-4">REVIEW</span> (<span class="fs-4 fw-bold"><%=totalRecord %></span>)
       	<hr />
       </div>
       
-      <div class="row">
-      	<div class="col-8 oneLine">
-	      	<span class="fw-bold text-warning">★★★★★</span><span class="fw-bold ms-2">아주 좋아요</span>
-	      	<p class="mt-3">
-	      		치카치카 꾸준히 하고 잇어요 헤드가 작아서 인지 거부감도 별루 없구요 ㅎ 
-	      		양치 잘하는 저희애들 ㅎㅎ 꾸준히 구매해서 양치하고 잇어요 ㅎㅎ 
-	      		양치가 중요한 부분이다 보니 빼먹지않고 꾸준하게 ㅎㅎ
-	      	</p>
-	      	<img src="../images/solution.jpg" class="img-thumbnail" alt="리뷰사진">
-      	</div>
-      	<div class="col-4">
-      		<p class="ps-5 mt-4 fw-bold">-_-*님의 리뷰입니다.</p>
-      		<p class="ps-5 mt-4 text-muted">치약 선택 고구마향</p>
-   		</div>
-   	  </div>
-   	  <hr />
-   	  <div class="row">
-      	<div class="col-8 oneLine">
-	      	<span class="fw-bold text-warning">★★★★★</span><span class="fw-bold ms-2">아주 좋아요</span>
-	      	<p class="mt-3">
-	      		치카치카 꾸준히 하고 잇어요 헤드가 작아서 인지 거부감도 별루 없구요 ㅎ 
-	      		양치 잘하는 저희애들 ㅎㅎ 꾸준히 구매해서 양치하고 잇어요 ㅎㅎ 
-	      		양치가 중요한 부분이다 보니 빼먹지않고 꾸준하게 ㅎㅎ
-	      	</p>
-	      	<img src="../images/solution.jpg" class="img-thumbnail" alt="리뷰사진">
-      	</div>
-      	<div class="col-4">
-      		<p class="ps-5 mt-4 fw-bold">-_-*님의 리뷰입니다.</p>
-      		<p class="ps-5 mt-4 text-muted">치약 선택 고구마향</p>
-   		</div>
-   	  </div>
-   	  <hr />
+      <%
+	  //ReviewMgr 클래스 getReviewProductList() 메서드 호출 
+	  rlist = rMgr.getReviewProductList(productKey, start, end);
+
+	  listSize = rlist.size();//브라우저 화면에 보여질 게시물갯수
+	  
+	  if (rlist.isEmpty()) {
+		out.println("등록된 리뷰가 없습니다.");
+		
+	  } else {
+      %>
+      <%
+		  for (int i = 0;i<numPerPage; i++) {
+			if (i == listSize) break;
+			ReviewBean bean = rlist.get(i);
+			int rvKey = bean.getRvKey();
+			String rvTitle = bean.getRvTitle();
+			String rvContents = bean.getRvContents();
+			String rvPhoto = bean.getRvPhoto();
+			int rvScore = bean.getRvScore();
+			String optionValue = bean.getOptionValue();
+			String memName = bean.getMemName();
+	  %>
+	      <div class="row">
+	      	<div class="col-8 oneLine">
+	      		<%if(rvScore == 1) {%>
+		      	<span class="fw-bold text-warning">★☆☆☆☆</span>
+		      	<span class="fw-bold ms-2">아주 나빠요</span>
+		      	<%} else if(rvScore == 2){%>
+		      	<span class="fw-bold text-warning">★★☆☆☆</span>
+		      	<span class="fw-bold ms-2">나빠요</span>
+		      	<%} else if(rvScore == 3){%>
+		      	<span class="fw-bold text-warning">★★★☆☆</span>
+		      	<span class="fw-bold ms-2">보통</span>
+		      	<%} else if(rvScore == 4){%>
+		      	<span class="fw-bold text-warning">★★★★☆</span>
+		      	<span class="fw-bold ms-2">좋아요</span>
+		      	<%} else if(rvScore == 5){%>
+		      	<span class="fw-bold text-warning">★★★★★</span>
+		      	<span class="fw-bold ms-2">아주 좋아요</span>
+		      	<%} %>
+		      	<p class="mt-3">
+		      		<%=rvContents %>
+		      	</p>
+		      	<%if(rvPhoto != null){ %>
+		      	<img src="../images/review/<%=rvPhoto %>" class="img-thumbnail" alt="리뷰사진">
+	      		<%} %>
+	      	</div>
+	      	<div class="col-4">
+	      		<p class="ps-5 mt-4 fw-bold"><%=memName %>님의 리뷰입니다.</p>
+	      		<%if(optionValue != null){ %>
+	      		<p class="ps-5 mt-4 text-muted">옵션 : <%=optionValue %></p>
+	      		<%} %>
+	   		</div>
+	   	  </div>
+	   	  <hr />
+   	  	<%} %>
+   	  <%} %>
+   	  
    	  
    	  <nav aria-label="Page navigation example" class="mt-5 mb-5">
 		  <ul class="pagination justify-content-center">
-		    <li class="page-item">
-		      <a class="page-link text-dark" href="#">Previous</a>
-		    </li>
-		    <li class="page-item"><a class="page-link active text-dark" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
-		    <li class="page-item">
-		      <a class="page-link text-dark" href="#">Next</a>
-		    </li>
+		    <%
+			  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
+			  int pageEnd = ((pageStart + pagePerBlock ) <= totalPage) ?  (pageStart + pagePerBlock): totalPage+1; 
+			  //하단 페이지 끝번호
+			  if(totalPage !=0){
+			  	if (nowBlock > 1) {%>
+			  		<li class="page-item">
+				      <a class="page-link text-dark" href="javascript:block('<%=nowBlock-1%>')">Previous</a>
+				    </li><%}%>
+			  		<%for ( ; pageStart < pageEnd; pageStart++){%>
+				     	<li class="page-item"><a class="page-link text-dark" href="javascript:pageing('<%=pageStart %>')">
+						<%if(pageStart==nowPage) {%><font color="blue"> <%}%>
+						<%=pageStart %> 
+						<%if(pageStart==nowPage) {%></font> <%}%></a></li> 
+					<%}//for%> 
+					<%if (totalBlock > nowBlock ) {%>
+					<li class="page-item">
+				      <a class="page-link text-dark" href="javascript:block('<%=nowBlock+1%>')">Next</a>
+				    </li>
+			  		<%}%>
+		    	<%}%>
 		  </ul>
 	  </nav>
       
     </div>
     <!--main 끝-->
 
+	<form name="readFrm" method="get">
+		<input type="hidden" name="nowPage" value="<%=nowPage%>">
+		<input type="hidden" name="productKey" value="<%=productKey%>">
+		<input type="hidden" name="categoryKey" value="<%=categoryKey%>">
+	</form>
+	
     <!-- 오른쪽 맨위 맨아래 화살표 -->
     <%@include file="/base/rightAside.jsp"%>
     <!-- 오른쪽 맨위 맨아래 화살표 끝 -->
@@ -291,4 +377,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
+<script>
+	function pageing(page) {
+		document.readFrm.nowPage.value = page;
+		document.readFrm.submit();
+	}
+	
+	function block(value){
+		 document.readFrm.nowPage.value=<%=pagePerBlock%>*(value-1)+1;
+		 document.readFrm.submit();
+	} 
+</script>
     
