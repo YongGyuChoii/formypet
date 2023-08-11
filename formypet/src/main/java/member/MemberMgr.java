@@ -44,41 +44,41 @@ public class MemberMgr {
 	}
 	
 	// 회원가입처리 메서드
-				public boolean insertMember(MemberBean bean) {
+	public boolean insertMember(MemberBean bean) {
 					
-					Connection con = null; 
-					PreparedStatement pstmt = null;
-					String sql = null;
-					boolean flag = false;
+		Connection con = null; 
+		PreparedStatement pstmt = null;
+		String sql = null;
+		boolean flag = false;
 					
-					try {
-						con = pool.getConnection();
-						//tblMember 테이블 insert 쿼리
-						sql = "insert member(memId,memPw,memName,memEmail1,memEmail2,memAddress,memAddress2,memPhone1"
-								+ ",memPhone2,memResident1,memResident2)values(?,?,?,?,?,?,?,?,?,?,?)";
+		try {
+			con = pool.getConnection();
+			//tblMember 테이블 insert 쿼리
+			sql = "insert member(memId,memPw,memName,memEmail1,memEmail2,memAddress,memAddress2,memPhone1"
+					+ ",memPhone2,memResident1,memResident2)values(?,?,?,?,?,?,?,?,?,?,?)";
 						
-						pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);
 						
-						pstmt.setString(1, bean.getMemId());
-						pstmt.setString(2, bean.getMemPw());
-						pstmt.setString(3, bean.getMemName());
-						pstmt.setString(4, bean.getMemEmail1());
-						pstmt.setString(5, bean.getMemEmail2());
-						pstmt.setString(6, bean.getMemAddress());
-						pstmt.setString(7, bean.getMemAddress2());
-						pstmt.setInt(8, bean.getMemPhone1());
-						pstmt.setInt(9, bean.getMemPhone2());
-						pstmt.setInt(10, bean.getMemResident1());
-						pstmt.setInt(11, bean.getMemResident2());
+			pstmt.setString(1, bean.getMemId());
+			pstmt.setString(2, bean.getMemPw());
+			pstmt.setString(3, bean.getMemName());
+			pstmt.setString(4, bean.getMemEmail1());
+			pstmt.setString(5, bean.getMemEmail2());
+			pstmt.setString(6, bean.getMemAddress());
+			pstmt.setString(7, bean.getMemAddress2());
+			pstmt.setInt(8, bean.getMemPhone1());
+			pstmt.setInt(9, bean.getMemPhone2());
+			pstmt.setInt(10, bean.getMemResident1());
+			pstmt.setInt(11, bean.getMemResident2());
 
-						if (pstmt.executeUpdate() == 1) 
-							//쿼리 수행결과 가 1이면 ,(1개의 레코드가 처리가 되었다면)
-							flag = true; //flag 변수에 true 값 할당.
-					} catch (Exception e) {
-						e.printStackTrace();
-					} finally {
-						pool.freeConnection(con, pstmt);
-					}
+			if (pstmt.executeUpdate() == 1) 
+				//쿼리 수행결과 가 1이면 ,(1개의 레코드가 처리가 되었다면)
+				flag = true; //flag 변수에 true 값 할당.
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt);
+		}
 					return flag;
 				}
 				

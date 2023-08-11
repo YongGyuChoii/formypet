@@ -7,11 +7,7 @@ function selectOption() {
 	var select = document.getElementById("memEmail3").value;
 
 	document.getElementById("memEmail2").value = select;
-	
-	
-	
 }
-
 
 //daum 우편번호
 function DaumPostcode() {
@@ -73,12 +69,22 @@ function idCheck(memId) {
 				frm.id.focus();
 				return;
 			}
+			check = true;
+			document.getElementById("checking").value = check;
+			console.log(check);
+			
 			//idCheck.jsp 페이지로 id파라미터 옮기기
 			url = "idCheck.jsp?memId=" + memId;
 			//창 크기로 idCheck.jsp 페이지 열기
 			window.open(url, "IDCheck", "width=300,height=150");
 			var a = 1;
 }	
+
+//중복체크 활성화
+function idActivate() {
+	check = false;
+	document.getElementById("checking").value = check;
+}
 
 function inputCheck(){
 	
@@ -87,11 +93,14 @@ function inputCheck(){
 	var addr1 = document.getElementById("postcode2").value;
 	document.getElementById("test").value = addr0 + "/" + addr1; 
 	
-	//회원가입 유효성검사
-	
+	//회원가입 유효성검
 	if(document.regFrm.memId.value==""){
 		alert("아이디를 입력해 주세요.");
 		document.regFrm.memId.focus();
+		return;
+	}
+	if(document.regFrm.idDuplication.value=="false") {
+		alert("중복체크를 해주세요.");
 		return;
 	}
 	if(document.regFrm.memPw.value==""){
@@ -153,11 +162,8 @@ function inputCheck(){
 		document.regFrm.memResident2.focus();
 		return;
 	}	
-	
 	document.regFrm.submit();
 }
-
-
 
 
 

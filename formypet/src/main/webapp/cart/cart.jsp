@@ -186,9 +186,9 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn" class="downBtn" onclick="location:'test.jsp';">-</button>
+                <button name="countBtn+" id="upBtn" onClick="location='cartCount(test).jsp'">+</button>
                 <input name="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px;">                
-                <button name="countBtn" class="upBtn" onclick="fnCalCount('p',this);">+</button>
+                <button name="countBtn-" id="downBtn">-</button>
               </td>
               </from>            
               <% if(i == 0) {%>
@@ -243,6 +243,11 @@
       </table>
       
       <%} else {%>
+      <% 
+	  if(productKey == null) { 
+		response.sendRedirect("cartEmpty.jsp");
+	  } else {
+	  %>
       <table class="cart_table">
         <form>
           <colgroup>
@@ -303,7 +308,25 @@
               		<input id="chack1" class="chack" type="checkbox" checked="checked" name="checkRow">
         			<label for="chack1" class="chack_ele"></label>
               </td>
-              <td><a href="#"><img src="../images/bathProduct/<%=pb.get(i).getProductImg()%>" alt=""></a></td>
+              <td>
+              	<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey() %>&categoryKey=<%=pb.get(i).getCategoryKey()%>">
+                    <%if(pb.get(i).getCategoryKey() == 1){ %>
+                    <img src="../images/bathProduct/<%=pb.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pb.get(i).getCategoryKey() == 2){%>
+                    <img src="../images/hygieneProduct/<%=pb.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pb.get(i).getCategoryKey() == 3){%>
+                    <img src="../images/beautyProduct/<%=pb.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pb.get(i).getCategoryKey() == 4){%>
+                    <img src="../images/livingProduct/<%=pb.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pb.get(i).getCategoryKey() == 5){%>
+                    <img src="../images/walkProduct/<%=pb.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pb.get(i).getCategoryKey() == 6){%>
+                    <img src="../images/snackProduct/<%=pb.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} else if(pb.get(i).getCategoryKey() == 7){%>
+                    <img src="../images/clothesProduct/<%=pb.get(i).getProductImg() %>" class="card-img-top" alt="상품메인" style="width:80%;">
+                    <%} %>
+                 </a>
+              </td>
               <td colspan="2">
               	<a href="#"><%=pb.get(i).getProductName()%></a>
               	<br>
@@ -392,5 +415,6 @@
     </footer>
     <!-- footer 끝.-->
     </div>
+    <% } %>
 </body>
 </html>

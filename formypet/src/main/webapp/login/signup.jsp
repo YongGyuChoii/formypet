@@ -10,7 +10,6 @@
     <link rel="stylesheet"  href="../css/signup.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script type="text/javascript" src="../js/member.js"></script>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <style>
@@ -33,9 +32,10 @@
     <div class="signup">
       <form method="post" name="regFrm" action="memberProc.jsp">
           <h2>회원정보 입력</h2>          	  
-              <input name="memId" type="text" id="uid" placeholder="아이디 (영문 소문자/숫자4~16자)" class="id" required>
-              <input type="button" value="중복확인" class="check" onClick="idCheck(this.form.memId.value)">
-              <input type="hidden" name="idDuplication" value="idUncheck">
+              <input name="memId" type="text" id="userId" placeholder="아이디 (영문 소문자/숫자4~16자)" class="id" onkeydown="idActivate()" required>
+              <input type="button" value="중복확인" name="checkBtn" class="check" onClick="idCheck(this.form.memId.value)">
+              <input type="hidden" name="idDuplication" value="" id="checking">
+              <input type="hidden" id="couponId" value="">
               <input name="memPw" type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" maxlength="10" required>
               <input name="repwd" type="password" placeholder="비밀번호 확인" class="in" maxlength="10" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>
@@ -80,3 +80,12 @@
     </div>
 </body>
 </html>
+<script type="text/javascript" src="../js/member.js"></script>
+<script>
+	var check = false;
+	var id = document.getElementById("userId").value;
+ 
+	document.getElementById("checking").value = check; 
+	
+	console.log(check);
+</script>
