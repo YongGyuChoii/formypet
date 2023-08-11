@@ -24,7 +24,13 @@ import admin.DBConnectionMgr;
 public class ExpendsManagementMgr {
 		private DBConnectionMgr pool;
 		//파일 업로드 관련 설정 작성
-		private static final String  SAVEFOLDER = "C:/jsp/myapp4/src/main/webapp/filestorage";
+		private static final String  beautyProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/beautyProduct";
+		private static final String  bathProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/bathProduct"; 
+		private static final String  clothesProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/clothesProduct"; 
+		private static final String  hygieneProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/hygieneProduct"; 
+		private static final String  livingProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/livingProduct";
+		private static final String  snackProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/snackProduct"; 
+		private static final String  walkProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/walkProduct"; 
 		private static final String ENCTYPE = "UTF-8";
 		private static int MAXSIZE = 5*1024*1024;
 

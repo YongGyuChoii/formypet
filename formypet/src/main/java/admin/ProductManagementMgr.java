@@ -27,6 +27,13 @@ public class ProductManagementMgr {
 	private DBConnectionMgr pool;
 	//파일 업로드 관련 설정 작성
 	private static final String  SAVEFOLDER = "C:/formypet/src/main/webapp/filestorage";
+	private static final String  beautyProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/beautyProduct";
+	private static final String  bathProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/bathProduct"; 
+	private static final String  clothesProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/clothesProduct"; 
+	private static final String  hygieneProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/hygieneProduct"; 
+	private static final String  livingProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/livingProduct";
+	private static final String  snackProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/snackProduct"; 
+	private static final String  walkProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/walkProduct"; 
 	private static final String ENCTYPE = "UTF-8";
 	private static int MAXSIZE = 100000*1024*1024;
 
@@ -283,7 +290,7 @@ public class ProductManagementMgr {
 				}
 	//상품 등록 메서드
 	//상품 등록 메서드는 리턴타입이 void 이므로 반환값은 없다.//product db
-		public void uplpro(HttpServletRequest request) {
+		public void uplpro(HttpServletRequest request, int categoryKey) {
 			
 			Connection con = null; //연결객체
 			PreparedStatement pstmt = null; //쿼리처리객체
@@ -291,8 +298,15 @@ public class ProductManagementMgr {
 			
 			String sql = null; //쿼리문 저장 변수
 			
-			MultipartRequest multi = null; //파일 업로드 위한 객체
+			MultipartRequest multi1 = null; //파일 업로드 위한 객체
+			MultipartRequest multi2 = null; //파일 업로드 위한 객체
+			MultipartRequest multi3 = null; //파일 업로드 위한 객체
+			MultipartRequest multi4 = null; //파일 업로드 위한 객체
+			MultipartRequest multi5 = null; //파일 업로드 위한 객체
+			MultipartRequest multi6 = null; //파일 업로드 위한 객체
+			MultipartRequest multi7 = null; //파일 업로드 위한 객체
 			
+			System.out.println("uplpro 메서드 multi객체 생성완료.");
 			int filesize = 0; //파일용량 변수
 			
 			String productInfo = null; //파일이름 변수 productInfo
@@ -303,6 +317,7 @@ public class ProductManagementMgr {
 			
 			String productImg = null; //파일이름 변수 productImg
 			
+			System.out.println("uplpro 메서드 try 문 진입 전.");
 			try {
 				con = pool.getConnection();
 				sql = "select max(productKey) from product"; //게시물이 총 몇개 인지 조회하는 쿼리
@@ -313,52 +328,126 @@ public class ProductManagementMgr {
 				
 				if (rs.next())
 					ref = rs.getInt(1) + 1;
-				
-				File file = new File(SAVEFOLDER);
-				
+				System.out.println("try문 file 객체 생성 전");
+				File bath = new File(bathProduct);
+				File hygiene = new File(hygieneProduct);
+				File beauty = new File(beautyProduct);
+				File living = new File(livingProduct);
+				File walk = new File(walkProduct);
+				File snack = new File(snackProduct);
+				File clothes = new File(clothesProduct);
+				System.out.println("try문 file 객체 생성 후");
 				//exists() 메서드 : 파일이 존재 하는지 여부를 알아 내는 메서드
 				//파일이 존재 한다면 true, 없으면 false 값을 반환.
-				if (!file.exists()) //파일이 존재 한다면
-					file.mkdirs(); //mkdirs() : 파일 디렉토리 만드는 메서드 
-				multi = new MultipartRequest(request, SAVEFOLDER,MAXSIZE, ENCTYPE,
-						new DefaultFileRenamePolicy());
+				System.out.println("try문 첫번째 if문 진입 전");
+				if (!bath.exists() || !hygiene.exists() || !beauty.exists()
+						|| !living.exists() || !walk.exists() || !snack.exists() || !clothes.exists()) //파일이 존재 한다면
+					bath.mkdirs(); hygiene.mkdirs(); beauty.mkdirs(); living.mkdirs(); walk.mkdirs();
+					snack.mkdirs(); clothes.mkdirs();//mkdirs() : 파일 디렉토리 만드는 메서드 
 
-				if (multi.getFilesystemName("productInfo") != null) {
-					productInfo = multi.getFilesystemName("productInfo");
-					filesize = (int) multi.getFile("productInfo").length();
+				if(categoryKey == 1) {
+					multi1 = new MultipartRequest(request, bathProduct,MAXSIZE, ENCTYPE,
+							new DefaultFileRenamePolicy());
+						productInfo = multi1.getFilesystemName("productInfo");
+						filesize = (int) multi1.getFile("productInfo").length();
+						productDetail = multi1.getFilesystemName("productDetail");
+						filesize = (int) multi1.getFile("productDetail").length();
+						productCaution = multi1.getFilesystemName("productCaution");
+						filesize = (int) multi1.getFile("productCaution").length();
+						productImg = multi1.getFilesystemName("productImg");
+						filesize = (int) multi1.getFile("productImg").length();
+				}else if(categoryKey == 2) {
+					multi2 = new MultipartRequest(request, hygieneProduct,MAXSIZE, ENCTYPE,
+							new DefaultFileRenamePolicy());
+						productInfo = multi2.getFilesystemName("productInfo");
+						filesize = (int) multi2.getFile("productInfo").length();
+						productDetail = multi2.getFilesystemName("productDetail");
+						filesize = (int) multi2.getFile("productDetail").length();
+						productCaution = multi2.getFilesystemName("productCaution");
+						filesize = (int) multi2.getFile("productCaution").length();
+						productImg = multi2.getFilesystemName("productImg");
+						filesize = (int) multi2.getFile("productImg").length();
+				}else if(categoryKey == 3) {
+					multi3 = new MultipartRequest(request, beautyProduct,MAXSIZE, ENCTYPE,
+							new DefaultFileRenamePolicy());
+						productInfo = multi3.getFilesystemName("productInfo");
+						filesize = (int) multi3.getFile("productInfo").length();
+						productDetail = multi3.getFilesystemName("productDetail");
+						filesize = (int) multi3.getFile("productDetail").length();
+						productCaution = multi3.getFilesystemName("productCaution");
+						filesize = (int) multi3.getFile("productCaution").length();
+						productImg = multi3.getFilesystemName("productImg");
+						filesize = (int) multi3.getFile("productImg").length();
+				}else if(categoryKey == 4) {
+					multi4 = new MultipartRequest(request, livingProduct,MAXSIZE, ENCTYPE,
+							new DefaultFileRenamePolicy());
+						productInfo = multi4.getFilesystemName("productInfo");
+						filesize = (int) multi4.getFile("productInfo").length();
+						productDetail = multi4.getFilesystemName("productDetail");
+						filesize = (int) multi4.getFile("productDetail").length();
+						productCaution = multi4.getFilesystemName("productCaution");
+						filesize = (int) multi4.getFile("productCaution").length();
+						productImg = multi4.getFilesystemName("productImg");
+						filesize = (int) multi4.getFile("productImg").length();
+				}else if(categoryKey == 5) {
+					multi5 = new MultipartRequest(request, walkProduct,MAXSIZE, ENCTYPE,
+							new DefaultFileRenamePolicy());
+						productInfo = multi5.getFilesystemName("productInfo");
+						filesize = (int) multi5.getFile("productInfo").length();
+						productDetail = multi5.getFilesystemName("productDetail");
+						filesize = (int) multi5.getFile("productDetail").length();
+						productCaution = multi5.getFilesystemName("productCaution");
+						filesize = (int) multi5.getFile("productCaution").length();
+						productImg = multi5.getFilesystemName("productImg");
+						filesize = (int) multi5.getFile("productImg").length();
+				}else if(categoryKey == 6) {
+					multi6 = new MultipartRequest(request, snackProduct,MAXSIZE, ENCTYPE,
+							new DefaultFileRenamePolicy());
+						productInfo = multi6.getFilesystemName("productInfo");
+						filesize = (int) multi6.getFile("productInfo").length();
+						productDetail = multi6.getFilesystemName("productDetail");
+						filesize = (int) multi6.getFile("productDetail").length();
+						productCaution = multi6.getFilesystemName("productCaution");
+						filesize = (int) multi6.getFile("productCaution").length();
+						productImg = multi6.getFilesystemName("productImg");
+						filesize = (int) multi6.getFile("productImg").length();
+				}else if(categoryKey == 7) {
+					multi7 = new MultipartRequest(request, clothesProduct,MAXSIZE, ENCTYPE,
+							new DefaultFileRenamePolicy());
+						productInfo = multi7.getFilesystemName("productInfo");
+						filesize = (int) multi7.getFile("productInfo").length();
+						productDetail = multi7.getFilesystemName("productDetail");
+						filesize = (int) multi7.getFile("productDetail").length();
+						productCaution = multi7.getFilesystemName("productCaution");
+						filesize = (int) multi7.getFile("productCaution").length();
+						productImg = multi7.getFilesystemName("productImg");
+						filesize = (int) multi7.getFile("productImg").length();
 				}
-				if (multi.getFilesystemName("productDetail") != null) {
-					productDetail = multi.getFilesystemName("productDetail");
-					filesize = (int) multi.getFile("productDetail").length();
-				}
-				if (multi.getFilesystemName("productCaution") != null) {
-					productCaution = multi.getFilesystemName("productCaution");
-					filesize = (int) multi.getFile("productCaution").length();
-				}
-				if (multi.getFilesystemName("productImg") != null) {
-					productImg = multi.getFilesystemName("productImg");
-					filesize = (int) multi.getFile("productImg").length();
-				}
+		
+				//ProductManagementBean bean = new ProductManagementBean();
+				System.out.println("try문 첫번째 if문 진입 후 전");
+				System.out.println("uplpro 메서드 try 문 끝.");
 				
+				System.out.println("uplpro 메서드 쿼리 실행 전.");
 				sql = "insert product(productName,productComment,productInfo,productDetail,productCaution,productPrice,productSalePrice,productCount,productKind,productImg,categoryKey)";
-				sql += "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";//12개
+				sql += "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";//11개
 				//작성날짜 regdate 컬럼은 now() 로 현재 날짜를 자동으로 입력 합니다.
 				pstmt = con.prepareStatement(sql);
-				
-				pstmt.setString(1, multi.getParameter("productName"));
-				pstmt.setString(2, multi.getParameter("productComment"));
-				pstmt.setString(3, productInfo);//
-				pstmt.setString(4, productDetail);//
-				pstmt.setString(5, productCaution );//
-				pstmt.setInt(6, Integer.parseInt(multi.getParameter("productPrice")));
-				pstmt.setInt(7, Integer.parseInt(multi.getParameter("productSalePrice")));
-				pstmt.setInt(8, Integer.parseInt(multi.getParameter("productCount")));
-				pstmt.setString(9, multi.getParameter("productKind"));
+				System.out.println("uplpro 메서드 쿼리 실행 중간1.");
+				pstmt.setString(1, request.getParameter("productName"));
+				pstmt.setString(2, request.getParameter("productComment"));
+				pstmt.setString(3, productInfo);
+				pstmt.setString(4, productDetail);
+				pstmt.setString(5, productCaution );
+				pstmt.setInt(6, Integer.parseInt(request.getParameter("productPrice")));
+				System.out.println("uplpro 메서드 쿼리 실행 중간7.= "+ Integer.parseInt(request.getParameter("productPrice")));
+				pstmt.setInt(7, Integer.parseInt(request.getParameter("productSalePrice")));
+				pstmt.setInt(8, Integer.parseInt(request.getParameter("productCount")));
+				pstmt.setString(9, request.getParameter("productKind"));
 				pstmt.setString(10, productImg);//
-				pstmt.setInt(11, Integer.parseInt(multi.getParameter("categoryKey")));
-				
+				pstmt.setInt(11, Integer.parseInt(request.getParameter("categoryKey")));
 				pstmt.executeUpdate();
-				
+				System.out.println("uplpro 메서드 쿼리 실행 완료.");
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
 	<title>상품 추가</title>
 	<link href = "../css/admin2.css" rel = "stylesheet" type = "text/css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../js/productFileupload.js"></script>
 </head>
 <body>
@@ -19,7 +20,7 @@
 			</tr>
 		</table>
 		<!-- form 태그의 action 이 ProductFileuploadSevlet 클래스의 url 맵핑 을 찾아서 이동한다. -->
-		<form name="postFrm" method="post" action="productFileupload" enctype="multipart/form-data">
+		<form name="postFrm" id="form" method="post" onsubmit="return false;" enctype="multipart/form-data">
 		<table width="1200" cellpadding="7">
 			<tr>
 				<td>
@@ -71,7 +72,7 @@
 				 	<tr>
 				     	<td bgcolor= "#002266"><font color = "#ffc303">상품 대표 이미지</font></td> 
 				     	<td id = "pti"><input type="file" name="productImg" size="70" maxlength="100">
-				     	<input type="button" onclick = "additem5()" value="추가"></td>
+				     	
 				    </tr>
 				    <tr>
 						<td bgcolor= "#002266"><font color = "#ffc303">상품 설명 사진</font></td>
@@ -96,7 +97,7 @@
 					</tr>
 					<tr align = center>
 						<td colspan="2" height = "6">
-						<input type="submit" value="등록" id = click>
+						<input type="button" value="등록" id = "click">
 						<input type="reset" value="취소">
 						<a href="../admin/productManagement.jsp" ><input type = "button" value = "상품 리스트"></input></a>
 						</td>
@@ -109,6 +110,9 @@
 			</td>
 		</tr>
 	</table>
+</form>
+<form>
+
 </form>
 </div>
 </body>
