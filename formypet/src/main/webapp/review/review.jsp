@@ -3,6 +3,10 @@
 <%@page import="review.ReviewMgr"%>
 <%@page import="review.ReviewBean"%>
 <%@page import="review.ReviewSave"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	int ordersKey = Integer.parseInt(request.getParameter("ordersKey")); 
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -32,6 +36,7 @@
         <h1>후기</h1>
        <form name="reviewform" class="reviewform" method="post" action="save">
             <input type="hidden" name="score" id="score" value="0"/>
+            <input type="hidden" name="ordersKey" value="<%=ordersKey%>"/>
             <p class="title_star">별점과 이용경험을 남겨주세요.</p>
      
             <div class="review_rating rating_point">

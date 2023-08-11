@@ -46,7 +46,7 @@
 		int product = bean.getProductKey();		//상품				
 		String optionValue = bean.getOptionValue(); //옵션
 		String pDate = bean.getpDate(); //날짜
-		String memOrder=bean.getMemOrderkey(); //주문 번호
+		String memOrder=bean.getMemOrderKey(); //주문 번호
 		int productPrice = bean.getProductPrice();		// 가격	
 		int oCount = bean.getoCount();  //수량
 		
@@ -79,7 +79,9 @@
 	</div>
 	</td>
 		<td >
-	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp'">후기작성</button> <!-- test code -->				
+		<%if(bean.getReviewYn().equals("N")){ %>
+	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">후기작성</button> <!-- test code -->	
+		<%} %>			
 	</td>
 	<tr > </tr>
 			<td>

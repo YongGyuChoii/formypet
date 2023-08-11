@@ -43,6 +43,8 @@ public class ReviewSave extends HttpServlet {
         String optionValue = req.getParameter("optionValue");
         System.out.println(optionValue);
         
+        int ordersKey = Integer.parseInt(req.getParameter("ordersKey"));
+        
     
         
 
@@ -60,7 +62,7 @@ public class ReviewSave extends HttpServlet {
 
         ReviewMgr reviewMgr = new ReviewMgr();
         System.out.println("saveReview 메서드 호출전");
-        int result = reviewMgr.saveReview(reviewBean);
+        int result = reviewMgr.saveReview(reviewBean, ordersKey);
         System.out.println("saveReview 메서드 호출후");
 
     

@@ -29,7 +29,7 @@ public class ReviewMgr {
     }
 
     // 저장하기
-    public Integer saveReview(ReviewBean reviewBean) {
+    public Integer saveReview(ReviewBean reviewBean, int ordersKey) {
     	 System.out.println("Mgr 메서드 진입");
     	 
 
@@ -63,7 +63,7 @@ public class ReviewMgr {
             pstmt.setInt(7, reviewBean.getProductKey());
 
             System.out.println(pstmt.toString());
-            return pstmt.executeUpdate();
+            pstmt.executeUpdate();
           
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,6 +71,25 @@ public class ReviewMgr {
         } finally {
             pool.freeConnection(con,pstmt,rs);
         }
+        
+        try {
+            con = pool.getConnection();
+            String query = "update orders set reviewYn = 'Y' where ordersKey = ?";
+         
+            pstmt = con.prepareStatement(query);
+       
+            pstmt.setInt(1, ordersKey);
+
+            System.out.println(pstmt.toString());
+            pstmt.executeUpdate();
+          
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("saveReview error ()" + e);
+        } finally {
+            pool.freeConnection(con,pstmt,rs);
+        }
+        
         System.out.println("진입");
 
         return 0;

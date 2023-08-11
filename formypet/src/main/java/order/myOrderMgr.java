@@ -180,7 +180,7 @@ public class myOrderMgr {
 			try {
 				con = pool.getConnection();
 				//keyField 와 keyWord 값이 있는 경우 게시물 조회
-				sql = "SELECT orders.productKey, orders.optionValue, orders.memOrderKey, orders.oCount, mem_order.pDate, mem_order.productPrice FROM orders JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey";
+				sql = "SELECT orders.ordersKey, orders.reviewYn, orders.productKey, orders.optionValue, mem_order.memOrderKey, orders.oCount, mem_order.pDate, mem_order.productPrice FROM orders JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -188,12 +188,14 @@ public class myOrderMgr {
 				
 				while (rs.next()) {
 					OrderBean bean = new OrderBean();
+					bean.setOrdersKey(rs.getInt("ordersKey"));
 					bean.setProductKey(rs.getInt("productKey"));
 					bean.setOptionValue(rs.getString("optionValue"));
 					bean.setpDate(rs.getString("pDate"));
 					bean.setMemOrderKey(rs.getString("memOrderkey"));
 					bean.setProductPrice(rs.getInt("productPrice"));
 					bean.setoCount(rs.getInt("oCount"));
+					bean.setReviewYn(rs.getString("reviewYn"));
 					vlist.add(bean);
 				}
 			} catch (Exception e) {

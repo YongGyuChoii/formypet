@@ -5,7 +5,7 @@ package order;
 
 public class OrderBean {
 	
-    private int orderKey;
+    private int ordersKey;
     private String memOrderkey;
     private String nonmemOrderKey;
     private int productKey;
@@ -16,17 +16,13 @@ public class OrderBean {
     private String reviewYn;
     private String optionValue;
 	 
-    public int getOrderKey() {
-		return orderKey;
+   
+
+	public int getOrdersKey() {
+		return ordersKey;
 	}
-	public void setOrderKey(int orderKey) {
-		this.orderKey = orderKey;
-	}
-	public String getMemOrderkey() {
-		return memOrderkey;
-	}
-	public void setMemOrderkey(String memOrderkey) {
-		this.memOrderkey = memOrderkey;
+	public void setOrdersKey(int ordersKey) {
+		this.ordersKey = ordersKey;
 	}
 	public String getNonmemOrderKey() {
 		return nonmemOrderKey;
