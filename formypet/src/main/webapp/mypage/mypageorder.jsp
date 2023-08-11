@@ -71,23 +71,23 @@
 			</td>
 			
 				<td><%=productPrice%>원<br><span class="txt-default"> <%=oCount%></span></td>
-		<td>
-			<div class="btn-set tooltip">
+			
+		<td >
+		<div class="btn-set tooltip">
 			<button type="button" class="n-link state"
 			onclick="deliveryStepShow(205635815)">구매 확정</button><br>
 		<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
 	</div>
+				
 	</td>
-		<td >
-		<%if(bean.getReviewYn().equals("N")){ %>
+	<td>
+	<%if(bean.getReviewYn().equals("N")){ %>
 	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">후기작성</button> <!-- test code -->	
-		<%} %>			
-	</td>
-	<tr > </tr>
-			<td>
+		<%} %>		<tr > </tr>
+			</td>
 			
 	 <% } %>
-			
+				
 				
 
 	

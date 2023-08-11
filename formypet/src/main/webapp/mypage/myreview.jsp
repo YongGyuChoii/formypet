@@ -13,12 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<style>
-  th,td{
-  
-  }
 
-</style>
+
 </head>
 <body>
     <div id="wrap">
@@ -32,10 +28,9 @@
     <div class="container">
       <section>
       <h2>내 후기</h2>
-        <div class="xans-element- xans-myshop xans-myshop-boardpackage "><div class="xans-element- xans-myshop xans-myshop-boardlisthead "><p>분류 선택 <select id="board_sort" name="board_sort" fw-filter="" fw-label="" fw-msg="" onchange="BOARD.change_sort('boardSearchForm', this);">
-<option value="D">작성 일자별</option>
-<option value="C">분류별</option>
-</select></p>
+        <div class="xans-element- xans-myshop xans-myshop-boardpackage ">
+
+</select>
 </div>
 <div class="xans-element- xans-myshop xans-myshop-boardlist ec-base-table typeList gBorder gBlank10"><!--
             $count = 10
@@ -46,9 +41,9 @@
         <colgroup class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 "><col style="width:70px;">
 <col style="width:135px;">
 <col style="width:auto;">
-<col style="width:84px;">
+<col style="width:1500px;">
 <col style="width:80px;">
-<col style="width:55px;">
+<col style="width:80px;">
 </colgroup>
 <thead><tr>
 
@@ -56,7 +51,7 @@
                 <th scope="col">번호</th>
                 <th scope="col">제목</th>
                 <th scope="col">내용</th>
-                <th scope="col">리뷰점수</th>
+                <th scope="col">별점</th>
             </tr></thead>
 <tbody class=" center">
 <tr class="xans-record-">
@@ -82,7 +77,7 @@
                 <td class="left subject"> <a href="#"><%=rvTitle %></a> </td>
                 <td><%=rvContents%></td>
                 
-                <td><span class="txtNum"><%=rvScore%></span></td>
+                <td><span class="txtNum"><%=rvScore%>점</span></td>
             </tr> 
             
            
