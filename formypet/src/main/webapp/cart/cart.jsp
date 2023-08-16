@@ -186,7 +186,7 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn+" id="upBtn" onClick="location='cartCount(test).jsp'">+</button>
+                <button name="countBtn+" id="upBtn" onClick="location='count(test).jsp'">+</button>
                 <input name="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px;">                
                 <button name="countBtn-" id="downBtn">-</button>
               </td>
@@ -216,7 +216,7 @@
       </table>
       <div class="cart_bottom_button">
         <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
-        <button class="cart_big_button right" id="buyNow">주문하기</button>
+        <button class="cart_big_button right" id="memBuy">주문하기</button>
       </div>     
       <table class="table_bottom">
         <colgroup>
@@ -306,6 +306,8 @@
           	%>
               <td>
               		<input id="chack1" class="chack" type="checkbox" checked="checked" name="checkRow">
+              		<input type="hidden" name="productKey" value="<%=pb.get(i).getProductKey() %>" />
+              		<input type="hidden" name="productCount" value="<%=pb.get(i).getProductCount()%>"> 
         			<label for="chack1" class="chack_ele"></label>
               </td>
               <td>
@@ -328,8 +330,9 @@
                  </a>
               </td>
               <td colspan="2">
-              	<a href="#"><%=pb.get(i).getProductName()%></a>
+              	<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey() %>&categoryKey=<%=pb.get(i).getCategoryKey()%>"><%=pb.get(i).getProductName()%></a>
               	<br>
+              	<input type="hidden" name="optionText" value="<%=optionText[i]%>">
               	<%if(!optionText[i].equals("null")) {%>
               	<a style="font-size:12px; opacity: 0.8">[옵션 : <%=optionText[i]%>]</a>
               	<%} else {%>              	
@@ -345,9 +348,9 @@
         	  	<%}%>
               </td>                        
               <td>
-                <input type="button" name="countBtn" id="downBtn">+</input>
+                <button name="countBtn" id="upBtn">+</button>
                 <input name="countInput" class="countInput" type="text" value="<%=cartCount[i]%>" style="width: 30px;">                
-                <input type="button" name="countBtn" id="upBtn" >-</input>
+                <button name="countBtn" id="downBtn" >-</button>
               </td>
               </from>
               <% if(i == 0) {%>
@@ -362,7 +365,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3"> <button class="cart_table_button2" id="delete" onclick="goDelete();">선택상품 삭제</button>
+              <td colspan="3"> <a class="cart_table_button2" id="delete">선택상품 삭제</a>
               <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">장바구니 비우기</button>
               </td>
               <td></td>
@@ -374,7 +377,7 @@
       </table>
       <div class="cart_bottom_button">
         <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
-        <button class="cart_big_button right">주문하기</button>
+        <button class="cart_big_button right" id="noMemBuy">주문하기</button>
       </div>
   
       <table class="table_bottom">

@@ -35,7 +35,6 @@
               <input name="memId" type="text" id="userId" placeholder="아이디 (영문 소문자/숫자4~16자)" class="id" onkeydown="idActivate()" required>
               <input type="button" value="중복확인" name="checkBtn" class="check" onClick="idCheck(this.form.memId.value)">
               <input type="hidden" name="idDuplication" value="" id="checking">
-              <input type="hidden" id="couponId" value="">
               <input name="memPw" type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" maxlength="10" required>
               <input name="repwd" type="password" placeholder="비밀번호 확인" class="in" maxlength="10" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>
@@ -83,7 +82,6 @@
 <script type="text/javascript" src="../js/member.js"></script>
 <script>
 	var check = false;
-	var id = document.getElementById("userId").value;
  
 	document.getElementById("checking").value = check; 
 	

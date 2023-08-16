@@ -153,21 +153,19 @@ public class CartMgr {
 	}
 	
 	//장바구니 수량 변경+
-	public void cartQuantity(CartBean bean) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		
-		try {
-			con = pool.getConnection();
-			sql = "UPDATE cart SET cartCount=cartCount+1 WHERE cartKey=?";			
-			pstmt = con.prepareStatement(sql);	
-			pstmt.executeUpdate();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
+	public void upCount(int[] cartKey) {
+		for(int i=0; i<cartKey.length; i++) {
+			try { //회원 포인트에서 적립된 포인트 더하기
+				con = pool.getConnection();
+				sql = "UPDATE product set cartCount = cartCount+1 WHERE cartKey = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, cartKey[i]);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				pool.freeConnection(con,pstmt);
+			}
 		}
 	}
 	

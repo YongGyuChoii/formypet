@@ -93,7 +93,6 @@ function inputCheck(){
 	var addr1 = document.getElementById("postcode2").value;
 	document.getElementById("test").value = addr0 + "/" + addr1; 
 	
-	//회원가입 유효성검
 	if(document.regFrm.memId.value==""){
 		alert("아이디를 입력해 주세요.");
 		document.regFrm.memId.focus();
@@ -101,11 +100,10 @@ function inputCheck(){
 	}
 	if(document.regFrm.idDuplication.value=="false") {
 		alert("중복체크를 해주세요.");
-		return;
+		return
 	}
 	if(document.regFrm.memPw.value==""){
 		alert("비밀번호를 입력해 주세요.");
-		document.regFrm.memPw.focus();
 		return;
 	}
 	if(document.regFrm.repwd.value==""){

@@ -33,9 +33,9 @@ $(function(){
         }
     $('.cart_table').on('click','.agreechkAll', common.allCheck)
     $('.cart_table').on('click','.chack', common.check)
-	
-	/*회원 바로구매*/
-	$(document).on("click","#buyNow",function(){
+    
+	/*회원 구매*/
+	$(document).on("click","#memBuy",function(){
 		var memKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memKey']").val();
 		var productKey = [];
 		var regex = /[^0-9]/g;
@@ -76,6 +76,69 @@ $(function(){
 					dataType : "json",
 					success : function(data) { 
 						window.location.href="/formypet/order/memOrder.jsp";
+					},
+					errer : function() {
+						alert('errer');
+					}
+				});
+			}
+		}
+	});
+	
+	//체크한 상품의 행 삭제
+	$("#delete").on('click', function() {
+		if($('input:checkbox[name="checkRow"]:checked').length === 0){
+			alert('삭제할 항목이 없습니다.');
+		}else {
+			if(confirm("정말 삭제하시겠습니까?")){
+				$('input:checkbox[name="checkRow"]:checked').each(function(k,kVal){
+					let a = kVal.parentElement.parentElement;
+					$(a).remove();
+				});
+			}
+		}
+	});
+	
+	
+	/*비회원 구매*/
+	$(document).on("click","#noMemBuy",function(){
+		var productKey = [];
+		
+		//상품수량
+		var cartCount = new Array();
+		$("input[name='countInput']").each(function(index, item){
+	    	cartCount.push($(item).val());
+		});
+		
+		//상품키
+		var productKey = new Array();
+				$("input[name=productKey]").each(function(index, item){
+	    		productKey.push($(item).val());
+			});
+		
+		//상품옵션
+		var optionText = new Array();
+				$("input[name=optionText]").each(function(index, item){
+	    		optionText.push($(item).val());
+			});
+			for(var i=0; i<cartCount.length; i++){
+			console.log(cartCount[i]);
+			console.log(optionText[i]);
+		}
+		
+		
+		if($(".cart_table_detail").children().length < 1){
+			alert("한개 이상의 옵션을 선택해주세요.");
+		}else {
+			if(confirm("구매하시겠습니까?")){
+				$.ajax({
+					type : "POST",
+					traditional: true,	// ajax 배열 넘기기 옵션!
+					url: "/formypet/order/NoMemOrderServlet",
+					data : {productKey:productKey, cartCount:cartCount, optionText:optionText},
+					dataType : "json",
+					success : function(data) { 
+						window.location.href="/formypet/order/nonMemOrder.jsp";
 					},
 					errer : function() {
 						alert('errer');
