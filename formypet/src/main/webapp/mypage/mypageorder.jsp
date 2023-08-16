@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
  <%@page import="order.OrderBean"%>
 
 <%@page import="java.util.Vector"%>
@@ -7,12 +7,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>¡÷πÆ≥ªø™ ¡∂»∏ - ∏∂¿Ã∆‰¿Ã¡ˆ | </title>
+<title>Ï£ºÎ¨∏ÎÇ¥Ïó≠ Ï°∞Ìöå - ÎßàÏù¥ÌéòÏù¥ÏßÄ | </title>
 <link rel="stylesheet" type="text/css" href="../css/mypageorder.css">
 
 </head>
 <body>
-	<h1>¡÷πÆ ≥ªø™ ¡∂»∏</h1>
+	<h1>Ï£ºÎ¨∏ ÎÇ¥Ïó≠ Ï°∞Ìöå</h1>877777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
 			<table class="n-table table-col n-order-view">
 				<colgroup>
 					<col style="width:*">
@@ -24,11 +24,11 @@
 				</colgroup>
 				<thead>
 				<tr>
-					<th scope="col">ªÛ«∞¡§∫∏</th>
-					<th scope="col">¡÷πÆ¿œ¿⁄</th>
-					<th scope="col">¡÷πÆπ¯»£</th>
-					<th scope="col">¡÷πÆ±›æ◊(ºˆ∑Æ)</th>
-					<th scope="col" colspan="2">¡÷πÆ ªÛ≈¬</th>
+					<th scope="col">ÏÉÅÌíàÏ†ïÎ≥¥</th>
+					<th scope="col">Ï£ºÎ¨∏ÏùºÏûê</th>
+					<th scope="col">Ï£ºÎ¨∏Î≤àÌò∏</th>
+					<th scope="col">Ï£ºÎ¨∏Í∏àÏï°(ÏàòÎüâ)</th>
+					<th scope="col" colspan="2">Ï£ºÎ¨∏ ÏÉÅÌÉú</th>
 				</tr>
 				</thead>
 				<tbody>
@@ -43,12 +43,12 @@
 		
 		              
 		
-		int product = bean.getProductKey();		//ªÛ«∞				
-		String optionValue = bean.getOptionValue(); //ø…º«
-		String pDate = bean.getpDate(); //≥Ø¬•
-		String memOrder=bean.getMemOrderKey(); //¡÷πÆ π¯»£
-		int productPrice = bean.getProductPrice();		// ∞°∞›	
-		int oCount = bean.getoCount();  //ºˆ∑Æ
+		int product = bean.getProductKey();		//ÏÉÅÌíà				
+		String optionValue = bean.getOptionValue(); //ÏòµÏÖò
+		String pDate = bean.getpDate(); //ÎÇ†Ïßú
+		String memOrder=bean.getMemOrderKey(); //Ï£ºÎ¨∏ Î≤àÌò∏
+		int productPrice = bean.getProductPrice();		// Í∞ÄÍ≤©	
+		int oCount = bean.getoCount();  //ÏàòÎüâ
 		
 		
 	%>												
@@ -56,12 +56,12 @@
 		<td>
 			<div class="n-prd-row">
 			<a href="#" class="img-block">
-			<img src="../images/mypage/mypageorder1.jpg" alt="Texture Henly neck Knit (Black)">
+			<img src="../images/mypage/mypageorder1.jpg" >
 			</a>
 				<ul class="info">
 			<span class="exg-prd"></span>
-			<li class="name"><span>ªÛ«∞∏Ì:</span><a href="#"><%=product%></a></li>
-			<li class="option">ø…º« :<%=optionValue%></li>
+			<li class="name"><span>ÏÉÅÌíàÎ™Ö:</span><a href="#"><%=product%></a></li>
+			<li class="option">ÏòµÏÖò :<%=optionValue%></li>
 			</ul> 
 			</div>	
 			</td>
@@ -70,19 +70,19 @@
 				<a href="#"><%=memOrder%></a>
 			</td>
 			
-				<td><%=productPrice%>ø¯<br><span class="txt-default"> <%=oCount%></span></td>
+				<td><%=productPrice%>Ïõê<br><span class="txt-default"> <%=oCount%></span></td>
 			
 		<td >
 		<div class="btn-set tooltip">
 			<button type="button" class="n-link state"
-			onclick="deliveryStepShow(205635815)">±∏∏≈ »Æ¡§</button><br>
-		<button type="button" class="n-btn btn-sm btn-default" onclick="#">πËº€¡∂»∏</button>
+			onclick="deliveryStepShow(205635815)">Íµ¨Îß§ ÌôïÏ†ï</button><br>
+		<button type="button" class="n-btn btn-sm btn-default" onclick="#">Î∞∞ÏÜ°Ï°∞Ìöå</button>
 	</div>
 				
 	</td>
 	<td>
 	<%if(bean.getReviewYn().equals("N")){ %>
-	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">»ƒ±‚¿€º∫</button> <!-- test code -->	
+	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">ÌõÑÍ∏∞ÏûëÏÑ±</button> <!-- test code -->	
 		<%} %>		<tr > </tr>
 			</td>
 			

@@ -3,6 +3,7 @@
 <%@page import="review.ReviewMgr"%>
 <%@page import="review.ReviewBean"%>
 <%@page import="review.ReviewSave"%>
+<%@page import="order.OrderBean"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 	int ordersKey = Integer.parseInt(request.getParameter("ordersKey")); 
