@@ -24,7 +24,6 @@
         font-weight: bold;
     	color: #2b2b2b;
   		font-size: 30px;
-  		text-decoration: underline;
     	}
     
         table.table2{
