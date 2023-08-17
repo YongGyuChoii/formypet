@@ -26,7 +26,7 @@
     	h2 {
         font-weight: bold;
     	color: #2b2b2b;
-  		font-size: 30px;
+  		font-size: 50px;
     	}
     
         table.table2{
@@ -76,6 +76,7 @@
                 <td bgcolor=white>
                 <table class = "table2">
                         <tr>
+                        <hr/>
                         <td>제  목</td>
 		  <td><input name="subject" size=60 maxlength=10 value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; re : <%=subject%>"></td>
 		  </tr>

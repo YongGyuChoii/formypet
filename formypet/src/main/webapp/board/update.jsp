@@ -27,7 +27,7 @@
     	h2 {
         font-weight: bold;
     	color: #2b2b2b;
-  		font-size: 30px;
+  		font-size: 50px;
     	}
     
         table.table2{
@@ -90,6 +90,7 @@
 	  <td>
        <table class = "table2"> 
          <tr>
+         <hr/>
            <td>제  목</td>
            <td><select name="subject" width="390px";>
             <option value="[상품] 상품관련 문의">[상품] 상품관련 문의</option>

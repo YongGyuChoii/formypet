@@ -45,7 +45,7 @@
 			
 			} else { //두 pass가 서로 같지 않다면 아래 script 내용 실행.
 		%>		
-			<script type="text/javascript">
+	<script type="text/javascript">
 		alert("입력하신 비밀번호가 아닙니다.");
 		history.back();
 	</script>

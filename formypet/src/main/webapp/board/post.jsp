@@ -23,7 +23,7 @@
     	h2 {
         font-weight: bold;
     	color: #2b2b2b;
-  		font-size: 30px;
+  		font-size: 50px;
     	}
     
         table.table2{
@@ -31,7 +31,6 @@
                 border-spacing: 1px;
                 text-align: left;
                 line-height: 1.5;
-
                 margin : 30px 10px;
         }
         table.table2 tr {
@@ -73,6 +72,7 @@
                 <td bgcolor=white>
                 <table class = "table2">             
                         <tr>
+                        <hr/>
                         <td>제  목</td>
                         <td><select name="subject" width="390px";>
                         <option value="[상품] 상품관련 문의">[상품] 상품관련 문의</option>
