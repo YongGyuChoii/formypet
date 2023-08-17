@@ -72,11 +72,11 @@ function idCheck(memId) {
 			check = true;
 			document.getElementById("checking").value = check;
 			console.log(check);
-			
 			//idCheck.jsp 페이지로 id파라미터 옮기기
 			url = "idCheck.jsp?memId=" + memId;
 			//창 크기로 idCheck.jsp 페이지 열기
 			window.open(url, "IDCheck", "width=300,height=150");
+
 			var a = 1;
 }	
 
@@ -93,19 +93,53 @@ function inputCheck(){
 	var addr1 = document.getElementById("postcode2").value;
 	document.getElementById("test").value = addr0 + "/" + addr1; 
 	
+	// 정규식
+    // id
+    var regIdPw = /^[a-z0-9]{4,12}$/;
+    // 이름
+    var regName = /^[가-힣a-zA-Z]{2,15}$/;
+    // 이메일
+    var regMail1 = /^([\w-]+(?:\.[\w-]+)*)/
+    var regMail2 = /^((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    // pw
+    var regexPw = /^[A-Za-z0-9`~!@#\$%\^&\*\(\)\{\}\[\]\-_=\+\\|;:'"<>,\./\?]{4,10}$/;
+    // 주민번호
+    var regResi1 = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))/;
+    var regResi2 = /^[1-4][0-9]{6}$/
+    
+    var uid = document.getElementById("userId");
+	
+	//아이디
 	if(document.regFrm.memId.value==""){
 		alert("아이디를 입력해 주세요.");
-		document.regFrm.memId.focus();
+		uid.focus();
 		return;
 	}
+    else if(!regIdPw.test(document.regFrm.memId.value)){
+        alert("4~12자 영문소문자, 숫자만 입력하세요.");
+        uid.value = "";
+        uid.focus();
+        return;
+    }    
 	if(document.regFrm.idDuplication.value=="false") {
 		alert("중복체크를 해주세요.");
-		return
+		uid.value = "";
+		uid.focus();
+		return;
 	}
+	
+	//비밀번호
 	if(document.regFrm.memPw.value==""){
 		alert("비밀번호를 입력해 주세요.");
 		return;
 	}
+	else if(!regexPw.test(document.regFrm.memPw.value)){
+        alert("4~10자 영문 대소문자, 숫자, 특수문자를 사용하세요.");
+        document.regFrm.memPw.value = "";
+        document.regFrm.memPw.focus();
+        return;
+    }
+    
 	if(document.regFrm.repwd.value==""){
 		alert("비밀번호를 확인해 주세요");
 		document.regFrm.repwd.focus();
@@ -117,29 +151,59 @@ function inputCheck(){
 		document.regFrm.repwd.focus();
 		return;
 	}
+	
+	//이름
 	if(document.regFrm.memName.value==""){
 		alert("이름을 입력해 주세요.");
 		document.regFrm.memName.focus();
 		return;
 	}
+	else if(!regName.test(document.regFrm.memName.value)){
+        alert("이름의 형식이 올바르지 않습니다.");
+        document.regFrm.memName.value = "";
+        document.regFrm.memName.focus();
+        return;
+    }
+	
+	//이메일
 	if(document.regFrm.memEmail1.value==""){
 		alert("이메일을 입력해 주세요.");
 		document.regFrm.memEmail1.focus();
 		return;
 	}
+	else if(!regMail1.test(document.regFrm.memEmail1.value)){
+        alert("이메일 형식이 올바르지 않습니다.");
+        document.regFrm.memEmail1.value = "";
+        document.regFrm.memEmail1.focus();
+        return;
+    }
+    
 	if(document.regFrm.memEmail2.value==""){
 		alert("이메일을 입력해 주세요.");
 		document.regFrm.memEmail2.focus();
 		return;
 	}
+	else if(!regMail2.test(document.regFrm.memEmail2.value)){
+        alert("이메일 형식이 올바르지 않습니다.");
+        document.regFrm.memEmail2.value = "";
+        document.regFrm.memEmail2.focus();
+        return;
+    }
+	
+	//배송주소
 	if(document.regFrm.memAddress0.value==""){
-		alert("배송주소를 입력해 주세요.");
+		alert("우편번호를 입력해 주세요.");
+		document.regFrm.memAddress1.value = "";
+		document.regFrm.memAddress1.focus();
 		return;
 	}
 	if(document.regFrm.memAddress1.value==""){
 		alert("배송주소를 입력해 주세요.");
+		document.regFrm.memAddress0.focus();
 		return;
 	}
+	
+	//전화번호
 	if(document.regFrm.memPhone1.value==""){
 		alert("전화번호 앞자리를 입력하세요.");
 		document.regFrm.memPhone1.focus();
@@ -149,17 +213,33 @@ function inputCheck(){
 		alert("전화번호 뒷자리를 입력하세요.");
 		document.regFrm.memPhone2.focus();
 		return;
-	}	
+	}
+	
+	//주민등록번호
 	if(document.regFrm.memResident1.value==""){
 		alert("주민번호 앞자리를 입력하세요.");
 		document.regFrm.memResident1.focus();
 		return;
 	}	
+	else if(!regResi1.test(document.regFrm.memResident1.value)){
+        alert("이메일 형식이 올바르지 않습니다.");
+        document.regFrm.memResident1.value = "";
+        document.regFrm.memResident1.focus();
+        return;
+    }
+    
 	if(document.regFrm.memResident2.value==""){
 		alert("주민번호 뒷자리를 입력하세요.");
 		document.regFrm.memResident2.focus();
 		return;
 	}	
+	else if(!regResi2.test(document.regFrm.memResident2.value)){
+        alert("이메일 형식이 올바르지 않습니다.");
+        document.regFrm.memResident2.value = "";
+        document.regFrm.memResident2.focus();
+        return;
+    }
+    
 	document.regFrm.submit();
 }
 

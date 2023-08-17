@@ -32,10 +32,10 @@
     <div class="signup">
       <form method="post" name="regFrm" action="memberProc.jsp">
           <h2>회원정보 입력</h2>          	  
-              <input name="memId" type="text" id="userId" placeholder="아이디 (영문 소문자/숫자4~16자)" class="id" onkeydown="idActivate()" required>
+              <input name="memId" type="text" id="userId" placeholder="아이디 (4~12자 영문소문자, 숫자만 입력하세요.)" class="id" onkeydown="idActivate()" required>
               <input type="button" value="중복확인" name="checkBtn" class="check" onClick="idCheck(this.form.memId.value)">
               <input type="hidden" name="idDuplication" value="" id="checking">
-              <input name="memPw" type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" maxlength="10" required>
+              <input name="memPw" type="password" placeholder="비밀번호 (4~10자 영문 대소문자, 숫자, 특수문자를 사용하세요.)" class="in" maxlength="10" required>
               <input name="repwd" type="password" placeholder="비밀번호 확인" class="in" maxlength="10" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>
               <input name="memEmail1" type="text" placeholder="이메일" class="mail" required>@<input id="memEmail2" name="memEmail2" type="text" class="maildomain" required>
@@ -50,7 +50,7 @@
     			<option value="yahoo.com">yahoo.com</option>
     			<option value="">직접입력</option>
 			  </select>
-			  <input name="memAddress0" type="text" id="postcode" placeholder="우편번호" required>
+			  <input name="memAddress0" type="text" id="postcode" placeholder="우편번호" required readonly/>
 			  <input type="button" class="btnNormal" value="우편번호 찾기" onClick="DaumPostcode()">
 			  <input name="memAddress1" type="text" id="postcode2" placeholder="배송주소" class="add" required>
 			  <input name="memAddress2" type="text" id="postcode3" placeholder="상세주소" class="in">
@@ -82,8 +82,8 @@
 <script type="text/javascript" src="../js/member.js"></script>
 <script>
 	var check = false;
- 
 	document.getElementById("checking").value = check; 
+	
 	
 	console.log(check);
 </script>

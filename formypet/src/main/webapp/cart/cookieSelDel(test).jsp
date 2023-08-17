@@ -1,6 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.net.URLDecoder"%>
+<%@page import="javax.servlet.http.*"%>
+<%@page import="javax.servlet.*"%>    
+<%@page import="cart.CartBean"%>
+<%@page import="product.ProductBean"%>
+<%@page import="product.ProductFileBean"%>
+<%@page import="java.util.*"%>
+<jsp:useBean id="cMgr" class="cart.CartMgr" />
+<%@page import="product.ProductBean"%> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,28 +21,31 @@
 	<%
 	request.setCharacterEncoding("UTF-8");
 	
-	//ÄíÅ° »ç¿ëÀ» À§ÇÑ ºñÈ¸¿ø Àå¹Ù±¸´Ï
+	//ì¿ í‚¤ ì‚¬ìš©ì„ ìœ„í•œ ë¹„íšŒì› ìž¥ë°”êµ¬ë‹ˆ
 		String[] value = null;
 		int[] productKey = null;
 		int[] cartCount = null;
 		String[] optionText = null;
 	
-	Cookie[] cookies = request.getCookies(); //ÄíÅ° ÀüÃ¼ ºÒ·¯¿È
-	if(cookies != null) { // ÄíÅ°°¡ ºñ¾îÀÖÁö ¾ÊÀ¸¸é
+	Cookie[] cookies = request.getCookies(); //ì¿ í‚¤ ì „ì²´ ë¶ˆëŸ¬ì˜´
+	if(cookies != null) { // ì¿ í‚¤ê°€ ë¹„ì–´ìžˆì§€ ì•Šìœ¼ë©´
 		for(int i=0; i<cookies.length; i++){
-			if(cookies[i].getName().equals("noMemCart")){ //ÄíÅ°¿¡¼­ Ã£¾Æ¿È
-				//Ã£Àº value ,´ÜÀ§·Î ²÷¾îÁÜ
+			if(cookies[i].getName().equals("noMemCart")){ //ì¿ í‚¤ì—ì„œ ì°¾ì•„ì˜´
+				//ì°¾ì€ value ,ë‹¨ìœ„ë¡œ ëŠì–´ì¤Œ
 				value = URLDecoder.decode(cookies[i].getValue(),"UTF-8").split(",");
 				productKey = new int[value.length];
 				cartCount = new int[value.length];
 				optionText = new String[value.length];
-			    for(int k=0; k<value.length; k++){ //-´ÜÀ§·Î »óÇ°Å°, ¼ö·®, ¿É¼Ç ¹è¿­ ÀúÀå
+			    for(int k=0; k<value.length; k++){ //-ë‹¨ìœ„ë¡œ ìƒí’ˆí‚¤, ìˆ˜ëŸ‰, ì˜µì…˜ ë°°ì—´ ì €ìž¥
 					cartCount[k] = Integer.parseInt(value[k].split("-")[0]);
+			    	cartCount[k] += 1;
 					productKey[k] = Integer.parseInt(value[k].split("-")[1]);
 					optionText[k] = value[k].split("-")[2];
+					
 				}  
 			}
 		}
+
 	} else {
 		
 	}

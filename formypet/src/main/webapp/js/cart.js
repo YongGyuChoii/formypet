@@ -85,19 +85,7 @@ $(function(){
 		}
 	});
 	
-	//체크한 상품의 행 삭제
-	$("#delete").on('click', function() {
-		if($('input:checkbox[name="checkRow"]:checked').length === 0){
-			alert('삭제할 항목이 없습니다.');
-		}else {
-			if(confirm("정말 삭제하시겠습니까?")){
-				$('input:checkbox[name="checkRow"]:checked').each(function(k,kVal){
-					let a = kVal.parentElement.parentElement;
-					$(a).remove();
-				});
-			}
-		}
-	});
+	
 	
 	
 	/*비회원 구매*/

@@ -1,10 +1,12 @@
 package cart;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import board.UtilMgr;
 import product.ProductBean;
 import product.ProductFileBean;
 import util.DBConnectionMgr;
@@ -170,27 +172,28 @@ public class CartMgr {
 	}
 	
 	//장바구니 선택삭제
-	public void cartSelDel(int cartKey) {
+	public void deleteCart(int cartKey) {
+		
 		Connection con = null;
+		
 		PreparedStatement pstmt = null;
+		
 		String sql = null;
+		
+		ResultSet rs = null;
 		
 		try {
 			con = pool.getConnection();
-			sql = "DELETE FROM cart WHERE cartKey=?";
-			pstmt = setInt(1, cartKey);
+			//num 을 이용하여 formypet 테이블의 컬럼을 찾아서 delete 쿼리문으로 해당 컬럼 삭제. 
+			sql = "delete from cart where cartKey=?";			
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cartKey);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			pool.freeConnection(con, pstmt);
+			pool.freeConnection(con, pstmt, rs);
 		}
-	}
-
-	private PreparedStatement setInt(int i, int cartKey) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	//상품키로 상품사진 파일들 가져오기
