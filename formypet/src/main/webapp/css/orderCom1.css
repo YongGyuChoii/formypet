@@ -1,0 +1,27 @@
+@charset "EUC-KR";
+.shopping1 {
+	border:1px solid black;
+	width: 800px;
+	height: 400px;
+	margin-top:100px;
+	margin-left:240px;
+	text-align:center;
+	margin-bottom:-100px;
+}
+
+.shopping1 > h1 {
+	FONT-SIZE: 100pt;
+}
+#btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    margin:40px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    width:300px;
+}

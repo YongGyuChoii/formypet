@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Pet</title>
     <link rel="stylesheet"  href="../css/base.css">
+    <link rel="stylesheet"  href="../css/orderCom1.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,10 +22,20 @@
 
     <!--main 시작-->
     <div class="container">
-      <section>
+    <br/>
+    <br/>
+    <br/>
+      <section class = "shopping1">
+      <br/>
+      <br/>
+    <h1>log</h1>
+    <br/>
+    <br/>
+    <br/>
     
-    <input type="button" value="메인화면으로 돌아가기" onClick="javascript:location.href='../index.jsp'">
-    <input type="button" value="쇼핑 더하기" >
+    <input type="button" id = "btn" value="메인화면으로 돌아가기" onClick="javascript:location.href='../index.jsp'">
+   
+    <input type="button" id = "btn" value="쇼핑 더하기" >
       </section>
     </div>
     <!--main 끝-->

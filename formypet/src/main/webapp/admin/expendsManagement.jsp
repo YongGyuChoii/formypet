@@ -103,12 +103,11 @@
 						
 					  } else {
 				%>
-					  <table width="100%" cellpadding="2" cellspacing="0">
+					  <table width="100%" cellpadding="2" cellspacing="0" id = "order">
 						<tr align="center"   class = "border">
 							<td>번 호</td>
 							<td>비회원 주문번호</td>
 							<td>회원 주문번호</td>
-							<td>회원 번호</td>
 							<td>상품 이름</td>
 							<td>카테고리</td>
 							<td>총 지불 금액</td>
@@ -119,27 +118,24 @@
 							  for (int i = 0;i<numPerPage; i++) {
 								if (i == listSize) break;
 								ExpendsManagementBean bean = vlist.get(i);
-							int expendsKey = bean.getExpendsKey();
-							int memKey = bean.getMemKey();
 							int memOrderKey = bean.getMemOrderKey();
 							int nonMemOrderKey = bean.getNonMemOrderKey();
 							int categoryKey = bean.getCategoryKey();
 							int oPrice = bean.getoPrice();
-							String eDate = bean.geteDate();
 							String productName = bean.getProductName();
+							int ordersKey= bean.getOrdersKey();
+							int productKey = bean.getProductKey();
 
 						%>
-						<tr>
-							<td align = "center" ><%=expendsKey%></td>
+						<tr id = "su">
+							<td align = "center"><%=ordersKey %></td>
 							<td align = "center"><%=nonMemOrderKey %></td>
 							<td align="center"><%=memOrderKey%></td>
-							<td align="center"><%=memKey%></td>
 							<td align="center"><%=productName%></td>
 							<td align="center"><%=categoryKey%></td>
-							<td align = "center"><%=oPrice %></td>
-							<td align="center"><%=eDate%></td>
-
-							</tr>
+							<td align = "center" id = "aPirce"><%=oPrice %></td>
+							
+						</tr><input type = "hidden" value = "<%=productKey%>">
 						<%}//for%>
 					</table> <%
 	 			}//if
@@ -172,8 +168,11 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="javascript:list()">[처음으로]</a>
-				</td>
+					<a href="javascript:list()">[처음으로]</a></td>
+				
+			</tr>
+			<tr>
+			<input type = "button" value = "총 매출액" onclick = 'su()'><div id = 'aP'></div>
 			</tr>
 		</table>
 		<!-- 게시판 본문 끝. -->
@@ -185,7 +184,7 @@
 	 		<tr>
 	  			<td align="center" valign="bottom">
 	   				<select name="keyField" size="1" >
-	    				<option value="expendsKey">번 호</option>
+	    				<option value="ordersKey">번 호</option>
 	    				<option value="memKey">회원 번호</option>
 	    				<option value="memOrderKey">회원 주문번호</option>
 	    				<option value="nonMemOrderKey">비회원 주문번호</option>
@@ -204,7 +203,7 @@
 			<input type="hidden" name="nowPage" value="1">
 		</form>
 		<form name="readFrm" method="get">
-			<input type="hidden" name="expendsKey"> 
+			<input type="hidden" name="ordersKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
@@ -246,4 +245,14 @@
 	     }
 	  document.searchFrm.submit();
 	 }
+	
+	function su() {
+		const table = document.getElementById('order');
+		let sum = 0;
+		for(let i = 1; i < table.rows.length; i++){
+			sum +=
+				parseInt(table.rows[i].cells[5].innerHTML)
+		}
+		document.getElementById('aP').innerText = sum+"원";
+	}
 </script>

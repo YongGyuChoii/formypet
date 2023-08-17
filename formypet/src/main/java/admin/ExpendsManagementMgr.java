@@ -23,16 +23,6 @@ import admin.DBConnectionMgr;
 
 public class ExpendsManagementMgr {
 		private DBConnectionMgr pool;
-		//파일 업로드 관련 설정 작성
-		private static final String  beautyProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/beautyProduct";
-		private static final String  bathProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/bathProduct"; 
-		private static final String  clothesProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/clothesProduct"; 
-		private static final String  hygieneProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/hygieneProduct"; 
-		private static final String  livingProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/livingProduct";
-		private static final String  snackProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/snackProduct"; 
-		private static final String  walkProduct = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/walkProduct"; 
-		private static final String ENCTYPE = "UTF-8";
-		private static int MAXSIZE = 5*1024*1024;
 
 		public ExpendsManagementMgr() {
 		try {
@@ -41,7 +31,7 @@ public class ExpendsManagementMgr {
 			e.printStackTrace();
 		}
 	}
-	 //매출 리스트 expends db
+	 //매출 리스트 orders db
 	    public Vector<ExpendsManagementBean> geteMList(String keyField, String keyWord, int start, int end) {
 	    	
 	    	Connection con = null;
@@ -57,17 +47,14 @@ public class ExpendsManagementMgr {
 				con = pool.getConnection();
 				//keyWord 값이 없는 경우 게시물 조회
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "SELECT * FROM ((expends INNER JOIN product ON expends.productKey = product.productKey)"
-							+ "INNER JOIN orders ON expends.ordersKey = orders.ordersKey) where expendsKey"
-							+ " order by expendsKey desc limit ?, ?";
+					sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey where ordersKey"
+							+ " order by ordersKey desc limit ?, ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setInt(1, start);
 					pstmt.setInt(2, end);
 				} else { //keyField 와 keyWord 값이 있는 경우 게시물 조회
-					sql = "SELECT * FROM ((expends INNER JOIN product ON expends.productKey = product.productKey)"
-							+ "INNER JOIN orders ON expends.ordersKey = orders.ordersKey)"
-							+ "WHERE expends." + keyField + " like ? ";
-					sql += "order by expendsKey desc limit ? , ?";
+					sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey WHERE orders." + keyField + " like ? ";
+					sql += "order by ordersKey desc limit ? , ?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%" + keyWord + "%");
 					pstmt.setInt(2, start);
@@ -77,8 +64,6 @@ public class ExpendsManagementMgr {
 			  while (rs.next()) {
 				  
 				 ExpendsManagementBean bean = new ExpendsManagementBean();
-	             bean.setExpendsKey(rs.getInt("expendsKey"));
-	             bean.setMemKey(rs.getInt("memKey"));
 	             bean.setOrdersKey(rs.getInt("ordersKey"));
 	             bean.setMemOrderKey(rs.getInt("memOrderKey"));
 	             bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
@@ -86,7 +71,6 @@ public class ExpendsManagementMgr {
 	             bean.setCategoryKey(rs.getInt("categoryKey"));
 	             bean.setoPrice(rs.getInt("oPrice"));
 	             bean.setProductName(rs.getString("productName"));
-	             bean.seteDate(rs.getString("eDate"));
 	 			 vlist.add(bean);
 	          }
 			  //예외처리
@@ -98,8 +82,8 @@ public class ExpendsManagementMgr {
 	       return vlist; //결과 값을 vlist 로 리턴.
 	    }
 	    
-	 // expendsKey값을 기준으로 해당 게시물을 조회한다. expends db
-		public ExpendsManagementBean getBoard(int expendsKey) {
+	 // expendsKey값을 기준으로 해당 게시물을 조회한다. orders db
+		public ExpendsManagementBean getBoard(int ordersKey) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -112,15 +96,12 @@ public class ExpendsManagementMgr {
 			try {
 				con = pool.getConnection();
 				//expendsKey 값을 기준으로 e 테이블 에서 게시물을 조회한다.
-				sql = "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
-						+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey = ? ";
+				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey WHERE ordersKey = ? ";
 				pstmt = con.prepareStatement(sql);
 				
-				pstmt.setInt(1, expendsKey);
+				pstmt.setInt(1, ordersKey);
 				rs = pstmt.executeQuery();
 				if (rs.next()) {
-					 bean.setExpendsKey(rs.getInt("expendsKey"));
-		             bean.setMemKey(rs.getInt("memKey"));
 		             bean.setOrdersKey(rs.getInt("ordersKey"));
 		             bean.setMemOrderKey(rs.getInt("memOrderKey"));
 		             bean.setNonMemOrderKey(rs.getInt("nonMemOrderKey"));
@@ -128,7 +109,6 @@ public class ExpendsManagementMgr {
 		             bean.setCategoryKey(rs.getInt("categoryKey"));
 		             bean.setoPrice(rs.getInt("oPrice"));
 		             bean.setProductName(rs.getString("productName"));
-		             bean.seteDate(rs.getString("eDate"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -150,12 +130,10 @@ public class ExpendsManagementMgr {
 				
 				//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
 				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql =  "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
-							+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey";
+					sql =  "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey WHERE ordersKey";
 					pstmt = con.prepareStatement(sql);
 				} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-					sql =  "SELECT * FROM (expends INNER JOIN product p ON expends.productKey = p.productKey)"
-							+"INNER JOIN orders o ON expends.ordersKey = o.ordersKey WHERE expendsKey "+ keyField + " like ? ";
+					sql =  "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey WHERE ordersKey "+ keyField + " like ? ";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, "%" + keyWord + "%");
 				}
