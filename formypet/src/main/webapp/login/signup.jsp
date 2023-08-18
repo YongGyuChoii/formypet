@@ -43,7 +43,6 @@
               <input type="button" value="중복확인" name="checkBtn" class="check" onClick="idCheck(this.form.memId.value)">
               <input type="hidden" name="idDuplication" value="" id="checking">
               <input type="hidden" id="duplicateCheck" value="<%=idChk%>">
-              <p>idChk 변수 값 : <%=idChk%></p>
               <input name="memPw" type="password" placeholder="비밀번호 (4~10자 영문 대소문자, 숫자, 특수문자를 사용하세요.)" class="in" maxlength="10" required>
               <input name="repwd" type="password" placeholder="비밀번호 확인" class="in" maxlength="10" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>

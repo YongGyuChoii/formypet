@@ -172,8 +172,8 @@ public class CartMgr {
 	}
 	
 	//장바구니 선택삭제
-	public void deleteCart(int cartKey) {
-		
+	public boolean deleteCart(int cartKey) {
+		boolean flag = true;
 		Connection con = null;
 		
 		PreparedStatement pstmt = null;
@@ -194,6 +194,7 @@ public class CartMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
+		return flag;
 	}
 	
 	//상품키로 상품사진 파일들 가져오기

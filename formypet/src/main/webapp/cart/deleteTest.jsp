@@ -6,8 +6,12 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 <%
-	String test[] = request.getParameterValues("cartKey");
-	System.out.println(test);
+
+	request.setCharacterEncoding("UTF-8");
+
+	String cartKey[] = request.getParameterValues("cartKey");  
+
+	System.out.println(cartKey);
 %>
 </head>
 <body>

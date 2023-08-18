@@ -133,6 +133,7 @@ $(function(){
 		}
 	});
 	
+	//선택삭제
 	$(document).on("click","#delete",function() {
 		var cartKey = new Array();
 		$("input[name='checkRow']:checked").each(function(index, item){
@@ -142,9 +143,22 @@ $(function(){
 			console.log(cartKey[i]);
 		}
 		
-		alert('test용');
-		
-		url = "deleteTest.jsp?cartKey=" + cartKey;
+		if(confirm("test?")){
+				$.ajax({
+					type : "POST",
+					traditional: true,	// ajax 배열 넘기기 옵션!
+					url: "/formypet/cart/DeleteCartServlet",
+					data : {cartKey:cartKey},
+					dataType : "json",
+					success : function(data) { 
+						window.location.href="/formypet/cart/cart.jsp";
+					},
+					errer : function() {
+						alert('errer');
+					}
+				});
+			}
+	
 	});	
  });
 
