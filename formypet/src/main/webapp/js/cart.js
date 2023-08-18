@@ -85,9 +85,6 @@ $(function(){
 		}
 	});
 	
-	
-	
-	
 	/*비회원 구매*/
 	$(document).on("click","#noMemBuy",function(){
 		var productKey = [];
@@ -136,6 +133,19 @@ $(function(){
 		}
 	});
 	
+	$(document).on("click","#delete",function() {
+		var cartKey = new Array();
+		$("input[name='checkRow']:checked").each(function(index, item){
+	    	cartKey.push($(item).val());
+		});
+		for(var i=0; i<cartKey.length; i++){
+			console.log(cartKey[i]);
+		}
+		
+		alert('test용');
+		
+		url = "deleteTest.jsp?cartKey=" + cartKey;
+	});	
  });
 
 

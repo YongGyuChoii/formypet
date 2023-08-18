@@ -144,7 +144,7 @@
               	}              	
           %>
               <td>
-              		<input id="chack1" class="chack" type="checkbox" checked="checked" name="checkRow">
+              		<input id="chack1" class="chack" type="checkbox" checked="checked" name="checkRow" value=<%=pAll.get(i).getCartKey()%>>
               		<input type="hidden" name="productKey" value="<%=pAll.get(i).getProductKey() %>" />
               		<input type="hidden" name="memKey" value="<%=memKey%>"/>
         			<label for="chack1" class="chack_ele"></label>
@@ -200,11 +200,10 @@
               <td><strong><fmt:formatNumber value="<%=calPrice%>" pattern="#,###"/>원</strong></td>          
             </tr>
           <% } %>
-          
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3"> <button class="cart_table_button2" id="delete" >선택상품 삭제</button>
+              <td colspan="3"> <button class="cart_table_button2" id="delete">선택상품 삭제</button>
               <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartDeleteAll.jsp;'">장바구니 비우기</button>
               </td>
               <td></td>
@@ -421,18 +420,3 @@
     <% } %>
 </body>
 </html>
-<script>
-//체크한 상품의 행 삭제
-	$("#delete").on('click', function() {
-		if($('input:checkbox[name="checkRow"]:checked').length === 0){
-			alert('삭제할 항목이 없습니다.');
-		}else {
-			if(confirm("정말 삭제하시겠습니까?")){
-				$('input:checkbox[name="checkRow"]:checked').each(function(k,kVal){
-					let a = kVal.parentElement.parentElement;
-					$(a).<%%>;
-				});
-			}
-		}
-	});
-</script>

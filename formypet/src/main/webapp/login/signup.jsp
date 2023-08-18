@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -17,6 +18,10 @@
     		padding: 20px;
     	}
     </style>
+    <%      
+        String idChk = request.getParameter("dud");
+		System.out.println("signup.jsp 의 idChk = " + idChk);					
+	%>
 </head>
 <body>
     <div id="wrap">
@@ -25,16 +30,20 @@
         <%@include file="/base/header.jsp"%>
     </header>
     <!--header 끝-->
-
-    <!--main 시작-->
+    <!--idCheck.jsp에서 가져온 값-->
+	
+    <!--main 시작-->	
     <div class="container">
     <section>
     <div class="signup">
       <form method="post" name="regFrm" action="memberProc.jsp">
+          
           <h2>회원정보 입력</h2>          	  
               <input name="memId" type="text" id="userId" placeholder="아이디 (4~12자 영문소문자, 숫자만 입력하세요.)" class="id" onkeydown="idActivate()" required>
               <input type="button" value="중복확인" name="checkBtn" class="check" onClick="idCheck(this.form.memId.value)">
               <input type="hidden" name="idDuplication" value="" id="checking">
+              <input type="hidden" id="duplicateCheck" value="<%=idChk%>">
+              <p>idChk 변수 값 : <%=idChk%></p>
               <input name="memPw" type="password" placeholder="비밀번호 (4~10자 영문 대소문자, 숫자, 특수문자를 사용하세요.)" class="in" maxlength="10" required>
               <input name="repwd" type="password" placeholder="비밀번호 확인" class="in" maxlength="10" required>
               <input name="memName" type="text" placeholder="성명" class="in" required>
@@ -84,6 +93,7 @@
 	var check = false;
 	document.getElementById("checking").value = check; 
 	
+	var testing = document.getElementById("duplicateCheck").value;
 	
-	console.log(check);
+	console.log(testing);
 </script>

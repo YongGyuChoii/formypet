@@ -22,15 +22,14 @@
 			<%
 				if (result) { //result 변수에 저장된 결과값이 true 이면
 					out.println("는 이미 존재하는 ID입니다.<p/>"); 
-			%>	
-					<a href="#" id="test" value="1" onClick="self.close()">닫기</a>			
+			%>		
+					<a href="signup.jsp?dud=true" onClick="window.close()">닫기</a>
 			<% 
 				} else { //result 변수에 저장된 결과값이 false 이면
 					out.println("는 사용 가능 합니다.<p/>");
 			%>
-					<a href="#" onClick="self.close()">닫기</a>	
+					<a href="signup.jsp?dud=false" onClick="self.close()">닫기</a>	
 			<% } %>	
 	</div>
 </body>
 </html>
-<script type="text/javascript" src="../js/member.js"></script>

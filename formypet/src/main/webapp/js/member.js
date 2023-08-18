@@ -71,13 +71,10 @@ function idCheck(memId) {
 			}
 			check = true;
 			document.getElementById("checking").value = check;
-			console.log(check);
 			//idCheck.jsp 페이지로 id파라미터 옮기기
 			url = "idCheck.jsp?memId=" + memId;
 			//창 크기로 idCheck.jsp 페이지 열기
 			window.open(url, "IDCheck", "width=300,height=150");
-
-			var a = 1;
 }	
 
 //중복체크 활성화
@@ -88,14 +85,16 @@ function idActivate() {
 
 function inputCheck(){
 	
-	//memAddress 값 
+	
 	var addr0 = document.getElementById("postcode").value;
 	var addr1 = document.getElementById("postcode2").value;
 	document.getElementById("test").value = addr0 + "/" + addr1; 
 	
+	
+	
 	// 정규식
     // id
-    var regIdPw = /^[a-z0-9]{4,12}$/;
+    var regId = /^[a-z0-9]{4,12}$/;
     // 이름
     var regName = /^[가-힣a-zA-Z]{2,15}$/;
     // 이메일
@@ -108,6 +107,8 @@ function inputCheck(){
     var regResi2 = /^[1-4][0-9]{6}$/
     
     var uid = document.getElementById("userId");
+    var testing = document.getElementById("duplicateCheck").value;
+    console.log(testing);
 	
 	//아이디
 	if(document.regFrm.memId.value==""){
@@ -115,7 +116,7 @@ function inputCheck(){
 		uid.focus();
 		return;
 	}
-    else if(!regIdPw.test(document.regFrm.memId.value)){
+    else if(!regId.test(document.regFrm.memId.value)){
         alert("4~12자 영문소문자, 숫자만 입력하세요.");
         uid.value = "";
         uid.focus();
@@ -125,6 +126,13 @@ function inputCheck(){
 		alert("중복체크를 해주세요.");
 		uid.value = "";
 		uid.focus();
+		return;
+	}
+	
+	if(testing=="true"){
+		alert("이미 존재하는 아이디입니다.");
+		uid.value = "";
+        uid.focus();
 		return;
 	}
 	
@@ -222,7 +230,7 @@ function inputCheck(){
 		return;
 	}	
 	else if(!regResi1.test(document.regFrm.memResident1.value)){
-        alert("이메일 형식이 올바르지 않습니다.");
+        alert("주민번호 형식이 올바르지 않습니다.");
         document.regFrm.memResident1.value = "";
         document.regFrm.memResident1.focus();
         return;
@@ -234,11 +242,13 @@ function inputCheck(){
 		return;
 	}	
 	else if(!regResi2.test(document.regFrm.memResident2.value)){
-        alert("이메일 형식이 올바르지 않습니다.");
+        alert("주민번호 형식이 올바르지 않습니다.");
         document.regFrm.memResident2.value = "";
         document.regFrm.memResident2.focus();
         return;
     }
+    
+    
     
 	document.regFrm.submit();
 }
