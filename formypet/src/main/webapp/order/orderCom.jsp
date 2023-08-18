@@ -27,15 +27,13 @@
     <br/>
       <section class = "shopping1">
       <br/>
-      <br/>
+
     <h1>log</h1>
     <br/>
     <br/>
     <br/>
-    
-    <input type="button" id = "btn" value="메인화면으로 돌아가기" onClick="javascript:location.href='../index.jsp'">
-   
-    <input type="button" id = "btn" value="쇼핑 더하기" >
+   	<button class="btn" onClick="javascript:location.href='../index.jsp'" ><span>메인화면으로 돌아가기</span></button>
+   	<button class="btn"><span>쇼핑 더하기</span></button>
       </section>
     </div>
     <!--main 끝-->
