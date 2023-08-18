@@ -13,9 +13,16 @@ import com.oreilly.servlet.MultipartRequest;
 import board.BoardBean;
 import product.ProductBean;
 
+
+
+
 public class ReviewMgr {
 
     private DBConnectionMgr pool;
+   
+    private static final String  SAVEFOLDER = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/review";
+	private static final String ENCTYPE = "UTF-8";
+	private static int MAXSIZE = 5*1024*1024;
     Connection con = null;
     PreparedStatement pstmt = null;
     MultipartRequest multi = null;

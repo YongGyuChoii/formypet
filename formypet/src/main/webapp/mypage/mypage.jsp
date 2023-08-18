@@ -63,7 +63,7 @@
                 <div class="item">
                   <div>
                     <a href="${pageContext.request.contextPath}/mypage/myreview.jsp#"><i class="material-icons">menu_book</i></a>
-                    <div class="text1">내 후기</div>
+                    <div class="text1"> 후기</div>
                     <div class="text2">0</div>
                   </div>
                 </div>     
@@ -77,23 +77,15 @@
                   <div class="text">주문/배송/픽업 조회<span class="circle"></span></div>
                   <div class="right"> > </div>
               </a>
-              <a href="#" class="item">
+              <a href="${pageContext.request.contextPath}/mypage/myreview.jsp#" class="item">
                   <div class="icon">ii</div>
-                  <div class="text">취소/교환/환불 내역</div>
+                  <div class="text">내 후기</div>
                   <div class="right"> > </div>
               </a>
              
-              </a>
-              <a href="${pageContext.request.contextPath}/mypage/mypageproduct.jsp""   class="item">
-                  <div class="icon">ii</div>
-                  <div class="text">최근본상품</div>
-                  <div class="right"> > </div>
-              </a>
-              <a href="#" class="item">
-                  <div class="icon">ii</div>
-                  <div class="text">찜한상품</div>
-                  <div class="right"> > </div>
-              </a>
+              
+              
+     
             </div>
             <div class="listContainer">
               <a href="${pageContext.request.contextPath}/mypage/mypageship.jsp" class="item">

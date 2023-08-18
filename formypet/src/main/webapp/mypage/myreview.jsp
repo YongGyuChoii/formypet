@@ -39,7 +39,7 @@
 <table border="1" summary="">
 <caption>게시물 관리 목록</caption>
         <colgroup class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 "><col style="width:70px;">
-<col style="width:135px;">
+
 <col style="width:auto;">
 <col style="width:1500px;">
 <col style="width:80px;">
@@ -47,7 +47,7 @@
 </colgroup>
 <thead><tr>
 
-				<th scope="col">회원</th>
+			
                 <th scope="col">번호</th>
                 <th scope="col">제목</th>
                 <th scope="col">내용</th>
@@ -68,11 +68,11 @@
 		String rvTitle = bean.getRvTitle();
 		String rvContents = bean.getRvContents();
 		int rvScore = bean.getRvScore();
-		int memKey1 = bean.getMemKey(); 
+		
 		
 	%>
 	
-                <td><a><%=memKey1%></a></td>
+              
                 <td><a><%=num%></a></td>
                 <td class="left subject"> <a href="#"><%=rvTitle %></a> </td>
                 <td><%=rvContents%></td>

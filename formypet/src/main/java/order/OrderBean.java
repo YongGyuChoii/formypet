@@ -6,7 +6,7 @@ package order;
 public class OrderBean {
 	
     private int ordersKey;
-    private String memOrderkey;
+ 
     private String nonmemOrderKey;
     private int productKey;
     private int oCount;
@@ -142,7 +142,24 @@ public class OrderBean {
 		public void setMemKey(int memKey) {
 			this.memKey = memKey;
 		}
-	 
+		
+		private String productName;
+		 
+		public String getProductName() {
+			return productName;
+		}
+		public void setProductName(String productName) {
+			this.productName = productName;
+		}
+		
+		private String productImg;
+		
+		public String getProductImg() {
+			return productImg;
+		}
+		public void setProductImg(String productImg) {
+			this.productImg = productImg;
+		}
 		
 		
 }

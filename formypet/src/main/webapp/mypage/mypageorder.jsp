@@ -1,25 +1,45 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@page import="order.OrderBean"%>
-
+<%@page import="product.ProductBean"%>
+<%@page import="product.ProductFileBean"%>
 <%@page import="java.util.Vector"%>
+<%@page import="java.util.*"%>
  <jsp:useBean id="orderMgr" class="order.myOrderMgr" />
+<jsp:useBean id="pMgr" class="product.ProductMgr" />
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>주문내역 조회 - 마이페이지 | </title>
-<link rel="stylesheet" type="text/css" href="../css/mypageorder.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Pet</title>
+    <link rel="stylesheet"  href="../css/base.css">
+    <link rel="stylesheet" type="text/css" href="../css/mypageorder.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-	<h1>주문 내역 조회</h1>
+    <div id="wrap">
+    <!-- header 시작-->
+    <header>
+        <%@include file="/base/header.jsp"%>
+    </header>
+    <!--header 끝-->
+
+    <!--main 시작-->
+    <div class="container1">
+      <section>
+        <h1>주문 내역 조회</h1>
 			<table class="n-table table-col n-order-view">
-				<colgroup>
+					<colgroup>
 					<col style="width:*">
+					<col style="width:13.2%">
 					<col style="width:14.2%">
 					<col style="width:14.2%">
-					<col style="width:14.2%">
-					<col style="width:10.2%">
+					<col style="width:11.2%">
 					<col style="width:11%">
 				</colgroup>
 				<thead>
@@ -73,11 +93,11 @@
 				<td><%=productPrice%>원<br><span class="txt-default"> <%=oCount%></span></td>
 			
 		<td >
-		<div class="btn-set tooltip">
+		
 			<button type="button" class="n-link state"
 			onclick="deliveryStepShow(205635815)">구매 확정</button><br>
 		<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
-	</div>
+	
 				
 	</td>
 	<td>
@@ -87,14 +107,20 @@
 			</td>
 			
 	 <% } %>
-				
-				
+      </section>
+    </div>
+    <!--main 끝-->
 
-	
-	
-	
-	
-
-
+    <!-- 오른쪽 맨위 맨아래 화살표 -->
+    	<%@include file="/base/rightAside.jsp"%>
+    <!-- 오른쪽 맨위 맨아래 화살표 끝 -->
+    
+    <!-- footer 시작-->
+    <footer id="footer">
+      	<%@include file="/base/footer.jsp"%>
+    </footer>
+    <!-- footer 끝.-->
+    </div>
 </body>
 </html>
+    
