@@ -66,7 +66,7 @@
 	<br/><br/>
 	<table align="center" width="800" cellspacing="3">
 	 <tr>
-	  <td bgcolor="#9CA2EE" height="25" align="center">글읽기</td>
+	  <td bgcolor="#9CA2EE" height="25" align="center"></td>
 	 </tr>
 	 <tr>
 	  <td colspan="2">

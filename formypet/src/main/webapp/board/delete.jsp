@@ -36,13 +36,14 @@
 			String dbPass = bean.getPass();
 			
 			//화면에서 입력받은 pass 파라미터 와 session에서 가져온 pass 파라미터가 같으면
-			if(inPass.equals(dbPass)) {
+			if(inPass.equals(dbPass)) {				
+
 				bMgr.deleteBoard(num);	//BoardMgr 클래스의 deleteBoard() 메서드 호출하여 해당 게시물 삭제.
-				
+
 				String url = "list.jsp?nowPage=" + nowPage;
 				
 				response.sendRedirect(url);
-			
+
 			} else { //두 pass가 서로 같지 않다면 아래 script 내용 실행.
 		%>		
 	<script type="text/javascript">
@@ -101,8 +102,8 @@
 								</tr>
 								<tr>
 									<td align="center">
-										<input type="button" value="삭제완료" onClick="check()"> 
-										<input type="button" value="뒤로" onClick="history.go(-1)">
+										<input type="button" value="삭제완료" class="btn btn-outline-primary" onClick="check()"> 
+										<input type="button" value="뒤로" class="btn btn-outline-primary" onClick="history.go(-1)">
 									</td>
 								</tr>
 							</table>
