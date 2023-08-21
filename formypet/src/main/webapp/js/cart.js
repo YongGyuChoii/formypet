@@ -143,7 +143,7 @@ $(function(){
 			console.log(cartKey[i]);
 		}
 		
-		if(confirm("test?")){
+		if(confirm("삭제하시겠습니까?")){
 				$.ajax({
 					type : "POST",
 					traditional: true,	// ajax 배열 넘기기 옵션!
@@ -160,6 +160,67 @@ $(function(){
 			}
 	
 	});	
+	
+	//+수량변경
+	$(document).on("click","#upBtn",function() {
+		
+		var thisButton = $(this);
+		var tr = thisButton.parent().parent();
+		var td = tr.children();
+		var cartKey = td.find("input[name='checkRow']").val();
+		var cartCount = td.find("input[name='countInput']").val();
+		var productCount = td.find("input[name='productCount']").val();
+		productCount = parseInt(productCount);
+		console.log(productCount);
+		console.log(cartCount);
+
+		if(cartCount >= productCount) {
+			alert("재고량보다 많습니다.");
+		} else {	
+			$.ajax({
+				type : "POST",
+				traditional: true,	// ajax 배열 넘기기 옵션!
+				url: "/formypet/cart/PlusCartCountServlet",
+				data : {cartKey:cartKey},
+				dataType : "json",
+				success : function(data) { 
+					window.location.href="/formypet/cart/cart.jsp";
+				},
+				errer : function() {
+					alert('errer');
+				}
+			});
+		}
+	});	
+	
+	//-수량변경
+	$(document).on("click","#downBtn",function() {
+		
+		var thisButton = $(this);
+		var tr = thisButton.parent().parent();
+		var td = tr.children();
+		var cartKey = td.find("input[name='checkRow']").val();
+		var cartCount = td.find("input[name='countInput']").val();
+
+		if(cartCount <= 1) {
+			alert("1개 이상이여야 합니다.");
+		} else {
+			$.ajax({
+				type : "POST",
+				traditional: true,	// ajax 배열 넘기기 옵션!
+				url: "/formypet/cart/MinusCartCountServlet",
+				data : {cartKey:cartKey},
+				dataType : "json",
+				success : function(data) { 
+					window.location.href="/formypet/cart/cart.jsp";
+				},
+				errer : function() {
+					alert('errer');
+				}
+			});
+		}
+	});	
+	
  });
 
 

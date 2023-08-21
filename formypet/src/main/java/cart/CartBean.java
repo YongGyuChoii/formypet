@@ -12,7 +12,14 @@ public class CartBean {
 	private String productImg;
 	private String optionValue;
 	private int categoryKey;
+	private int productCount;
 	
+	public int getProductCount() {
+		return productCount;
+	}
+	public void setProductCount(int productCount) {
+		this.productCount = productCount;
+	}
 	public int getCategoryKey() {
 		return categoryKey;
 	}

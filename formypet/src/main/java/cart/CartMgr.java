@@ -50,6 +50,7 @@ public class CartMgr {
 				bean.setProductImg(rs.getString("productImg"));
 				bean.setOptionValue(rs.getString("optionValue"));
 				bean.setCategoryKey(rs.getInt("categoryKey"));
+				bean.setProductCount(rs.getInt("productCount"));
 				pla.add(bean);
 			}
 		}catch (Exception e) {
@@ -155,20 +156,53 @@ public class CartMgr {
 	}
 	
 	//장바구니 수량 변경+
-	public void upCount(int[] cartKey) {
-		for(int i=0; i<cartKey.length; i++) {
-			try { //회원 포인트에서 적립된 포인트 더하기
-				con = pool.getConnection();
-				sql = "UPDATE product set cartCount = cartCount+1 WHERE cartKey = ?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, cartKey[i]);
-				pstmt.executeUpdate();
-			}catch(Exception e) {
-				e.printStackTrace();
-			}finally {
-				pool.freeConnection(con,pstmt);
-			}
+	public boolean upCount(int cartKey) {
+		boolean flag = true;
+		Connection con = null;
+		
+		PreparedStatement pstmt = null;
+		
+		String sql = null;
+		
+		ResultSet rs = null;
+		
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE cart set cartCount = cartCount+1 WHERE cartKey = ?";			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cartKey);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
 		}
+		return flag;
+	}
+	
+	//장바구니 수량 변경-
+	public boolean downCount(int cartKey) {
+		boolean flag = true;
+		Connection con = null;
+			
+		PreparedStatement pstmt = null;
+			
+		String sql = null;
+			
+		ResultSet rs = null;
+			
+		try {
+			con = pool.getConnection();
+			sql = "UPDATE cart set cartCount = cartCount-1 WHERE cartKey = ?";			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cartKey);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return flag;
 	}
 	
 	//장바구니 선택삭제

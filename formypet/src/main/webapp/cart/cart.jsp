@@ -142,11 +142,12 @@
               	} else {
               		totalViewPrice = productViewPrice * pAll.get(i).getCartCount() + deliveryFee;
               	}              	
-          %>
+          	%>
               <td>
               		<input id="chack1" class="chack" type="checkbox" checked="checked" name="checkRow" value=<%=pAll.get(i).getCartKey()%>>
               		<input type="hidden" name="productKey" value="<%=pAll.get(i).getProductKey() %>" />
               		<input type="hidden" name="memKey" value="<%=memKey%>"/>
+              		<input type="hidden" name="productCount" value="<%=pAll.get(i).getProductCount()%>">
         			<label for="chack1" class="chack_ele"></label>
               </td>
               <td>
@@ -186,8 +187,8 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn+" id="upBtn" onClick="location='count(test).jsp'">+</button>
-                <input name="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px;">                
+                <button name="countBtn+" id="upBtn">+</button>
+                <input name="countInput" class="countInput" type="text" value="<%=pAll.get(i).getCartCount()%>" style="width: 30px; text-align: center;" readonly>                
                 <button name="countBtn-" id="downBtn">-</button>
               </td>
               </from>            

@@ -90,8 +90,6 @@ function inputCheck(){
 	var addr1 = document.getElementById("postcode2").value;
 	document.getElementById("test").value = addr0 + "/" + addr1; 
 	
-	
-	
 	// 정규식
     // id
     var regId = /^[a-z0-9]{4,12}$/;
@@ -107,8 +105,8 @@ function inputCheck(){
     var regResi2 = /^[1-4][0-9]{6}$/
     
     var uid = document.getElementById("userId");
-    var testing = document.getElementById("duplicateCheck").value;
-    console.log(testing);
+	var testing = document.getElementById("dupliCheck").value;
+	console.log(testing);
 	
 	//아이디
 	if(document.regFrm.memId.value==""){
@@ -128,7 +126,6 @@ function inputCheck(){
 		uid.focus();
 		return;
 	}
-	
 	if(testing=="true"){
 		alert("이미 존재하는 아이디입니다.");
 		uid.value = "";
