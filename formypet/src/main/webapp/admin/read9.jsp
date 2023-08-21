@@ -4,7 +4,7 @@
 <jsp:useBean id="bMgr" class="board.BoardMgr" />
 <%
 	  request.setCharacterEncoding("UTF-8");
-      Integer memKey = (Integer)session.getAttribute("idKey");
+      //Integer memKey = (Integer)session.getAttribute("idKey");
 	  int num = Integer.parseInt(request.getParameter("num"));
 	  
 	  String nowPage = request.getParameter("nowPage");
@@ -66,7 +66,7 @@
 	<br/><br/>
 	<table align="center" width="800" cellspacing="3">
 	 <tr>
-	  <td bgcolor="#9CA2EE" height="25" align="center"></td>
+	  <td bgcolor="#9CA2EE" height="25" align="center">글읽기</td>
 	 </tr>
 	 <tr>
 	  <td colspan="2">
@@ -102,9 +102,8 @@
 	 <tr>
 	  <td align="center" colspan="2"> 
 	 <hr/>
-	[ <a href="javascript:list()" >리스트</a> | 
-	 <a href="boardup.jsp?nowPage=<%=nowPage%>&num=<%=num%>" >수 정</a> |
-	 <a href="boardReply.jsp?nowPage=<%=nowPage%>" >답 변</a> ]<br/>
+	[ <a href="javascript:list()" >리스트</a> ]
+
 	  </td>
 	 </tr>
 	</table>
@@ -113,7 +112,7 @@
 		<input type="hidden" name="filename">
 	</form>
 	
-	<form name="listFrm" method="post" action="csCenterManagement.jsp">
+	<form name="listFrm" method="post" action="buyManagement.jsp">
 		<input type="hidden" name="nowPage" value="<%=nowPage%>">
 		<%if(!(keyWord==null || keyWord.equals(""))){ %>
 		<input type="hidden" name="keyField" value="<%=keyField%>">

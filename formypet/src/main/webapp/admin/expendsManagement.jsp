@@ -3,6 +3,7 @@
     <%@page import = "java.util.*,admin.*" %>
 <jsp:useBean id = "exMMgr" class = "admin.ExpendsManagementMgr" scope = "page" />
 <%	
+
 	  request.setCharacterEncoding("UTF-8");
 	  
       int totalRecord=0; //전체레코드수
@@ -85,6 +86,9 @@
 					<td>Total : <%=totalRecord%>Articles(<font color="red">
 					<%=nowPage%>/<%=totalPage%>Pages</font>)</td>
 				</tr>
+				<tr id = "aP">
+					
+				</tr>
 		</table>
 		
 		<!-- 게시판 본문 시작 -->
@@ -118,8 +122,8 @@
 							  for (int i = 0;i<numPerPage; i++) {
 								if (i == listSize) break;
 								ExpendsManagementBean bean = vlist.get(i);
-							int memOrderKey = bean.getMemOrderKey();
-							int nonMemOrderKey = bean.getNonMemOrderKey();
+							String memOrderKey = bean.getMemOrderKey();
+							String nonMemOrderKey = bean.getNonMemOrderKey();
 							int categoryKey = bean.getCategoryKey();
 							int oPrice = bean.getoPrice();
 							String productName = bean.getProductName();
@@ -129,12 +133,25 @@
 						%>
 						<tr id = "su">
 							<td align = "center"><%=ordersKey %></td>
-							<td align = "center"><%=nonMemOrderKey %></td>
-							<td align="center"><%=memOrderKey%></td>
+							
+							<td align = "center">
+							<%	
+								if (nonMemOrderKey != null){%>
+									<%=nonMemOrderKey%>
+								<%}else{
+									nonMemOrderKey = "";
+								};%>
+							</td>
+							<td align="center"><%	
+								if (memOrderKey != null){%>
+									<%=memOrderKey%>
+								<%}else{
+									memOrderKey = "";
+								};%></td>
 							<td align="center"><%=productName%></td>
 							<td align="center"><%=categoryKey%></td>
-							<td align = "center" id = "aPirce"><%=oPrice %></td>
-							
+							<td align = "center" id = "aPirce"><%=oPrice %></td>	
+												
 						</tr><input type = "hidden" value = "<%=productKey%>">
 						<%}//for%>
 					</table> <%
@@ -168,11 +185,8 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="javascript:list()">[처음으로]</a></td>
-				
-			</tr>
-			<tr>
-			<input type = "button" value = "총 매출액" onclick = 'su()'><div id = 'aP'></div>
+					<a href="javascript:list()">[처음으로]</a>
+					<a href="jacascript:su()" onclick = 'su()'>[총 매출]</td>
 			</tr>
 		</table>
 		<!-- 게시판 본문 끝. -->
@@ -253,6 +267,7 @@
 			sum +=
 				parseInt(table.rows[i].cells[5].innerHTML)
 		}
-		document.getElementById('aP').innerText = sum+"원";
+		document.getElementById('aP').innerHTML = '<td><p>총 매출 : ' +sum+ '원</td>';
 	}
+	
 </script>

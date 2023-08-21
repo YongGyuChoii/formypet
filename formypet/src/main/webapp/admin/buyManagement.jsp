@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
 <%@page import = "admin.BuyManagementBean" %>
+<%@page import = "board.BoardBean" %>
 <jsp:useBean id = "bmmgr" class = "admin.BuyManagementMgr" scope = "page" />
 <%	
 	  request.setCharacterEncoding("UTF-8");
@@ -60,7 +61,7 @@
 	
 	//전체 블록 계산, 방법은 전체 페이지수 계산법과 동일.
 	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
-
+	BoardBean bean1 = (BoardBean) session.getAttribute("bean"); //boardBean에 저장된 데이터 가져옴
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -136,10 +137,20 @@
 						<tr>
 							<input type = "hidden" value = "<%=num%>">
 							<td align="center"><%=brKey%></td>
-							<td align="center"><%=memOrderKey%></a></td>
-							<td align="center"><%=nonMemOrderKey%></td>
+							<td align="center"><%	
+								if (memOrderKey != null){%>
+									<%=memOrderKey%>
+								<%}else{
+									memOrderKey = "";
+								};%></a></td>
+							<td align="center"><%	
+								if (nonMemOrderKey != null){%>
+									<%=nonMemOrderKey%>
+								<%}else{
+									nonMemOrderKey = "";
+								};%></td>
 							<td align="center"><%=productName%></td>
-							<td align="center"><%=subject%></td>
+							<td align="center"><a href="javascript:read('<%=num%>')"><%=subject%></a></td>
 							<td align="center">
 							<a href="read5.jsp?nowPage<%=nowPage%>&brKey=<%=brKey%>" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;">
 							<input  type="button" value="승인"></a>
@@ -226,6 +237,12 @@
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
+				<form name="readFrm3" method="get">
+			<input type="hidden" name="num"> 
+			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
+			<input type="hidden" name="keyField" value="<%=keyField%>"> 
+			<input type="hidden" name="keyWord" value="<%=keyWord%>">
+		</form>
 
 	<!-- 오른쪽 맨위 맨아래 화살표 -->
     <%@include file="/base/rightAside.jsp"%>
@@ -255,7 +272,11 @@
 		 document.readFrm.submit();
 	} 
 	
-	
+	function read(num){
+		document.readFrm3.num.value=num;
+		document.readFrm3.action="../admin/read9.jsp";
+		document.readFrm3.submit();
+	}
 	function check() {
 	     if (document.searchFrm.keyWord.value == "") {
 	   alert("검색어를 입력하세요.");
