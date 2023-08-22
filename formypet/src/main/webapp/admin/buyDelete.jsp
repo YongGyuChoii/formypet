@@ -1,8 +1,8 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@page import="admin.BuyManagementBean"%>
 <%@page import="board.BoardBean"%>
-<jsp:useBean id="cmgr" class="admin.CsCenterManagementMgr" />    
+<jsp:useBean id="bmgr" class="admin.BuyManagementMgr" />    
     
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,15 +20,15 @@
 	
 	//이동된 파라미터 nowPage 와 num 을 받아서 각 변수에 대입.
 		String nowPage = request.getParameter("nowPage");
-		Integer memKey = (Integer)session.getAttribute("idKey");
-		int num = Integer.parseInt(request.getParameter("num"));
+		
+		int brKey = Integer.parseInt(request.getParameter("brKey"));
 
 			//session에 저장된 bean 객체를 가져옴.
-			BoardBean bean = (BoardBean) session.getAttribute("bean");
+			BuyManagementBean bean = (BuyManagementBean) session.getAttribute("bean");
 
-				cmgr.delb(num);	//BoardMgr 클래스의 deleteBoard() 메서드 호출하여 해당 게시물 삭제.
+				bmgr.delbuy(brKey);	//BoardMgr 클래스의 deleteBoard() 메서드 호출하여 해당 게시물 삭제.
 				
-				String url = "csCenterManagement.jsp?nowPage=" + nowPage;
+				String url = "buyManagement.jsp?nowPage=" + nowPage;
 				
 				response.sendRedirect(url);
 		%>		
@@ -57,7 +57,7 @@
 			</table>
 			<!-- 비밀번호를 화면에서 input 태그에 입력 받은뒤 삭제완료 버튼을 누르면 check() 자바스크립트 함수 호출 한 다음
 				다시 자신 페이지인(delete.jsp)로 파라미터를 갖고 이동.(입력 받은 파라미터를 갖고 페이지를 새로고침 한다고 생각하면 됨)   -->
-			<form name="delFrm" method="post" action="bDelete.jsp">
+			<form name="delFrm" method="post" action="buyDelete.jsp">
 				<table width="600" cellpadding="2">
 					<tr>
 						<td align="center">
@@ -70,7 +70,7 @@
 					</tr>
 				</table>
 				<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
-				<input type="hidden" name="num" value="<%=num%>">
+				<input type="hidden" name="num" value="<%=brKey%>">
 			</form>
 		</div>
       </section>

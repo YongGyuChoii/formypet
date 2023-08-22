@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import = "java.util.*,admin.*" %>
 <%@page import = "admin.BuyManagementBean" %>
-<%@page import = "board.BoardBean" %>
+<%//@page import = "board.BoardBean" %>
 <jsp:useBean id = "bmmgr" class = "admin.BuyManagementMgr" scope = "page" />
 <%	
 	  request.setCharacterEncoding("UTF-8");
@@ -61,7 +61,7 @@
 	
 	//전체 블록 계산, 방법은 전체 페이지수 계산법과 동일.
 	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
-	BoardBean bean1 = (BoardBean) session.getAttribute("bean"); //boardBean에 저장된 데이터 가져옴
+	//BoardBean bean1 = (BoardBean) session.getAttribute("bean"); //boardBean에 저장된 데이터 가져옴
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -73,8 +73,28 @@
     <link rel="stylesheet"  href="../css/adminStyle.css">
    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
 
+.material-symbols-outlined2 {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+</style>
 </head>
 <body>
 <!-- header 시작-->
@@ -113,51 +133,42 @@
 						<tr class = "border">
 							<td>번 호</td>
 							<td>회원 주문번호</td>
-							<td>비회원 주문번호</td>
+							
 							<td>상품 이름</td>
 							<td>환불 사유</td>
 							<td>승 인</td>
+							<td>deleted</td>
 						</tr>
 						<%
 							  for (int i = 0; i < numPerPage; i++) {
 								if (i == listSize) break;
 								
 								BuyManagementBean bean = vlist.get(i);
-								
+								int ordersKey = bean.getOrdersKey();
 								int brKey = bean.getBrKey();
 								int memKey = bean.getMemKey();
 								String memOrderKey = bean.getMemOrderKey();
-								String nonMemOrderKey = bean.getNonMemOrderKey();
+								//String nonMemOrderKey = bean.getNonMemOrderKey();
 								String productName = bean.getProductName();
 								int num = bean.getNum();
 								String subject = bean.getSubject();
-								if (subject.equals("[반품/환불] 반품/환불 문의")){
-								
+								if (subject.equals("[반품/환불] 반품/환불 문의") && memOrderKey != null && ordersKey == ordersKey){		 
 						%>
 						<tr>
 							<input type = "hidden" value = "<%=num%>">
+							<input type = "hidden" value = "<%=ordersKey%>">
 							<td align="center"><%=brKey%></td>
-							<td align="center"><%	
-								if (memOrderKey != null){%>
-									<%=memOrderKey%>
-								<%}else{
-									memOrderKey = "";
-								};%></a></td>
-							<td align="center"><%	
-								if (nonMemOrderKey != null){%>
-									<%=nonMemOrderKey%>
-								<%}else{
-									nonMemOrderKey = "";
-								};%></td>
+							<td align="center"><%=memOrderKey%></td>
 							<td align="center"><%=productName%></td>
 							<td align="center"><a href="javascript:read('<%=num%>')"><%=subject%></a></td>
 							<td align="center">
 							<a href="read5.jsp?nowPage<%=nowPage%>&brKey=<%=brKey%>" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;">
-							<input  type="button" value="승인"></a>
+							<span class="material-symbols-outlined">done</span></a>
 							<a href="read6.jsp?nowPage<%=nowPage%>&brKey=<%=brKey%>" onclick="window.open(this.href, '_blank', 'width=500, height=300'); return false;">
-							<input  type="button" value="거절">
-							<% //session.setAttribute("bean", bean);%>
+							<span class="material-symbols-outlined">close</span>
+							<% session.setAttribute("bean", bean);%>
 							</a>
+							<td align="center"><a href="javascript:deleted('<%=brKey%>')"><span class="material-symbols-outlined">delete</span></a></td>
 							</td>
 						</tr>
 						<%}
@@ -193,7 +204,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right"> 
-					<a href="javascript:BuyManagement()">[처음으로]</a>
+					<a href="javascript:BuyManagement()"><span class="material-symbols-outlined">home</span></a>
 				</td>
 			</tr>
 		</table>
@@ -212,7 +223,7 @@
 	    				<option value="rYn">승 인</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
-	   				<input type="button"  value="찾기" onClick="javascript:check()">
+	   				<a onClick="javascript:check()"><span class="material-symbols-outlined">search</span></a>
 	   				<input type="hidden" name="nowPage" value="1">
 	  			</td>
 	 		</tr>
@@ -230,15 +241,21 @@
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
-		</form>
+		
 		<form name="readFrm2" method="post" action = "read6.jsp">
 			<input type="hidden" name="brKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
 		</form>
-				<form name="readFrm3" method="get">
+		<form name="readFrm3" method="get">
 			<input type="hidden" name="num"> 
+			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
+			<input type="hidden" name="keyField" value="<%=keyField%>"> 
+			<input type="hidden" name="keyWord" value="<%=keyWord%>">
+		</form>
+		<form name="readFrm4" method="post">
+			<input type="hidden" name="brKey"> 
 			<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
 			<input type="hidden" name="keyField" value="<%=keyField%>"> 
 			<input type="hidden" name="keyWord" value="<%=keyWord%>">
@@ -285,6 +302,12 @@
 	     }
 	  document.searchFrm.submit();
 	 }
+	fun
+	function deleted(brKey) {
+		document.readFrm4.brKey.value = brKey;
+		document.readFrm4.action = "../admin/buyDelete.jsp";
+		document.readFrm4.submit();
+	}
 	function readY(brKey){
 		document.readFrm.brKey.value=brKey;
 		console.log("readY 수행1 완료");

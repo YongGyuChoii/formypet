@@ -70,7 +70,17 @@
     <link rel="stylesheet"  href="../css/adminStyle.css">
    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+</style>
 </head>
 <body>
 <!-- header 시작-->
@@ -84,7 +94,7 @@
 		<br/>
 		<table align="center" width="600">
 				<tr>
-					<td>(임시 수정 할 예정)Total : <%=totalRecord%>개(<font color="red">
+					<td>Total : <%=totalRecord%>개(<font color="red">
 					<%=nowPage%>/<%=totalPage%>Pages</font>)</td>
 				</tr>
 		</table>
@@ -172,7 +182,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="javascript:reviewManagement()">[처음으로]</a>
+					<a href="javascript:reviewManagement()"><span class="material-symbols-outlined">home</span></a>
 				</td>
 			</tr>
 		</table>
@@ -190,7 +200,7 @@
 	    				<option value="rvTitle">리뷰 제목</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
-	   				<input type="button"  value="찾기" onClick="javascript:check()">
+	   				<a onClick="javascript:check()"><span class="material-symbols-outlined">search</span></a>
 	   				<input type="hidden" name="nowPage" value="1">
 	  			</td>
 	 		</tr>

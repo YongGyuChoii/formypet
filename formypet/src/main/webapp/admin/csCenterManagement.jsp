@@ -71,7 +71,17 @@
     <link rel="stylesheet"  href="../css/adminStyle.css">
    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+</style>
 </head>
 <body>
 <!-- header 시작-->
@@ -143,7 +153,8 @@
 							<td align="center"><%=regdate%></td>
 							<td align="center"><%=count%></td>
 							<%System.out.println("page = "+ nowPage + " num = "+num); %>
-							<td align="center"><a href="javascript:deleted('<%=num%>')"><input type = "button" value = "삭제"></a></td>
+							<td align="center"><a href="javascript:deleted('<%=num%>')"><span class="material-symbols-outlined">delete</span></a></td>
+							
 							</tr>
 							<input type = "hidden" value = <%=name %>>
 							<input type = "hidden" value = <%=content %>>
@@ -186,7 +197,7 @@
 	 			<!-- 페이징 및 블럭 처리 End-->
 				</td>
 				<td align="right">
-					<a href="javascript:csCenterManagement()">[처음으로]</a>
+					<a href="javascript:csCenterManagement()"><span class="material-symbols-outlined">home</span></a>
 				</td>
 			</tr>
 		</table>
@@ -204,7 +215,7 @@
 	    				<option value="subject">제 목</option>
 	   				</select>
 	   				<input size="16" name="keyWord">
-	   				<input type="button"  value="찾기" onClick="javascript:check()">
+	   				<a onClick="javascript:check()"><span class="material-symbols-outlined">search</span></a>
 	   				<input type="hidden" name="nowPage" value="1">
 	  			</td>
 	 		</tr>

@@ -31,12 +31,31 @@
 	<meta charset="UTF-8">
 	<title><%=rvTitle %></title>
 	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	
 	<script type="text/javascript">
 		function list(){
 		   	
 			document.listFrm.submit();
  
 	</script>
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+.material-symbols-outlined{
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+</style>	
 </head>
 <body>
 	<br/><br/>
@@ -81,8 +100,8 @@
 	 <tr>
 	  <td align="center" colspan="2"> 
 	 <hr/>
-	 [ <a href="../admin/reviewManagement.jsp" >리뷰 목록</a> | 
-	 <a href="../admin/rvdelete.jsp?nowPage=<%=nowPage%>&rvKey=<%=rvKey%>" >삭 제</a> ]
+	 [ <a href="../admin/reviewManagement.jsp" ><span class="material-symbols-outlined">list</span></a>  | 
+	 <a href="../admin/rvdelete.jsp?nowPage=<%=nowPage%>&rvKey=<%=rvKey%>" ><span class="material-symbols-outlined">delete</span></a> ]
 	  </td>
 	 </tr>
 	</table>

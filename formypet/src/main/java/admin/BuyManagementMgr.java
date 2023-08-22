@@ -70,7 +70,7 @@ public class BuyManagementMgr {
 					bean.setMemKey(rs.getInt("memKey"));
 					bean.setProductKey(rs.getInt("productKey"));
 					bean.setMemOrderKey(rs.getString("memOrderKey"));
-					bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
+					//bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
 					bean.setOrdersKey(rs.getInt("ordersKey"));
 					bean.setrYn(rs.getString("rYn"));
 				 	bean.setSubject(rs.getString("subject"));
@@ -143,7 +143,7 @@ public class BuyManagementMgr {
 							bean.setMemKey(rs.getInt("memKey"));
 							bean.setProductKey(rs.getInt("productKey"));
 							bean.setMemOrderKey(rs.getString("memOrderKey"));
-							bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
+							//bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
 							bean.setOrdersKey(rs.getInt("ordersKey"));
 							bean.setrYn(rs.getString("rYn"));
 						 	bean.setSubject(rs.getString("subject"));
@@ -190,4 +190,28 @@ public class BuyManagementMgr {
 						pool.freeConnection(con, pstmt);
 					}
 				}
+				// 게시물 삭제 메서드
+				public void delbuy(int brKey) {
+					
+						Connection con = null;
+						
+						PreparedStatement pstmt = null;
+						
+						String sql = null;
+						
+						ResultSet rs = null;
+						
+						try {
+							con = pool.getConnection();
+							sql = "delete from b_refund where brKey=?";
+							//brKey 값으로 조회된 formypet 의 내용을 삭제한다..
+							pstmt = con.prepareStatement(sql);
+							pstmt.setInt(1, brKey);
+							pstmt.executeUpdate();
+						} catch (Exception e) {
+							e.printStackTrace();
+						} finally {
+							pool.freeConnection(con, pstmt);
+						}
+					}
 	}
