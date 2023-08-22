@@ -4,6 +4,10 @@
 <%@page import="java.util.Vector"%>
 <jsp:useBean id="bMgr" class="board.BoardMgr" />
 
+    <%     
+    String memId = (String)session.getAttribute("idkey2");   
+    %>
+
 <%	
 	  request.setCharacterEncoding("UTF-8");
 	  
@@ -71,6 +75,7 @@
     <link rel="stylesheet"  href="${pageContext.request.contextPath}/css/base.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <style>
       table {
@@ -89,7 +94,22 @@
 		}
 		a {
     		text-decoration: none;
-		}           
+		}   
+		
+
+		.material-symbols-outlined {
+		  font-variation-settings:
+		  'FILL' 0,
+		  'wght' 300,
+		  'GRAD' 0,
+		  'opsz' 48
+		}
+		.sub a {
+		display: block;
+
+		text-align: left;
+		}
+
     </style>
 
 </head>
@@ -136,8 +156,8 @@
 					  <table class="board_list">
 						<tr>
 							<td width="70px">번 호</td>
-							<td width="380px">제 목</td>
-							<td width="70px">작성자</td>
+							<td width="300px">제 목</td>
+							<td width="100px">이 름</td>
 							<td	width="70px">날 짜</td>
 							<td width="70px">조회수</td>
 						</tr>
@@ -160,11 +180,11 @@
 							<%
 								  if(depth>0){
 									for(int j=0;j<depth;j++){
-										out.println("&nbsp;&nbsp;");
+										out.println("");
 										}
 									}
 							%>
-							  <a href="javascript:read('<%=num%>')"><%=subject%></a>
+						<div class="sub"><a href="javascript:read('<%=num%>')"><%=subject%><span class="material-symbols-outlined">lock</span></a></div>
 							</td>
 							<td align="center"><%=name%></td>
 							<td align="center"><%=regdate%></td>
@@ -249,6 +269,7 @@
 </html>
 
 <script>
+	
 	function list() {
 		document.listFrm.action = "list.jsp";
 		document.listFrm.submit();
@@ -264,10 +285,12 @@
 		 document.readFrm.submit();
 	} 
 	
-	function read(num){
-		document.readFrm.num.value=num;
-		document.readFrm.action="read.jsp";
-		document.readFrm.submit();
+	
+	function read(num){		
+		
+			document.readFrm.num.value=num;
+			document.readFrm.action="read.jsp";
+			document.readFrm.submit();
 	}
 	
 	function check() {

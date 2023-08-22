@@ -70,11 +70,16 @@
         <table  style="padding-top:50px" align=center width=1200 border=0 cellpadding=2 >
                 <tr>
                 <td bgcolor=white>
-                <table class = "table2">             
-                        <tr>
-                        <hr/>
+                <table class = "table2">         
+ 	 	                <tr>
+ 	 	                <hr/>
                         <td>제  목</td>
-                        <td><select name="subject" width="390px" onchange="bankDisplay(this.form)" ;>
+                        <td><input type="text" name="subject" size=40 maxlength=50></td>
+                        </tr> 						              
+                    
+                        <tr>
+                        <td>분  류</td>
+                        <td><select name="group" width="390px" onchange="Display(this.form)" ;>
                         <option selected value=0>-선택하세요-
                         <option value=1>[상품] 상품관련 문의</option>
                         <option value=2>[배송] 배송관련 문의</option>
@@ -146,9 +151,9 @@ function check() {
  document.postFrm.submit();
 }
 
-function bankDisplay(frm) {
+function Display(frm) {
 
-    var content = frm.subject.selectedIndex;
+    var content = frm.group.selectedIndex;
 
     switch( content ){
 	   case 0:
@@ -159,7 +164,9 @@ function bankDisplay(frm) {
 	    	 '문의 내용을 구체적으로 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.\n' +
 	    	 '\n' +
 	    	 'ㅇ 문의제품 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 문의사항 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 기타 :';
 		 break;
 	   case 2:
@@ -170,8 +177,11 @@ function bankDisplay(frm) {
 	    	 '문의 내용을 구체적으로 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.\n' +
 	    	 '\n' +
 	    	 'ㅇ 주문자명 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 주문번호(or휴대폰번호) :\n' +
+	    	 '\n' +
 	    	 'ㅇ 문의사항 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 기타 :';
 		 break;
 	   case 3:
@@ -182,10 +192,15 @@ function bankDisplay(frm) {
 	    	 '문의 내용을 구체적으로 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.\n' +
 	    	 '\n' +
 	    	 'ㅇ 주문자명 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 주문번호(or휴대폰번호) :\n' +
+	    	 '\n' +
 	    	 'ㅇ 취소하실 제품명 :\n' +
+	    	 '\n' +
 	    	 '(전체 취소를 원하실 경우에는 [전체취소] 라고 남겨주세요)\n' +
+	    	 '\n' +
 	    	 'ㅇ 환불계좌번호, 예금주명, 은행명(가상계좌결제만) :\n' +
+	    	 '\n' +
 	    	 'ㅇ 기타 :';
 		 break;
 	   case 4:
@@ -196,9 +211,13 @@ function bankDisplay(frm) {
 	    	 '문의 내용을 구체적으로 작성해주시면 정확하고 빠른 답변에 도움이 됩니다.\n' +
 	    	 '\n' +
 	    	 'ㅇ 주문자명 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 주문번호(or휴대폰번호) :\n' +
+	    	 '\n' +
 	    	 'ㅇ 변경 전 주소 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 변경 후 주소 :\n' +
+	    	 '\n' +
 	    	 'ㅇ 기타 :';
 		 break;
 	   case 5:
@@ -218,12 +237,19 @@ function bankDisplay(frm) {
 		   '---------------------[ 교환/반품 신청서 ]--------------------\n' +
 	       '\n' +
 		   'ㅇ 주문자명 :\n' +
+	    	 '\n' +
 		   'ㅇ 주문번호(or휴대폰번호) :\n' +
+	    	 '\n' +
 		   'ㅇ 반품 제품명 :\n' +
+	    	 '\n' +
 		   'ㅇ 제품 개봉 및 사용 여부:\n' +
+	    	 '\n' +
 		   '(하네스의 경우 외부착용 및 단상자 소지 여부)\n' +
+	    	 '\n' +
 		   'ㅇ 반품 사유 :\n' +
+	    	 '\n' +
 		   'ㅇ 환불계좌번호, 예금주명, 은행명 :\n' +
+	    	 '\n' +
 		   'ㅇ 기타 :';
 			 break;
 	   case 6:

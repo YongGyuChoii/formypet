@@ -89,19 +89,11 @@
 	 <tr>
 	  <td>
        <table class = "table2"> 
-         <tr>
-         <hr/>
-           <td>제  목</td>
-           <td><select name="subject" width="390px";>
-            <option value="[상품] 상품관련 문의">[상품] 상품관련 문의</option>
-            <option value="[배송] 배송관련 문의">[배송] 배송관련 문의</option>
-            <option value="[주문취소] 주문취소 문의">[주문취소] 주문취소 문의</option>
-            <option value="[주소변경] 주소변경 문의">[주소변경] 주소변경 문의</option>  
-            <option value="[반품/환불] 반품/환불 문의">[반품/환불] 반품/환불 문의</option>        
-            <option value="[기타] 기타 문의">[기타] 기타 문의</option>                                                                                                                    
-            </select>
-            </td>
-          </tr>
+ 	 	<tr>
+ 	 	<hr/>
+        <td>제  목</td>
+        <td><input type="text" name="subject" size=20 maxlength=10 value="<%=subject %>"></td>
+        </tr> 	
 	     
 	    <tr> 
 	     <td>내 용</td>

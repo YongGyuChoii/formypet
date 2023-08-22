@@ -83,8 +83,7 @@
  
                         <tr>
                         <td>내  용</td>
-                        <td><textarea name="content" cols=150 rows=15 placeholder="궁금한 점이 있으시다면 문의를 남겨주세요.">
-		<%=content %>
+                        <td><textarea name="content" cols=150 rows=15><%=content %>
 		========답변 글을 쓰세요.=======
 		</textarea></td>
                         </tr>
