@@ -20,7 +20,7 @@ public class ReviewMgr {
 
     private DBConnectionMgr pool;
    
-    private static final String  SAVEFOLDER = "C:/Users/Administrator/git/formypet/formypet/src/main/webapp/images/review";
+    private static final String  SAVEFOLDER = "C:/formypet/src/main/webapp/inages/review";
 	private static final String ENCTYPE = "UTF-8";
 	private static int MAXSIZE = 5*1024*1024;
     Connection con = null;
@@ -118,7 +118,7 @@ public class ReviewMgr {
 		try {
 			con = pool.getConnection();
 			//keyField 와 keyWord 값이 있는 경우 게시물 조회
-			sql = "SELECT rvKey,rvTitle,rvContents,rvScore,memKey FROM review";
+			sql = "SELECT review.rvKey,review.rvTitle,review.rvContents,review.rvScore,review.memKey,product.productName FROM review JOIN product ON review.productKey = product.productKey";
 			
 			pstmt = con.prepareStatement(sql);
 			
@@ -131,6 +131,7 @@ public class ReviewMgr {
 				bean.setRvContents(rs.getString("rvContents"));
 				bean.setRvScore(rs.getInt("rvScore"));
 				bean.setMemKey(rs.getInt("memKey"));
+				bean.setProductName(rs.getString("productName"));
 				vlist.add(bean);
 			}
 		} catch (Exception e) {

@@ -161,5 +161,26 @@ public class OrderBean {
 			this.productImg = productImg;
 		}
 		
+		private String productInfo;
+		private String productDetail;
+		private String productCaution;
 		
+		public String getProductInfo() {
+			return productInfo;
+		}
+		public void setProductInfo(String productInfo) {
+			this.productInfo = productInfo;
+		}
+		public String getProductDetail() {
+			return productDetail;
+		}
+		public void setProductDetail(String productDetail) {
+			this.productDetail = productDetail;
+		}
+		public String getProductCaution() {
+			return productCaution;
+		}
+		public void setProductCaution(String productCaution) {
+			this.productCaution = productCaution;
+		}
 }

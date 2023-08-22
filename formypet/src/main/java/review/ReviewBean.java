@@ -87,6 +87,18 @@ public class ReviewBean extends MemberBean {
     public void setMemKey(Integer memKey) {
         this.memKey = memKey;
     }
+    
+    
+    
+    private String productName;
+	 
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+    
     @Override
     public String toString() {
         return "ReviewBean{" +

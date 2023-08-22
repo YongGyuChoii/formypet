@@ -166,7 +166,7 @@ public class myOrderMgr {
 		}
 	
 	
-		// 게시판 리스트
+
 		public Vector<OrderBean> getOrderList() {
 			
 			Connection con = null;
@@ -180,7 +180,7 @@ public class myOrderMgr {
 			try {
 				con = pool.getConnection();
 				//keyField 와 keyWord 값이 있는 경우 게시물 조회
-				sql = "SELECT orders.ordersKey, orders.reviewYn, orders.productKey, orders.optionValue, mem_order.memOrderKey, orders.oCount, mem_order.pDate, mem_order.productPrice FROM orders JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey";
+				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey order by ordersKey";
 				
 				pstmt = con.prepareStatement(sql);
 				
@@ -196,6 +196,8 @@ public class myOrderMgr {
 					bean.setProductPrice(rs.getInt("productPrice"));
 					bean.setoCount(rs.getInt("oCount"));
 					bean.setReviewYn(rs.getString("reviewYn"));
+					bean.setProductName(rs.getString("productName"));
+					bean.setProductImg(rs.getString("productImg"));
 					vlist.add(bean);
 				}
 			} catch (Exception e) {
@@ -206,36 +208,8 @@ public class myOrderMgr {
 			return vlist;
 		}
 		
-		//총 게시물수
-		public int getTotalCount(String keyField, String keyWord) {
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			int totalCount = 0;
-			try {
-				con = pool.getConnection();
-				
-				//keyField , keyWord 값이 없는 경우 총 게시물 가져오기
-				if (keyWord.equals("null") || keyWord.equals("")) {
-					sql = "select count(num) from board";
-					pstmt = con.prepareStatement(sql);
-				} else { //keyField, keyWord 값이 있는 경우 총 게시물 가져오기
-					sql = "select count(num) from  board where " + keyField + " like ? ";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, "%" + keyWord + "%");
-				}
-				rs = pstmt.executeQuery();
-				if (rs.next()) {
-					totalCount = rs.getInt(1);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				pool.freeConnection(con, pstmt, rs);
-			}
-			return totalCount;
-		}
+		
+		
 
 
 	

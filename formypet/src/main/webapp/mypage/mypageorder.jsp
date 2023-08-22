@@ -30,8 +30,9 @@
     <!--header 끝-->
 
     <!--main 시작-->
-    <div class="container1">
+ <div class="container">
       <section>
+       
         <h1>주문 내역 조회</h1>
 			<table class="n-table table-col n-order-view">
 					<colgroup>
@@ -62,8 +63,8 @@
 		OrderBean bean = vlist.get(i);
 		
 		              
-		
-		int product = bean.getProductKey();		//상품				
+		String img = bean.getProductImg(); 
+		String product = bean.getProductName();		//상품				
 		String optionValue = bean.getOptionValue(); //옵션
 		String pDate = bean.getpDate(); //날짜
 		String memOrder=bean.getMemOrderKey(); //주문 번호
@@ -76,7 +77,7 @@
 		<td>
 			<div class="n-prd-row">
 			<a href="#" class="img-block">
-			<img src="../images/mypage/mypageorder1.jpg" >
+			<img src=<%=img%> >
 			</a>
 				<ul class="info">
 			<span class="exg-prd"></span>
@@ -90,7 +91,7 @@
 				<a href="#"><%=memOrder%></a>
 			</td>
 			
-				<td><%=productPrice%>원<br><span class="txt-default"> <%=oCount%></span></td>
+				<td><%=productPrice%>원<br><span class="txt-default"> <%=oCount%>개</span></td>
 			
 		<td >
 		
@@ -107,6 +108,8 @@
 			</td>
 			
 	 <% } %>
+	 
+	 </tbody>
       </section>
     </div>
     <!--main 끝-->
