@@ -252,11 +252,7 @@ $(function(){
 						data : {oPoint:oPoint, oPrice:oPrice, oCount:oCount, optionValue:optionValue, productKey:productKey, delName2:delName2, delZipcode1:delZipcode1, delZipcode2:delZipcode2, delZipcode3:delZipcode3, delPhone2:delPhone2, delPhone3:delPhone3, delMessage:delMessage, inputMilage:inputMilage, totalView:totalView, memKey:memKey},
 						dataType : "json",
 						success : function(data) { 
-							/*ordersKey = $("input[ordersKey='ordersKey']").val();
-							document.data.value=ordersKey;
-							document.data.action="/formypet/order/orderCom.jsp";
-							document.data.submit;*/
-							window.location.href="../order/orderCom.jsp";
+							window.location.href="/formypet/order/orderCom.jsp";
 						},
 						errer : function() {
 							alert('errer');
@@ -432,7 +428,7 @@ $(function(){
 								optionValue:optionValue, oCount:oCount, oPrice:oPrice},
 						dataType : "json",
 						success : function(data) { 
-							window.location.href="/formypet/index.jsp";
+							window.location.href="/formypet/order/nonMemOrderCom.jsp";
 						},
 						errer : function() {
 							alert('errer');

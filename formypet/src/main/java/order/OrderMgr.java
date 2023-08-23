@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMessage;
 
 import admin.ExpendsManagementBean;
 import util.DBConnectionMgr;
+import admin.NonMemOrderBean;
 
 public class OrderMgr {
 	
@@ -249,33 +250,32 @@ public class OrderMgr {
 		}
 	}
 	
-	//orders 테이블 리스트 불러오기
-	//매출 리스트 orders db
-    public Vector<ExpendsManagementBean> getoList(int ordersKey) {
-    	
+	
+	//주문 리스트 orders db
+    public ExpendsManagementBean getoList(int memKey) {
+    	System.out.println("메소드 호출 = ");
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		String sql = null;
        
-       //ExpendsManagementBean 클래스 타입의 Vector 배열 vlist 선언
-       Vector<ExpendsManagementBean> vlist = new Vector<ExpendsManagementBean>();
+       //ExpendsManagementBean 클래스 타입의 bean 선언
+		ExpendsManagementBean bean = new ExpendsManagementBean();
        
-       try {
+       try {System.out.println("메소드 호출 3 = "+ memKey);
 				con = pool.getConnection();
-				sql = "SELECT * FROM orders INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey where ordersKey";
+				sql = "SELECT * FROM mem_order INNER JOIN member ON mem_order.memkey = member.memKey WHERE mem_order.memkey = ?";
 				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, memKey);
 				rs = pstmt.executeQuery();
-				pstmt.setInt(1, ordersKey);
 		  while (rs.next()) {
-			  
-			 ExpendsManagementBean bean = new ExpendsManagementBean();
-             bean.setOrdersKey(rs.getInt("ordersKey"));
+
              bean.setMemOrderKey(rs.getString("memOrderKey"));
+             System.out.println("bean setMemOrderKey = " + bean.getMemOrderKey());
              bean.setpDate(rs.getString("pDate"));
              bean.setMemKey(rs.getInt("memKey"));
- 			 vlist.add(bean);
+ 				
           }
 		  //예외처리
        } catch (Exception e) {
@@ -283,8 +283,44 @@ public class OrderMgr {
 		} finally {
 			pool.freeConnection(con, pstmt, rs);
 		}
-       return vlist; //결과 값을 vlist 로 리턴.
+       return bean; //결과 값을 bean 로 리턴.
     } 
-	
+	//주문 리스트 nonMemOrder db
+    public NonMemOrderBean getnList(String nonMemOrderKey) {
+    	
+    	System.out.println("메소드 호출 = ");
+    	
+    	Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = null;
+       
+       //NonMemOrderBean 클래스 타입의 bean 선언
+		NonMemOrderBean bean = new NonMemOrderBean();
+       
+       try {
+    	   		System.out.println("메소드 호출 3 = "+ nonMemOrderKey);
+				con = pool.getConnection();
+				sql = "SELECT * FROM non_mem_order WHERE nonMemOrderKey = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, nonMemOrderKey);
+				System.out.println("dfd = "+  nonMemOrderKey);
+				rs = pstmt.executeQuery();
+		  while (rs.next()) {
+
+             bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
+             System.out.println("bean nonMemOrderKey = " + bean.getNonMemOrderKey());
+             bean.setpDate(rs.getString("pDate"));
+ 				
+          }
+		  //예외처리
+       } catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+       return bean; //결과 값을 bean 로 리턴.
+    } 	
 	
 }

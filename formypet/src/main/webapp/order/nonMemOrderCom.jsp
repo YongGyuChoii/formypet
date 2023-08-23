@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "member.MemberBean" %>
-<%@ page import = "admin.ExpendsManagementBean" %>
+<%@ page import = "admin.NonMemOrderBean" %>
 <%@page import = "java.util.*,admin.*" %>
 <jsp:useBean id="omgr" class="order.OrderMgr" />
-<jsp:useBean id="mmgr" class="member.MemberMgr" /> 
-<jsp:useBean id="obean" class="admin.ExpendsManagementBean" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,26 +24,24 @@
     <!--header 끝-->
 <%
 	
-	String memOrderKey = "";
+	String nonMemOrderKey = "";
+	System.out.println("nonMemOrderKey = "+nonMemOrderKey);
+	
+	NonMemOrderBean bean = omgr.getnList(nonMemOrderKey);//게시물 가져오기
+	
+	nonMemOrderKey = bean.getNonMemOrderKey();
+	
+	System.out.println("orderCom.jsp bean 에 저장된 noderKey = "+bean.getNonMemOrderKey());
 
-	MemberBean bean1 = mmgr.getInfoMem(memKey);
-	System.out.println("memKey = "+memKey);
-	
-	ExpendsManagementBean bean = omgr.getoList(memKey);//게시물 가져오기
-	memOrderKey = bean.getMemOrderKey();
-	
-	System.out.println("orderCom.jsp bean 에 저장된 moderKey = "+bean.getMemOrderKey());
-	
 	String pDate = bean.getpDate();
-	String memName = bean1.getMemName();
 %>
     <!--main 시작-->
     <div class="container">
      <section class = "shopping1">
       	<img src = ../images/order/구매페이지1-removebg-preview.png>
-		<p><%=memName%>님, 주문이 완료되었습니다.</p>
-    	<p>주문번호 : <%=memOrderKey%></p>
-    	<p>주문일자 : <%=pDate %> </p>
+		<p>주문이 완료되었습니다.</p>
+    	<!-- <p>주문번호 : </p>
+    	<p>주문일자 :  </p> -->
 
     <br/>
    	<button class="btn" onClick="javascript:location.href='../index.jsp'" ><span>메인화면으로 돌아가기</span></button>
