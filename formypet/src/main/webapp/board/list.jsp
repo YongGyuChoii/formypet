@@ -62,7 +62,7 @@
 	nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock); //현재블럭 계산
 	
 	//전체 블록 계산, 방법은 전체 페이지수 계산법과 동일.
-	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산	
+	totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
 %>
     
 <!DOCTYPE html>
@@ -169,6 +169,7 @@
 								String name = bean.getName();
 								String subject = bean.getSubject();
 								String regdate = bean.getRegdate();
+								String pass = bean.getPass();
 								int depth = bean.getDepth();
 								int count = bean.getCount();
 						%>
@@ -184,9 +185,9 @@
 										}
 									}
 							%>
-						<div class="sub"><a href="javascript:read('<%=num%>')"><%=subject%><span class="material-symbols-outlined">lock</span></a></div>
+						<div class="sub"><a href="readProc.jsp?nowPage=<%=nowPage%>&num=<%=num%>"><%=subject%><span class="material-symbols-outlined">lock</span></a></div>
 							</td>
-							<td align="center"><%=name%></td>
+							<td align="center"><%=name%><%=pass%></td>
 							<td align="center"><%=regdate%></td>
 							<td align="center"><%=count%></td>
 							</tr>
@@ -312,4 +313,3 @@
 		}
 	}
 </script>
-    

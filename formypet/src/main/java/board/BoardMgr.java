@@ -70,6 +70,7 @@ public class BoardMgr {
 				bean.setRef(rs.getInt("ref"));
 				bean.setDepth(rs.getInt("depth"));
 				bean.setRegdate(rs.getString("regdate"));
+				bean.setPass(rs.getString("pass"));
 				bean.setCount(rs.getInt("count"));
 				vlist.add(bean);
 			}
