@@ -15,7 +15,14 @@ public class MemberBean {
 	private int memResident1;
 	private int memResident2;
 	private int memPoint;
+	private int memGrade;
 	
+	public int getMemGrade() {
+		return memGrade;
+	}
+	public void setMemGrade(int memGrade) {
+		this.memGrade = memGrade;
+	}
 	//getter와 setter
 	public int getMemKey() {
 		return memKey;

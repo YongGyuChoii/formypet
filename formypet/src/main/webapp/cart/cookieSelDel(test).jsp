@@ -20,7 +20,7 @@
 <body>
 	<%
 	request.setCharacterEncoding("UTF-8");
-	
+	ArrayList<CartBean> pAll = cMgr.getCartAll();
 	//쿠키 사용을 위한 비회원 장바구니
 		String[] value = null;
 		int[] productKey = null;
@@ -38,18 +38,24 @@
 				optionText = new String[value.length];
 			    for(int k=0; k<value.length; k++){ //-단위로 상품키, 수량, 옵션 배열 저장
 					cartCount[k] = Integer.parseInt(value[k].split("-")[0]);
-			    	cartCount[k] += 1;
 					productKey[k] = Integer.parseInt(value[k].split("-")[1]);
 					optionText[k] = value[k].split("-")[2];
-					
+					cookies[k].setPath("/");
+					response.addCookie(cookies[k]);
 				}  
 			}
 		}
 
 	} else {
-		
 	}
-		
+	
+	ArrayList<ProductBean> pb = new ArrayList<>();
+	if(productKey != null) {
+		pb = cMgr.insertNoMemCart(productKey);	
+	}
 	%>
+<script>
+	location.href="./cart.jsp";
+</script>
 </body>
 </html>

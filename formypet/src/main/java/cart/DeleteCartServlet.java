@@ -37,18 +37,25 @@ public class DeleteCartServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		//프로덕트키, 멤키를 ajax에서 받아온다.
-		int cartKey = Integer.parseInt(request.getParameter("cartKey"));
+		//카트키를 ajax에서 받아온다.
+		int cartKey[] = null;
+		String cartKey1[] = request.getParameterValues("cartKey");
+
+		if(cartKey1!=null){
+			cartKey = new int[cartKey1.length];
+			for(int i=0;i<cartKey1.length;i++){
+				cartKey[i] = Integer.parseInt(cartKey1[i]);
+			}
+		}
 
 		CartMgr cMgr = new CartMgr();
 		
-		boolean flag = cMgr.deleteCart(cartKey);
+		cMgr.deleteCart(cartKey);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		 
 		PrintWriter out = response.getWriter();
 	
-		out.println(flag);  //데이터 넘기기
 	}
 
 }

@@ -9,12 +9,13 @@
 <%@page import="product.ProductFileBean"%>
 <%@page import="java.util.*"%>
 <jsp:useBean id="cMgr" class="cart.CartMgr" />
+<jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
 <%@page import="product.ProductBean"%> 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 	ArrayList<CartBean> pAll = cMgr.getCartAll();
-	
+
 	//쿠키 사용을 위한 비회원 장바구니
 	String[] value = null;
 	int[] productKey = null;
@@ -31,14 +32,13 @@
 				cartCount = new int[value.length];
 				optionText = new String[value.length];
 			    for(int k=0; k<value.length; k++){ //-단위로 상품키, 수량, 옵션 배열 저장
-					cartCount[k] = Integer.parseInt(value[k].split("-")[0]);
 					productKey[k] = Integer.parseInt(value[k].split("-")[1]);
 					optionText[k] = value[k].split("-")[2];
+					cartCount[k] = Integer.parseInt(value[k].split("-")[0]) ;
 				}  
 			}
 		}
 	} else {
-		
 	}
 	
 	ArrayList<ProductBean> pb = new ArrayList<>();
@@ -61,7 +61,6 @@
     <script src="${pageContext.request.contextPath}/js/cart.js"></script>
     <style>     
       a {
-        color: black;
         text-decoration: none;
       }
       p {
@@ -106,7 +105,6 @@
               <td>합계</td>
             </tr>
           </thead>
-		  
           <tbody>
           	<%
         	int calPrice;
@@ -117,7 +115,8 @@
           	%>
           		
           	<%for(int i=0; i<pAll.size(); i++) { %>
-            <tr class="cart_table_detail"> 
+            <tr class="cart_table_detail" id="moveTest1"> 
+            <!--계산식-->
             <%
          	 	int productViewPrice;
               	if(pAll.get(i).getProductSalePrice() == 0) {
@@ -170,7 +169,7 @@
                  </a>
               </td>
               <td colspan="2">
-              	<a href="../product/productDetail.jsp?productKey=<%=pAll.get(i).getProductKey() %>&categoryKey=<%=pAll.get(i).getCategoryKey()%>"><%=pAll.get(i).getProductName()%></a>
+              	<a style="color: black;" href="../product/productDetail.jsp?productKey=<%=pAll.get(i).getProductKey() %>&categoryKey=<%=pAll.get(i).getCategoryKey()%>"><%=pAll.get(i).getProductName()%></a>
               	<br>
               	<input type="hidden" name="optionValue" value="<%=pAll.get(i).getOptionValue()%>">
               	<%if(pAll.get(i).getOptionValue() != null) {%>
@@ -215,7 +214,7 @@
         </form>
       </table>
       <div class="cart_bottom_button">
-        <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
+        <button class="cart_big_button left"><a style="color: black;" href="../index.html">쇼핑 계속하기</a></button>
         <button class="cart_big_button right" id="memBuy">주문하기</button>
       </div>     
       <table class="table_bottom">
@@ -241,8 +240,8 @@
           </tr>
         </tbody>
       </table>
-      
       <%} else {%>
+      <!-- 상품이 담겨져있지않으면 빈카트 페이지로 이동 -->
       <% 
 	  if(productKey == null) { 
 		response.sendRedirect("cartEmpty.jsp");
@@ -277,7 +276,8 @@
           	%>
           	
           	<%for(int i=0; i<pb.size(); i++) { %>	
-            <tr class="cart_table_detail">
+            <tr class="cart_table_detail" id="moveTest2">
+            <!--계산식-->
             <%
          	 	int productViewPrice;
               	if(pb.get(i).getProductSalePrice() == 0) {
@@ -330,7 +330,7 @@
                  </a>
               </td>
               <td colspan="2">
-              	<a href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey() %>&categoryKey=<%=pb.get(i).getCategoryKey()%>"><%=pb.get(i).getProductName()%></a>
+              	<a style="color: black;" href="../product/productDetail.jsp?productKey=<%=pb.get(i).getProductKey() %>&categoryKey=<%=pb.get(i).getCategoryKey()%>"><%=pb.get(i).getProductName()%></a>
               	<br>
               	<input type="hidden" name="optionText" value="<%=optionText[i]%>">
               	<%if(!optionText[i].equals("null")) {%>
@@ -348,9 +348,7 @@
         	  	<%}%>
               </td>                        
               <td>
-                <button name="countBtn" id="upBtn">+</button>
-                <input name="countInput" class="countInput" type="text" value="<%=cartCount[i]%>" style="width: 30px;">                
-                <button name="countBtn" id="downBtn" >-</button>
+                <input name="countInput" class="countInput" type="text" value="<%=cartCount[i]%>">                
               </td>
               </from>
               <% if(i == 0) {%>
@@ -365,9 +363,7 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3"> <a class="cart_table_button2" id="delete">선택상품 삭제</a>
-              <button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">장바구니 비우기</button>
-              </td>
+              <td colspan="3"><button class="cart_table_button2" type="button" id="deleteAll" onclick="location='cartCookieDel.jsp;'">장바구니 비우기</button></td>
               <td></td>
               <td></td>
               <td colspan="3" style="text-align: right;"><strong>총 상품구매금액 <fmt:formatNumber value="<%=total%>" pattern="#,###"/>원 + 배송비 <fmt:formatNumber value="<%=deliveryFee%>" pattern="#,###"/>원 = 합계 <fmt:formatNumber value="<%=totalFinal%>" pattern="#,###"/>원</strong></td>
@@ -376,7 +372,7 @@
         </form>
       </table>
       <div class="cart_bottom_button">
-        <button class="cart_big_button left"><a href="../index.html">쇼핑 계속하기</a></button>
+        <button class="cart_big_button left"><a style="color: black;" href="../index.html">쇼핑 계속하기</a></button>
         <button class="cart_big_button right" id="noMemBuy">주문하기</button>
       </div>
   

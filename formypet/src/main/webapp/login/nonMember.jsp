@@ -23,10 +23,9 @@
     <!--main 시작-->
     <div class="container">
     <div class="non-member">
-        <form action="">
-            <h2>비회원 주문조회</h2>
+        <form name="nologinFrm" method="get" action="nologinProc.jsp">
+            <h2 style="margin: 30px;">비회원 주문조회</h2>
                 <input type="text" id="uid" placeholder="주문자명" class="in" required>
-                <input type="text" placeholder="주문번호" class="in" required>
                 <input type="password" placeholder="비밀번호 (영문 대소문자/숫자/특수문자 조합 8~12자)" class="in" required>
                 <input type="submit" value="비회원 주문조회" class="submit">
         </form>

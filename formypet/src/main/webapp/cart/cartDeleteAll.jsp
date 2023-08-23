@@ -13,7 +13,7 @@
 <meta charset="EUC-KR">
 <title>Insert title here</title>
 </head>
-<body>					
+<body>		
 	<%cMgr.cartDeleteAll(bean);%>
 </body>
 </html>

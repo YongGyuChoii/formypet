@@ -101,13 +101,14 @@ public class MemberMgr {
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setString(1, memId);					
-			pstmt.setString(2, memPw);					
+			pstmt.setString(2, memPw);	
 			rs = pstmt.executeQuery();
 		
 			if(rs.next()) {
 				bean.setMemKey(rs.getInt("memKey"));
 				bean.setMemId(rs.getString("memId"));
 				bean.setMemPw(rs.getString("memPw"));
+				bean.setMemGrade(rs.getInt("memGrade"));
 			}else {
 				
 			}

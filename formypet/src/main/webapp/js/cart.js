@@ -38,7 +38,6 @@ $(function(){
 	$(document).on("click","#memBuy",function(){
 		var memKey = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memKey']").val();
 		var productKey = [];
-		var regex = /[^0-9]/g;
 		
 
 		//상품수량
@@ -143,6 +142,9 @@ $(function(){
 			console.log(cartKey[i]);
 		}
 		
+		if(cartKey.length < 1 ) {
+			alert("삭제할 상품을 선택해주세요");
+		} else {
 		if(confirm("삭제하시겠습니까?")){
 				$.ajax({
 					type : "POST",
@@ -152,13 +154,14 @@ $(function(){
 					dataType : "json",
 					success : function(data) { 
 						window.location.href="/formypet/cart/cart.jsp";
+						alert("삭제되었습니다.")
 					},
 					errer : function() {
 						alert('errer');
 					}
 				});
 			}
-	
+		}
 	});	
 	
 	//+수량변경
@@ -221,6 +224,14 @@ $(function(){
 		}
 	});	
 	
+	//장바구니에 상품에 유무체크
+		var test2 = document.getElementById("moveTest2");	
+		var test1 = document.getElementById("moveTest1");
+		if(test2 == null) {
+			if(test1 == null) {
+				window.location.href = "./cartEmpty.jsp";
+		}
+	} else {}
  });
 
 
