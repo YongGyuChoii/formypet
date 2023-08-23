@@ -3,6 +3,7 @@ package order;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +16,8 @@ import member.MemberBean;
 import member.MemberMgr;
 import product.ProductBean;
 import product.ProductMgr;
+import order.OrderMgr;
+import admin.ExpendsManagementBean;
 
 /**
  * Servlet implementation class MemOrderServlet
@@ -48,6 +51,7 @@ public class MemOrderServlet extends HttpServlet {
 		
 		//프로덕트키, 멤키, 상품수량, 옵션값을 ajax에서 받아온다.
 		int memKey = Integer.parseInt(request.getParameter("memKey"));
+		int ordersKey = Integer.parseInt(request.getParameter("ordersKey"));
 		int productKey[] = null;
 		String productKey1[] = request.getParameterValues("productKey");
 		int cartCount[] = null;
@@ -85,6 +89,12 @@ public class MemOrderServlet extends HttpServlet {
 		//상품수량, 옵션값 담기
 		session.setAttribute("cartCount", cartCount);
 		session.setAttribute("optionText", optionText);
+		
+		//주문정보 불러오기(orders db에서 ordersKey가져오기)
+//		OrderMgr omgr = new OrderMgr();
+//		Vector<ExpendsManagementBean> ob = new Vector<ExpendsManagementBean>();
+//		ob = omgr.getoList(ordersKey);
+//		session.setAttribute("ob", ob);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		 

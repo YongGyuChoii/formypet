@@ -9,7 +9,21 @@ public class ExpendsManagementBean {
 	private int categoryKey; //카테고리 키 <- product db 에서 가져옴 
 	private int oPrice; //orders db 최종 금액
 	private String productName; //상품 이름 product db 별칭 쓰자
+	private int memKey;
+	private String pDate;
 	
+	public String getpDate() {
+		return pDate;
+	}
+	public void setpDate(String pDate) {
+		this.pDate = pDate;
+	}
+	public int getMemKey() {
+		return memKey;
+	}
+	public void setMemKey(int memKey) {
+		this.memKey = memKey;
+	}
 	public int getOrdersKey() {
 		return ordersKey;
 	}

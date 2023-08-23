@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Vector;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -17,6 +18,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import admin.ExpendsManagementBean;
 import util.DBConnectionMgr;
 
 public class OrderMgr {
@@ -246,5 +248,43 @@ public class OrderMgr {
 			}
 		}
 	}
+	
+	//orders 테이블 리스트 불러오기
+	//매출 리스트 orders db
+    public Vector<ExpendsManagementBean> getoList(int ordersKey) {
+    	
+    	Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = null;
+       
+       //ExpendsManagementBean 클래스 타입의 Vector 배열 vlist 선언
+       Vector<ExpendsManagementBean> vlist = new Vector<ExpendsManagementBean>();
+       
+       try {
+				con = pool.getConnection();
+				sql = "SELECT * FROM orders INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey where ordersKey";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				pstmt.setInt(1, ordersKey);
+		  while (rs.next()) {
+			  
+			 ExpendsManagementBean bean = new ExpendsManagementBean();
+             bean.setOrdersKey(rs.getInt("ordersKey"));
+             bean.setMemOrderKey(rs.getString("memOrderKey"));
+             bean.setpDate(rs.getString("pDate"));
+             bean.setMemKey(rs.getInt("memKey"));
+ 			 vlist.add(bean);
+          }
+		  //예외처리
+       } catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+       return vlist; //결과 값을 vlist 로 리턴.
+    } 
+	
 	
 }

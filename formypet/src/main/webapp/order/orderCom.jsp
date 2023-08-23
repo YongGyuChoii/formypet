@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "member.MemberBean" %>
+<%@ page import = "admin.ExpendsManagementBean" %>
+<jsp:useBean id="omgr" class="order.OrderMgr" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,18 +22,26 @@
         <%@include file="/base/header.jsp"%>
     </header>
     <!--header 끝-->
+<%
 
+	//Integer memKey = (Integer)session.getAttribute("idKey");
+	MemberBean mb = (MemberBean)session.getAttribute("mb");
+	Integer ordersKey = Integer.parseInt(request.getParameter("ordersKey"));
+	ExpendsManagementBean bean = new ExpendsManagementBean();
+	//bean = omgr.getoList(ordersKey);//게시물 가져오기
+	//int ordersKey = ob.getOrdersKey();
+	//String memOrderKey = 
+	//int memKey1 = ob.getMemKey();
+	//String pDate = ob.getpDate();
+%>
     <!--main 시작-->
     <div class="container">
-    <br/>
-    <br/>
-    <br/>
-      <section class = "shopping1">
-      <br/>
+     <section class = "shopping1">
+      	<img src = ../images/order/구매페이지1-removebg-preview.png>
+		<p><%=mb.getMemName()%>님, 주문이 완료되었습니다.</p>
+    	<p>주문번호</p>
+    	<p>주문</p>
 
-    <h1>log</h1>
-    <br/>
-    <br/>
     <br/>
    	<button class="btn" onClick="javascript:location.href='../index.jsp'" ><span>메인화면으로 돌아가기</span></button>
    	<button class="btn"><span>쇼핑 더하기</span></button>
