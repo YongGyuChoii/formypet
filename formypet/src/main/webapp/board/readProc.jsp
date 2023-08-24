@@ -20,17 +20,10 @@
 		String nowPage = request.getParameter("nowPage");
 	
 		int num = Integer.parseInt(request.getParameter("num"));
-					
-		String inPass = request.getParameter("pass");
-		
+							
 		//session에 저장된 bean 객체를 가져옴.
 		BoardBean bean = bMgr.getBoard(num);
 		
-		//bean 객체에서 pass 값을 받아서 변수에 저장.
-		String dbPass = bean.getPass();
-		
-		System.out.println(inPass);
-
 	%>
 	
 </head>
@@ -46,13 +39,13 @@
     <div class="container">
       <section>
 		<p>해당 페이지는 비밀번호 입력으로 이용가능합니다.</p>
-		<form name="readFrm" method="post" action="readProc.jsp">
+		<form name="readFrm" method="post" action="boardProc">
 		<p style="margin-bottom:20;"> 비밀번호입력
 		<input type="password" name="pass"  size="12">
-		<input type="button" value="확 인" onClick="javascript:read('<%=num%>')" style="font-weight:bolder; font-size:4mm;">
+		<input type="submit" value="확 인" style="font-weight:bolder; font-size:4mm;">
 		<br>
-		<input type="hidden" name="num"> 
-		<input type="hidden" name="nowPage" value="<%=nowPage%>"> 	
+		<input type="hidden" name="num" value="<%=num%>"> 
+		<input type="hidden" name="nowPage" value="<%=nowPage%>">
 		</form>
       </section>
     </div>
@@ -70,16 +63,3 @@
     </div>
 </body>
 </html>
-<script>
-function read(num) {		
-	if (document.readFrm.pass.value == "") {
-		alert("패스워드를 입력하세요.");
-		document.readFrm.pass.focus();
-
-	} else {
-		document.readFrm.num.value=num;
-		document.readFrm.action="read.jsp";
-		document.readFrm.submit();
-	}
-}
-</script>

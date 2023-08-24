@@ -437,5 +437,38 @@ public class BoardMgr {
 					pool.freeConnection(con, pstmt);
 				}
 			}
+			
+			//boardProc 서블릿 데이터 가지고이기위한 메서드
+			public BoardBean getBoard2(int num) {
+				
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				
+				String sql = null;
+				
+				BoardBean bean = new BoardBean();
+				
+				try {
+					con = pool.getConnection();
+					//num 값을 기준으로 formypet 테이블 에서 게시물을 조회한다.
+					sql = "select * from board where num=?";
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, num);
+					rs = pstmt.executeQuery();
+					if (rs.next()) {
+						bean.setNum(rs.getInt("num"));	
+						bean.setPass(rs.getString("pass"));
+
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					pool.freeConnection(con, pstmt, rs);
+				}
+				return bean;
+			}
+			
 }
 
