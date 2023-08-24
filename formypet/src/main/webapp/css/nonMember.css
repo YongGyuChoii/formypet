@@ -38,4 +38,21 @@
             }
             
             .in { margin-bottom: 25px;}
+            
+            .resident {
+    			margin-bottom: 10px;
+    			width: 176px;
+			}
+			
+			.subButton {
+                height: 50px;
+                background: #717473;
+                border: 1px solid #717473;
+                border-radius: 5px;
+                color: #fff;
+                font-size: 15px;
+                font-weight: 400;
+                text-align: center;
+            }
+			
 /*Non_members css 끝*/

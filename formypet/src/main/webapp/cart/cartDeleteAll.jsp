@@ -14,7 +14,7 @@
 <title>Insert title here</title>
 </head>
 <body>		
-	<%cMgr.cartDeleteAll(bean);%>
+	<%cMgr.cartDeleteAll(bean);%>	
 </body>
 </html>
 <script>

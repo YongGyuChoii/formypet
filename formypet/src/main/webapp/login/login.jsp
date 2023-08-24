@@ -32,7 +32,8 @@
               <input type="button" id="btn" value="비회원 주문조회" onclick="location.href='nonMember.jsp'">
           </form>
           <a href="signup.jsp">회원가입 |</a>
-          <a href="#none">비밀번호를 잊어버리셨나요?</a>
+          <a href="findId.jsp">아이디 찾기 |</a>
+          <a href="findPw.jsp">비밀번호 찾기</a>
       </div>
     </div>
     <!--main 끝-->
@@ -52,14 +53,15 @@
 <script>
 	function loginCheck() {
 		
-		if(document.loginFrm.id.value == "") {
+		if(document.loginFrm.memId.value == "") {
 			alert("아이디를 입력해 주세요.");
-			document.loginFrm.id.focus();
+			document.loginFrm.memId.focus();
 			return;
 		}
-		if(document.loginFrm.pwd.value == "") {
+		
+		if(document.loginFrm.memPw.value == "") {
 			alert("비밀번호를 입력해 주세요.");
-			document.loginFrm.pwd.focus();
+			document.loginFrm.memPw.focus();
 			return;
 		}
 		document.loginFrm.submit();

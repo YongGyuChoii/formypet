@@ -154,7 +154,6 @@ $(function(){
 					dataType : "json",
 					success : function(data) { 
 						window.location.href="/formypet/cart/cart.jsp";
-						alert("삭제되었습니다.")
 					},
 					errer : function() {
 						alert('errer');

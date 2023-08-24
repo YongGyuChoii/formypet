@@ -80,7 +80,7 @@ public class MemberMgr {
 			pool.freeConnection(con, pstmt);
 		}
 					return flag;
-				}
+		}
 				
 	// 로그인 처리
 	public MemberBean loginMember(String memId, String memPw) {
@@ -109,6 +109,7 @@ public class MemberMgr {
 				bean.setMemId(rs.getString("memId"));
 				bean.setMemPw(rs.getString("memPw"));
 				bean.setMemGrade(rs.getInt("memGrade"));
+				bean.setMemName(rs.getString("memName"));
 			}else {
 				
 			}
@@ -160,6 +161,117 @@ public class MemberMgr {
 		return bean;
 	}
 		
-}
+	//아이디 찾기
+	public MemberBean findId(String memName, int memResident1, int memResident2) {
+		MemberBean bean = new MemberBean();
+		
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+					
+	String sql = null;
+					
+					
+	try {
+		con = pool.getConnection();
+						
+		sql = "select * from member where memName = ? and memResident1 = ?  and memResident2 = ?";
+		pstmt = con.prepareStatement(sql);
+
+		pstmt.setString(1, memName);					
+		pstmt.setInt(2, memResident1);	
+		pstmt.setInt(3, memResident2);
+		rs = pstmt.executeQuery();
+	
+		if(rs.next()) {
+			bean.setMemKey(rs.getInt("memKey"));
+			bean.setMemId(rs.getString("memId"));
+			bean.setMemResident2(rs.getInt("memResident2"));
+			bean.setMemResident1(rs.getInt("memResident1"));
+			bean.setMemName(rs.getString("memName"));
+			bean.setMemGrade(rs.getInt("memGrade"));
+		}else {
+			
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+			}
+			return bean;
+		}
+	
+		//비밀번호 찾기
+		public MemberBean findPw(String memId, String memName, int memResident1, int memResident2) {
+			MemberBean bean = new MemberBean();
+			
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+						
+		String sql = null;
+						
+						
+		try {
+			con = pool.getConnection();
+							
+			sql = "select * from member where memId=? and memName = ? and memResident1 = ?  and memResident2 = ?";
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, memId);					
+			pstmt.setString(2, memName);	
+			pstmt.setInt(3, memResident1);
+			pstmt.setInt(4, memResident2);
+			rs = pstmt.executeQuery();
+		
+			if(rs.next()) {
+				bean.setMemKey(rs.getInt("memKey"));
+				bean.setMemId(rs.getString("memId"));
+				bean.setMemResident2(rs.getInt("memResident2"));
+				bean.setMemResident1(rs.getInt("memResident1"));
+				bean.setMemName(rs.getString("memName"));
+				bean.setMemGrade(rs.getInt("memGrade"));
+			}else {
+				
+			}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+				}
+				return bean;
+			}
+		
+	
+		//비밀번호 변경
+		public boolean changePw(String memId, String memName, int memResident1, int memResident2, String memPw) {
+			boolean flag = true;
+			Connection con = null;
+			
+			PreparedStatement pstmt = null;
+			
+			String sql = null;
+			
+			ResultSet rs = null;
+			
+			try {
+				con = pool.getConnection();
+				sql = "UPDATE member SET memPw = ? WHERE memId=? and memName=? and  memResident1 = ?  and memResident2 = ?";			
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, memPw);
+				pstmt.setString(2, memId);
+				pstmt.setString(3, memName);
+				pstmt.setInt(4, memResident1);
+				pstmt.setInt(5, memResident2);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return flag;
+		}
+	
+	}
 
 				

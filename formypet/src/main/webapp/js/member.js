@@ -77,6 +77,7 @@ function idCheck(memId) {
 			window.open(url, "IDCheck", "width=300,height=150");
 }	
 
+
 //중복체크 활성화
 function idActivate() {
 	check = false;
