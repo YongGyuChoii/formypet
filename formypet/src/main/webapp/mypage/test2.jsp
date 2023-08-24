@@ -91,9 +91,7 @@
         <ul>
             <li><a href="../mypage/test1.jsp">My shop</a></li>
             <li><a href="../mypage/test2.jsp" class="active">Order</a></li>
-            <li><a href="../mypage/test1.jsp">Profile</a></li>
-            <li><a href="../mypage/test1.jsp">My Posts</a></li>
-            <li><a href="../mypage/test1.jsp">Address</a></li>
+            <li><a href="../mypage/test3.jsp">My Posts</a></li>
         </ul>
     </div>
 

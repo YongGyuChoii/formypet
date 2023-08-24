@@ -56,20 +56,11 @@
     <div class="titleArea">
         <h2>MY POSTS</h2>
     </div>
-
-
-
     <div class="mypage_menu">
         <ul>
-            <li><a href="/myshop/index.html">My shop</a></li>
-            <li><a href="/myshop/order/list.html">Order</a></li>
-            <li><a href="/member/modify.html">Profile</a></li>
-            <li><a href="/myshop/wish_list.html">Wish List</a></li>
-            <li><a href="/myshop/mileage/historyList.html">Mileage</a></li>
-            <!-- <li><a href="#none">Consult</a></li> -->
-            <li><a href="/myshop/coupon/coupon.html">Coupon</a></li>
-            <li><a href="/myshop/board_list.html" class="active">My Posts</a></li>
-            <li><a href="/myshop/addr/list.html">Address</a></li>
+            <li><a href="../mypage/test1.jsp">My shop</a></li>
+            <li><a href="../mypage/test2.jsp" class="active">Order</a></li>
+            <li><a href="../mypage/test3.jsp">My Posts</a></li>
         </ul>
     </div>
 

@@ -59,11 +59,9 @@
         <ul>
             <li><a href="../mypage/test1.jsp">My shop</a></li>
             <li><a href="../mypage/test2.jsp" class="active">Order</a></li>
-            <li><a href="../mypage/test1.jspl">Profile</a></li>
-            <li><a href="../mypage/test1.jsp">My Posts</a></li>
-            <li><a href="../mypage/test1.jsp">Address</a></li>
+            <li><a href="../mypage/test3.jsp">My Posts</a></li>
         </ul>
-    </div>   
+    </div>  
         <div class="xans-element- xans-myshop xans-myshop-asyncbenefit mypage_summ ">
         <div class="mem_info">
             <div class="thumb"><img src="//pethroom.com/web/upload/mg_img_charlie_icon.png" alt=""
