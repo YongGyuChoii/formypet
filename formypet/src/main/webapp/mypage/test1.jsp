@@ -12,6 +12,34 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+        .mypage_menu {
+            text-align: center;
+            margin: 0 0 50px 0;
+        }
+
+        .mypage_menu ul {}
+
+        .mypage_menu ul li {
+            display: inline-block;
+            margin: 0 20px;
+        }
+
+        .mypage_menu ul li a {
+            color: #868686;
+            font-size: 20px;
+            line-height: 1.1;
+            font-family: 'Frutiger LT Pro 75 Black';
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+        }
+
+        .mypage_menu ul li a:hover,
+        .mypage_menu ul li a.active {
+            color: #2b2b2b;
+            border-bottom: 2px solid #2b2b2b;
+        }
+    </style>
 </head>
 
 <body>
@@ -27,25 +55,15 @@
         <div class="titleArea">
             <h2>MY PAGE</h2>
         </div>
-        <div class="mypage_menu">
-            <ul>
-                <li>
-                    <a href="#" class="active">My shop</a>
-                </li>
-                <li>
-                    <a href="#">Order</a>
-                </li>
-                <li>
-                    <a href="#">Profile</a>
-                </li>
-                <li>
-                    <a href="#">My Posts</a>
-                </li>
-                <li>
-                    <a href="#">Address</a>
-                </li>
-            </ul>
-        </div>    
+    <div class="mypage_menu">
+        <ul>
+            <li><a href="../mypage/test1.jsp">My shop</a></li>
+            <li><a href="../mypage/test2.jsp" class="active">Order</a></li>
+            <li><a href="../mypage/test1.jspl">Profile</a></li>
+            <li><a href="../mypage/test1.jsp">My Posts</a></li>
+            <li><a href="../mypage/test1.jsp">Address</a></li>
+        </ul>
+    </div>   
         <div class="xans-element- xans-myshop xans-myshop-asyncbenefit mypage_summ ">
         <div class="mem_info">
             <div class="thumb"><img src="//pethroom.com/web/upload/mg_img_charlie_icon.png" alt=""
