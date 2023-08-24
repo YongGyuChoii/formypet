@@ -187,7 +187,7 @@
 							%>
 						<div class="sub"><a href="readProc.jsp?nowPage=<%=nowPage%>&num=<%=num%>"><%=subject%><span class="material-symbols-outlined">lock</span></a></div>
 							</td>
-							<td align="center"><%=name%><%=pass%></td>
+							<td align="center"><%=name%></td>
 							<td align="center"><%=regdate%></td>
 							<td align="center"><%=count%></td>
 							</tr>
