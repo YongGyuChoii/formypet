@@ -8,7 +8,7 @@
 	  
       int totalRecord=0; //전체레코드수
 	  int numPerPage=10; // 페이지당 레코드 수 
-	  int pagePerBlock=15; //블럭당 페이지수 
+	  int pagePerBlock=20; //블럭당 페이지수 
 	  
 	  int totalPage=0; //전체 페이지 수
 	  int totalBlock=0;  //전체 블럭수 
@@ -121,8 +121,7 @@
 					  <table width="100%" cellpadding="2" cellspacing="0" id = "order">
 						<tr align="center"   class = "border">
 							<td>번 호</td>
-							<td>비회원 주문번호</td>
-							<td>회원 주문번호</td>
+							<td>주문번호</td>
 							<td>상품 이름</td>
 							<td>카테고리</td>
 							<td>총 지불 금액</td>
@@ -148,19 +147,31 @@
 							<td align = "center">
 							<%	
 								if (nonMemOrderKey != null){%>
-									<%=nonMemOrderKey%>
-								<%}else{
-									nonMemOrderKey = "";
+									<% out.println(" 비회원 : "+nonMemOrderKey);%>
+								<%}else if(memOrderKey != null){
+									out.println(" 회원 : "+memOrderKey);
 								};%>
 							</td>
-							<td align="center"><%	
-								if (memOrderKey != null){%>
-									<%=memOrderKey%>
-								<%}else{
-									memOrderKey = "";
-								};%></td>
 							<td align="center"><%=productName%></td>
-							<td align="center"><%=categoryKey%></td>
+							<td align="center">
+							<%if(categoryKey == 1) {
+								out.println("목욕");
+							}else if(categoryKey == 2 ) {
+								out.println("배변/위생");
+							}else if(categoryKey == 3 ) {
+								out.println("미용/케어");
+							}else if(categoryKey == 4 ) {
+								out.println("홈/리빙");
+							}else if(categoryKey == 5 ) {
+								out.println("산책/놀이");
+							}else if(categoryKey == 6 ) {
+								out.println("간식/영양제");
+							}else if(categoryKey == 7 ) {
+								out.println("의류/악세사리");
+							};
+							
+							%>
+							</td>
 							<td align = "center" id = "aPirce"><%=oPrice %></td>	
 												
 						</tr><input type = "hidden" value = "<%=productKey%>">
@@ -212,7 +223,6 @@
 	  			<td align="center" valign="bottom">
 	   				<select name="keyField" size="1" >
 	    				<option value="ordersKey">번 호</option>
-	    				<option value="memKey">회원 번호</option>
 	    				<option value="memOrderKey">회원 주문번호</option>
 	    				<option value="nonMemOrderKey">비회원 주문번호</option>
 	   				</select>
@@ -278,7 +288,7 @@
 		let sum = 0;
 		for(let i = 1; i < table.rows.length; i++){
 			sum +=
-				parseInt(table.rows[i].cells[5].innerHTML)
+				parseInt(table.rows[i].cells[4].innerHTML)
 		}
 		document.getElementById('aP').innerHTML = '<td><p>총 매출 : ' +sum+ '원</td>';
 	}

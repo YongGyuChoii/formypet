@@ -120,6 +120,7 @@
 							<td>이 름</td>
 							<td>비밀번호</td>
 							<td>이메일</td>
+							<td>회원 등급</td>
 							<td>삭 제</td>
 							
 						</tr>
@@ -134,18 +135,25 @@
 							String memEmail1 = bean.getMemEmail1();
 							String memEmail2 = bean.getMemEmail2();
 							String delYn = bean.getDelYn();
-
+							int memGrade = bean.getMemGrade();
+							//String dfd = "일반회원";
+							//String dfdf = "관리자";
 						%>
 						<tr>
 							<td align = "center" ><%=memKey%></td>
 							<td align = "center"><a href="javascript:read('<%=memKey%>')"><%=memId %></a></td>
 							<td align="center"><%=memName%></td>
-							<td align="center"><%=memPw%></td>
+							<td align="center"><input type="password" value="<%=memPw%>" style= " border-style:none; text-align:center;" ></td>
 							<td align="center"><%=memEmail1%>@<%=memEmail2 %></td>
-							<td align="center">
-							<input name="delYn" type="radio" value="Y"<%if("Y".equals(delYn)){%>checked<%}%>>   Y    </input>
-		  					<input name="delYn" type="radio" value="N"<%if("N".equals(delYn)){%>checked<%}%>>   N   </input>
-		  					</td>
+							<td align="center"><%if(memGrade == 1){
+									out.println("일반회원");
+ 
+								}else if(memGrade == 2){
+									out.println("관리자");
+								};
+							%>
+							</td>
+							<td align="center"><%=delYn %></td>
 								    	
 		  	
 		 	</td>

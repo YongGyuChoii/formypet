@@ -78,6 +78,7 @@ public class CsManagementMgr {
 				 	bean.setMemResident2(rs.getInt("memResident2"));
 				 	bean.setDelYn(rs.getString("delYn"));
 				 	bean.setMemPoint(rs.getInt("memPoint"));
+				 	bean.setMemGrade(rs.getInt("memGrade"));
 		 			vlist.add(bean);
 				}
 			}catch(Exception e) {

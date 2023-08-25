@@ -11,7 +11,48 @@
 <jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
 <!DOCTYPE html>
 <html lang="ko">
+<%
+request.setCharacterEncoding("UTF-8");
 
+int totalRecord=0; //전체레코드수
+int numPerPage=1; // 페이지당 레코드 수 
+int pagePerBlock=5; //블럭당 페이지수 
+
+int totalPage=0; //전체 페이지 수
+int totalBlock=0;  //전체 블럭수 
+
+int nowPage=1; // 현재페이지
+int nowBlock=1;  //현재블럭
+
+//데이터베이스 에서 select문 으로 게시물 조회시 limit절 을 통해 한 페이지에 필요한 만큼의 게시물을 가져오기 위해서
+//start 와 end 변수 선언. start=0 , end=10 이므로 게시판 한 페이지에 총 10개의 게시물을 출력 한다.
+int start=0; //디비의 select 시작번호
+int end=1; //시작번호로 부터 가져올 select 갯수
+
+int listSize=0; //현재 읽어온 게시물의 수 
+
+//ProductManagementBean 클래스를 참조한 return 타입으로 vector배열 vlist 선언
+Vector<OrderBean> vlist = null; //product db
+
+
+if (request.getParameter("nowPage") != null) {
+	nowPage = Integer.parseInt(request.getParameter("nowPage"));
+}
+
+start = (nowPage * numPerPage)-numPerPage;
+end = numPerPage;
+
+//ProductManagementMgr 클래스 getTotalCount 메서드 호출하여 총 게시물 수 가져오기.
+totalRecord = orderMgr.getTotalCount();
+
+//전체 페이지수 계산, 122개의 레코드(게시물)가 있다면 122/10 을 연산하여, Math클래스의 ceil() 메서드로  
+//결과값의 소숫점을 반올림 하여 페이지를 구성.
+totalPage = (int)Math.ceil((double)totalRecord / numPerPage);  //전체페이지수
+nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock); //현재블럭 계산
+
+//전체 블록 계산, 방법은 전체 페이지수 계산법과 동일.
+totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
+%>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +62,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+function pageing(page) {
+	document.readFrm.nowPage.value = page;
+	document.readFrm.submit();
+}
+
+function block(value){
+	 document.readFrm.nowPage.value=<%=pagePerBlock%>*(value-1)+1;
+	 document.readFrm.submit();
+} 
+</script>
 <style type="text/css">
         .mypage_menu {
             text-align: center;
@@ -64,38 +116,6 @@
     <div class="titleArea">
         <h2>ORDER</h2>
     </div>
-    <style type="text/css">
-        .mypage_menu {
-            text-align: center;
-            margin: 0 0 50px 0;
-        }
-
-        .mypage_menu ul {
-            float:center;
-        }
-
-        .mypage_menu ul li {
-            display: inline-block;
-            margin: 0 20px;
-        }
-
-        .mypage_menu ul li a {
-            color: #868686;
-            font-size: 20px;
-            line-height: 1.1;
-            
-            display: inline-block;
-            border-bottom: 2px solid transparent;
-        }
-
-        .mypage_menu ul li a:hover,
-        .mypage_menu ul li a.active {
-            color: #2b2b2b;
-            border-bottom: 2px solid #2b2b2b;
-        }
-    </style>
-
-
     <div class="mypage_menu">
         <ul>
             <li><a href="../mypage/test1.jsp">My shop</a></li>
@@ -219,7 +239,7 @@
 		
 	Vector<OrderBean> vlist1 = null;
 
-	vlist1 = orderMgr.getOrderList();
+	vlist1 = orderMgr.getOrderList(start,end);
 	
 	for(int i=0; i<vlist1.size(); i++) {
 		
@@ -289,30 +309,45 @@
                                 onclick="OrderHistory.getDetailInfo('?product_no=266&amp;cate_no=209&amp;order_id=20230614-0014129&amp;ord_item_code=20230614-0014129-01');">상세정보</a>
                         </p>
                         <p class="">-</p>
-                    </td>
+                    </td>                     
                     
-                     <% } %>
-                </tr>
+                    
+                     <% } %>             
+
+                </tr>          
+                <tr>
+            	<td>
+				<%
+	   				  int pageStart = (nowBlock -1)*pagePerBlock + 1 ; //하단 페이지 시작번호
+	   				  int pageEnd = ((pageStart + pagePerBlock ) <= totalPage) ?  (pageStart + pagePerBlock): totalPage+1; 
+	   				  //하단 페이지 끝번호
+	   				  if(totalPage !=0){
+	    			  	if (nowBlock > 1) {%>
+	    			  		<a href="javascript:block('<%=nowBlock-1%>')">prev...</a><%}%>&nbsp; 
+	    			  		<%for ( ; pageStart < pageEnd; pageStart++){%>
+	     			     	<a href="javascript:pageing('<%=pageStart %>')"> 
+	     					<%if(pageStart==nowPage) {%><font color="blue"> <%}%>
+	     					[<%=pageStart %>] 
+	     					<%if(pageStart==nowPage) {%></font> <%}%></a> 
+	    					<%}//for%>&nbsp; 
+	    					<%if (totalBlock > nowBlock ) {%>
+	    					<a href="javascript:block('<%=nowBlock+1%>')">.....next</a>
+	    			<%}%>&nbsp;  
+	   			<%}%>
+	   			</td>	
+	   			</tr>
             </tbody>
+	
         </table>
         <p class="message displaynone">주문 내역이 없습니다.</p>
     </div>
 
-    <div class="xans-element- xans-myshop xans-myshop-orderhistorypaging ec-base-paginate"><a
-            href="?page=1&amp;history_start_date=2023-05-26&amp;history_end_date=2023-08-24&amp;past_year=2022"
-            class="first"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_first.gif" alt="첫 페이지"></a>
-        <a href="?page=1&amp;history_start_date=2023-05-26&amp;history_end_date=2023-08-24&amp;past_year=2022"><img
-                src="//img.echosting.cafe24.com/skin/base/common/btn_page_prev.gif" alt="이전 페이지"></a>
-        <ol>
-            <li class="xans-record-"><a
-                    href="?page=1&amp;history_start_date=2023-05-26&amp;history_end_date=2023-08-24&amp;past_year=2022"
-                    class="this">1</a></li>
-        </ol>
-        <a href="?page=1&amp;history_start_date=2023-05-26&amp;history_end_date=2023-08-24&amp;past_year=2022"><img
-                src="//img.echosting.cafe24.com/skin/base/common/btn_page_next.gif" alt="다음 페이지"></a>
-        <a href="?page=1&amp;history_start_date=2023-05-26&amp;history_end_date=2023-08-24&amp;past_year=2022"
-            class="last"><img src="//img.echosting.cafe24.com/skin/base/common/btn_page_last.gif" alt="마지막 페이지"></a>
-    </div>
+    				<!-- 페이징 및 블럭 처리 Start--> 
+
+	   		<form name="readFrm" method="get">
+				<input type="hidden" name="ordersKey"> 
+				<input type="hidden" name="nowPage" value="<%=nowPage%>"> 
+			</form>	 			<!-- 페이징 및 블럭 처리 End-->
 
     <!-- cre.ma / init 스크립트 (PC) / 스크립트를 수정할 경우 연락주세요 (support@cre.ma) -->
   <!--     <script>(function (i, s, o, g, r, a, m) { if (s.getElementById(g)) { return }; a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.id = g; a.async = 1; a.src = r; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'crema-jssdk', '//widgets.cre.ma/pethroom.com/init.js');</script> -->

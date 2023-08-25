@@ -148,7 +148,13 @@
 							<td align="center"><a href="javascript:read('<%=rvKey%>')"><%=rvTitle%></a></td>
 							<td align="center"><%=rvPhoto%></td>
 							<td align="center"><%=rvScore%></td>
-							<td align="center"><%=optionValue%></td>
+							<td align="center">
+							<%if(optionValue != null){
+								out.println(optionValue);
+							}else{
+								out.println("");
+							}
+							%></td>
 							</tr>
 						<%}//for%>
 					</table> <%

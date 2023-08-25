@@ -167,7 +167,7 @@ public class myOrderMgr {
 	
 	
 
-		public Vector<OrderBean> getOrderList() {
+		public Vector<OrderBean> getOrderList(int start, int end) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -180,13 +180,14 @@ public class myOrderMgr {
 			try {
 				con = pool.getConnection();
 				//keyField 와 keyWord 값이 있는 경우 게시물 조회
-				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey order by ordersKey  desc limit 1,1";
-				
+				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey "
+						+ "INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey order by ordersKey  desc limit ?,?";
 				pstmt = con.prepareStatement(sql);
-				
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);
 				rs = pstmt.executeQuery();
-				
 				while (rs.next()) {
+					
 					OrderBean bean = new OrderBean();
 					bean.setOrdersKey(rs.getInt("ordersKey"));
 					bean.setProductKey(rs.getInt("productKey"));
@@ -209,10 +210,27 @@ public class myOrderMgr {
 			return vlist1;
 		}
 		
-		
-		
-
-
-	
-
+		//주문 상품 수	
+		public int getTotalCount() {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int totalCount = 0;
+			try {
+				con = pool.getConnection();
+					sql = "SELECT count(ordersKey) FROM orders INNER JOIN product ON orders.productKey = product.productKey "
+							+ "INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey";
+					pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					totalCount = rs.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				pool.freeConnection(con, pstmt, rs);
+			}
+			return totalCount;
+		}
 	}

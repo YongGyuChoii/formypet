@@ -17,8 +17,15 @@ public class CsManagementBean {
 	private int memPoint;
 	private String delYn;
 	private int memKey;
+	private int memGrade;
 	
 	
+	public int getMemGrade() {
+		return memGrade;
+	}
+	public void setMemGrade(int memGrade) {
+		this.memGrade = memGrade;
+	}
 	public String getMemId() {
 		return memId;
 	}
