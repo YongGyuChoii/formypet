@@ -3081,7 +3081,7 @@ a.btnLink:after {
     margin: 20px 20px 20px;
     padding: 20px 40px 20px 110px;
     font-size: 40px;
-    color: #63666e;
+  
     text-decoration: none;
     text-align: center;
     border: 4px solid #9d9db0;
@@ -3094,3 +3094,6 @@ li {
 }
 
 
+.message {
+	display: inline-block;
+}

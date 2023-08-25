@@ -11,6 +11,49 @@
  <jsp:useBean id="orderMgr" class="order.myOrderMgr" />
 <jsp:useBean id="pMgr" class="product.ProductMgr" />
 <jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
+<%
+request.setCharacterEncoding("UTF-8");
+
+int totalRecord=0; //전체레코드수
+int numPerPage=1; // 페이지당 레코드 수 
+int pagePerBlock=5; //블럭당 페이지수 
+
+int totalPage=0; //전체 페이지 수
+int totalBlock=0;  //전체 블럭수 
+
+int nowPage=1; // 현재페이지
+int nowBlock=1;  //현재블럭
+
+//데이터베이스 에서 select문 으로 게시물 조회시 limit절 을 통해 한 페이지에 필요한 만큼의 게시물을 가져오기 위해서
+//start 와 end 변수 선언. start=0 , end=10 이므로 게시판 한 페이지에 총 10개의 게시물을 출력 한다.
+int start=0; //디비의 select 시작번호
+int end=1; //시작번호로 부터 가져올 select 갯수
+
+int listSize=0; //현재 읽어온 게시물의 수 
+
+//ProductManagementBean 클래스를 참조한 return 타입으로 vector배열 vlist 선언
+Vector<OrderBean> vlist = null; //product db
+
+
+if (request.getParameter("nowPage") != null) {
+	nowPage = Integer.parseInt(request.getParameter("nowPage"));
+}
+
+start = (nowPage * numPerPage)-numPerPage;
+end = numPerPage;
+
+//ProductManagementMgr 클래스 getTotalCount 메서드 호출하여 총 게시물 수 가져오기.
+totalRecord = orderMgr.getTotalCount();
+
+//전체 페이지수 계산, 122개의 레코드(게시물)가 있다면 122/10 을 연산하여, Math클래스의 ceil() 메서드로  
+//결과값의 소숫점을 반올림 하여 페이지를 구성.
+totalPage = (int)Math.ceil((double)totalRecord / numPerPage);  //전체페이지수
+nowBlock = (int)Math.ceil((double)nowPage/pagePerBlock); //현재블럭 계산
+
+//전체 블록 계산, 방법은 전체 페이지수 계산법과 동일.
+totalBlock = (int)Math.ceil((double)totalPage / pagePerBlock);  //전체블럭계산
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -18,11 +61,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Pet</title>
+    <link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/images/ForMyPet_icon1.png" />
     <link rel="stylesheet"  href="../css/base.css">
  	<link rel="stylesheet"  href="../css/test1.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
 <style type="text/css">
         .mypage_menu {
             text-align: center;
@@ -99,49 +144,32 @@
                     class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
                     <col style="width:70px;">
                     <col style="width:135px;">
-                    <col style="width:auto;">
                     <col style="width:84px;">
+                    <col style="width:auto;">
                     <col style="width:80px;">
-                    <col style="width:55px;">
+                   
                 </colgroup>
                 <thead>
                     <tr>
                         <th scope="col">번호</th>
                         <th scope="col">분류</th>
                         <th scope="col">제목</th>
-                        <th scope="col">작성자</th>
-                        <th scope="col">작성일</th>
-                        <th scope="col">조회</th>
+                        <th scope="col">내용</th>
+                        <th scope="col">별점</th>
+                      
                     </tr>
                 </thead>
-                <tbody class="displaynone center">
-                    <tr class="">
-                        <td></td>
-                        <td><a href="" class="txtEm"></a></td>
-                        <td class="left subject"> <a href=""></a> </td>
-                        <td></td>
-                        <td><span class="txtNum"></span></td>
-                        <td><span class="txtNum"></span></td>
-                    </tr>
-                    <tr class="">
-                        <td></td>
-                        <td><a href="" class="txtEm"></a></td>
-                        <td class="left subject"> <a href=""></a> </td>
-                        <td></td>
-                        <td><span class="txtNum"></span></td>
-                        <td><span class="txtNum"></span></td>
-                    </tr>
-                </tbody>
+               
             </table>
-             <div class="message ">
+            
              <% 
-	Vector<ReviewBean> vlist = null;
+	Vector<ReviewBean> vlist1 = null;
 
-	vlist = rvMgr.getReviewList();
+	vlist1 = rvMgr.getReviewList();
 	
-	for(int i=0; i<vlist.size(); i++) {
+	for(int i=0; i<vlist1.size(); i++) {
 		
-		ReviewBean bean = vlist.get(i);
+		ReviewBean bean = vlist1.get(i);
 		
 		int num = bean.getRvKey();
 		String rvTitle = bean.getRvTitle();
@@ -151,20 +179,25 @@
 		
 		
 	%>
-	
-	 <div class="board_list">
-            
-         
-                <div>
-                 <div class="count"><%=num%>번</div>
-                   <div class="num"><%=product %></div>
-                    <div class="num"><%=rvTitle %></div>
-                    <div class="title"><a><%=rvContents%></a></div>
-                    <div class="date"><%=rvScore%>점</div>
-          
-                </div>
-            </div>
-            
+	<table border="1" summary="">
+	  <colgroup
+                    class="xans-element- xans-board xans-board-listheader-1002 xans-board-listheader xans-board-1002 ">
+                    <col style="width:70px;">
+                    <col style="width:135px;">
+                    <col style="width:84px;">
+                    <col style="width:auto;">
+                    <col style="width:80px;">
+                   
+                </colgroup>
+	  <tr>
+                 <th><%=num%>번</th>
+                   <th><%=product %></th>
+                   <th><%=rvTitle %></th>
+                    <th><a><%=rvContents%><a></th>
+                     <th><%=rvScore%>점</th>
+                
+ 
+          </table>   
            
           <% } %>
 	
@@ -175,101 +208,13 @@
     </div>
 
 
-    <form id="boardSearchForm" name="" action="/myshop/board_list.html" method="get" target=""
-        enctype="multipart/form-data">
-        <input id="board_no" name="board_no" value="" type="hidden">
-        <input id="page" name="page" value="1" type="hidden">
-        <input id="board_sort" name="board_sort" value="" type="hidden">
-        <div class="xans-element- xans-myshop xans-myshop-boardlistsearch ">
-            <fieldset class="boardSearch">
-                <legend>게시물 검색</legend>
-                <p><select id="search_key" name="search_key" fw-filter="" fw-label="" fw-msg="">
-                        <option value="subject">제목</option>
-                        <option value="content">내용</option>
-                        <option value="writer_name">글쓴이</option>
-                        <option value="member_id">아이디</option>
-                        <option value="nick_name">별명</option>
-                    </select> <input id="search" name="search" fw-filter="" fw-label="" fw-msg="" class="inputTypeText"
-                        placeholder="" value="" type="text"> <a href="#none" class="btnEmFix"
-                        onclick="BOARD.form_submit('boardSearchForm');">찾기</a></p>
-            </fieldset>
-        </div>
-    </form>
-    <!-- cre.ma / 내가 작성한 리뷰 / 스크립트를 수정할 경우 연락주세요 (support@cre.ma) -->
- <!--   <div class="crema-reviews crema-applied" data-type="my-reviews" style="margin: 0 auto;margin-left: 31px;"><iframe
-            id="crema-my-reviews-1" height="0"
-            src="https://review6.cre.ma/pethroom.com/my/managing_reviews?iframe_id=crema-my-reviews-1&amp;app=0&amp;parent_url=https%3A%2F%2Fpethroom.com%2Fmyshop%2Fboard_list.html&amp;secure_username=V2820cfca11fbcada8a807728de2649ff6&amp;secure_user_name=V2468e2cc763fdea21b4b7d15017fe2f46&amp;secure_device_token=V29d8f596ef8ab306227973f4b00135aae1738ac37a1d775be14c16395f093e3e7dc0e335dbee4c8b17225d2bebc96b3b1&amp;iframe=1"
-            width="100%" scrolling="no" allowtransparency="true" frameborder="0" name="crema-my-reviews-1-1692864150464"
-            style="display: block; visibility: visible; height: 276px;"></iframe></div>  -->
-            
-            
-                         	<% 
-		
-	Vector<OrderBean> vlist1= null;
-
-	vlist1 = orderMgr.getOrderList();
-	
-	for(int i=0; i<vlist.size(); i++) {
-		
-		OrderBean bean = vlist1.get(i);
-		
-		              
-		String img = bean.getProductImg(); 
-		String product = bean.getProductName();		//상품				
-		String optionValue = bean.getOptionValue(); //옵션
-		String pDate = bean.getpDate(); //날짜
-		String memOrder=bean.getMemOrderKey(); //주문 번호
-		int productPrice = bean.getProductPrice();		// 가격	
-		int oCount = bean.getoCount();  //수량
-		
-		System.out.println("mypageorder.jsp 이미지 변수 값" + img);
-		
-		
-	%>		
-            
-            <li class="my_pending_review ">
-            <div class="my_pending_review__inner">
-    <a class="js-link-iframe my_pending_review__product_image_link" data-url="http://www.pethroom.com/product/detail.html?cate_no=1&amp;product_no=266">
-      <img src=../images/myorder/<%=img%> class="my_pending_review__product_image smooth" alt="퓨어 튜나 스틱 (참치/참치&amp;연어/참치&amp;닭가슴살)" width="80" height="80">
-    </a>
-    <div class="my_pending_review__review_detail">
-      
-        
-        <a class="js-link-iframe" data-url="http://www.pethroom.com/product/detail.html?cate_no=1&amp;product_no=266">
-          <div class="my_pending_review__product_name "><%=product%></div>
-        </a>
-        
-          <div class="my_pending_review__product_options">옵션 선택: <%=optionValue%></div>
-        
-        
-          <div class="my_pending_review__purchased_at ">
-            
-             <%=pDate%>에 구매하신 상품입니다.
-            
-          </div>
-        
-      
-    </div>
-    <div class="my_pending_review__review_info_and_action">
-      <div class="my_pending_review__review_action js-link-new-review-popup" data-sub-order-code="a014643a9dad6a9fc39f313506cbf07a" data-sub-order-id="3006645" data-product-code="266" data-review-source="27">
-     <%if(bean.getReviewYn().equals("N")){ %>
-	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">후기작성</button> <!-- test code -->	
-		<%} %>	
-      <div class="my_pending_review__end_date">
-        작성기한:2023.09.24 <strong>(D-31) </strong>
-      </div>
-      
-        <div class="my_pending_review__review_mileage">
-          
-          적립금 최대 <strong>1,000원</strong>
-        </div>
-      
-    </div>
     
-  </div>
-  </li>
-  
-    <% } %>
+     <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+     
+     
+     
+    
+          
             
             
 
