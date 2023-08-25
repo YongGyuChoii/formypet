@@ -8,6 +8,7 @@
 <%@page import="product.ProductBean"%>
 <%@page import="product.ProductFileBean"%>
 <%@page import="java.util.*"%>
+<%@include file = "/base/icon.jsp" %>
 <jsp:useBean id="cMgr" class="cart.CartMgr" />
 <jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
 <%@page import="product.ProductBean"%> 

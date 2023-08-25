@@ -22,7 +22,7 @@
 		  				  
 		  MemberBean db = mMgr.findId(memName, memResident1, memResident2);
 		  
-		  if(memResident1==db.getMemResident1()) {
+		  if(memResident1==db.getMemResident1() && memName.equals(db.getMemName())) {
 			  
 			msg = memName + " " +"회원님의 아이디는" + " " + db.getMemId() + "입니다.";
 			url = "./login.jsp";		

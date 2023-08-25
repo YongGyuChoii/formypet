@@ -167,7 +167,7 @@ public class NoMemOrderMgr {
 	
 	
 
-		public Vector<NoMemOrderBean> getOrderList() {
+		public Vector<NoMemOrderBean> getOrderList(String rName, String orderPassword) {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -180,10 +180,11 @@ public class NoMemOrderMgr {
 			try {
 				con = pool.getConnection();
 				//keyField 와 keyWord 값이 있는 경우 게시물 조회
-				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN non_mem_order ON orders.nonMemOrderKey = non_mem_order.nonMemOrderKey order by ordersKey ";
+				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN non_mem_order ON orders.nonMemOrderKey = non_mem_order.nonMemOrderKey order by rName = ? and orderPassword = ?";
 				
 				pstmt = con.prepareStatement(sql);
-				
+				pstmt.setString(1, rName);
+				pstmt.setString(2, orderPassword);
 				rs = pstmt.executeQuery();
 				
 				while (rs.next()) {
@@ -198,6 +199,7 @@ public class NoMemOrderMgr {
 					bean.setReviewYn(rs.getString("reviewYn"));
 					bean.setProductName(rs.getString("productName"));
 					bean.setProductImg(rs.getString("productImg"));
+					bean.setAddress(rs.getString("address"));
 			
 					vlist.add(bean);
 				}

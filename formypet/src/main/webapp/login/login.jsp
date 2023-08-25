@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@include file = "/base/icon.jsp" %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -29,7 +29,7 @@
               <input type="text" name="memId" placeholder="아이디" class="in">
               <input type="password" name="memPw" placeholder="비밀번호" class="in">
               <input type="submit" id="btn" value="로그인" onclick="loginCheck()"><br>
-              <input type="button" id="btn" value="비회원 주문조회" onclick="location.href='nonMember.jsp'">
+              <input type="button" id="btn" value="비회원 주문조회" onclick="location.href='nonMemberLogin.jsp'">
           </form>
           <a href="signup.jsp">회원가입 |</a>
           <a href="findId.jsp">아이디 찾기 |</a>

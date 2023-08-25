@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="member.MemberBean"%>    
+<%@include file = "/base/icon.jsp" %>
 <jsp:useBean id="mMgr" class="member.MemberMgr"/>
 <!DOCTYPE html>
 <html lang="ko">
@@ -13,7 +14,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
 </head>
 <body>
 	<%
@@ -25,6 +25,8 @@
 	int memResident2 = Integer.parseInt(request.getParameter("memResident2"));
 		  
 	MemberBean db = mMgr.findPw(memId, memName, memResident1, memResident2);
+	
+	String msg = "새로운 비밀번호를 설정해주세요.";
 	%>
     <div id="wrap">
     <!-- header 시작-->
@@ -36,6 +38,7 @@
     <!--main 시작-->
 
     <div class="container">
+    <% if(memId.equals(db.getMemId()) && memResident2 == db.getMemResident2()) { %>
     <div class="non-member">
         <form name="nologinFrm" method="get" action="changePw.jsp">
             <h2 style="margin: 30px;">새로운 비밀번호 변경</h2>
@@ -43,11 +46,17 @@
             	<input type="hidden" name="memName" value="<%=memName%>">
             	<input type="hidden" name="memResident1" value="<%=memResident1%>">
             	<input type="hidden" name="memResident2" value="<%=memResident2%>">
-                <input type="password" name="memPw" id="uid" placeholder="새로운 비밀번호" class="in" required>
-                <input type="password" name="memPw2" id="uid" placeholder="새로운 비밀번호 확인" class="in" required>
-                <input type="submit" class="subButton" value="비밀번호 찾기" onClick="submit()">
+                <input type="password" name="memPw" id="uid" placeholder="새로운 비밀번호 (4~10자 영문 대소문자, 숫자, 특수문자를 사용하세요.)" class="in" required>
+                <input type="password" name="memPw2" id="uid2" placeholder="새로운 비밀번호 확인" class="in" required>
+                <input type="submit" class="subButton" id="sub" value="비밀번호 찾기">
         </form>
     </div>
+    <% } else {  %>
+    <script>
+    	alert("입력하신 정보의 계정이 존재하지 않습니다.");
+    	location.href = "findPw.jsp";
+    </script>	
+    <% } %>
   </div>
     <!--main 끝-->
 
@@ -63,3 +72,39 @@
     </div>
 </body>
 </html>
+<script>
+var password1 = document.getElementById("uid");
+var password2 = document.getElementById("uid2");
+
+document.getElementById("sub").onclick = function() {
+	
+// 정규식
+// pw
+var regexPw = /^[A-Za-z0-9`~!@#\$%\^&\*\(\)\{\}\[\]\-_=\+\\|;:'"<>,\./\?]{4,10}$/;
+
+//비밀번호
+if(password1.value==""){
+	alert("비밀번호를 입력해 주세요.");
+	password1.focus();
+}
+else if(!regexPw.test(password1.value)){
+    alert("4~10자 영문 대소문자, 숫자, 특수문자를 사용하세요.");
+    password1.value = "";
+    password1.focus();
+    return;
+}
+if(password2.value==""){
+	alert("비밀번호를 확인해 주세요");
+	password2.focus();
+	return;
+}
+else if(password1.value != password2.value){
+	alert("비밀번호가 일치하지 않습니다.");
+	password2.value="";
+	password2.focus();
+	return;
+}	
+
+document.nologinFrm.submit();
+}
+</script>

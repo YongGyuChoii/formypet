@@ -1,5 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file = "/base/icon.jsp" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -22,13 +23,13 @@
 
     <!--main 시작-->
     <div class="container">
-    <div class="non-member">
+    <div style="height: 400px;" class="non-member">
         <form name="findPwFrm" method="get" action="findPwProc.jsp">
             <h2 style="margin: 30px;">비밀번호 찾기</h2>
-                <input type="text" name="memId" id="uid" placeholder="아이디" class="in" required>
-                <input type="text" name="memName" id="uid" placeholder="성함" class="in" required>
-                <input name="memResident1" type="text" id="resident" class="resident" placeholder="주민번호 앞 6자리" maxlength="6" required>&nbsp;-&nbsp;<input name="memResident2" type="password" id="resident" class="resident" placeholder="주민번호 뒷자리" maxlength="7" required>
-                <input type="submit" class="subButton" value="비밀번호 찾기">
+                <input type="text" name="memId" id="uid1" placeholder="아이디" class="in" required>
+                <input type="text" name="memName" id="uid2" placeholder="성함" class="in" required>
+                <input name="memResident1" type="text" id="resident1" class="resident" placeholder="주민번호 앞 6자리" maxlength="6" required>&nbsp;-&nbsp;<input name="memResident2" type="password" id="resident2" class="resident" placeholder="주민번호 뒷자리" maxlength="7" required>
+                <input type="submit" class="subButton" value="비밀번호 찾기" id="sub">
         </form>
     </div>
   </div>
@@ -47,40 +48,72 @@
 </body>
 </html>
 <script>
-$(document).on("click",".subButton",function(){
+var memId = document.getElementById("uid1");
+var memName = document.getElementById("uid2");
+var memResident1 = document.getElementById("resident1");
+var memResident2 = document.getElementById("resident2");
+
+document.getElementById("sub").onclick = function() {
 	
-	var memId = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memId']").val();
-	var memName = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memName']").val();
-	var memResident1 = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memResident1']").val();
-	var memResident2 = $(this).parent().parent().parent().parent().parent().parent().find("input[name='memResident2']").val();
-	
-	if(memId == "") {
-		alert("아이디를 입력해 주세요.");
-		memId.focus();
-		return;
-	}
-	
-	if(memName == "") {
-		alert("이름을 입력해 주세요.");
-		memName.focus();
-		return;
-	}
-	if(memResident1 == "") {
-		alert("주민번호를 입력해 주세요.");
-		memResident1.focus();
-		return;
-	}
-	if(memResident2 == "") {
-		alert("주민번호를 입력해 주세요.");
-		memResident2.focus();
-		return;
-	}
-	
-	
-	document.loginFrm.submit();
-	
-	
-	
-	
-});
+// 정규식
+// id
+var regId = /^[a-z0-9]{4,12}$/;
+// 이름
+var regName = /^[가-힣a-zA-Z]{2,15}$/;
+//주민번호
+var regResi1 = /^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))/;
+var regResi2 = /^[1-4][0-9]{6}$/
+
+//아이디
+if(memId.value==""){
+	alert("아이디를 입력해 주세요.");
+	memId.focus();
+	return;
+}
+else if(!regId.test(memId.value)){
+    alert("아이디 형식이 맞지 않습니다.");
+    memId.value = "";
+    memId.focus();
+    return;
+}    
+//이름
+if(memName.value==""){
+	alert("이름을 입력해 주세요.");
+	memName.focus();
+	return;
+}
+else if(!regName.test(memName.value)){
+    alert("이름의 형식이 올바르지 않습니다.");
+    memName.value = "";
+    memName.focus();
+    return;
+}
+
+//주민등록번호
+if(memResident1.value==""){
+	alert("주민번호 앞자리를 입력하세요.");
+	memResident1.focus();
+	return;
+}	
+else if(!regResi1.test(memResident1.value)){
+    alert("주민번호 형식이 올바르지 않습니다.");
+    memResident1.value = "";
+    memResident1.focus();
+    return;
+}
+
+if(memResident2.value==""){
+	alert("주민번호 뒷자리를 입력하세요.");
+	memResident2.focus();
+	return;
+}	
+else if(!regResi2.test(memResident2.value)){
+    alert("주민번호 형식이 올바르지 않습니다.");
+    memResident2.value = "";
+    memResident2.focus();
+    return;
+}
+
+document.nologinFrm.submit();
+}
 </script>
