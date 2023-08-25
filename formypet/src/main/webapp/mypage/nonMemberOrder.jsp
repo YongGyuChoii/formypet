@@ -7,6 +7,7 @@
 <%@page import="product.ProductOptionBean"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.util.*"%>
+<%@include file = "/base/icon.jsp" %>
 
 <jsp:useBean id="orderMgr" class="order.NoMemOrderMgr" />
 <jsp:useBean id="pMgr" class="product.ProductMgr" />
@@ -24,6 +25,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <% 		
+		String rName = request.getParameter("rName");
+		String orderPassword = request.getParameter("orderPassword");
+		
+		Vector<NoMemOrderBean> vlist = null;
+
+		vlist = orderMgr.getOrderList(rName, orderPassword);
+	%>
 </head>
 <body>
   <div id="wrap">
@@ -56,15 +65,7 @@
 						<th scope="col">배송지</th>
 					</tr>
 				</thead>
-				<tbody>
-				<% 		
-					String rName = request.getParameter("rName");
-					String orderPassword = request.getParameter("orderPassword");
-		
-					Vector<NoMemOrderBean> vlist = null;
-
-					vlist = orderMgr.getOrderList(rName, orderPassword);
-	
+				<%	
 					for(int i=0; i<vlist.size(); i++) {
 		
 						NoMemOrderBean bean = vlist.get(i);
@@ -77,11 +78,9 @@
 						String address1=bean.getAddress();
 						String [] add = address1.split("/");
 						int productPrice1 = bean.getProductPrice();// 가격	
-						int oCount1 = bean.getoCount();//수량
-						
-					
-						System.out.println("mypageorder.jsp 이미지 변수 값" + img1);
-				%>												
+						int oCount1 = bean.getoCount();//수	
+				%>
+				<tbody>												
 					<td>
 						<div class="n-prd-row">
 							<a href="#" class="img-block">
@@ -91,9 +90,10 @@
 							<ul class="info">
 								<span class="exg-prd"></span>
 								<li class="name"><span>상품명 : </span><a href="#"><%=product1%></a></li>
-								<%if(optionValue1 != null) {%>
+								<%if(optionValue1.equals("null")) {%>
+								<% } else { %>
 								<li class="option">옵션 : <%=optionValue1%></li>
-								<% } else {} %>
+								<% } %>
 							</ul> 
 						</div>	
 					</td>
@@ -110,8 +110,8 @@
 						<br>
 						<a><%=add[1]%></a>
 					</td>
-				<% } %>
 	 			</tbody>
+	 			<% } %>
 	 		</table>
       	</section>
     </div>
