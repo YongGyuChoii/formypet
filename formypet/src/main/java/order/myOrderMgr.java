@@ -180,7 +180,7 @@ public class myOrderMgr {
 			try {
 				con = pool.getConnection();
 				//keyField 와 keyWord 값이 있는 경우 게시물 조회
-				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey order by ordersKey";
+				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey order by ordersKey  desc limit 1,1";
 				
 				pstmt = con.prepareStatement(sql);
 				
