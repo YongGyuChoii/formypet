@@ -119,9 +119,9 @@ function block(value){
     </div>
     <div class="mypage_menu">
         <ul>
-            <li><a href="../mypage/test1.jsp">My shop</a></li>
-            <li><a href="../mypage/test2.jsp" class="active">Order</a></li>
-            <li><a href="../mypage/test3.jsp">My Posts</a></li>
+            <li><a href="../mypage/mypage myshop.jsp">My shop</a></li>
+            <li><a href="../mypage/mypage order.jsp" class="active">Order</a></li>
+            <li><a href="../mypage/mypage post.jsp">My Posts</a></li>
         </ul>
     </div>
 
