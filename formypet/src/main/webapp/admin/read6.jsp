@@ -29,7 +29,7 @@
 	<meta charset="UTF-8">
 	<title><%=brKey %></title>
 	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
-
+	<%@include file = "/base/icon.jsp" %>
 </head>
 <body > 
 		

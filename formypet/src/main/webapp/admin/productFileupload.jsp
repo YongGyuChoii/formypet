@@ -8,8 +8,10 @@
 	<meta charset="UTF-8">
 	<title>상품 추가</title>
 	<link href = "../css/admin2.css" rel = "stylesheet" type = "text/css">
+	<%@include file = "/base/icon.jsp" %>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="../js/productFileupload.js"></script>
+	
 </head>
 <body>
 	<div align="center">

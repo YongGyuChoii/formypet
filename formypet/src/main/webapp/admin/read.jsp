@@ -37,6 +37,7 @@
 	<meta charset="UTF-8">
 	<title><%=productName %></title>
 	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
+	<%@include file = "/base/icon.jsp" %>
 	<script type="text/javascript">
 		function list(){
 		   	

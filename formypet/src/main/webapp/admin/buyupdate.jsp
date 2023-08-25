@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@include file = "/base/icon.jsp" %>
 <meta charset="UTF-8">
 <title></title>
 <%

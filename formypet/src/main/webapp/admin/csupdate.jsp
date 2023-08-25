@@ -34,6 +34,7 @@
 	<meta charset="UTF-8">
 	<title>회원정보 수정 페이지</title>
 	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
+	<%@include file = "/base/icon.jsp" %>
 	<script>
 	function check() {
 		document.updateFrm.submit();

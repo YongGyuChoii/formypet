@@ -19,17 +19,7 @@
 		//BuyManagementBean brbean = (BuyManagementBean) session.getAttribute("bean");
 		int brKey1 = bean.getBrKey();
 		String rYn = bean.getrYn();
-		
-		  session.setAttribute("bean", bean);
-		//BuyManagementBean bbean = new BuyManagementBean();
-		//bbean.setBrKey(Integer.parseInt(request.getParameter("brKey")));
-		//System.out.println(brKey + " = brKey완료 ");
-		//bbean.setrYn(request.getParameter("rYn"));
-		//System.out.println(rYn + " = rYn완료 ");
-		//update 쿼리 ryn(bean) 메소드
-		//brmmgr.ryn(bbean); 
-		//String url = "../admin/buyManagement.jsp";
-		//response.sendRedirect(url);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -37,7 +27,7 @@
 	<meta charset="UTF-8">
 	<title><%=brKey %></title>
 	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
-
+	<%@include file = "/base/icon.jsp" %>
 </head>
 <body > 
 		

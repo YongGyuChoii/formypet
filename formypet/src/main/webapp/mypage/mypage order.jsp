@@ -96,8 +96,8 @@ function block(value){
             border-bottom: 2px solid transparent;
         }
 
-        .mypage_menu ul li a:hover,
-        .mypage_menu ul li a.active {
+        :.mypage_menu ul li a:hover,
+        :.mypage_menu ul li a.active {
             color: #2b2b2b;
             border-bottom: 2px solid #2b2b2b;
         }

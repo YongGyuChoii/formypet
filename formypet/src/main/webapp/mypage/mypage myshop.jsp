@@ -35,8 +35,8 @@
             border-bottom: 2px solid transparent;
         }
 
-        .mypage_menu ul li a:hover,
-        .mypage_menu ul li a.active {
+        :.mypage_menu ul li a:hover,
+        :.mypage_menu ul li a.active {
             color: #2b2b2b;
             border-bottom: 2px solid #2b2b2b;
         }
@@ -71,7 +71,7 @@
 
             <div class="xans-element- xans-layout xans-layout-statelogon mem ">
                 반가워요,
-                <strong><span class="xans-member-var-name">조은서</span></strong>
+                <strong><span class="xans-member-var-name">회원</span></strong>
                 님
                 <br><span>고객님은 <a href="/board/membership.html" class="btn_mem"><strong><span
                                 class="xans-member-var-group_name">CHARLIE</span></strong></a> 등급입니다</span>
@@ -87,16 +87,11 @@
             </div>
         </div>
         <div class="xans-element- xans-layout xans-layout-statelogon mem_point ">
-            <div class="item">
-                <div class="xans-element- xans-myshop xans-myshop-asyncbankbook it ">쿠폰
-                    <span class="cnt"><a href="/myshop/coupon/coupon.html"><span
-                                id="xans_myshop_bankbook_coupon_cnt">0</span></a> 장</span>
-                </div>
-            </div>
+    
             <div class="item">
                 <div class="xans-element- xans-myshop xans-myshop-asyncbankbook it ">적립금
-                    <span class="cnt"><a href="/myshop/mileage/historyList.html"><span
-                                id="xans_myshop_bankbook_avail_mileage" style="opacity: 1;">0</span></a> 원</span>
+                    <span class="cnt"><a href="/myshop/mileage/historyList.html">
+                    <span id="xans_myshop_bankbook_avail_mileage" style="opacity: 1;">0</span></a> 원</span>
                 </div>
             </div>
         </div>

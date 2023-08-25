@@ -29,6 +29,7 @@
 	<meta charset="UTF-8">
 	<title><%=ocKey %></title>
 	<link href="../css/admin2.css" rel="stylesheet" type="text/css">
+	<%@include file = "/base/icon.jsp" %>
 	<script type="text/javascript">
 		function list(){
 		   	

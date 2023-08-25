@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
 	<title>상품 추가</title>
 	<link href = "../css/admin2.css" rel = "stylesheet" type = "text/css">
+	<%@include file = "/base/icon.jsp" %>
 	<script src="../js/productFileupload.js"></script>
 </head>
 <body>

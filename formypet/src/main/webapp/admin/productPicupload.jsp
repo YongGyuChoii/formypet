@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<title>상품 사진 추가 페이지</title>
 	<link href = "../css/admin2.css" rel = "stylesheet" type = "text/css">
-	
+	<%@include file = "/base/icon.jsp" %>
 </head>
 <body>
 	<div align="center">
