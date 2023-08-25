@@ -1,12 +1,14 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@page import="order.OrderBean"%>
+  <%@page import="order.NoMemOrderBean"%>
 <%@page import="product.ProductBean"%>
 <%@page import="product.ProductFileBean"%>
 <%@page import="product.ProductOptionBean"%>
 <%@page import="java.util.Vector"%>
 <%@page import="java.util.*"%>
- <jsp:useBean id="orderMgr" class="order.myOrderMgr" />
+
+  <jsp:useBean id="orderMgr" class="order.NoMemOrderMgr" />
 <jsp:useBean id="pMgr" class="product.ProductMgr" />
 <jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
 
@@ -35,7 +37,7 @@
  <div class="container">
       <section>
        
-        <h1>주문 내역 조회</h1>
+        <h1>비회원 주문 내역 조회</h1>
 			<table class="n-table table-col n-order-view">
 					<colgroup>
 					<col style="width:*">
@@ -57,24 +59,26 @@
 				<tbody>
 		<% 
 		
-	Vector<OrderBean> vlist = null;
+
+		
+	Vector<NoMemOrderBean> vlist = null;
 
 	vlist = orderMgr.getOrderList();
 	
 	for(int i=0; i<vlist.size(); i++) {
 		
-		OrderBean bean = vlist.get(i);
+		NoMemOrderBean bean = vlist.get(i);
 		
 		              
-		String img = bean.getProductImg(); 
-		String product = bean.getProductName();		//상품				
-		String optionValue = bean.getOptionValue(); //옵션
-		String pDate = bean.getpDate(); //날짜
-		String memOrder=bean.getMemOrderKey(); //주문 번호
-		int productPrice = bean.getProductPrice();		// 가격	
-		int oCount = bean.getoCount();  //수량
+		String img1 = bean.getProductImg(); 
+		String product1 = bean.getProductName();		//상품				
+		String optionValue1 = bean.getOptionValue(); //옵션
+		String pDate1 = bean.getpDate(); //날짜
+		String memOrder1=bean.getNonMemOrderKey(); //주문 번호
+		int productPrice1 = bean.getProductPrice();		// 가격	
+		int oCount1 = bean.getoCount();  //수량
 		
-		System.out.println("mypageorder.jsp 이미지 변수 값" + img);
+		System.out.println("mypageorder.jsp 이미지 변수 값" + img1);
 		
 		
 	%>												
@@ -82,36 +86,32 @@
 		<td>
 			<div class="n-prd-row">
 			<a href="#" class="img-block">
-			<img src=../images/myorder/<%=img%>>
+			<img src=../images/myorder/<%=img1%>>
 			<!-- ../images/bathProduct/image1 -->
 			</a>
 				<ul class="info">
 			<span class="exg-prd"></span>
-			<li class="name"><span>상품명:</span><a href="#"><%=product%></a></li>
-			<li class="option">옵션 :<%=optionValue%></li>
+			<li class="name"><span>상품명:</span><a href="#"><%=product1%></a></li>
+			<li class="option">옵션 :<%=optionValue1%></li>
 			</ul> 
 			</div>	
 			</td>
-				<td><%=pDate%></td>
+				<td><%=pDate1%></td>
 			<td>
-				<a href="#"><%=memOrder%></a>
+				<a href="#"><%=memOrder1%></a>
 			</td>
 			
-				<td><%=productPrice%>원<br><span class="txt-default"> <%=oCount%>개</span></td>
+				<td><%=productPrice1%>원<br><span class="txt-default"> <%=oCount1%>개</span></td>
 			
 		<td >
 		
 			<button type="button" class="n-link state"
-			onclick="deliveryStepShow(205635815)">구매 확정</button><br>
+			onclick="#">구매 확정</button><br>
 		<button type="button" class="n-btn btn-sm btn-default" onclick="#">배송조회</button>
 	
 				
 	</td>
-	<td>
-	<%if(bean.getReviewYn().equals("N")){ %>
-	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">후기작성</button> <!-- test code -->	
-		<%} %>		<tr > </tr>
-			</td>
+	
 			
 	 <% } %>
 	 

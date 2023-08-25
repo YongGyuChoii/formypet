@@ -1,5 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@page import="order.OrderBean"%>
+<%@page import="product.ProductBean"%>
+<%@page import="product.ProductFileBean"%>
+<%@page import="product.ProductOptionBean"%>
+<%@page import="java.util.Vector"%>
+<%@page import="java.util.*"%>
+<%@page import="review.ReviewBean"%>
+ <jsp:useBean id="rvMgr" class="review.ReviewMgr" />
+ <jsp:useBean id="orderMgr" class="order.myOrderMgr" />
+<jsp:useBean id="pMgr" class="product.ProductMgr" />
+<jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -122,7 +133,44 @@
                     </tr>
                 </tbody>
             </table>
-            <p class="message ">게시물이 없습니다.</p>
+             <div class="message ">
+             <% 
+	Vector<ReviewBean> vlist = null;
+
+	vlist = rvMgr.getReviewList();
+	
+	for(int i=0; i<vlist.size(); i++) {
+		
+		ReviewBean bean = vlist.get(i);
+		
+		int num = bean.getRvKey();
+		String rvTitle = bean.getRvTitle();
+		String rvContents = bean.getRvContents();
+		int rvScore = bean.getRvScore();
+		String product = bean.getProductName();		//상품	
+		
+		
+	%>
+	
+	 <div class="board_list">
+            
+         
+                <div>
+                 <div class="count"><%=num%>번</div>
+                   <div class="num"><%=product %></div>
+                    <div class="num"><%=rvTitle %></div>
+                    <div class="title"><a><%=rvContents%></a></div>
+                    <div class="date"><%=rvScore%>점</div>
+          
+                </div>
+            </div>
+            
+           
+          <% } %>
+	
+	
+	
+	</div>
         </div>
     </div>
 
@@ -148,14 +196,84 @@
         </div>
     </form>
     <!-- cre.ma / 내가 작성한 리뷰 / 스크립트를 수정할 경우 연락주세요 (support@cre.ma) -->
-    <div class="crema-reviews crema-applied" data-type="my-reviews" style="margin: 0 auto;margin-left: 31px;"><iframe
+ <!--   <div class="crema-reviews crema-applied" data-type="my-reviews" style="margin: 0 auto;margin-left: 31px;"><iframe
             id="crema-my-reviews-1" height="0"
             src="https://review6.cre.ma/pethroom.com/my/managing_reviews?iframe_id=crema-my-reviews-1&amp;app=0&amp;parent_url=https%3A%2F%2Fpethroom.com%2Fmyshop%2Fboard_list.html&amp;secure_username=V2820cfca11fbcada8a807728de2649ff6&amp;secure_user_name=V2468e2cc763fdea21b4b7d15017fe2f46&amp;secure_device_token=V29d8f596ef8ab306227973f4b00135aae1738ac37a1d775be14c16395f093e3e7dc0e335dbee4c8b17225d2bebc96b3b1&amp;iframe=1"
             width="100%" scrolling="no" allowtransparency="true" frameborder="0" name="crema-my-reviews-1-1692864150464"
-            style="display: block; visibility: visible; height: 276px;"></iframe></div>
+            style="display: block; visibility: visible; height: 276px;"></iframe></div>  -->
+            
+            
+                         	<% 
+		
+	Vector<OrderBean> vlist1= null;
+
+	vlist1 = orderMgr.getOrderList();
+	
+	for(int i=0; i<vlist.size(); i++) {
+		
+		OrderBean bean = vlist1.get(i);
+		
+		              
+		String img = bean.getProductImg(); 
+		String product = bean.getProductName();		//상품				
+		String optionValue = bean.getOptionValue(); //옵션
+		String pDate = bean.getpDate(); //날짜
+		String memOrder=bean.getMemOrderKey(); //주문 번호
+		int productPrice = bean.getProductPrice();		// 가격	
+		int oCount = bean.getoCount();  //수량
+		
+		System.out.println("mypageorder.jsp 이미지 변수 값" + img);
+		
+		
+	%>		
+            
+            <li class="my_pending_review ">
+            <div class="my_pending_review__inner">
+    <a class="js-link-iframe my_pending_review__product_image_link" data-url="http://www.pethroom.com/product/detail.html?cate_no=1&amp;product_no=266">
+      <img src=../images/myorder/<%=img%> class="my_pending_review__product_image smooth" alt="퓨어 튜나 스틱 (참치/참치&amp;연어/참치&amp;닭가슴살)" width="80" height="80">
+    </a>
+    <div class="my_pending_review__review_detail">
+      
+        
+        <a class="js-link-iframe" data-url="http://www.pethroom.com/product/detail.html?cate_no=1&amp;product_no=266">
+          <div class="my_pending_review__product_name "><%=product%></div>
+        </a>
+        
+          <div class="my_pending_review__product_options">옵션 선택: <%=optionValue%></div>
+        
+        
+          <div class="my_pending_review__purchased_at ">
+            
+             <%=pDate%>에 구매하신 상품입니다.
+            
+          </div>
+        
+      
+    </div>
+    <div class="my_pending_review__review_info_and_action">
+      <div class="my_pending_review__review_action js-link-new-review-popup" data-sub-order-code="a014643a9dad6a9fc39f313506cbf07a" data-sub-order-id="3006645" data-product-code="266" data-review-source="27">
+     <%if(bean.getReviewYn().equals("N")){ %>
+	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">후기작성</button> <!-- test code -->	
+		<%} %>	
+      <div class="my_pending_review__end_date">
+        작성기한:2023.09.24 <strong>(D-31) </strong>
+      </div>
+      
+        <div class="my_pending_review__review_mileage">
+          
+          적립금 최대 <strong>1,000원</strong>
+        </div>
+      
+    </div>
+    
+  </div>
+  </li>
+  
+    <% } %>
+            
+            
 
     <!-- cre.ma / init 스크립트 (PC) / 스크립트를 수정할 경우 연락주세요 (support@cre.ma) -->
-    <script>(function (i, s, o, g, r, a, m) { if (s.getElementById(g)) { return }; a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.id = g; a.async = 1; a.src = r; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'crema-jssdk', '//widgets.cre.ma/pethroom.com/init.js');</script>
 </div>
 
 

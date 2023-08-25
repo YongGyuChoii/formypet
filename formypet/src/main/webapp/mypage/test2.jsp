@@ -1,5 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@page import="order.OrderBean"%>
+<%@page import="product.ProductBean"%>
+<%@page import="product.ProductFileBean"%>
+<%@page import="product.ProductOptionBean"%>
+<%@page import="java.util.Vector"%>
+<%@page import="java.util.*"%>
+ <jsp:useBean id="orderMgr" class="order.myOrderMgr" />
+<jsp:useBean id="pMgr" class="product.ProductMgr" />
+<jsp:useBean id="bMgr" class="product.ProductDetailMgr" />
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -205,10 +214,35 @@
             </thead>
             <tbody class="center ">
                 <tr class="xans-record-">
+                
+                	<% 
+		
+	Vector<OrderBean> vlist1 = null;
+
+	vlist1 = orderMgr.getOrderList();
+	
+	for(int i=0; i<vlist1.size(); i++) {
+		
+		OrderBean bean = vlist1.get(i);
+		
+		              
+		String img = bean.getProductImg(); 
+		String product = bean.getProductName();		//상품				
+		String optionValue = bean.getOptionValue(); //옵션
+		String pDate = bean.getpDate(); //날짜
+		String memOrder=bean.getMemOrderKey(); //주문 번호
+		int productPrice = bean.getProductPrice();		// 가격	
+		int oCount = bean.getoCount();  //수량
+		
+		System.out.println("mypageorder.jsp 이미지 변수 값" + img);
+		
+		
+	%>		
+                
                     <td class="number ">
-                        2023-06-14 <p><a
+                       <%=pDate%> <p><a
                                 href="detail.html?order_id=20230614-0014129&amp;page=1&amp;history_start_date=2023-05-26&amp;history_end_date=2023-08-24"
-                                class="line">[20230614-0014129]</a></p>
+                                class="line"><%=memOrder%></a></p>
                         <a href="#none" class="btnNormal displaynone"
                             onclick="OrderHistory.orderCancel('20230614-0014129')">주문취소</a>
                         <a href="cancel.html?order_id=20230614-0014129" class="btnNormal displaynone">취소신청</a>
@@ -216,18 +250,18 @@
                         <a href="return.html?order_id=20230614-0014129" class="btnNormal displaynone">반품신청</a>
                     </td>
                     <td class="thumb"><a href="/product/detail.html?product_no=266&amp;cate_no=209"><img
-                                src="//pethroom.com/web/product/medium/202208/89bdcf1c51908f88da08c1d7c78c13df.jpg"
+                                src=../images/myorder/<%=img%>
                                 onerror="this.src='//img.echosting.cafe24.com/thumb/img_product_small.gif';" alt=""></a>
                     </td>
                     <td class="product left top">
                         <strong class="name"><a href="/product/퓨어-튜나-스틱-참치참치연어참치닭가슴살/266/category/209/"
-                                class="ec-product-name">퓨어 튜나 스틱 (참치/참치&amp;연어/참치&amp;닭가슴살)</a></strong>
-                        <div class="option ">[옵션: 참치 &amp; 닭가슴살 4개입]</div>
+                                class="ec-product-name"><%=product%></a></strong>
+                        <div class="option "><%=optionValue%></div>
                         <p class="gBlank5 displaynone">무이자할부 상품</p>
                     </td>
-                    <td>1</td>
+                    <td><%=oCount%>개</td>
                     <td class="right">
-                        <strong>3,000원</strong>
+                        <strong><%=productPrice%>원</strong>
                         <div class="displaynone"></div>
                     </td>
                     <td class="state">
@@ -240,7 +274,9 @@
                         </p>
                         <a href="#" class="btnSubmit  crema-new-review-link crema-applied"
                             data-cafe24-product-link="?board_no=4&amp;product_no=266&amp;order_id=20230614-0014129"
-                            data-product-code="266" data-order-code="20230614-0014129">구매후기</a>
+                            data-product-code="266" data-order-code="20230614-0014129"> <%if(bean.getReviewYn().equals("N")){ %>
+	<button type="button" class="n-btn btn-sm btn-accent" onclick="location.href='${pageContext.request.contextPath}/review/review.jsp?ordersKey=<%=bean.getOrdersKey()%>'">후기작성</button> <!-- test code -->	
+		<%} %>	</a>
                         <a href="#none" class="btnNormal displaynone"
                             onclick="OrderHistory.withdraw('C','20230614-0014129|266|000B|3985574','F', 'F', 'F', '' , '')">취소철회</a>
                         <a href="#none" class="btnNormal displaynone"
@@ -254,6 +290,8 @@
                         </p>
                         <p class="">-</p>
                     </td>
+                    
+                     <% } %>
                 </tr>
             </tbody>
         </table>
@@ -277,7 +315,7 @@
     </div>
 
     <!-- cre.ma / init 스크립트 (PC) / 스크립트를 수정할 경우 연락주세요 (support@cre.ma) -->
-    <script>(function (i, s, o, g, r, a, m) { if (s.getElementById(g)) { return }; a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.id = g; a.async = 1; a.src = r; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'crema-jssdk', '//widgets.cre.ma/pethroom.com/init.js');</script>
+  <!--     <script>(function (i, s, o, g, r, a, m) { if (s.getElementById(g)) { return }; a = s.createElement(o), m = s.getElementsByTagName(o)[0]; a.id = g; a.async = 1; a.src = r; m.parentNode.insertBefore(a, m) })(window, document, 'script', 'crema-jssdk', '//widgets.cre.ma/pethroom.com/init.js');</script> -->
 </div>
 
 

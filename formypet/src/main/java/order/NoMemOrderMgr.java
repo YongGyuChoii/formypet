@@ -10,7 +10,7 @@ import java.util.Vector;
 
 import util.DBConnectionMgr;
 
-public class myOrderMgr {
+public class NoMemOrderMgr {
 	
 	private DBConnectionMgr pool;
 	Connection con = null;
@@ -20,7 +20,7 @@ public class myOrderMgr {
 	
 	
 	
-	public myOrderMgr() {
+	public NoMemOrderMgr() {
 		try {
 			pool = DBConnectionMgr.getInstance();
 		} catch (Exception e) {
@@ -167,7 +167,7 @@ public class myOrderMgr {
 	
 	
 
-		public Vector<OrderBean> getOrderList() {
+		public Vector<NoMemOrderBean> getOrderList() {
 			
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -175,38 +175,38 @@ public class myOrderMgr {
 			
 			String sql = null;
 			
-			Vector<OrderBean> vlist1 = new Vector<OrderBean>();
+			Vector<NoMemOrderBean> vlist = new Vector<NoMemOrderBean>();
 			
 			try {
 				con = pool.getConnection();
 				//keyField 와 keyWord 값이 있는 경우 게시물 조회
-				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN mem_order ON orders.memOrderKey = mem_order.memOrderKey order by ordersKey";
+				sql = "SELECT * FROM orders INNER JOIN product ON orders.productKey = product.productKey INNER JOIN non_mem_order ON orders.nonMemOrderKey = non_mem_order.nonMemOrderKey order by ordersKey ";
 				
 				pstmt = con.prepareStatement(sql);
 				
 				rs = pstmt.executeQuery();
 				
 				while (rs.next()) {
-					OrderBean bean = new OrderBean();
+					NoMemOrderBean bean = new NoMemOrderBean();
 					bean.setOrdersKey(rs.getInt("ordersKey"));
 					bean.setProductKey(rs.getInt("productKey"));
 					bean.setOptionValue(rs.getString("optionValue"));
 					bean.setpDate(rs.getString("pDate"));
-					bean.setMemOrderKey(rs.getString("memOrderkey"));
+					bean.setNonMemOrderKey(rs.getString("nonMemOrderKey"));
 					bean.setProductPrice(rs.getInt("productPrice"));
 					bean.setoCount(rs.getInt("oCount"));
 					bean.setReviewYn(rs.getString("reviewYn"));
 					bean.setProductName(rs.getString("productName"));
 					bean.setProductImg(rs.getString("productImg"));
 			
-					vlist1.add(bean);
+					vlist.add(bean);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				pool.freeConnection(con, pstmt, rs);
 			}
-			return vlist1;
+			return vlist;
 		}
 		
 		
