@@ -28,10 +28,11 @@
     <% 		
 		String rName = request.getParameter("rName");
 		String orderPassword = request.getParameter("orderPassword");
+		String nonMemOrderKey = request.getParameter("nonMemOrderKey");
 		
 		Vector<NoMemOrderBean> vlist = null;
 
-		vlist = orderMgr.getOrderList(rName, orderPassword);
+		vlist = orderMgr.getOrderList(rName, orderPassword, nonMemOrderKey);
 	%>
 </head>
 <body>
@@ -77,6 +78,7 @@
 						String memOrder1=bean.getNonMemOrderKey();//주문 번호
 						String address1=bean.getAddress();
 						String [] add = address1.split("/");
+						String nonMemOrder = bean.getNonMemOrderKey();
 						int productPrice1 = bean.getProductPrice();// 가격	
 						int oCount1 = bean.getoCount();//수	
 				%>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Pet</title>
     <link rel="stylesheet"  href="../css/base.css">
-    <link rel="stylesheet"  href="../css/nonMember.css">
+    <link rel="stylesheet"  href="../css/nonMemOrderLogin.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -26,6 +26,7 @@
     <div class="non-member">
         <form name="nologinFrm" method="get" action="../mypage/nonMemberOrder.jsp">
             <h2 style="margin: 30px;">비회원 주문조회</h2>
+            	<input type="text" id="uid3" name="nonMemOrderKey" class="in" placeholder="주문번호" required>
                 <input type="text" id="uid1" name="rName" placeholder="주문자명" class="in" required>
                 <input type="password" id="uid2" name="orderPassword" placeholder="비밀번호" class="in" required>
                 <input type="submit" value="비회원 주문조회" class="submit" id="sub">
@@ -49,6 +50,7 @@
 <script>
 var orderPassword = document.getElementById("uid2");
 var rName = document.getElementById("uid1");
+var orderNum = ducument.getElementById("uid3");
 
 document.getElementById("sub").onclick = function() {
 	
@@ -57,6 +59,13 @@ document.getElementById("sub").onclick = function() {
 var regName = /^[가-힣a-zA-Z]{2,15}$/;
 //pw
 var regexPw = /^[A-Za-z0-9`~!@#\$%\^&\*\(\)\{\}\[\]\-_=\+\\|;:'"<>,\./\?]{8,20}$/; //주문조회 비번 유효성
+
+//주문번호
+if(orderNum.value=="") {
+	alert("주문번호를 입력해 주세요.");
+	orderNum.focus();
+	return;
+}
 
 //이름
 if(rName.value==""){
@@ -85,5 +94,6 @@ else if(!regexPw.test(orderPassword.value)){
 }
 
 document.nologinFrm.submit();
+
 }
 </script>
