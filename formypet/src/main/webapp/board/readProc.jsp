@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<%@include file = "/base/icon.jsp" %>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Pet</title>
@@ -13,6 +14,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+    	h2 {
+        font-weight: bold;
+    	color: #2b2b2b;
+  		font-size: 50px;
+    	}    
+    </style>
    <%
 	request.setCharacterEncoding("UTF-8");
 	
@@ -21,7 +29,6 @@
 	
 		int num = Integer.parseInt(request.getParameter("num"));
 							
-		//session에 저장된 bean 객체를 가져옴.
 		BoardBean bean = bMgr.getBoard(num);
 		
 	%>
@@ -38,15 +45,48 @@
     <!--main 시작-->
     <div class="container">
       <section>
-		<p>해당 페이지는 비밀번호 입력으로 이용가능합니다.</p>
-		<form name="readFrm" method="post" action="boardProc">
-		<p style="margin-bottom:20;"> 비밀번호입력
-		<input type="password" name="pass"  size="12">
-		<input type="submit" value="확 인" style="font-weight:bolder; font-size:4mm;">
+      <div align="center">
+       <br/><br/>
+       <br/><br/><br/><br/><br/>
+       <table width="600" cellpadding="3" >
+		<div>
+		<h2>INQUIRY</h2>
+		</div>
+		<br/><br/><br/>       
+        <tr>
+         <td height="21" align="center">
+          <p>이 글은 비밀글입니다.</p> 
+		  <p><b>비밀번호를 입력하여 주세요.</b></p>
+        </tr>
+	   </table>
+		<form name="readFrm" method="post" action="boardProc">	
+		 <table width="600" cellpadding="2">
+		  <tr>
+		  	<td align="center">
+		  		<table>
+		  		 <tr>
+		  		 	<td align="center">
+		  		 	 <input type="password" name="pass" size="17" maxlength="15">
+		  		 	</td>
+		  		 </tr>
+		  		 <tr>
+		  		 	<td><hr size="1" color="eeeeee"/></td>
+		  		 </tr>
+		  		 <tr>
+		  		 	<td align="center">
+		  		 	 <input type="submit" value="확 인" class="btn btn-outline-primary">
+		  			 <input type="button" value="뒤로" class="btn btn-outline-primary" onClick="history.go(-1)">
+		  			</td>
+		  		</tr>
+		  		</table>
+		  	</td>
+		  </tr>	  
 		<br>
-		<input type="hidden" name="num" value="<%=num%>"> 
-		<input type="hidden" name="nowPage" value="<%=nowPage%>">
-		</form>
+		  <input type="hidden" name="num" value="<%=num%>"> 
+		  <input type="hidden" name="nowPage" value="<%=nowPage%>">
+		 </table>
+		</form>	
+		</div> 
       </section>
     </div>
     <!--main 끝-->
